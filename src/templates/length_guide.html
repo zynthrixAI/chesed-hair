@@ -1,0 +1,28 @@
+{% extends "page.html" %}
+{% from "partials/figure.html" import figure %}
+{% block content %}
+<section class="lg wrap" aria-label="Length chart">
+  <div class="seg lg-seg" role="radiogroup" aria-label="Texture type">
+    <button type="button" role="radio" aria-checked="true" data-show="straight">Straight and kinky straight</button>
+    <button type="button" role="radio" aria-checked="false" data-show="curly">Wavy and curly</button>
+  </div>
+  {% for kind, curly in [("straight", False), ("curly", True)] %}
+  <ul class="el-row lg-row" role="list" data-kind="{{ kind }}"{% if curly %} hidden{% endif %}>
+    {% for l in lengths %}<li><div>{{ figure(loop.index0, curly, "#2A201C", "fig tiny", l ~ " inches", kind ~ loop.index0) }}<b>{{ l }}"</b><span>{{ (curly_landmarks if curly else landmarks)[loop.index0] }}</span></div></li>{% endfor %}
+  </ul>
+  {% endfor %}
+</section>
+<div class="page-body wrap prose">
+  <h2>How wig length is measured</h2>
+  <p>Wig length is measured from the crown to the ends with the hair pulled straight. Straight hair falls at its full length. Waves and curls spring up, so a wavy or curly wig sits about 2 inches higher on the body, and tight coils like kinky curly can sit 4 inches higher or more.</p>
+  <h2>Where each length falls</h2>
+  <table class="lg-table">
+    <thead><tr><th>Length</th><th>Straight ends at</th><th>Wavy or curly ends at</th></tr></thead>
+    <tbody>{% for l in lengths %}<tr><td>{{ l }}"</td><td>{{ landmarks[loop.index0] }}</td><td>{{ curly_landmarks[loop.index0] }}</td></tr>{% endfor %}</tbody>
+  </table>
+  <p class="small">Based on an average height of about 5'5". If you're taller, each length lands a little higher. If you're shorter, a little lower.</p>
+  <h2>Which length should I choose?</h2>
+  <p>For an everyday look, most people choose 16 to 20 inches. For drama and volume, go 24 inches or longer. Straight textures show length most clearly. Curly textures look fuller, so a shorter curly wig still reads big.</p>
+  <p><a class="btn rose" href="/collections/wigs/">Shop wigs</a></p>
+</div>
+{% endblock %}

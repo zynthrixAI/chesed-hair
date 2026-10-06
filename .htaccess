@@ -2,3 +2,7 @@
 <IfModule mod_headers.c>
   Header set X-Robots-Tag "noindex, nofollow"
 </IfModule>
+# Build sources are not part of the site
+RedirectMatch 404 ^/(src|\.git)(/|$)
+RedirectMatch 404 ^/README\.md$
+DirectoryIndex index.html

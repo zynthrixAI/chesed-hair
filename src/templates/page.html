@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block main %}
+<nav class="crumbs wrap" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">›</span><span aria-current="page">{{ page.h1 }}</span></nav>
+<header class="page-head wrap"><h1>{{ page.h1 }}</h1>{% if page.lede %}<p>{{ page.lede }}</p>{% endif %}</header>
+{% block content %}<div class="page-body wrap prose">{{ page.body|safe }}</div>{% endblock %}
+{% endblock %}

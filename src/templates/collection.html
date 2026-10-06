@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block main %}
+<nav class="crumbs wrap" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">›</span>{% if not is_hub %}<a href="/collections/wigs/">Wigs</a><span aria-hidden="true">›</span>{% endif %}<span aria-current="page">{{ c.h1 }}</span></nav>
+
+<header class="col-head wrap">
+  <div class="col-copy">
+    <h1>{{ c.h1 }}</h1>
+    <p>{{ c.intro }}</p>
+  </div>
+  {% if c.image %}<figure class="col-img">{{ macros.picture(c.image.file, c.image.alt, "(max-width:720px) 100vw, 30vw", lazy=False) }}</figure>{% endif %}
+</header>
+
+<div class="col-bar wrap">
+  <div class="filters" role="group" aria-label="Filter by {{ c.filter_label|lower }}">
+    <button type="button" class="fchip" aria-pressed="true" data-filter="all">All <span>{{ c.products|length }}</span></button>
+    {% for f in c.filters %}<button type="button" class="fchip" aria-pressed="false" data-filter="{{ f.value }}">{% if f.hex %}<i style="--sw:{{ f.hex }}"></i>{% endif %}{{ f.label }}{% if f.count > 1 %} <span>{{ f.count }}</span>{% endif %}</button>{% endfor %}
+  </div>
+  <label class="sort"><span class="sr-only">Sort</span>
+    <select id="sort"><option value="featured">Featured</option><option value="az">Name A–Z</option><option value="price">Price</option></select>
+  </label>
+</div>
+
+<div class="grid wrap col-grid" id="colGrid" data-key="{{ c.filter_key }}">
+  {% for p in c.products %}{{ macros.product_card(p) }}{% endfor %}
+</div>
+<p class="wrap no-match" id="noMatch" hidden>No wigs match that filter.</p>
+
+{{ macros.faq_list(c.faq, (c.h1 ~ ": questions, answered") if not is_hub else "Questions, answered") }}
+
+<section class="related wrap" aria-labelledby="relH">
+  <h2 id="relH">{{ c.related_heading }}</h2>
+  <ul class="pill-row" role="list">{% for r in c.related %}<li><a class="pill" href="{{ r.url }}">{% if r.hex %}<i style="--sw:{{ r.hex }}"></i>{% endif %}{{ r.label }}</a></li>{% endfor %}
+    <li><a class="pill" href="/pages/wig-color-guide/">Color guide</a></li><li><a class="pill" href="/pages/wig-length-guide/">Length guide</a></li></ul>
+</section>
+{% endblock %}

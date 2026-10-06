@@ -1,0 +1,31 @@
+<footer class="ftr">
+  <div class="ftr-join wrap">
+    <div>
+      <h2>Be first on launch day.</h2>
+      <p>Early access to new shades and textures, plus care tips from the Chesed team.</p>
+    </div>
+    <form class="join" data-join novalidate>
+      <label class="sr-only" for="joinEmail{{ page_id }}">Email address</label>
+      <input id="joinEmail{{ page_id }}" type="email" placeholder="Your email address" autocomplete="email" required>
+      <button class="btn" type="submit">Join the list</button>
+      <p class="msg" aria-live="polite"></p>
+    </form>
+  </div>
+  <div class="ftr-cols wrap">
+    <div class="ftr-brand">
+      <a class="brand" href="/" aria-label="Chesed Hair home">{% include "partials/logo.html" %}<b>CHESED</b></a>
+      <p>Effortless beauty, rooted in love. Lace front wigs in 100% unprocessed virgin Remy human hair.</p>
+    </div>
+    <nav aria-label="Textures"><h3>Textures</h3><ul>{% for t in textures %}<li><a href="/collections/{{ t.slug }}-wigs/">{{ t.name }}</a></li>{% endfor %}</ul></nav>
+    <nav aria-label="Colors"><h3>Colors</h3><ul>{% for cc in color_collections %}<li><a href="/collections/{{ cc.slug }}-wigs/">{{ cc.name }}</a></li>{% endfor %}</ul></nav>
+    <nav aria-label="Help"><h3>Help</h3><ul>
+      <li><a href="/pages/wig-length-guide/">Length Guide</a></li><li><a href="/pages/wig-color-guide/">Color Guide</a></li>
+      <li><a href="/pages/faq/">FAQ</a></li><li><a href="/pages/shipping/">Shipping</a></li><li><a href="/pages/returns/">Returns</a></li>
+      <li><a href="/pages/contact/">Contact</a></li><li><a href="/pages/about/">About</a></li></ul></nav>
+  </div>
+  <div class="ftr-legal wrap">
+    <span>© 2026 Chesed Hair Collection</span>
+    <span class="pay" aria-label="Payment methods">Visa · Mastercard · Amex · Shop Pay · Apple Pay</span>
+    <span>Preview by Web Wroughts. Prices and shipping terms are placeholders.</span>
+  </div>
+</footer>

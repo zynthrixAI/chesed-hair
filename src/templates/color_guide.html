@@ -1,0 +1,19 @@
+{% extends "page.html" %}
+{% block content %}
+<section class="cg wrap" aria-label="All shades">
+  <ul class="cg-grid" role="list">
+    {% for s in theater %}<li class="cg-item">
+      <a href="{{ s.product.url }}">{{ macros.picture(s.img.file, s.img.alt, "(max-width:720px) 50vw, 20vw") }}</a>
+      <h2><i style="--sw:{{ s.color.hex }}"></i>{{ s.color.key }}</h2>
+      <p>{{ s.color.blurb }}</p>
+      <a class="link sm" href="/collections/{{ s.family_slug }}-wigs/">Shop {{ s.family_name|lower }}</a>
+    </li>{% endfor %}
+  </ul>
+</section>
+<div class="page-body wrap prose">
+  <h2>Shades people mix up</h2>
+  <p><b>1B vs Jet Black 1 vs Virgin Natural.</b> 1B is soft off-black with a warm undertone, the closest match to most natural hair. Jet Black 1 is the deepest, coolest black. Virgin Natural is untreated dark brown-black and the best base if you plan to dye.</p>
+  <p><b>Burgundy 530 vs 99J Plum.</b> 530 is a brighter wine red. 99J is darker and cooler, almost black cherry in shadow.</p>
+  <p><b>Honey Blonde vs Honey Auburn.</b> Honey Blonde is golden blonde from root to tip. Honey Auburn is golden brown with honey highlights.</p>
+</div>
+{% endblock %}
