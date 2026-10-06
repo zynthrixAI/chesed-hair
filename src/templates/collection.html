@@ -4,7 +4,7 @@
   <div class="col-hero-media">{% for im in c.banner %}<div>{{ macros.picture(im.file, im.alt if loop.first else "", "(max-width:720px) 100vw, 34vw", lazy=False, priority=loop.first) }}</div>{% endfor %}</div>
   <div class="col-hero-copy wrap">
     <nav class="crumbs light" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span>{% if not is_hub %}<a href="/collections/wigs/">Wigs</a><span aria-hidden="true">/</span>{% endif %}<span aria-current="page">{{ c.h1 }}</span></nav>
-    <h1 id="colH" class="display">{{ c.h1 }}</h1>
+    <h1 id="colH" class="display" data-split>{{ c.h1 }}</h1>
     <p class="col-count">{{ c.products|length }} {{ "wig" if c.products|length == 1 else "wigs" }} · 10 to 32 inches · 100% virgin Remy human hair</p>
   </div>
 </section>

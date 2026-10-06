@@ -6,9 +6,9 @@
 {# 1. HERO: full-bleed campaign banner #}
 <section class="hero" aria-labelledby="heroH">
   <div class="hero-media">
-    {% for im in hero_imgs %}<div class="hero-pane{% if loop.index0 == 1 %} main{% endif %}">{{ macros.picture(im.file, im.alt if loop.index0 == 1 else "", "(max-width:900px) 100vw, 34vw", lazy=False, priority=(loop.index0 == 1)) }}</div>{% endfor %}
+    {% for im in hero_imgs %}<div class="hero-pane{% if loop.index0 == 1 %} main{% endif %}" data-par="{{ [0.10, 0.04, 0.16][loop.index0] }}">{{ macros.picture(im.file, im.alt if loop.index0 == 1 else "", "(max-width:900px) 100vw, 34vw", lazy=False, priority=(loop.index0 == 1)) }}</div>{% endfor %}
   </div>
-  <div class="hero-copy wrap">
+  <div class="hero-copy wrap" id="heroCopy">
     <p class="eyebrow light">Lace front wigs · 100% virgin Remy human hair</p>
     <h1 id="heroH" class="display"><span class="ln"><span>Effortless beauty,</span></span><span class="ln"><span>rooted in love.</span></span></h1>
     <div class="hero-foot">
@@ -28,18 +28,19 @@
 
 {# 3. STATEMENT #}
 <section class="statement wrap" aria-label="The Chesed promise">
-  <p data-reveal>One model. Every texture, every shade, every length. No retouched color, no guessing. <em>Just the wig you'll actually receive.</em></p>
+  <p data-split>One model. Every texture, every shade, every length. No retouched color, no guessing. <em>Just the wig you'll actually receive.</em></p>
 </section>
 
 {# 4. SHADE THEATER #}
-<section class="theater" id="shades" aria-labelledby="thH">
-  <div class="th-stage" id="thStage">
+<section class="theater" id="shades" aria-labelledby="thH" data-theater>
+  <div class="th-pin">
+  <div class="th-stage" id="thStage" data-cursor="Shop">
     {% for s in theater %}{{ macros.picture(s.img.file, s.img.alt, "(max-width:900px) 100vw, 55vw", lazy=not loop.first, cls="on" if loop.first else "") }}{% endfor %}
     <span class="th-idx" id="thIdx">01 / 10</span>
   </div>
   <div class="th-copy">
     <p class="eyebrow pink" id="thH">The shade theater</p>
-    <h2 class="th-name display" id="thName" aria-live="polite">{{ theater[0].color.key }}</h2>
+    <div class="th-name-wrap" aria-live="polite"><h2 class="th-name display" id="thName">{{ theater[0].color.key }}</h2></div>
     <p class="th-blurb" id="thBlurb">{{ theater[0].color.blurb }}</p>
     <ul class="th-sw" role="list" aria-label="Choose a shade">
       {% for s in theater %}<li><button type="button" style="--sw:{{ s.color.hex }}" aria-label="{{ s.color.key }}" title="{{ s.color.key }}" aria-pressed="{{ 'true' if loop.first else 'false' }}"
@@ -49,25 +50,27 @@
       <a class="btn" id="thCol" href="/collections/{{ theater[0].family_slug }}-wigs/">Shop {{ theater[0].family_name }}</a>
       <a class="link" id="thProd" href="{{ theater[0].product.url }}">See this exact wig</a>
     </div>
+    <div class="th-progress" aria-hidden="true"><span id="thBar"></span></div>
+  </div>
   </div>
 </section>
 
 {# 5. TEXTURES #}
 <section class="textures wrap" aria-labelledby="texH">
   <div class="sec-head">
-    <div><p class="eyebrow">The collection</p><h2 id="texH" class="display-sm" data-reveal>Seven textures.<br>One standard.</h2></div>
+    <div><p class="eyebrow">The collection</p><h2 id="texH" class="display-sm" data-split>Seven textures.<br>One standard.</h2></div>
     <a class="link" href="/collections/wigs/">Shop all wigs</a>
   </div>
   <ol class="tex-grid">
-    {% for t in textures %}<li data-reveal><a class="tex" href="/collections/{{ t.slug }}-wigs/">
-      <span class="tex-img">{{ macros.picture(t.tile.file, t.name ~ " lace front wig", "(max-width:720px) 50vw, 25vw") }}</span>
+    {% for t in textures %}<li data-reveal><a class="tex" data-cursor="Explore" href="/collections/{{ t.slug }}-wigs/">
+      <span class="tex-img" data-wipe>{{ macros.picture(t.tile.file, t.name ~ " lace front wig", "(max-width:720px) 50vw, 25vw") }}</span>
       <span class="tex-no">{{ "%02d"|format(loop.index) }}</span><b>{{ t.name }}</b><span class="tex-sub">{{ t.short }}</span></a></li>{% endfor %}
   </ol>
 </section>
 
 {# 6. CAMPAIGN BANNER #}
 <section class="banner" aria-labelledby="bnH">
-  <div class="banner-media">{% for im in banner_imgs %}<div>{{ macros.picture(im.file, "", "(max-width:900px) 50vw, 50vw") }}</div>{% endfor %}</div>
+  <div class="banner-media">{% for im in banner_imgs %}<div data-wipe>{{ macros.picture(im.file, "", "(max-width:900px) 50vw, 50vw") }}</div>{% endfor %}</div>
   <div class="banner-card" data-reveal>
     <p class="eyebrow">The {{ banner_texture.name }} edit</p>
     <h2 class="display-sm" id="bnH">Made to blend.<br>Made to last.</h2>
@@ -79,7 +82,7 @@
 {# 7. BEST SELLERS #}
 <section class="best wrap" aria-labelledby="bestH">
   <div class="sec-head">
-    <div><p class="eyebrow">Most loved</p><h2 id="bestH" class="display-sm" data-reveal>Best sellers</h2></div>
+    <div><p class="eyebrow">Most loved</p><h2 id="bestH" class="display-sm" data-split>Best sellers</h2></div>
     <a class="link" href="/collections/wigs/">Shop all</a>
   </div>
   <div class="grid">{% for p in best %}{{ macros.product_card(p) }}{% endfor %}</div>
@@ -91,7 +94,7 @@
     <div class="lv-fig" data-reveal>{{ figure(6, False, "#1A1A1C", "fig big", "Figure showing where the chosen length ends", "home") }}</div>
     <div class="lv-copy">
       <p class="eyebrow rose">The length guide</p>
-      <h2 id="lenH" class="display-sm" data-reveal>See your length<br>before you buy.</h2>
+      <h2 id="lenH" class="display-sm" data-split>See your length<br>before you buy.</h2>
       <label class="lv-label" for="lenRange"><b id="lvVal">22"</b><span id="lvLand">ends at your mid ribs</span></label>
       <input type="range" id="lenRange" min="0" max="11" value="6" step="1" aria-describedby="lvNote">
       <div class="lv-ticks" aria-hidden="true"><span>10"</span><span>16"</span><span>22"</span><span>28"</span><span>32"</span></div>
@@ -106,22 +109,24 @@
 </section>
 
 {# 9. LOOKBOOK #}
-<section class="lookbook" aria-labelledby="lookH">
-  <div class="wrap sec-head">
-    <div><p class="eyebrow light">Lookbook</p><h2 id="lookH" class="display-sm" data-reveal>Worn in real rooms</h2></div>
-    <p>Sunday light, plants, bathroom mirrors. Every wig, lived in the way you'll actually wear it.</p>
+<section class="lookbook" aria-labelledby="lookH" data-hscroll>
+  <div class="lb-pin">
+    <div class="wrap sec-head">
+      <div><p class="eyebrow light">Lookbook</p><h2 id="lookH" class="display-sm" data-split>Worn in real rooms</h2></div>
+      <p>Sunday light, plants, bathroom mirrors. Every wig, lived in the way you'll actually wear it.</p>
+    </div>
+    <ul class="look-track" role="list" id="lookTrack">
+      {% for l in lookbook %}<li><a href="{{ l.product.url }}" data-cursor="View">{{ macros.picture(l.img.file, l.img.alt, "(max-width:720px) 78vw, 30vw") }}<span><b>{{ l.product.color.key }}</b>{{ l.product.texture.name }}</span></a></li>{% endfor %}
+    </ul>
   </div>
-  <ul class="look-track" role="list" data-lenis-prevent-wheel>
-    {% for l in lookbook %}<li><a href="{{ l.product.url }}">{{ macros.picture(l.img.file, l.img.alt, "(max-width:720px) 78vw, 28vw") }}<span><b>{{ l.product.color.key }}</b>{{ l.product.texture.name }}</span></a></li>{% endfor %}
-  </ul>
 </section>
 
 {# 10. STORY #}
 <section class="story" aria-labelledby="storyH">
-  <figure class="story-img">{{ macros.picture(story.file, story.alt, "(max-width:900px) 100vw, 50vw") }}</figure>
+  <figure class="story-img" data-wipe>{{ macros.picture(story.file, story.alt, "(max-width:900px) 100vw, 50vw") }}</figure>
   <div class="story-copy">
     <p class="eyebrow pink">Our name</p>
-    <h2 id="storyH" class="display-sm" data-reveal>Chesed means lovingkindness.</h2>
+    <h2 id="storyH" class="display-sm" data-split>Chesed means lovingkindness.</h2>
     <p>It's the Hebrew word for a deep, unconditional love. We named the brand after it because that's how hair should be made: with care for the woman who wears it and the people who make it.</p>
     <p>So every Chesed unit starts as 100% unprocessed virgin Remy human hair, sourced and made without exploited labor.</p>
     <a class="link" href="/pages/about/">Our story</a>

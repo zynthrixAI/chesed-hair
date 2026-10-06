@@ -7,7 +7,7 @@
 <section class="pdp wrap" data-product data-handle="{{ p.handle }}" data-title="{{ p.title }}" data-price="{{ p.price }}" data-img="/assets/p/{{ p.images[0].file }}-560.webp" data-curly="{{ 1 if p.texture.curly else 0 }}">
   <div class="gallery">
     <ul class="g-grid" id="gGrid" role="list" aria-label="Product photos">
-      {% for im in p.images %}<li>{{ macros.picture(im.file, im.alt, "(max-width:900px) 100vw, 30vw" if not loop.first else "(max-width:900px) 100vw, 58vw", lazy=not loop.first, priority=loop.first) }}</li>{% endfor %}
+      {% for im in p.images %}<li{% if loop.first %} class="g-first"{% endif %}>{{ macros.picture(im.file, im.alt, "(max-width:900px) 100vw, 30vw" if not loop.first else "(max-width:900px) 100vw, 58vw", lazy=not loop.first, priority=loop.first, cls="g-hero" if loop.first else "") }}{% if loop.first %}<img class="g-prev" id="gPrevImg" alt="" aria-hidden="true"><span class="g-prev-name" id="gPrevName" aria-hidden="true"></span>{% endif %}</li>{% endfor %}
     </ul>
     {% if p.images|length > 1 %}<div class="g-dots" aria-hidden="true">{% for im in p.images %}<i{% if loop.first %} class="on"{% endif %}></i>{% endfor %}</div>{% endif %}
   </div>
@@ -21,7 +21,7 @@
     <div class="opt">
       <p class="opt-label"><span>Shade</span><b>{{ p.color.key }}</b><span class="opt-hint">Each shade opens its own wig</span></p>
       <ul class="sw-row" role="list" aria-label="Choose a color">
-        {% for s in p.siblings %}<li><a href="{{ s.url }}" class="sw" style="--sw:{{ s.color.hex }}" title="{{ s.color.key }}" aria-label="{{ p.texture.name }} in {{ s.color.key }}"{% if s.handle == p.handle %} aria-current="true"{% endif %}></a></li>{% endfor %}
+        {% for s in p.siblings %}<li><a href="{{ s.url }}" class="sw" style="--sw:{{ s.color.hex }}" data-preview="/assets/p/{{ s.images[0].file }}-1024.webp" data-name="{{ s.color.key }}" title="{{ s.color.key }}" aria-label="{{ p.texture.name }} in {{ s.color.key }}"{% if s.handle == p.handle %} aria-current="true"{% endif %}></a></li>{% endfor %}
       </ul>
     </div>
 
