@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 {% block main %}
-<nav class="crumbs wrap" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">›</span>{% if not is_hub %}<a href="/collections/wigs/">Wigs</a><span aria-hidden="true">›</span>{% endif %}<span aria-current="page">{{ c.h1 }}</span></nav>
-
-<header class="col-head wrap">
-  <div class="col-copy">
-    <h1>{{ c.h1 }}</h1>
-    <p>{{ c.intro }}</p>
+<section class="col-hero" aria-labelledby="colH">
+  <div class="col-hero-media">{% for im in c.banner %}<div>{{ macros.picture(im.file, im.alt if loop.first else "", "(max-width:720px) 100vw, 34vw", lazy=False, priority=loop.first) }}</div>{% endfor %}</div>
+  <div class="col-hero-copy wrap">
+    <nav class="crumbs light" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span>{% if not is_hub %}<a href="/collections/wigs/">Wigs</a><span aria-hidden="true">/</span>{% endif %}<span aria-current="page">{{ c.h1 }}</span></nav>
+    <h1 id="colH" class="display">{{ c.h1 }}</h1>
+    <p class="col-count">{{ c.products|length }} {{ "wig" if c.products|length == 1 else "wigs" }} · 10 to 32 inches · 100% virgin Remy human hair</p>
   </div>
-  {% if c.image %}<figure class="col-img">{{ macros.picture(c.image.file, c.image.alt, "(max-width:720px) 100vw, 30vw", lazy=False) }}</figure>{% endif %}
-</header>
+</section>
+<section class="col-intro wrap" aria-label="About this collection"><p data-reveal>{{ c.intro }}</p></section>
 
 <div class="col-bar wrap">
   <div class="filters" role="group" aria-label="Filter by {{ c.filter_label|lower }}">
@@ -28,6 +28,7 @@
 {{ macros.faq_list(c.faq, (c.h1 ~ ": questions, answered") if not is_hub else "Questions, answered") }}
 
 <section class="related wrap" aria-labelledby="relH">
+  <p class="eyebrow">Keep exploring</p>
   <h2 id="relH">{{ c.related_heading }}</h2>
   <ul class="pill-row" role="list">{% for r in c.related %}<li><a class="pill" href="{{ r.url }}">{% if r.hex %}<i style="--sw:{{ r.hex }}"></i>{% endif %}{{ r.label }}</a></li>{% endfor %}
     <li><a class="pill" href="/pages/wig-color-guide/">Color guide</a></li><li><a class="pill" href="/pages/wig-length-guide/">Length guide</a></li></ul>

@@ -3,7 +3,7 @@
   <aside class="cart-panel" role="dialog" aria-modal="true" aria-labelledby="cartH">
     <div class="cart-head"><h2 id="cartH">Your bag</h2><button class="ib" type="button" aria-label="Close bag" data-close><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
     <div class="ship-bar"><p id="shipMsg">Free US shipping over ${{ free_ship|int }}</p><span class="ship-track"><span id="shipFill"></span></span></div>
-    <ul class="cart-items" id="cartItems"></ul>
+    <ul class="cart-items" id="cartItems" data-lenis-prevent></ul>
     <p class="cart-empty" id="cartEmpty">Your bag is empty. <a href="/collections/wigs/">Shop wigs</a></p>
     <div class="cart-addons">
       <p class="addon-h">Complete the install</p>

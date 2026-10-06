@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<script>document.documentElement.classList.add("js")</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{ seo_title }}</title>
 <meta name="description" content="{{ seo_description }}">
@@ -12,7 +13,7 @@
 <meta property="og:description" content="{{ seo_description }}">
 <meta property="og:type" content="{{ og_type|default('website') }}">
 {% if og_image %}<meta property="og:image" content="{{ og_image }}">{% endif %}
-<meta name="theme-color" content="#241812">
+<meta name="theme-color" content="#0E0E10">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="/assets/fonts/marcellus-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/hanken-grotesk-400.woff2" as="font" type="font/woff2" crossorigin>
@@ -22,7 +23,6 @@
 </head>
 <body class="{{ body_class }}">
 <a class="skip-link" href="#main">Skip to content</a>
-{% include "partials/announcement.html" %}
 {% include "partials/header.html" %}
 <main id="main">
 {% block main %}{% endblock %}
@@ -30,6 +30,7 @@
 {% include "partials/footer.html" %}
 {% include "partials/cart_drawer.html" %}
 <script>window.CHESED={freeShip:{{ free_ship }}};</script>
+<script src="/assets/js/vendor/lenis.min.js" defer></script>
 <script src="/assets/js/main.js?v={{ version }}" defer></script>
 </body>
 </html>

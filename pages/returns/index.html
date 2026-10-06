@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<script>document.documentElement.classList.add("js")</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Returns | Chesed Hair</title>
 <meta name="description" content="Returns">
@@ -11,18 +12,18 @@
 <meta property="og:title" content="Returns | Chesed Hair">
 <meta property="og:description" content="Returns">
 <meta property="og:type" content="website">
-<meta name="theme-color" content="#241812">
+<meta name="theme-color" content="#0E0E10">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="/assets/fonts/marcellus-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/hanken-grotesk-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/css/style.css?v=1791315001">
+<link rel="stylesheet" href="/assets/css/style.css?v=1791315820">
 </head>
 <body class="shop">
 <a class="skip-link" href="#main">Skip to content</a>
-<div class="announce" role="region" aria-label="Store announcement">
-  <p>Free US shipping over $200 <span aria-hidden="true">·</span> 30-day returns <span class="hide-sm"><span aria-hidden="true">·</span> Pay in 4 with Shop Pay</span></p>
-</div><header class="hdr" id="hdr">
-  <div class="hdr-in">
+<header class="hdr" id="hdr">
+<div class="announce">
+  <p>Free US shipping over $200 <span class="hide-sm"><span aria-hidden="true">·</span> 30-day returns</span> <span class="hide-sm"><span aria-hidden="true">·</span> Pay in 4 with Shop Pay</span></p>
+</div>  <div class="hdr-in">
     <button class="ib menu-btn" type="button" aria-label="Open menu" aria-controls="drawer" aria-expanded="false" id="menuBtn"><svg viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
     <a class="brand" href="/" aria-label="Chesed Hair home"><svg viewBox="0 0 100 100" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="5.5"><circle cx="50" cy="28" r="23"/><circle cx="28" cy="50" r="23"/><circle cx="72" cy="50" r="23"/><circle cx="50" cy="72" r="23"/></g></svg><b>CHESED</b></a>
     <nav class="nav" aria-label="Main">
@@ -54,7 +55,7 @@
 </header>
 <div class="drawer" id="drawer" hidden>
   <div class="drawer-scrim" data-close></div>
-  <nav class="drawer-panel" aria-label="Mobile">
+  <nav class="drawer-panel" aria-label="Mobile" data-lenis-prevent>
     <button class="ib drawer-x" type="button" aria-label="Close menu" data-close><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
     <p class="drawer-h">Shop by Texture</p>
     <ul class="drawer-tiles">
@@ -71,7 +72,7 @@
     </ul>
   </nav>
 </div><main id="main">
-<nav class="crumbs wrap" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">›</span><span aria-current="page">Returns</span></nav>
+<nav class="crumbs wrap" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span aria-current="page">Returns</span></nav>
 <header class="page-head wrap"><h1>Returns</h1></header>
 <div class="page-body wrap prose"><p>Return unworn wigs within 30 days with the lace uncut.</p><p class='ph-note'>Full return policy to be confirmed by Chesed.</p></div></main>
 <footer class="ftr">
@@ -109,7 +110,7 @@
   <aside class="cart-panel" role="dialog" aria-modal="true" aria-labelledby="cartH">
     <div class="cart-head"><h2 id="cartH">Your bag</h2><button class="ib" type="button" aria-label="Close bag" data-close><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
     <div class="ship-bar"><p id="shipMsg">Free US shipping over $200</p><span class="ship-track"><span id="shipFill"></span></span></div>
-    <ul class="cart-items" id="cartItems"></ul>
+    <ul class="cart-items" id="cartItems" data-lenis-prevent></ul>
     <p class="cart-empty" id="cartEmpty">Your bag is empty. <a href="/collections/wigs/">Shop wigs</a></p>
     <div class="cart-addons">
       <p class="addon-h">Complete the install</p>
@@ -128,6 +129,7 @@
   </aside>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div><script>window.CHESED={freeShip:200.0};</script>
-<script src="/assets/js/main.js?v=1791315001" defer></script>
+<script src="/assets/js/vendor/lenis.min.js" defer></script>
+<script src="/assets/js/main.js?v=1791315820" defer></script>
 </body>
 </html>

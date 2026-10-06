@@ -2,28 +2,24 @@
 {% from "partials/figure.html" import figure %}
 {% block preload %}<link rel="preload" as="image" href="/assets/p/{{ p.images[0].file }}-1024.webp" imagesrcset="/assets/p/{{ p.images[0].file }}-560.webp 560w, /assets/p/{{ p.images[0].file }}-1024.webp 1024w" imagesizes="(max-width:900px) 100vw, 55vw">{% endblock %}
 {% block main %}
-<nav class="crumbs wrap" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">›</span><a href="/collections/{{ p.texture.slug }}-wigs/">{{ p.texture.name }} Wigs</a><span aria-hidden="true">›</span><span aria-current="page">{{ p.title }}</span></nav>
+<nav class="crumbs wrap" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/collections/{{ p.texture.slug }}-wigs/">{{ p.texture.name }} Wigs</a><span aria-hidden="true">/</span><span aria-current="page">{{ p.title }}</span></nav>
 
 <section class="pdp wrap" data-product data-handle="{{ p.handle }}" data-title="{{ p.title }}" data-price="{{ p.price }}" data-img="/assets/p/{{ p.images[0].file }}-560.webp" data-curly="{{ 1 if p.texture.curly else 0 }}">
   <div class="gallery">
-    <div class="g-main" id="gMain">
-      {% for im in p.images %}{{ macros.picture(im.file, im.alt, "(max-width:900px) 100vw, 55vw", lazy=not loop.first, cls="on" if loop.first else "", priority=loop.first) }}{% endfor %}
-    </div>
-    {% if p.images|length > 1 %}
-    <ul class="g-thumbs" role="list" aria-label="Product photos">
-      {% for im in p.images %}<li><button type="button" aria-label="Show photo {{ loop.index }}" aria-pressed="{{ 'true' if loop.first else 'false' }}" data-i="{{ loop.index0 }}">{{ macros.picture(im.file, "", "96px") }}</button></li>{% endfor %}
+    <ul class="g-grid" id="gGrid" role="list" aria-label="Product photos">
+      {% for im in p.images %}<li>{{ macros.picture(im.file, im.alt, "(max-width:900px) 100vw, 30vw" if not loop.first else "(max-width:900px) 100vw, 58vw", lazy=not loop.first, priority=loop.first) }}</li>{% endfor %}
     </ul>
-    {% endif %}
+    {% if p.images|length > 1 %}<div class="g-dots" aria-hidden="true">{% for im in p.images %}<i{% if loop.first %} class="on"{% endif %}></i>{% endfor %}</div>{% endif %}
   </div>
 
   <div class="buy" id="buy">
-    <p class="kicker rose">{{ p.texture.name }} · Lace front</p>
+    <p class="eyebrow rose">{{ p.texture.name }} · Lace front</p>
     <h1>{{ p.title }}</h1>
     <p class="price">{{ macros.money(p.price) }}</p>
     <p class="bnpl">or 4 interest-free payments of <b>{{ macros.money(p.price/4) }}</b> with <b>Shop Pay</b></p>
 
     <div class="opt">
-      <p class="opt-label"><span>Color</span><b>{{ p.color.key }}</b></p>
+      <p class="opt-label"><span>Shade</span><b>{{ p.color.key }}</b><span class="opt-hint">Each shade opens its own wig</span></p>
       <ul class="sw-row" role="list" aria-label="Choose a color">
         {% for s in p.siblings %}<li><a href="{{ s.url }}" class="sw" style="--sw:{{ s.color.hex }}" title="{{ s.color.key }}" aria-label="{{ p.texture.name }} in {{ s.color.key }}"{% if s.handle == p.handle %} aria-current="true"{% endif %}></a></li>{% endfor %}
       </ul>

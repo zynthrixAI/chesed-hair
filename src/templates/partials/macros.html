@@ -3,24 +3,28 @@
 {%- endmacro %}
 {% macro money(v) -%}${{ "%.2f"|format(v) }}{%- endmacro %}
 {% macro product_card(p, sizes="(max-width:720px) 50vw, 25vw") -%}
-<article class="card" data-color="{{ p.color.slug }}" data-texture="{{ p.texture.slug }}" data-name="{{ p.title }}" data-price="{{ p.price }}">
+<article class="card" data-color="{{ p.color.slug }}" data-texture="{{ p.texture.slug }}" data-name="{{ p.title }}" data-price="{{ p.price }}" data-reveal>
   <a class="card-link" href="{{ p.url }}">
     <div class="card-img">
       {{ picture(p.images[0].file, p.images[0].alt, sizes) }}
       {% if p.images|length > 1 %}{{ picture(p.images[1].file, "", sizes, cls="alt") }}{% endif %}
+      <span class="card-quick">View wig</span>
     </div>
-    <h3 class="card-title">{{ p.title }}</h3>
+    <h3 class="card-title"><span>{{ p.color.key }}</span> {{ p.texture.name }} Lace Front Wig</h3>
   </a>
-  <p class="card-price">{{ money(p.price) }} <span>or 4 × {{ money(p.price/4) }}</span></p>
-  <ul class="card-sw" aria-label="Other shades">
-    {% for s in p.siblings[:6] %}<li><a href="{{ s.url }}" title="{{ s.color.key }}" aria-label="{{ s.texture.name }} in {{ s.color.key }}" style="--sw:{{ s.color.hex }}"{% if s.handle == p.handle %} aria-current="true"{% endif %}></a></li>{% endfor %}
-    {% if p.siblings|length > 6 %}<li class="more">+{{ p.siblings|length - 6 }}</li>{% endif %}
-  </ul>
+  <div class="card-meta">
+    <p class="card-price">{{ money(p.price) }}</p>
+    <ul class="card-sw" aria-label="{{ p.texture.name }} in other shades">
+      {% for s in p.siblings[:5] %}<li><a href="{{ s.url }}" title="{{ s.color.key }}" aria-label="{{ s.texture.name }} in {{ s.color.key }}" style="--sw:{{ s.color.hex }}"{% if s.handle == p.handle %} aria-current="true"{% endif %}></a></li>{% endfor %}
+      {% if p.siblings|length > 5 %}<li class="more">+{{ p.siblings|length - 5 }}</li>{% endif %}
+    </ul>
+  </div>
 </article>
 {%- endmacro %}
 {% macro faq_list(items, heading="Questions, answered") -%}
 <section class="faq wrap" aria-labelledby="faqH">
-  <h2 id="faqH">{{ heading }}</h2>
+  <p class="eyebrow">Questions</p>
+  <h2 id="faqH" data-reveal>{{ heading }}</h2>
   <div class="acc">
   {% for q, a in items %}<details{% if loop.first %} open{% endif %}><summary>{{ q }}</summary><p>{{ a }}</p></details>{% endfor %}
   </div>

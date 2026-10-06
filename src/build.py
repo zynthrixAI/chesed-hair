@@ -46,6 +46,21 @@ for t in D.TEXTURES:
 
 hero_product = find("Body Wave", "Natural Black 1B")
 hero = img_like(hero_product, "grey-wall-lamp")
+hero_imgs = [find("Body Wave", "Burgundy 530")["images"][0], hero, find("Curly", "Honey Blonde")["images"][0]]
+banner_texture = D.TEX["Kinky Straight"]
+banner_imgs = [find("Kinky Straight", "Natural Black 1B")["images"][0], find("Kinky Straight", "Ginger 350")["images"][0]]
+
+def banner_for(pool):
+    """Three images for a collection banner: different products, first image each."""
+    picks, seen = [], set()
+    for p in pool:
+        if p["handle"] not in seen:
+            picks.append(p["images"][0]); seen.add(p["handle"])
+        if len(picks) == 3: break
+    i = 1
+    while len(picks) < 3 and i < len(pool[0]["images"]):
+        picks.append(pool[0]["images"][i]); i += 1
+    return picks
 theater = []
 for c in D.COLORS:
     p = find("Body Wave", c["key"])
@@ -91,7 +106,7 @@ def org_ld():
 # HOME
 render("index.html", "/", seo_title="Chesed Hair | Human Hair Lace Front Wigs",
        seo_description="Lace front wigs in 100% unprocessed virgin Remy human hair. 7 textures, 10 shades, 10 to 32 inches, all shown on the same model.",
-       canonical="/", body_class="home", page_id="home", hero=hero, hero_product=hero_product, theater=theater,
+       canonical="/", body_class="home overlay", page_id="home", hero=hero, hero_product=hero_product, hero_imgs=hero_imgs, banner_imgs=banner_imgs, banner_texture=banner_texture, theater=theater,
        best=best, lookbook=lookbook, story=story, home_faq=home_faq, jsonld=json.dumps(org_ld()),
        og_image=f"/assets/p/{hero['file']}-1024.webp")
 
@@ -119,10 +134,11 @@ col_related = [dict(label=cc["name"], url=f"/collections/{cc['slug']}-wigs/", he
 
 hub = dict(h1="Lace Front Wigs", intro="Every Chesed wig in one place: 7 textures and 10 shades of lace front wigs in 100% unprocessed virgin Remy human hair, each available from 10 to 32 inches. All of them are shown on the same model, so you can compare textures and shades fairly. Filter by texture below, or shop by color from the menu.",
            products=products, filters=texture_filters(products), filter_key="texture", filter_label="Texture", image=None,
-           faq=home_faq, related_heading="Shop by color", related=col_related)
+           faq=home_faq, related_heading="Shop by color", related=col_related,
+           banner=[find("Straight", "Red")["images"][0], find("Body Wave", "Natural Black 1B")["images"][0], find("Loose Deep", "Honey Auburn")["images"][0]])
 render("collection.html", "/collections/wigs/", seo_title="Lace Front Wigs in 7 Textures & 10 Colors | Chesed",
        seo_description="Shop all Chesed lace front wigs: body wave, curly, kinky curly, kinky straight, loose deep wave, straight and virgin curl, in 10 shades, 10 to 32 inches.",
-       canonical="/collections/wigs/", body_class="shop", page_id="hub", c=hub, is_hub=True,
+       canonical="/collections/wigs/", body_class="shop overlay", page_id="hub", c=hub, is_hub=True,
        jsonld=json.dumps(breadcrumb_ld([("Home", "/"), ("Lace Front Wigs", "/collections/wigs/")])))
 
 TEX_TITLES = {"body-wave": "Body Wave Lace Front Wigs, 10-32 Inch | Chesed", "curly": "Curly Lace Front Wigs, 10-32 Inch | Chesed",
@@ -132,22 +148,22 @@ TEX_TITLES = {"body-wave": "Body Wave Lace Front Wigs, 10-32 Inch | Chesed", "cu
 for t in D.TEXTURES:
     pool = [p for p in products if p["texture"]["key"] == t["key"]]
     c = dict(h1=f"{t['name']} Wigs", intro=t["intro"], products=pool, filters=color_filters(pool), filter_key="color",
-             filter_label="Color", image=t["tile"], faq=t["faq"], related_heading="Other textures",
+             filter_label="Color", image=t["tile"], faq=t["faq"], related_heading="Other textures", banner=banner_for(pool),
              related=[r for r in tex_related if r["label"] != t["name"]] + col_related)
     url = f"/collections/{t['slug']}-wigs/"
     render("collection.html", url, seo_title=TEX_TITLES[t["slug"]], seo_description=t["intro"][:155].rsplit(" ", 1)[0] + "…",
-           canonical=url, body_class="shop", page_id=t["slug"], c=c, is_hub=False,
+           canonical=url, body_class="shop overlay", page_id=t["slug"], c=c, is_hub=False,
            jsonld=json.dumps(breadcrumb_ld([("Home", "/"), ("Wigs", "/collections/wigs/"), (c["h1"], url)])))
 
 for cc in D.COLOR_COLLECTIONS:
     pool = [p for p in products if p["color"]["key"] in cc["colors"]]
     img_p = pool[0]
     c = dict(h1=cc["h1"], intro=cc["intro"], products=pool, filters=texture_filters(pool), filter_key="texture",
-             filter_label="Texture", image=img_p["images"][0], faq=cc["faq"], related_heading="Other colors",
+             filter_label="Texture", image=img_p["images"][0], faq=cc["faq"], related_heading="Other colors", banner=banner_for(pool),
              related=[r for r in col_related if r["label"] != cc["name"]] + tex_related)
     url = f"/collections/{cc['slug']}-wigs/"
     render("collection.html", url, seo_title=cc["title"], seo_description=cc["intro"][:155].rsplit(" ", 1)[0] + "…",
-           canonical=url, body_class="shop", page_id=cc["slug"], c=c, is_hub=False,
+           canonical=url, body_class="shop overlay", page_id=cc["slug"], c=c, is_hub=False,
            jsonld=json.dumps(breadcrumb_ld([("Home", "/"), ("Wigs", "/collections/wigs/"), (c["h1"], url)])))
 
 # PRODUCTS
