@@ -1,0 +1,4 @@
+# Preview site: keep search engines out
+<IfModule mod_headers.c>
+  Header set X-Robots-Tag "noindex, nofollow"
+</IfModule>
