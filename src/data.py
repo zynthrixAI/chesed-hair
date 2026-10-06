@@ -176,3 +176,15 @@ def build_products():
     cix = {c["key"]: i for i, c in enumerate(COLORS)}
     products.sort(key=lambda p: (tix[p["texture"]["key"]], cix[p["color"]["key"]]))
     return products
+
+# Reviews shown on chesedhair.com (homepage "What Our Customers Say", scraped Oct 2026).
+# confirmed=False: they appear to be static theme testimonials. Chesed must confirm they are
+# real customers before launch (FTC rule on fake reviews). Replace with Judge.me on Shopify.
+REVIEWS = [
+    dict(name="Jessica L.", stars=5, product="Hair extensions", confirmed=False,
+         text="I was honestly surprised by the quality of the hair extensions. They feel incredibly soft, blend perfectly with my natural hair, and hold curls really well. The packaging was beautiful and delivery was fast. I'll definitely be ordering again!"),
+    dict(name="Monica R.", stars=5, product="Wig", confirmed=False,
+         text="I ordered a wig for a special event and it exceeded my expectations. The hairline looks very natural and the density is perfect — not too heavy, not too thin. I received so many compliments. Highly recommend Chesed Hair!"),
+    dict(name="Danielle K.", stars=5, product="Hair extensions", confirmed=False,
+         text="The customer service was amazing from start to finish. They helped me choose the right length and texture for my hair type. The quality is truly premium and it looks so natural. Worth every penny!"),
+]

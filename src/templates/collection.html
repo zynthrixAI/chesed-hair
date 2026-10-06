@@ -8,7 +8,7 @@
     <p class="col-count">{{ c.products|length }} {{ "wig" if c.products|length == 1 else "wigs" }} · 10 to 32 inches · 100% virgin Remy human hair</p>
   </div>
 </section>
-<section class="col-intro wrap" aria-label="About this collection"><p data-reveal>{{ c.intro }}</p></section>
+<section class="col-intro wrap split" aria-label="About this collection"><div class="split-head"><p class="eyebrow">About {{ c.h1|lower }}</p></div><p data-reveal>{{ c.intro }}</p></section>
 
 <div class="col-bar wrap">
   <div class="filters" role="group" aria-label="Filter by {{ c.filter_label|lower }}">
@@ -27,9 +27,9 @@
 
 {{ macros.faq_list(c.faq, (c.h1 ~ ": questions, answered") if not is_hub else "Questions, answered") }}
 
-<section class="related wrap" aria-labelledby="relH">
-  <p class="eyebrow">Keep exploring</p>
-  <h2 id="relH">{{ c.related_heading }}</h2>
+<section class="related wrap split" aria-labelledby="relH">
+  <div class="split-head"><p class="eyebrow">Keep exploring</p>
+  <h2 id="relH">{{ c.related_heading }}</h2></div>
   <ul class="pill-row" role="list">{% for r in c.related %}<li><a class="pill" href="{{ r.url }}">{% if r.hex %}<i style="--sw:{{ r.hex }}"></i>{% endif %}{{ r.label }}</a></li>{% endfor %}
     <li><a class="pill" href="/pages/wig-color-guide/">Color guide</a></li><li><a class="pill" href="/pages/wig-length-guide/">Length guide</a></li></ul>
 </section>

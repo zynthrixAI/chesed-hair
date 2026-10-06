@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% from "partials/figure.html" import figure %}
 {% block preload %}<link rel="preload" as="image" href="/assets/p/{{ p.images[0].file }}-1024.webp" imagesrcset="/assets/p/{{ p.images[0].file }}-560.webp 560w, /assets/p/{{ p.images[0].file }}-1024.webp 1024w" imagesizes="(max-width:900px) 100vw, 55vw">{% endblock %}
 {% block main %}
 <nav class="crumbs wrap" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/collections/{{ p.texture.slug }}-wigs/">{{ p.texture.name }} Wigs</a><span aria-hidden="true">/</span><span aria-current="page">{{ p.title }}</span></nav>
@@ -7,7 +6,7 @@
 <section class="pdp wrap" data-product data-handle="{{ p.handle }}" data-title="{{ p.title }}" data-price="{{ p.price }}" data-img="/assets/p/{{ p.images[0].file }}-560.webp" data-curly="{{ 1 if p.texture.curly else 0 }}">
   <div class="gallery">
     <ul class="g-grid" id="gGrid" role="list" aria-label="Product photos">
-      {% for im in p.images %}<li{% if loop.first %} class="g-first"{% endif %}>{{ macros.picture(im.file, im.alt, "(max-width:900px) 100vw, 30vw" if not loop.first else "(max-width:900px) 100vw, 58vw", lazy=not loop.first, priority=loop.first, cls="g-hero" if loop.first else "") }}{% if loop.first %}<img class="g-prev" id="gPrevImg" alt="" aria-hidden="true"><span class="g-prev-name" id="gPrevName" aria-hidden="true"></span>{% endif %}</li>{% endfor %}
+      {% for im in p.images %}<li{% if loop.first %} class="g-first"{% endif %}>{{ macros.picture(im.file, im.alt, "(max-width:900px) 100vw, 30vw" if not loop.first else "(max-width:900px) 100vw, 58vw", lazy=not loop.first, priority=loop.first, cls="g-hero" if loop.first else "") }}</li>{% endfor %}
     </ul>
     {% if p.images|length > 1 %}<div class="g-dots" aria-hidden="true">{% for im in p.images %}<i{% if loop.first %} class="on"{% endif %}></i>{% endfor %}</div>{% endif %}
   </div>
@@ -18,12 +17,7 @@
     <p class="price">{{ macros.money(p.price) }}</p>
     <p class="bnpl">or 4 interest-free payments of <b>{{ macros.money(p.price/4) }}</b> with <b>Shop Pay</b></p>
 
-    <div class="opt">
-      <p class="opt-label"><span>Shade</span><b>{{ p.color.key }}</b><span class="opt-hint">Each shade opens its own wig</span></p>
-      <ul class="sw-row" role="list" aria-label="Choose a color">
-        {% for s in p.siblings %}<li><a href="{{ s.url }}" class="sw" style="--sw:{{ s.color.hex }}" data-preview="/assets/p/{{ s.images[0].file }}-1024.webp" data-name="{{ s.color.key }}" title="{{ s.color.key }}" aria-label="{{ p.texture.name }} in {{ s.color.key }}"{% if s.handle == p.handle %} aria-current="true"{% endif %}></a></li>{% endfor %}
-      </ul>
-    </div>
+    <p class="shade-line"><i style="--sw:{{ p.color.hex }}"></i><span>Shade</span><b>{{ p.color.key }}</b><a class="link sm" href="#moreShades">Other shades</a></p>
 
     <div class="opt">
       <p class="opt-label"><span>Length</span><b id="lenVal">16"</b><a class="link sm" href="/pages/wig-length-guide/">Length guide</a></p>
@@ -31,7 +25,7 @@
         {% for v in p.variants %}<button type="button" role="radio" aria-checked="{{ 'true' if v.length == 16 else 'false' }}" data-len="{{ v.length }}" data-i="{{ loop.index0 }}">{{ v.length }}"</button>{% endfor %}
       </div>
       <div class="len-hint">
-        {{ figure(3, p.texture.curly, p.color.hex, "fig mini", "Where the chosen length ends", "pdp") }}
+        <span class="len-meter" aria-hidden="true"><i id="lenMeter" style="--p:{{ 3/11 }}"></i></span>
         <p id="lenLand">16" ends at your <b>{{ p.landmark_for[3] }}</b>.{% if p.texture.curly %} {{ p.texture.name }} sits about 2 inches higher than straight hair.{% endif %}</p>
       </div>
     </div>
@@ -51,12 +45,16 @@
   </div>
 </section>
 
-<section class="every-len light" aria-labelledby="elH">
-  <div class="wrap">
-    <div class="sec-head"><h2 id="elH">Every length, on the same body</h2><p>Tap a length to select it.</p></div>
-    <ul class="el-row" role="list">
-      {% for v in p.variants %}<li><button type="button" data-len="{{ v.length }}" aria-label="Select {{ v.length }} inches">{{ figure(loop.index0, p.texture.curly, p.color.hex, "fig tiny", v.length ~ " inches ends at " ~ p.landmark_for[loop.index0], "el" ~ loop.index0) }}<b>{{ v.length }}"</b><span>{{ p.landmark_for[loop.index0] }}</span></button></li>{% endfor %}
-    </ul>
+<section class="every-len" aria-labelledby="elH">
+  <div class="wrap lv-grid">
+    <div class="lv-copy">
+      <p class="eyebrow rose">Length</p>
+      <h2 id="elH" class="display-sm" data-split>Every length, side by side.</h2>
+      <p class="lv-read"><b class="el-val">16"</b><span>ends at your <em class="el-land">{{ p.landmark_for[3] }}</em></span></p>
+      <p class="lv-note">Tap a strand to choose that length.{% if p.texture.curly %} {{ p.texture.name }} springs up, so each length sits one step higher than straight hair.{% endif %}</p>
+      <button class="btn rose" type="button" id="elAdd">Add <span class="el-val">16"</span> to bag</button>
+    </div>
+    <div class="lv-chart" data-reveal>{{ strands(3, p.color.hex, "pdp", p.texture.curly, True, False) }}</div>
   </div>
 </section>
 
@@ -65,17 +63,19 @@
   <ul class="scene-grid" role="list">{% for im in p.images %}<li>{{ macros.picture(im.file, im.alt, "(max-width:720px) 50vw, 25vw") }}</li>{% endfor %}</ul>
 </section>
 
-<section class="desc wrap" aria-labelledby="descH">
-  <h2 id="descH">About the {{ p.texture.name|lower }} texture</h2>
-  <p>{{ p.texture.intro }}</p>
+<section class="desc wrap split" aria-labelledby="descH">
+  <div class="split-head"><p class="eyebrow">The texture</p><h2 id="descH" data-split>About {{ p.texture.name|lower }}</h2></div>
+  <p data-reveal>{{ p.texture.intro }}</p>
 </section>
 
-<section class="reviews wrap" aria-labelledby="prevH">
-  <h2 id="prevH">Reviews</h2>
-  <div class="rev-ph"><p><b>Verified photo reviews appear here</b> once the store runs on Shopify with Judge.me.</p></div>
-</section>
+{{ macros.reviews_block() }}
 
 {{ macros.faq_list(p.texture.faq[:3], "Questions about " ~ p.texture.name|lower) }}
+
+<section class="xsell wrap" id="moreShades" aria-labelledby="msH">
+  <div class="sec-head"><div><p class="eyebrow">Same texture</p><h2 id="msH" data-split>{{ p.texture.name }} in other shades</h2></div><div class="rail-tools"><a class="link" href="/collections/{{ p.texture.slug }}-wigs/">All {{ p.texture.name|lower }}</a><div class="rv-nav"><button type="button" class="rv-btn" data-rv="-1" aria-label="Previous shades">←</button><button type="button" class="rv-btn" data-rv="1" aria-label="More shades">→</button></div></div></div>
+  <ul class="rail" role="list" data-rv-track>{% for s in p.siblings if s.handle != p.handle %}<li>{{ macros.product_card(s, "(max-width:720px) 60vw, 22vw") }}</li>{% endfor %}</ul>
+</section>
 
 {% if p.same_color %}
 <section class="xsell wrap" aria-labelledby="xsH">

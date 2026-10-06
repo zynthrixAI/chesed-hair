@@ -65,17 +65,25 @@
     {% for t in textures %}<li data-reveal><a class="tex" data-cursor="Explore" href="/collections/{{ t.slug }}-wigs/">
       <span class="tex-img" data-wipe>{{ macros.picture(t.tile.file, t.name ~ " lace front wig", "(max-width:720px) 50vw, 25vw") }}</span>
       <span class="tex-no">{{ "%02d"|format(loop.index) }}</span><b>{{ t.name }}</b><span class="tex-sub">{{ t.short }}</span></a></li>{% endfor %}
+    <li data-reveal><a class="tex tex-all" data-cursor="Shop" href="/collections/wigs/">
+      <span class="tex-img tex-collage" data-wipe>{% for im in all_tile %}{{ macros.picture(im.file, "", "(max-width:720px) 25vw, 12vw") }}{% endfor %}<span class="tex-all-label"><b>All 50 wigs</b><i aria-hidden="true">→</i></span></span>
+      <span class="tex-no">08</span><b>The full collection</b><span class="tex-sub">Every texture and shade, side by side.</span></a></li>
   </ol>
 </section>
 
-{# 6. CAMPAIGN BANNER #}
-<section class="banner" aria-labelledby="bnH">
-  <div class="banner-media">{% for im in banner_imgs %}<div data-wipe>{{ macros.picture(im.file, "", "(max-width:900px) 50vw, 50vw") }}</div>{% endfor %}</div>
-  <div class="banner-card" data-reveal>
-    <p class="eyebrow">The {{ banner_texture.name }} edit</p>
-    <h2 class="display-sm" id="bnH">Made to blend.<br>Made to last.</h2>
-    <p>{{ banner_texture.short }} The closest match to relaxed and silk-pressed hair.</p>
-    <a class="btn rose" href="/collections/{{ banner_texture.slug }}-wigs/">Shop {{ banner_texture.name }}</a>
+{# 6. EDITORIAL SPREAD #}
+<section class="spread" aria-labelledby="spH">
+  <div class="spread-type" aria-hidden="true" data-drift><span>{{ banner_texture.name }}</span><span>{{ banner_texture.name }}</span></div>
+  <div class="spread-grid wrap">
+    <figure class="sp-a" data-wipe>{{ macros.picture(banner_imgs[0].file, banner_texture.name ~ " lace front wig in Natural Black 1B", "(max-width:900px) 80vw, 44vw") }}</figure>
+    <figure class="sp-b" data-wipe data-speed="-0.08">{{ macros.picture(banner_imgs[1].file, banner_texture.name ~ " lace front wig in Ginger 350", "(max-width:900px) 50vw, 24vw") }}<figcaption>Ginger 350</figcaption></figure>
+    <div class="sp-copy">
+      <p class="eyebrow rose">The {{ banner_texture.name }} edit · 04</p>
+      <h2 id="spH" class="display-sm" data-split>Made to blend. Made to last.</h2>
+      <p>Straight, with the soft blown-out texture of natural hair. It's the closest match to relaxed and silk-pressed hair, so it looks real up close.</p>
+      <ul class="sp-facts" role="list"><li><b>Yaki texture</b><span>No glassy shine</span></li><li><b>9 shades</b><span>1B to Red</span></li><li><b>10–32"</b><span>Every length</span></li></ul>
+      <a class="btn" href="/collections/{{ banner_texture.slug }}-wigs/">Shop {{ banner_texture.name }}</a>
+    </div>
   </div>
 </section>
 
@@ -88,23 +96,22 @@
   <div class="grid">{% for p in best %}{{ macros.product_card(p) }}{% endfor %}</div>
 </section>
 
-{# 8. LENGTH VISUALIZER #}
+{# 8. LENGTH VISUALIZER: strand chart #}
 <section class="lenviz" aria-labelledby="lenH">
   <div class="lv-grid wrap">
-    <div class="lv-fig" data-reveal>{{ figure(6, False, "#1A1A1C", "fig big", "Figure showing where the chosen length ends", "home") }}</div>
     <div class="lv-copy">
       <p class="eyebrow rose">The length guide</p>
-      <h2 id="lenH" class="display-sm" data-split>See your length<br>before you buy.</h2>
-      <label class="lv-label" for="lenRange"><b id="lvVal">22"</b><span id="lvLand">ends at your mid ribs</span></label>
-      <input type="range" id="lenRange" min="0" max="11" value="6" step="1" aria-describedby="lvNote">
-      <div class="lv-ticks" aria-hidden="true"><span>10"</span><span>16"</span><span>22"</span><span>28"</span><span>32"</span></div>
+      <h2 id="lenH" class="display-sm" data-split>See your length before you buy.</h2>
+      <p class="lv-read"><b id="lvVal">22"</b><span>ends at your <em id="lvLand">mid ribs</em></span></p>
+      <input type="range" id="lenRange" min="0" max="11" value="6" step="1" aria-label="Wig length" aria-describedby="lvNote">
       <div class="seg" role="radiogroup" aria-label="Texture type">
         <button type="button" role="radio" aria-checked="true" data-curly="0">Straight</button>
         <button type="button" role="radio" aria-checked="false" data-curly="1">Wavy or curly</button>
       </div>
-      <p class="lv-note" id="lvNote">Lengths are measured with the hair pulled straight. Waves and curls sit about 2 inches higher on the body.</p>
+      <p class="lv-note" id="lvNote">Lengths are measured with the hair pulled straight. Waves and curls spring up, so they sit about one step higher.</p>
       <a class="link" href="/pages/wig-length-guide/">Open the full length guide</a>
     </div>
+    <div class="lv-chart" data-reveal>{{ strands(6, "#1A1A1C", "home") }}</div>
   </div>
 </section>
 
@@ -143,11 +150,7 @@
     <li><b>Pay in 4</b><span>Interest-free with Shop Pay</span></li>
   </ul>
 </section>
-<section class="reviews wrap" aria-labelledby="revH">
-  <p class="eyebrow">Reviews</p>
-  <h2 id="revH" class="display-sm">From our customers</h2>
-  <div class="rev-ph"><p><b>Photo reviews go here.</b> On the Shopify store this section pulls real, verified reviews from Judge.me, including any imported from Chesed's existing listings. We don't show sample reviews in the preview.</p></div>
-</section>
+{{ macros.reviews_block() }}
 
 {# 12. FAQ #}
 {{ macros.faq_list(home_faq, "Before you buy") }}

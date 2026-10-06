@@ -1,16 +1,11 @@
 {% extends "page.html" %}
-{% from "partials/figure.html" import figure %}
 {% block content %}
 <section class="lg wrap" aria-label="Length chart">
   <div class="seg lg-seg" role="radiogroup" aria-label="Texture type">
-    <button type="button" role="radio" aria-checked="true" data-show="straight">Straight and kinky straight</button>
-    <button type="button" role="radio" aria-checked="false" data-show="curly">Wavy and curly</button>
+    <button type="button" role="radio" aria-checked="true" data-curly="0">Straight and kinky straight</button>
+    <button type="button" role="radio" aria-checked="false" data-curly="1">Wavy and curly</button>
   </div>
-  {% for kind, curly in [("straight", False), ("curly", True)] %}
-  <ul class="el-row lg-row" role="list" data-kind="{{ kind }}"{% if curly %} hidden{% endif %}>
-    {% for l in lengths %}<li><div>{{ figure(loop.index0, curly, "#2A201C", "fig tiny", l ~ " inches", kind ~ loop.index0) }}<b>{{ l }}"</b><span>{{ (curly_landmarks if curly else landmarks)[loop.index0] }}</span></div></li>{% endfor %}
-  </ul>
-  {% endfor %}
+  <div class="lv-chart lg-chart" data-reveal>{{ strands(-1, "#1A1A1C", "guide", False, False) }}</div>
 </section>
 <div class="page-body wrap prose">
   <h2>How wig length is measured</h2>

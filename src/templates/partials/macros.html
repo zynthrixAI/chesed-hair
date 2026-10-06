@@ -14,19 +14,37 @@
   </a>
   <div class="card-meta">
     <p class="card-price">{{ money(p.price) }}</p>
-    <ul class="card-sw" aria-label="{{ p.texture.name }} in other shades">
-      {% for s in p.siblings[:5] %}<li><a href="{{ s.url }}" title="{{ s.color.key }}" aria-label="{{ s.texture.name }} in {{ s.color.key }}" style="--sw:{{ s.color.hex }}"{% if s.handle == p.handle %} aria-current="true"{% endif %}></a></li>{% endfor %}
-      {% if p.siblings|length > 5 %}<li class="more">+{{ p.siblings|length - 5 }}</li>{% endif %}
-    </ul>
+    <p class="card-len">10–32"</p>
   </div>
 </article>
 {%- endmacro %}
 {% macro faq_list(items, heading="Questions, answered") -%}
-<section class="faq wrap" aria-labelledby="faqH">
-  <p class="eyebrow">Questions</p>
-  <h2 id="faqH" data-split>{{ heading }}</h2>
+<section class="faq wrap split" aria-labelledby="faqH">
+  <div class="split-head">
+    <p class="eyebrow">Questions</p>
+    <h2 id="faqH" data-split>{{ heading }}</h2>
+  </div>
   <div class="acc">
   {% for q, a in items %}<details{% if loop.first %} open{% endif %}><summary>{{ q }}</summary><p>{{ a }}</p></details>{% endfor %}
+  </div>
+</section>
+{%- endmacro %}
+{% macro reviews_block(heading="What our customers say") -%}
+<section class="reviews wrap split" aria-labelledby="revH">
+  <div class="split-head">
+    <p class="eyebrow">Reviews</p>
+    <h2 id="revH" data-split>{{ heading }}</h2>
+    <div class="rv-nav"><button type="button" class="rv-btn" data-rv="-1" aria-label="Previous review">←</button><button type="button" class="rv-btn" data-rv="1" aria-label="Next review">→</button></div>
+  </div>
+  <div>
+    <ul class="rv-track" role="list" data-rv-track>
+      {% for r in reviews %}<li class="rv-card">
+        <p class="rv-stars" aria-label="{{ r.stars }} out of 5 stars">{% for i in range(r.stars) %}★{% endfor %}</p>
+        <blockquote><p>{{ r.text }}</p></blockquote>
+        <p class="rv-by"><b>{{ r.name }}</b><span>{{ r.product }}</span></p>
+      </li>{% endfor %}
+    </ul>
+    {% if reviews|selectattr("confirmed", "equalto", False)|list %}<p class="ph-note">Preview note: these three reviews are copied from chesedhair.com. They look like theme sample testimonials, so Chesed needs to confirm they're from real customers before launch. On Shopify this section pulls verified reviews from Judge.me.</p>{% endif %}
   </div>
 </section>
 {%- endmacro %}

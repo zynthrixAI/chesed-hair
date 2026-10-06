@@ -76,6 +76,7 @@ lookbook = []
 for k in look_keys:
     p = find(*k)
     lookbook.append(dict(product=p, img=p["images"][1] if len(p["images"]) > 1 else p["images"][0]))
+all_tile = [find("Straight", "Red")["images"][0], find("Body Wave", "Honey Blonde")["images"][0], find("Loose Deep", "Ginger 350")["images"][0], find("Kinky Straight", "Burgundy 530")["images"][0]]
 story_p = find("Curly", "Natural Black 1B")
 story = story_p["images"][0]
 
@@ -86,9 +87,49 @@ home_faq = [
     ("What if the wig isn't right?", "Return unworn wigs within 30 days with the lace uncut."),
 ]
 
+# ---- strand chart (length visualizer) ----
+import math
+from markupsafe import Markup
+ROW_Y = [40 + k * 25 for k in range(12)]          # landmark rows: chin ... upper thighs
+def _strand_path(x, top, y_end, curly):
+    if not curly:
+        return f"M{x} {top}V{y_end}"
+    pts = [f"M{x} {top}"]
+    y = top
+    while y < y_end:
+        y = min(y_end, y + 3)
+        pts.append(f"L{x + 5 * math.sin((y - top) / 18 * 2 * math.pi):.1f} {y}")
+    return "".join(pts)
+
+def strands(sel=6, hair="#1A1A1C", uid="s", show_curly=False, interactive=True, both=True, lengths=D.LENGTHS):
+    W, top, x0, gap = 640, 22, 168, 40
+    out = [f'<svg class="strands{" curly" if show_curly else ""}" viewBox="0 0 {W} 340" role="img" aria-label="Chart of where each wig length ends on the body" style="--hair:{hair}" data-strands="{uid}">']
+    out.append('<g class="st-guides">')
+    for k, lab in enumerate(D.LANDMARKS):
+        y = ROW_Y[k]
+        out.append(f'<g class="gd" data-k="{k}"><line x1="{x0 - 22}" x2="{W - 8}" y1="{y}" y2="{y}"/><text x="0" y="{y + 4}">{lab.capitalize()}</text></g>')
+    out.append(f'<line class="crown" x1="{x0 - 22}" x2="{W - 8}" y1="{top}" y2="{top}"/></g>')
+    for i, L in enumerate(lengths):
+        x = x0 + i * gap
+        ys = ROW_Y[i]
+        yc = ROW_Y[i - 1] if i > 0 else ROW_Y[0] - 14
+        cls = "st sel" if i == sel else "st"
+        attrs = f' data-i="{i}" tabindex="0" role="button" aria-label="{L} inches"' if interactive else ""
+        out.append(f'<g class="{cls}" style="--i:{i}"{attrs}><rect class="hit" x="{x - 18}" y="0" width="36" height="340"/>')
+        out.append(f'<text class="lab" x="{x}" y="12">{L}"</text>')
+        if both or not show_curly:
+            out.append(f'<path class="p-s" pathLength="1" d="{_strand_path(x, top, ys, False)}"/><circle class="tip p-s" cx="{x}" cy="{ys}" r="4"/>')
+        if both or show_curly:
+            out.append(f'<path class="p-c" pathLength="1" d="{_strand_path(x, top, yc, True)}"/><circle class="tip p-c" cx="{x}" cy="{yc}" r="4"/>')
+        out.append('</g>')
+    out.append('</svg>')
+    return Markup("".join(out))
+
 G = dict(textures=D.TEXTURES, color_collections=D.COLOR_COLLECTIONS, colmap=D.COL, free_ship=D.FREE_SHIP,
          version=str(int(time.time())), macros=None)
 env.globals.update(G)
+env.globals["strands"] = strands
+env.globals["reviews"] = D.REVIEWS
 env.globals["macros"] = env.get_template("partials/macros.html").module
 
 written = []
@@ -106,7 +147,7 @@ def org_ld():
 # HOME
 render("index.html", "/", seo_title="Chesed Hair | Human Hair Lace Front Wigs",
        seo_description="Lace front wigs in 100% unprocessed virgin Remy human hair. 7 textures, 10 shades, 10 to 32 inches, all shown on the same model.",
-       canonical="/", body_class="home overlay", page_id="home", hero=hero, hero_product=hero_product, hero_imgs=hero_imgs, banner_imgs=banner_imgs, banner_texture=banner_texture, theater=theater,
+       canonical="/", body_class="home overlay", page_id="home", hero=hero, hero_product=hero_product, hero_imgs=hero_imgs, banner_imgs=banner_imgs, banner_texture=banner_texture, all_tile=all_tile, theater=theater,
        best=best, lookbook=lookbook, story=story, home_faq=home_faq, jsonld=json.dumps(org_ld()),
        og_image=f"/assets/p/{hero['file']}-1024.webp")
 
