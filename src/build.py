@@ -132,6 +132,14 @@ env.globals["strands"] = strands
 env.globals["reviews"] = D.REVIEWS
 env.globals["macros"] = env.get_template("partials/macros.html").module
 
+# Menu: "simple" = text menu that reaches every page; "visual" = the archived Round 3 image mega menu
+HEADER = "simple"
+env.globals["header_style"] = HEADER
+env.globals["nav_textures"] = [dict(t, products=[p for p in products if p["texture"]["key"] == t["key"]]) for t in D.TEXTURES]
+SIMPLE_PAGES = ["about", "faq", "shipping", "returns", "contact"]
+# home + all-wigs hub + texture and color collections + products + 2 guides + simple pages + site map
+env.globals["page_count"] = 2 + len(D.TEXTURES) + len(D.COLOR_COLLECTIONS) + len(products) + 2 + len(SIMPLE_PAGES) + 1
+
 written = []
 def render(template, path, **ctx):
     html = env.get_template(template).render(**ctx)
@@ -243,4 +251,11 @@ for handle, title, h1, lede, body in simple_pages:
     render("page.html", f"/pages/{handle}/", seo_title=title, seo_description=lede or h1, canonical=f"/pages/{handle}/",
            body_class="shop", page_id=handle, page=dict(h1=h1, lede=lede, body=body))
 
+assert [h for h, *_ in simple_pages] == SIMPLE_PAGES
+
+render("sitemap.html", "/pages/sitemap/", seo_title="All Pages | Chesed Hair", seo_description="Every page on the Chesed Hair site, from collections and wigs to guides and help.",
+       canonical="/pages/sitemap/", body_class="shop", page_id="sitemap",
+       page=dict(h1="All Pages", lede="Every collection, wig, guide and help page in one place."))
+
+assert len(written) == env.globals["page_count"], (len(written), env.globals["page_count"])
 print(f"Wrote {len(written)} pages")

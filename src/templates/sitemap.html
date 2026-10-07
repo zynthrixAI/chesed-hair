@@ -1,0 +1,48 @@
+{% extends "page.html" %}
+{% block content %}
+<div class="smap wrap">
+  <section class="smap-sec">
+    <h2>Shop</h2>
+    <ul class="smap-list">
+      <li><a href="/">Home</a></li>
+      <li><a href="/collections/wigs/">All wigs</a></li>
+    </ul>
+    <h3>By texture</h3>
+    <ul class="smap-list">
+    {% for t in nav_textures %}<li><a href="/collections/{{ t.slug }}-wigs/">{{ t.name }} Wigs</a></li>{% endfor %}
+    </ul>
+    <h3>By color</h3>
+    <ul class="smap-list">
+    {% for cc in color_collections %}<li><a href="/collections/{{ cc.slug }}-wigs/">{{ cc.name }}</a></li>{% endfor %}
+    </ul>
+  </section>
+  <section class="smap-sec smap-wigs">
+    <h2>Every wig</h2>
+    <div class="smap-grid">
+    {% for t in nav_textures %}
+      <div>
+        <h3><a href="/collections/{{ t.slug }}-wigs/">{{ t.name }}</a></h3>
+        <ul class="sm-list">
+        {% for p in t.products %}<li><a href="{{ p.url }}"><i style="--sw:{{ p.color.hex }}"></i>{{ p.color.key }}</a></li>{% endfor %}
+        </ul>
+      </div>
+    {% endfor %}
+    </div>
+  </section>
+  <section class="smap-sec">
+    <h2>Guides</h2>
+    <ul class="smap-list">
+      <li><a href="/pages/wig-length-guide/">Length Guide</a></li>
+      <li><a href="/pages/wig-color-guide/">Color Guide</a></li>
+    </ul>
+    <h2>Help</h2>
+    <ul class="smap-list">
+      <li><a href="/pages/faq/">FAQ</a></li>
+      <li><a href="/pages/shipping/">Shipping</a></li>
+      <li><a href="/pages/returns/">Returns</a></li>
+      <li><a href="/pages/contact/">Contact</a></li>
+      <li><a href="/pages/about/">About</a></li>
+    </ul>
+  </section>
+</div>
+{% endblock %}
