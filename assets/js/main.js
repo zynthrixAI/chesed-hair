@@ -75,7 +75,12 @@ function closeLayer(el){ el.hidden=true; document.body.style.overflow=''; lenis&
 const drawer=$('#drawer'), cartEl=$('#cart');
 $('#menuBtn')&&$('#menuBtn').addEventListener('click',e=>openLayer(drawer,e.currentTarget));
 [drawer,cartEl].forEach(el=>el&&el.addEventListener('click',e=>{ if(e.target.closest('[data-close]')) closeLayer(el); }));
-addEventListener('keydown',e=>{ if(e.key==='Escape'){ [drawer,cartEl].forEach(el=>el&&!el.hidden&&closeLayer(el)); } });
+addEventListener('keydown',e=>{ if(e.key==='Escape'){ [drawer,cartEl,$('#srch')].forEach(el=>el&&!el.hidden&&closeLayer(el)); } });
+
+/* small localStorage helpers: per-browser conveniences only, safe when storage is blocked */
+const store={ get(k){ try{ return JSON.parse(localStorage.getItem(k)); }catch(e){ return null; } }, set(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} } };
+const prize=()=>store.get('chesedPrize');
+const discOf=(p,tot)=>!p||!tot?0:p.pct?tot*p.pct/100:Math.min(p.amt,tot);
 
 /* cart (preview: kept in this browser tab only) */
 let cart=[]; try{ cart=JSON.parse(sessionStorage.getItem('chesedCart')||'[]'); }catch(e){}
@@ -87,7 +92,9 @@ function renderCart(){
   list.innerHTML=cart.map((i,k)=>`<li>${i.img?`<img src="${i.img}" alt="">`:'<span></span>'}<div><b>${i.title}</b><small>${i.variant?i.variant+' · ':''}${money(i.price)}${i.qty>1?' × '+i.qty:''}</small></div><button class="rm" type="button" data-rm="${k}">Remove</button></li>`).join('');
   $('#cartEmpty').hidden=!!cart.length;
   $('#cartTotal').textContent=money(tot);
-  $('#cartBnpl').textContent=tot?`or 4 interest-free payments of ${money(tot/4)} with Shop Pay`:'';
+  const pz=prize(), d=discOf(pz,tot), dl=$('#cartDisc');
+  if(dl){ dl.hidden=!d; if(d){ $('#cartDiscLabel').textContent=`${pz.code} · ${pz.label} (applied at checkout)`; $('#cartDiscAmt').textContent='−'+money(d); } }
+  $('#cartBnpl').textContent=tot?`or 4 interest-free payments of ${money((tot-d)/4)} with Shop Pay`:'';
   const left=FREE-tot; $('#shipMsg').textContent=tot===0?`Free US shipping over $${FREE}`:left>0?`You're ${money(left)} away from free shipping`:`You've unlocked free US shipping`;
   $('#shipFill').style.width=Math.min(100,tot/FREE*100)+'%';
 }
@@ -103,6 +110,70 @@ const toast=$('#toast'); let tt;
 function say(t){ if(!toast)return; toast.textContent=t; toast.classList.add('show'); clearTimeout(tt); tt=setTimeout(()=>toast.classList.remove('show'),2600); }
 $('#checkoutBtn')&&$('#checkoutBtn').addEventListener('click',()=>say('Preview only: checkout connects on Shopify.'));
 renderCart();
+
+/* product cards: quick add with a length picker */
+document.addEventListener('click',e=>{ const q=e.target.closest('[data-quick]');
+  if(q){ const lens=q.closest('.card').querySelector('[data-quick-lens]'); const open=lens.hidden; lens.hidden=!open; q.setAttribute('aria-expanded',open?'true':'false'); q.textContent=open?'Pick a length':'Quick add'; if(open) lens.querySelector('button').focus(); return; }
+  const b=e.target.closest('[data-quick-lens] button'); if(!b) return; const g=b.parentElement;
+  addToCart({title:g.dataset.title,variant:b.dataset.len+'"',price:+g.dataset.price,img:g.dataset.img});
+  g.hidden=true; const qb=g.closest('.card').querySelector('[data-quick]'); qb.setAttribute('aria-expanded','false'); qb.textContent='Quick add'; });
+
+/* product page: show what a won code saves on this wig */
+function codeNotes(){ const pz=prize(); $$('[data-code-note]').forEach(n=>{ const pr=+(n.closest('[data-product]')||{}).dataset?.price||0; const d=discOf(pz,pr);
+  n.hidden=!d; if(d) n.innerHTML=`Your code <b>${pz.code}</b> takes ${pz.label}: <b>${money(pr-d)}</b> at checkout.`; }); }
+codeNotes();
+
+/* search overlay: instant results from a small index of every page */
+const srch=$('#srch'), sIn=$('#srchIn'), sList=$('#srchList');
+if(srch&&sIn){ let idx=null, sel=-1;
+  const load=()=>idx?Promise.resolve(idx):fetch('/assets/search.json').then(r=>r.json()).then(d=>idx=d).catch(()=>idx=[]);
+  const norm=v=>v.toLowerCase().replace(/["”“]/g,'').replace(/\s+/g,' ').trim();
+  const esc=v=>v.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  function run(){ const q=norm(sIn.value); $('#srchPop').hidden=!!q; sel=-1;
+    if(!q){ sList.innerHTML=''; $('#srchNone').hidden=true; return; }
+    load().then(d=>{ const words=q.split(' ');
+      const hits=d.map(e=>{ const hay=norm(e.t+' '+e.k+' '+(e.s||'')); if(!words.every(w=>hay.includes(w))) return null;
+        return {e,score:(norm(e.t).startsWith(q)?3:0)+(norm(e.t).includes(q)?2:0)+(e.k==='Wig'?0:1)}; }).filter(Boolean).sort((a,b)=>b.score-a.score).slice(0,24);
+      sList.innerHTML=hits.map(({e})=>`<li><a href="${e.u}">${e.i?`<img src="${e.i}" alt="" loading="lazy">`:'<span class="srch-ic"></span>'}<span><b>${esc(e.t)}</b><small>${e.k}${e.p?' · '+money(e.p):''}</small></span></a></li>`).join('');
+      $('#srchNone').hidden=!!hits.length; }); }
+  const open=()=>{ openLayer(srch); sIn.focus(); load(); };
+  $$('[data-search]').forEach(b=>b.addEventListener('click',open));
+  addEventListener('keydown',e=>{ if(e.key==='/'&&srch.hidden&&!/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)){ e.preventDefault(); open(); } });
+  srch.addEventListener('click',e=>{ if(e.target.closest('[data-close]')) closeLayer(srch); const c=e.target.closest('[data-q]'); if(c){ sIn.value=c.dataset.q; run(); sIn.focus(); } });
+  sIn.addEventListener('input',run);
+  sIn.addEventListener('keydown',e=>{ const links=[...sList.querySelectorAll('a')]; if(!links.length) return;
+    if(e.key==='ArrowDown'||e.key==='ArrowUp'){ e.preventDefault(); sel=(sel+(e.key==='ArrowDown'?1:-1)+links.length)%links.length; links.forEach((a,k)=>a.classList.toggle('on',k===sel)); links[sel].scrollIntoView({block:'nearest'}); } });
+  $('#srchForm').addEventListener('submit',e=>{ e.preventDefault(); const links=[...sList.querySelectorAll('a')]; const a=links[Math.max(0,sel)]; if(a) location.href=a.href; }); }
+
+/* welcome wheel: email popup where every spin wins (odds shown in the fine print) */
+const spin=$('#spin'), tab=$('#spinTab');
+if(spin){ const prizes=JSON.parse(spin.dataset.prizes), g=$('#wheelSpin'), DAY=864e5;
+  const shown=()=>{ try{ return sessionStorage.getItem('chesedSpinShown'); }catch(e){ return '1'; } };
+  const markShown=()=>{ try{ sessionStorage.setItem('chesedSpinShown','1'); }catch(e){} };
+  const snoozed=()=>{ const t=store.get('chesedSpinSnooze'); return t&&Date.now()-t<7*DAY; };
+  let spun=false;
+  function openSpin(){ if(!spin.hidden) return; markShown(); tab.hidden=true; if(prize()) showWin(prize(),false); openLayer(spin); setTimeout(()=>$('#spinEmail')&&!prize()&&$('#spinEmail').focus(),50); }
+  function closeSpin(){ closeLayer(spin); if(!prize()){ store.set('chesedSpinSnooze',Date.now()); tab.hidden=false; } }
+  function showWin(p,anim){ $('#spinStep1').hidden=true; $('#spinStep2').hidden=false; $('#spinWon').textContent=p.label+' your first order';
+    $('#spinCode').textContent=p.code; if(!anim) $('#spinWon').focus(); }
+  spin.addEventListener('click',e=>{ if(e.target.closest('[data-spin-close]')){ closeSpin(); if(e.target.closest('[data-spin-shop]')&&!/\/(products|collections)\//.test(location.pathname)) location.href='/collections/wigs/'; } });
+  addEventListener('keydown',e=>{ if(e.key==='Escape'&&!spin.hidden) closeSpin(); });
+  tab.addEventListener('click',openSpin);
+  $('#spinCopy').addEventListener('click',()=>{ const c=$('#spinCode').textContent; (navigator.clipboard?navigator.clipboard.writeText(c):Promise.reject()).then(()=>say('Code copied: '+c)).catch(()=>say('Your code: '+c)); });
+  $('#spinForm').addEventListener('submit',e=>{ e.preventDefault(); if(spun) return; const v=$('#spinEmail').value.trim();
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)){ $('#spinMsg').textContent='Enter an email address like name@example.com.'; return; }
+    $('#spinMsg').textContent=''; spun=true;
+    let r=Math.random()*100, i=0; for(;i<prizes.length-1;i++){ r-=prizes[i].weight; if(r<0) break; }
+    const n=prizes.length, slice=360/n, jitter=(Math.random()-.5)*slice*.6, deg=360*6-(i+.5)*slice+jitter;
+    const win=prizes[i]; store.set('chesedPrize',win); store.set('chesedSpinSnooze',null);
+    const done=()=>{ showWin(win,true); setTimeout(()=>$('#spinWon').focus(),30); renderCart(); codeNotes(); };
+    if(reduce||!g.animate){ g.style.transform=`rotate(${deg}deg)`; done(); return; }
+    g.animate([{transform:'rotate(0deg)'},{transform:`rotate(${deg}deg)`}],{duration:4800,easing:'cubic-bezier(.12,.75,.1,1)',fill:'forwards'}).finished.then(done); });
+  /* when to show it: after 12s, or desktop exit intent; once per visit; quiet for a week after "no thanks" */
+  if(prize()||snoozed()){ if(!prize()) tab.hidden=false; }
+  else if(!shown()){ const t=setTimeout(()=>{ if(cartEl.hidden&&drawer.hidden&&(!srch||srch.hidden)) openSpin(); },12000);
+    if(matchMedia('(hover:hover) and (pointer:fine)').matches) document.addEventListener('mouseout',function x(e){ if(!e.relatedTarget&&e.clientY<=0){ clearTimeout(t); document.removeEventListener('mouseout',x); if(!shown()) openSpin(); } }); }
+}
 
 /* email signup (preview: nothing is stored) */
 $$('[data-join]').forEach(f=>f.addEventListener('submit',e=>{ e.preventDefault(); const v=f.querySelector('input').value.trim(), m=f.querySelector('.msg');

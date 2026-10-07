@@ -14,7 +14,7 @@
     <div class="hero-foot">
       <p>Seven textures, ten shades, every length from 10 to 32 inches. All on one woman, so you see exactly what you get.</p>
       <div class="cta-row">
-        <a class="btn" href="/collections/wigs/">Shop the collection</a>
+        <a class="btn" href="#best">Shop best sellers</a>
         <a class="btn ghost" href="#shades">Find your shade</a>
       </div>
     </div>
@@ -27,6 +27,14 @@
 </div></div>
 
 {# 3. STATEMENT #}
+<section class="best wrap" id="best" aria-labelledby="bestH">
+  <div class="sec-head">
+    <div><p class="eyebrow">Most loved</p><h2 id="bestH" class="display-sm" data-split>Best sellers</h2></div>
+    <a class="link" href="/collections/wigs/">Shop all</a>
+  </div>
+  <div class="grid">{% for p in best %}{{ macros.product_card(p) }}{% endfor %}</div>
+</section>
+
 <section class="statement wrap" aria-label="The Chesed promise">
   <p data-split>One model. Every texture, every shade, every length. No retouched color, no guessing. <em>Just the wig you'll actually receive.</em></p>
 </section>
@@ -88,13 +96,6 @@
 </section>
 
 {# 7. BEST SELLERS #}
-<section class="best wrap" aria-labelledby="bestH">
-  <div class="sec-head">
-    <div><p class="eyebrow">Most loved</p><h2 id="bestH" class="display-sm" data-split>Best sellers</h2></div>
-    <a class="link" href="/collections/wigs/">Shop all</a>
-  </div>
-  <div class="grid">{% for p in best %}{{ macros.product_card(p) }}{% endfor %}</div>
-</section>
 
 {# 8. LENGTH VISUALIZER: strand chart #}
 <section class="lenviz" aria-labelledby="lenH">

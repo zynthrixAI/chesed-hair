@@ -129,6 +129,25 @@ G = dict(textures=D.TEXTURES, color_collections=D.COLOR_COLLECTIONS, colmap=D.CO
          version=str(int(time.time())), macros=None)
 env.globals.update(G)
 env.globals["strands"] = strands
+
+# ---- welcome wheel ----
+def wheel():
+    n, r, cx = len(D.SPIN_PRIZES), 150, 160
+    fills = ["#0E0E10", "#EE467C", "#FBFAF9", "#B8295A", "#26262B", "#F7E9EE"]
+    inks = ["#FBFAF9", "#0E0E10", "#0E0E10", "#FBFAF9", "#FBFAF9", "#0E0E10"]
+    out = [f'<svg class="wheel" viewBox="0 0 320 320" aria-hidden="true"><g id="wheelSpin">']
+    for i, pz in enumerate(D.SPIN_PRIZES):
+        a0, a1 = (i / n) * 2 * math.pi - math.pi / 2, ((i + 1) / n) * 2 * math.pi - math.pi / 2
+        x0, y0, x1, y1 = cx + r * math.cos(a0), cx + r * math.sin(a0), cx + r * math.cos(a1), cx + r * math.sin(a1)
+        out.append(f'<path d="M{cx} {cx}L{x0:.1f} {y0:.1f}A{r} {r} 0 0 1 {x1:.1f} {y1:.1f}Z" fill="{fills[i % 6]}" stroke="#0E0E10" stroke-width="1"/>')
+        mid = (i + .5) * 360 / n
+        out.append(f'<text transform="rotate({mid:.1f} {cx} {cx}) translate({cx} {cx - r * .62}) rotate({-90 if mid < 180 else 90})" fill="{inks[i % 6]}" text-anchor="middle" dominant-baseline="middle">{pz["label"]}</text>')
+    out.append(f'</g><circle cx="{cx}" cy="{cx}" r="22" fill="#FBFAF9" stroke="#0E0E10"/><circle cx="{cx}" cy="{cx}" r="5" fill="#B8295A"/></svg>')
+    return Markup("".join(out))
+env.globals["wheel"] = wheel
+env.globals["spin_prizes"] = D.SPIN_PRIZES
+env.globals["spin_odds"] = ", ".join(f'{p["label"]} {p["weight"]}%' for p in D.SPIN_PRIZES)
+assert sum(p["weight"] for p in D.SPIN_PRIZES) == 100
 env.globals["reviews"] = D.REVIEWS
 env.globals["macros"] = env.get_template("partials/macros.html").module
 
@@ -256,6 +275,17 @@ assert [h for h, *_ in simple_pages] == SIMPLE_PAGES
 render("sitemap.html", "/pages/sitemap/", seo_title="All Pages | Chesed Hair", seo_description="Every page on the Chesed Hair site, from collections and wigs to guides and help.",
        canonical="/pages/sitemap/", body_class="shop", page_id="sitemap",
        page=dict(h1="All Pages", lede="Every collection, wig, guide and help page in one place."))
+
+# search index for the header search overlay
+idx = [dict(t="All wigs", u="/collections/wigs/", k="Collection", s="lace front wigs all shop")]
+idx += [dict(t=f"{t['name']} Wigs", u=f"/collections/{t['slug']}-wigs/", k="Texture", s=t["short"]) for t in D.TEXTURES]
+idx += [dict(t=cc["name"], u=f"/collections/{cc['slug']}-wigs/", k="Color", s=" ".join(cc["colors"])) for cc in D.COLOR_COLLECTIONS]
+idx += [dict(t=p["title"], u=p["url"], k="Wig", s=f"{p['color']['family']} {p['texture']['short']}", i=f"/assets/p/{p['images'][0]['file']}-560.webp", p=p["price"]) for p in products]
+idx += [dict(t="Length Guide", u="/pages/wig-length-guide/", k="Guide", s="inches length chart how long"),
+        dict(t="Color Guide", u="/pages/wig-color-guide/", k="Guide", s="shade colour chart compare")]
+idx += [dict(t=h1, u=f"/pages/{h}/", k="Help", s=lede or "") for h, _, h1, lede, _ in simple_pages]
+os.makedirs(os.path.join(ROOT, "assets"), exist_ok=True)
+json.dump(idx, open(os.path.join(ROOT, "assets", "search.json"), "w"), separators=(",", ":"))
 
 assert len(written) == env.globals["page_count"], (len(written), env.globals["page_count"])
 print(f"Wrote {len(written)} pages")
