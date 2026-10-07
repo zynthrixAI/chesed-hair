@@ -14,7 +14,7 @@ let lenis=null, mqStep=null;
 if(!reduce && window.Lenis){ lenis=new Lenis({lerp:0.085,wheelMultiplier:0.9,smoothWheel:true});
   const raf=t=>{ lenis.raf(t); mqStep&&mqStep(t); requestAnimationFrame(raf); }; requestAnimationFrame(raf);
   document.addEventListener('click',e=>{ const a=e.target.closest('a[href^="#"]'); if(!a)return; const id=a.getAttribute('href'); if(id.length<2)return;
-    const el=document.querySelector(id); if(el){ e.preventDefault(); lenis.scrollTo(el,{offset:-60,duration:1.4}); } }); }
+    const el=document.querySelector(id); if(el){ e.preventDefault(); lenis.scrollTo(el,{offset:-((document.querySelector('.hdr')||{}).offsetHeight||60)-24,duration:1.4}); } }); }
 
 /* intro reveal once the page has painted */
 const markLoaded=()=>requestAnimationFrame(()=>setTimeout(()=>root.classList.add('loaded'),60));
@@ -334,6 +334,12 @@ if(shadeName){ const cur=shadeName.textContent, seen=new Set();
 
 /* WhatsApp: number not set yet in the preview */
 $$('[data-ph-wa]').forEach(a=>a.addEventListener('click',e=>{ e.preventDefault(); say('Preview: Chesed\'s WhatsApp number goes here.'); }));
+
+/* long pages: highlight the section you're reading in the table of contents */
+const tocLinks=$$('.toc a');
+if(tocLinks.length&&'IntersectionObserver' in window){ const map=new Map(tocLinks.map(a=>[a.getAttribute('href').slice(1),a]));
+  const io=new IntersectionObserver(es=>{ es.forEach(e=>{ if(e.isIntersecting){ tocLinks.forEach(a=>a.classList.toggle('on',a===map.get(e.target.id))); } }); },{rootMargin:'-30% 0px -60% 0px'});
+  map.forEach((a,id)=>{ const h=document.getElementById(id); h&&io.observe(h); }); tocLinks[0].classList.add('on'); }
 
 /* carousels: reviews + shade rails */
 $$('[data-rv-track]').forEach(tr=>{ const sec=tr.closest('section'); const btns=sec?[...sec.querySelectorAll('[data-rv]')]:[];

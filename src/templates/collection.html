@@ -8,7 +8,22 @@
     <p class="col-count">{{ c.products|length }} {{ "wig" if c.products|length == 1 else "wigs" }} · 10 to 32 inches · 100% virgin Remy human hair</p>
   </div>
 </section>
-<section class="col-intro wrap split" aria-label="About this collection"><div class="split-head"><p class="eyebrow">About {{ c.h1|lower }}</p></div><p data-reveal>{{ c.intro }}</p></section>
+{% set lead, more = split_intro(c.intro) %}
+{% set n_shades = c.products|map(attribute="color.key")|unique|list|length %}
+{% set n_tex = c.products|map(attribute="texture.key")|unique|list|length %}
+<section class="col-intro wrap" aria-label="About this collection">
+  <div class="ci-text">
+    <p class="eyebrow">About {{ c.h1|lower }}</p>
+    <p class="ci-lead">{{ lead }}</p>
+    {% if more %}<details class="ci-more"><summary><span class="rm-o">Read more</span><span class="rm-c">Read less</span></summary><p>{{ more }}</p></details>{% endif %}
+  </div>
+  <ul class="ci-facts" role="list">
+    <li><b>{{ n_shades }}</b><span>{{ "shade" if n_shades == 1 else "shades" }}</span></li>
+    <li><b>{% if n_tex > 1 %}{{ n_tex }}{% else %}{{ c.products[0].texture.name }}{% endif %}</b><span>{% if n_tex > 1 %}textures{% else %}texture{% endif %}</span></li>
+    <li><b>10–32"</b><span>every length</span></li>
+    <li><b>{{ macros.money(c.products[0].price) }}</b><span>or 4 × {{ macros.money(c.products[0].price/4) }}</span></li>
+  </ul>
+</section>
 
 <div class="fbar-wrap" data-fbar>
   <div class="fbar wrap">

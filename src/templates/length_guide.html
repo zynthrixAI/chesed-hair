@@ -7,17 +7,20 @@
   </div>
   <div class="lv-chart lg-chart" data-reveal>{{ strands(-1, "#1A1A1C", "guide", False, False) }}</div>
 </section>
-<div class="page-body wrap prose">
-  <h2>How wig length is measured</h2>
+<div class="toc-layout wrap">
+  <nav class="toc" aria-label="On this page"><p class="toc-h">On this page</p><ol><li><a href="#measured">How length is measured</a></li><li><a href="#where">Where each length falls</a></li><li><a href="#choose">Which length to choose</a></li></ol></nav>
+  <div class="toc-body">
+  <h2 id="measured">How wig length is measured</h2>
   <p>Wig length is measured from the crown to the ends with the hair pulled straight. Straight hair falls at its full length. Waves and curls spring up, so a wavy or curly wig sits about 2 inches higher on the body, and tight coils like kinky curly can sit 4 inches higher or more.</p>
-  <h2>Where each length falls</h2>
+  <h2 id="where">Where each length falls</h2>
   <table class="lg-table">
     <thead><tr><th>Length</th><th>Straight ends at</th><th>Wavy or curly ends at</th></tr></thead>
     <tbody>{% for l in lengths %}<tr><td>{{ l }}"</td><td>{{ landmarks[loop.index0] }}</td><td>{{ curly_landmarks[loop.index0] }}</td></tr>{% endfor %}</tbody>
   </table>
   <p class="small">Based on an average height of about 5'5". If you're taller, each length lands a little higher. If you're shorter, a little lower.</p>
-  <h2>Which length should I choose?</h2>
+  <h2 id="choose">Which length should I choose?</h2>
   <p>For an everyday look, most people choose 16 to 20 inches. For drama and volume, go 24 inches or longer. Straight textures show length most clearly. Curly textures look fuller, so a shorter curly wig still reads big.</p>
   <p><a class="btn rose" href="/collections/wigs/">Shop wigs</a></p>
+  </div>
 </div>
 {% endblock %}

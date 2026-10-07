@@ -76,9 +76,15 @@
   <ul class="scene-grid" role="list">{% for im in p.images %}<li>{{ macros.picture(im.file, im.alt, "(max-width:720px) 50vw, 25vw") }}</li>{% endfor %}</ul>
 </section>
 
-<section class="desc wrap split" aria-labelledby="descH">
-  <div class="split-head"><p class="eyebrow">The texture</p><h2 id="descH" data-split>About {{ p.texture.name|lower }}</h2></div>
-  <p data-reveal>{{ p.texture.intro }}</p>
+{% set close = p.images[2] if p.images|length > 2 else p.images[-1] %}
+<section class="desc wrap" aria-labelledby="descH">
+  <figure class="desc-img" data-wipe>{{ macros.picture(close.file, close.alt, "(max-width:900px) 100vw, 40vw") }}</figure>
+  <div class="desc-copy">
+    <p class="eyebrow rose">The texture · {{ p.texture.name }}</p>
+    <h2 id="descH" class="desc-quote" data-split>{{ p.texture.short }}</h2>
+    <p data-reveal>{{ p.texture.intro }}</p>
+    <a class="link" href="/collections/{{ p.texture.slug }}-wigs/">All {{ p.texture.name|lower }} wigs</a>
+  </div>
 </section>
 
 <section class="pdp-rev wrap split" id="reviews" aria-labelledby="prH">
