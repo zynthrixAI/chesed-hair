@@ -77,6 +77,11 @@ for k in look_keys:
     p = find(*k)
     lookbook.append(dict(product=p, img=p["images"][1] if len(p["images"]) > 1 else p["images"][0]))
 all_tile = [find("Straight", "Red")["images"][0], find("Body Wave", "Honey Blonde")["images"][0], find("Loose Deep", "Ginger 350")["images"][0], find("Kinky Straight", "Burgundy 530")["images"][0]]
+# home: texture spotlight with a shade switcher (every shade of the banner texture)
+spotlight = [dict(color=p["color"], img=p["images"][0], url=p["url"], price=p["price"]) for p in products if p["texture"]["key"] == banner_texture["key"]]
+spot_start = next(i for i, x in enumerate(spotlight) if x["color"]["key"] == "Natural Black 1B")
+# home: statement strip, the same model in six shades
+statement_imgs = [theater[i]["img"] for i in (0, 3, 5, 6, 8, 9)]
 story_p = find("Curly", "Natural Black 1B")
 story = story_p["images"][0]
 
@@ -145,6 +150,8 @@ def wheel():
     out.append(f'</g><circle cx="{cx}" cy="{cx}" r="22" fill="#FBFAF9" stroke="#0E0E10"/><circle cx="{cx}" cy="{cx}" r="5" fill="#B8295A"/></svg>')
     return Markup("".join(out))
 env.globals["wheel"] = wheel
+env.globals["whatsapp"] = D.WHATSAPP
+env.globals["whatsapp_placeholder"] = D.WHATSAPP_PLACEHOLDER
 env.globals["spin_prizes"] = D.SPIN_PRIZES
 env.globals["spin_odds"] = ", ".join(f'{p["label"]} {p["weight"]}%' for p in D.SPIN_PRIZES)
 assert sum(p["weight"] for p in D.SPIN_PRIZES) == 100
@@ -175,7 +182,7 @@ def org_ld():
 render("index.html", "/", seo_title="Chesed Hair | Human Hair Lace Front Wigs",
        seo_description="Lace front wigs in 100% unprocessed virgin Remy human hair. 7 textures, 10 shades, 10 to 32 inches, all shown on the same model.",
        canonical="/", body_class="home overlay", page_id="home", hero=hero, hero_product=hero_product, hero_imgs=hero_imgs, banner_imgs=banner_imgs, banner_texture=banner_texture, all_tile=all_tile, theater=theater,
-       best=best, lookbook=lookbook, story=story, home_faq=home_faq, jsonld=json.dumps(org_ld()),
+       best=best, lookbook=lookbook, story=story, spotlight=spotlight, spot_start=spot_start, statement_imgs=statement_imgs, home_faq=home_faq, jsonld=json.dumps(org_ld()),
        og_image=f"/assets/p/{hero['file']}-1024.webp")
 
 # COLLECTIONS

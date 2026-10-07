@@ -199,3 +199,7 @@ SPIN_PRIZES = [
     dict(label="20% off", code="WELCOME20", pct=20, amt=0, weight=7),
     dict(label="$60 off", code="SAVE60", pct=0, amt=60, weight=3),
 ]
+
+# WhatsApp chat button. Placeholder: Chesed's WhatsApp Business number, digits only with country code.
+WHATSAPP = "10000000000"
+WHATSAPP_PLACEHOLDER = True

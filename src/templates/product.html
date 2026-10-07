@@ -19,7 +19,12 @@
     <p class="bnpl">or 4 interest-free payments of <b>{{ macros.money(p.price/4) }}</b> with <b>Shop Pay</b></p>
     <p class="code-note" data-code-note hidden></p>
 
-    <p class="shade-line"><i style="--sw:{{ p.color.hex }}"></i><span>Shade</span><b>{{ p.color.key }}</b><a class="link sm" href="#moreShades">Other shades</a></p>
+    <div class="shade-pick">
+      <p class="opt-label"><span>Shade</span><b id="shadeName">{{ p.color.key }}</b><a class="link sm" href="/pages/wig-color-guide/">Color guide</a></p>
+      <ul class="shade-sw" role="list" aria-label="Choose a shade">
+        {% for s in p.siblings %}<li><a href="{{ s.url }}" style="--sw:{{ s.color.hex }}" aria-label="{{ s.color.key }}" data-name="{{ s.color.key }}"{% if s.handle == p.handle %} aria-current="true" class="on"{% endif %}><span>{{ macros.picture(s.images[0].file, "", "64px") }}</span></a></li>{% endfor %}
+      </ul>
+    </div>
 
     <div class="opt">
       <p class="opt-label"><span>Length</span><b id="lenVal">16"</b><a class="link sm" href="/pages/wig-length-guide/">Length guide</a></p>
@@ -34,7 +39,7 @@
 
     <button class="btn rose wide" type="button" id="addBtn">Add to bag · <span id="addPrice">{{ macros.money(p.price) }}</span></button>
     <button class="btn shop-pay wide" type="button" aria-label="Buy with Shop Pay">Buy with <b>Shop Pay</b></button>
-    <ul class="trust" role="list">
+    <ul class="pdp-trust" role="list">
       <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="17.5" r="1.6"/><circle cx="17" cy="17.5" r="1.6"/></svg><span><b>Free US shipping</b>on orders over ${{ free_ship|int }}</span></li>
       <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.3-5.6M4 4v4h4"/></svg><span><b>30-day returns</b>unworn, lace uncut</span></li>
       <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/></svg><span><b>Pay in 4</b>interest-free with Shop Pay</span></li>
