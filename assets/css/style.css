@@ -105,6 +105,45 @@ ul,ol{margin:0;padding:0;list-style:none}
 .dd-colors{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px 30px;max-width:960px;margin:0 auto;padding:30px var(--g)}
 .dd-colors a{display:flex;align-items:center;gap:16px;padding:14px 0;border-bottom:1px solid var(--line);text-decoration:none;font:400 20px/1.2 var(--display)}
 .dd-colors a:hover{color:var(--rose)}
+
+/* simple menu: text-only Shop panel (texture list swaps the wig list beside it) + small dropdowns */
+.sm{display:grid;grid-template-columns:1.1fr 1.3fr 1.3fr .9fr;gap:40px;max-width:var(--max);margin:0 auto;padding:32px var(--g) 18px}
+.sm h3{font:600 11px/1 var(--mark);letter-spacing:.18em;text-transform:uppercase;color:var(--slate);margin-bottom:14px}
+.sm-tex a{display:flex;justify-content:space-between;align-items:baseline;padding:9px 0;border-bottom:1px solid var(--line);text-decoration:none;font:400 19px/1.2 var(--display);transition:color .25s,padding .35s var(--ease)}
+.sm-tex small{font:400 12px/1 var(--sans);color:var(--slate)}
+.sm-tex a.on,.sm-tex a:hover{color:var(--rose);padding-left:6px}
+.sm-more{display:inline-block;margin-top:16px;font:600 11px/1 var(--mark);letter-spacing:.18em;text-transform:uppercase;color:var(--rose)}
+.sm-pane{display:none}
+.sm-pane.on{display:block;animation:fadein .3s}
+.sm-list a{display:flex;align-items:center;gap:12px;padding:8px 0;text-decoration:none;font-size:15px}
+.sm-list a:hover{color:var(--rose)}
+.sm-list a>i{width:12px;height:12px;border-radius:50%;background:var(--sw);flex:none;box-shadow:inset 0 0 0 1px rgba(127,127,127,.3)}
+.dd-sm{position:relative}
+.dd-sm .dd-panel{left:-24px;right:auto;width:230px;padding:14px 24px;border:1px solid var(--line)}
+.drawer-panel .dw-top{display:block;padding:16px 0;border-bottom:1px solid var(--line);text-decoration:none;font:400 20px/1.2 var(--display)}
+.drawer-panel .dw-top:first-of-type{margin-top:6px}
+.dw-all{color:var(--rose)}
+.dw{border-bottom:1px solid var(--line)}
+.dw>summary,.dw-sub>summary{display:flex;justify-content:space-between;align-items:center;padding:16px 0;cursor:pointer;list-style:none;font:400 20px/1.2 var(--display)}
+.dw>summary::-webkit-details-marker,.dw-sub>summary::-webkit-details-marker{display:none}
+.dw>summary::after,.dw-sub>summary::after{content:"+";font:300 22px/1 var(--sans);transition:transform .3s var(--ease)}
+.dw[open]>summary::after,.dw-sub[open]>summary::after{transform:rotate(45deg)}
+.dw>ul{padding:0 0 10px}
+.dw-sub>summary{padding:11px 0 11px 12px;font-size:17px}
+.dw-sub>summary small{margin-left:auto;margin-right:14px;font:400 12px/1 var(--sans);color:var(--slate)}
+.dw-sub>.sm-list,.dw>.sm-list{padding:0 0 8px 24px}
+.dw>.sm-list{padding-left:12px}
+
+/* site map page */
+.smap{display:grid;grid-template-columns:1fr 2.4fr 1fr;gap:48px;padding-bottom:90px}
+.smap h2{font-size:26px;margin:0 0 16px}
+.smap-sec h2+ul+h2,.smap-sec ul+h2{margin-top:36px}
+.smap h3{font:600 11px/1 var(--mark);letter-spacing:.18em;text-transform:uppercase;color:var(--slate);margin:26px 0 10px}
+.smap-grid h3 a{text-decoration:none;color:inherit}
+.smap-list a{display:block;padding:8px 0;border-bottom:1px solid var(--line);text-decoration:none}
+.smap-list a:hover,.smap-grid h3 a:hover{color:var(--rose)}
+.smap-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:0 32px}
+@media (max-width:900px){.smap{grid-template-columns:1fr;gap:20px}}
 .dots{display:flex}
 .dots i{width:20px;height:20px;border-radius:50%;background:var(--sw);box-shadow:0 0 0 2px var(--porcelain);margin-right:-6px}
 

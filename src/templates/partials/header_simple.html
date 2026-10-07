@@ -1,0 +1,118 @@
+<header class="hdr" id="hdr">
+  {% include "partials/announcement.html" %}
+  <div class="hdr-in">
+    <button class="ib menu-btn" type="button" aria-label="Open menu" aria-controls="drawer" aria-expanded="false" id="menuBtn"><svg viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
+    <a class="brand" href="/" aria-label="Chesed Hair home">{% include "partials/logo.html" %}<b>CHESED</b></a>
+    <nav class="nav" aria-label="Main">
+      <div class="dd">
+        <a href="/collections/wigs/" class="dd-top">Shop</a>
+        <div class="dd-panel">
+          <div class="sm">
+            <div class="sm-col">
+              <h3>By texture</h3>
+              <ul class="sm-tex" data-sm-tabs>
+              {% for t in nav_textures %}<li><a href="/collections/{{ t.slug }}-wigs/" data-sm="{{ loop.index0 }}"{% if loop.first %} class="on"{% endif %}>{{ t.name }}<small>{{ t.products|length }}</small></a></li>{% endfor %}
+              </ul>
+              <a class="sm-more" href="/collections/wigs/">Shop all wigs</a>
+            </div>
+            <div class="sm-col sm-panes">
+            {% for t in nav_textures %}
+              <div class="sm-pane{% if loop.first %} on{% endif %}" data-sm-pane="{{ loop.index0 }}">
+                <h3>{{ t.name }} wigs</h3>
+                <ul class="sm-list">
+                {% for p in t.products %}<li><a href="{{ p.url }}"><i style="--sw:{{ p.color.hex }}"></i>{{ p.color.key }}</a></li>{% endfor %}
+                </ul>
+              </div>
+            {% endfor %}
+            </div>
+            <div class="sm-col">
+              <h3>By color</h3>
+              <ul class="sm-list">
+              {% for cc in color_collections %}<li><a href="/collections/{{ cc.slug }}-wigs/"><span class="dots">{% for k in cc.colors %}<i style="--sw:{{ colmap[k].hex }}"></i>{% endfor %}</span>{{ cc.name }}</a></li>{% endfor %}
+              </ul>
+            </div>
+            <div class="sm-col">
+              <h3>Guides</h3>
+              <ul class="sm-list">
+                <li><a href="/pages/wig-length-guide/">Length Guide</a></li>
+                <li><a href="/pages/wig-color-guide/">Color Guide</a></li>
+              </ul>
+            </div>
+          </div>
+          <a class="dd-all" href="/pages/sitemap/">See all {{ page_count }} pages</a>
+        </div>
+      </div>
+      <div class="dd dd-sm">
+        <a href="/pages/wig-length-guide/" class="dd-top">Guides</a>
+        <div class="dd-panel">
+          <ul class="sm-list">
+            <li><a href="/pages/wig-length-guide/">Length Guide</a></li>
+            <li><a href="/pages/wig-color-guide/">Color Guide</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="dd dd-sm">
+        <a href="/pages/faq/" class="dd-top">Help</a>
+        <div class="dd-panel">
+          <ul class="sm-list">
+            <li><a href="/pages/faq/">FAQ</a></li>
+            <li><a href="/pages/shipping/">Shipping</a></li>
+            <li><a href="/pages/returns/">Returns</a></li>
+            <li><a href="/pages/contact/">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <a href="/pages/about/">About</a>
+    </nav>
+    <div class="tools">
+      <button class="ib" type="button" aria-label="Search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg></button>
+      <a class="ib hide-sm" href="#" aria-label="Account"><svg viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20c1.3-3.6 4.2-5.3 7.5-5.3s6.2 1.7 7.5 5.3"/></svg></a>
+      <button class="ib" type="button" aria-label="Bag" id="bagBtn" aria-controls="cart"><svg viewBox="0 0 24 24"><path d="M5.5 8h13l-1 12h-11z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg><span class="count" id="count" hidden>0</span></button>
+    </div>
+  </div>
+</header>
+<div class="drawer" id="drawer" hidden>
+  <div class="drawer-scrim" data-close></div>
+  <nav class="drawer-panel" aria-label="Mobile" data-lenis-prevent>
+    <button class="ib drawer-x" type="button" aria-label="Close menu" data-close><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    <a class="dw-top" href="/collections/wigs/">Shop all wigs</a>
+    <details class="dw" open>
+      <summary>Shop by texture</summary>
+      <ul>
+      {% for t in nav_textures %}
+        <li><details class="dw-sub">
+          <summary>{{ t.name }}<small>{{ t.products|length }}</small></summary>
+          <ul class="sm-list">
+            <li><a href="/collections/{{ t.slug }}-wigs/">All {{ t.name }} wigs</a></li>
+            {% for p in t.products %}<li><a href="{{ p.url }}"><i style="--sw:{{ p.color.hex }}"></i>{{ p.color.key }}</a></li>{% endfor %}
+          </ul>
+        </details></li>
+      {% endfor %}
+      </ul>
+    </details>
+    <details class="dw">
+      <summary>Shop by color</summary>
+      <ul class="sm-list">
+      {% for cc in color_collections %}<li><a href="/collections/{{ cc.slug }}-wigs/"><span class="dots">{% for k in cc.colors %}<i style="--sw:{{ colmap[k].hex }}"></i>{% endfor %}</span>{{ cc.name }}</a></li>{% endfor %}
+      </ul>
+    </details>
+    <details class="dw">
+      <summary>Guides</summary>
+      <ul class="sm-list">
+        <li><a href="/pages/wig-length-guide/">Length Guide</a></li>
+        <li><a href="/pages/wig-color-guide/">Color Guide</a></li>
+      </ul>
+    </details>
+    <details class="dw">
+      <summary>Help</summary>
+      <ul class="sm-list">
+        <li><a href="/pages/faq/">FAQ</a></li>
+        <li><a href="/pages/shipping/">Shipping</a></li>
+        <li><a href="/pages/returns/">Returns</a></li>
+        <li><a href="/pages/contact/">Contact</a></li>
+      </ul>
+    </details>
+    <a class="dw-top" href="/pages/about/">About</a>
+    <a class="dw-top dw-all" href="/pages/sitemap/">All {{ page_count }} pages</a>
+  </nav>
+</div>

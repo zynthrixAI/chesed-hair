@@ -62,6 +62,12 @@ function strandChart(svg,onPick){ if(!svg) return null; const gs=[...svg.querySe
   return { set(i,curly){ svg.classList.toggle('curly',!!curly); gs.forEach((g,k)=>{ g.classList.toggle('sel',k===i); if(g.dataset.i!=null) g.setAttribute('aria-pressed',k===i?'true':'false'); });
     const k=curly?i-1:i; gds.forEach((g,j)=>g.classList.toggle('on',j===k)); } }; }
 
+/* simple menu: hovering or focusing a texture shows its wigs */
+$$('[data-sm-tabs] a').forEach(a=>{ const show=()=>{ const panel=a.closest('.dd-panel');
+  panel.querySelectorAll('[data-sm-tabs] a').forEach(x=>x.classList.toggle('on',x===a));
+  panel.querySelectorAll('[data-sm-pane]').forEach(p=>p.classList.toggle('on',p.dataset.smPane===a.dataset.sm)); };
+  a.addEventListener('mouseenter',show); a.addEventListener('focus',show); });
+
 /* overlays: mobile menu + cart */
 function openLayer(el,btn){ el.hidden=false; document.body.style.overflow='hidden'; lenis&&lenis.stop(); if(btn) btn.setAttribute('aria-expanded','true');
   const f=el.querySelector('button,a'); f&&f.focus(); }
