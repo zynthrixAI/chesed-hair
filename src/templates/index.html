@@ -23,9 +23,6 @@
 
 {# 2. MARQUEE #}
 <div class="marquee" aria-hidden="true">
-  <div class="mq-row"><div class="mq-track" data-mq="-1">
-    {% for i in range(2) %}{% for t in textures %}<span class="mq-item{% if loop.index is even %} mq-out{% endif %}"><i class="mq-thumb">{{ macros.picture(t.tile.file, "", "64px") }}</i>{{ t.name }}</span>{% endfor %}{% endfor %}
-  </div></div>
   <div class="mq-row mq-small"><div class="mq-track" data-mq="1">
     {% for i in range(3) %}{% for w in ["100% virgin Remy human hair", "Lace front", "Ten shades", "10 to 32 inches", "Free US shipping over $" ~ free_ship|int, "30-day returns", "Pay in 4"] %}<span>{{ w }}</span><b>✦</b>{% endfor %}{% endfor %}
   </div></div>
@@ -40,12 +37,17 @@
   <div class="grid">{% for p in best %}{{ macros.product_card(p) }}{% endfor %}</div>
 </section>
 
-<section class="statement wrap" aria-label="The Chesed promise">
-  <p class="statement-copy" data-split>One model. Every texture, every shade, every length. <em>Just the wig you'll actually receive.</em></p>
-  <ul class="statement-strip" role="list" aria-label="The same model in six shades">
-    {% for im in statement_imgs %}<li style="--i:{{ loop.index0 }}" data-reveal>{{ macros.picture(im.file, im.alt, "(max-width:720px) 30vw, 9vw") }}</li>{% endfor %}
+<section class="shades-x" aria-labelledby="sxH">
+  <div class="sx-head wrap">
+    <div><p class="eyebrow">One model, every shade</p><h2 id="sxH" class="display-sm" data-split>The wig you'll actually receive.</h2></div>
+    <p>Same model, same light, no retouched color. Pick a shade to see it up close.</p>
+  </div>
+  <ul class="sx-row wrap" role="list" data-sx>
+    {% for t in theater %}<li class="sx{% if loop.first %} on{% endif %}" style="--sw:{{ t.color.hex }}">
+      <a href="{{ t.product.url }}" data-cursor="Shop">{{ macros.picture(t.img.file, t.img.alt, "(max-width:900px) 70vw, 40vw") }}
+        <span class="sx-v" aria-hidden="true">{{ t.color.key }}</span>
+        <span class="sx-info"><i></i><b>{{ t.color.key }}</b><small>{{ t.family_name }} · Shop this shade →</small></span></a></li>{% endfor %}
   </ul>
-  <p class="statement-note">No retouched color. Same model, same light, every shade.</p>
 </section>
 
 {# 4. SHADE THEATER #}
@@ -73,20 +75,29 @@
 </section>
 
 {# 5. TEXTURES #}
-<section class="textures" aria-labelledby="texH">
-  <div class="sec-head wrap">
-    <div><p class="eyebrow">The collection</p><h2 id="texH" class="display-sm" data-split>Seven textures.<br>One standard.</h2></div>
-    <div class="rail-tools"><a class="link" href="/collections/wigs/">Shop all wigs</a><div class="rv-nav"><button type="button" class="rv-btn" data-rv="-1" aria-label="Previous textures">←</button><button type="button" class="rv-btn" data-rv="1" aria-label="More textures">→</button></div></div>
+<section class="texh" aria-labelledby="texH" data-hscroll>
+  <div class="texh-pin">
+    <div class="texh-copy">
+      <p class="eyebrow">The collection</p>
+      <h2 id="texH" class="display-sm" data-split>Seven textures. One standard.</h2>
+      <p class="texh-sub">Every texture on the same model, in Natural Black 1B, so you can compare them fairly.</p>
+      <p class="texh-count" aria-hidden="true"><b data-hnow>01</b> / {{ "%02d"|format(textures|length + 1) }}</p>
+      <span class="texh-bar" aria-hidden="true"><i data-hbar></i></span>
+      <a class="link" href="/collections/wigs/">Shop all wigs</a>
+    </div>
+    <div class="texh-view">
+      <ol class="texh-track" data-htrack data-drag>
+        {% for t in textures %}<li><a class="tcard" href="/collections/{{ t.slug }}-wigs/" data-cursor="Explore">
+          {{ macros.picture(t.tile.file, t.name ~ " lace front wig", "(max-width:900px) 72vw, 26vw") }}
+          <span class="tcard-no">{{ "%02d"|format(loop.index) }}</span>
+          <span class="tcard-txt"><b>{{ t.name }}</b><small>{{ t.short }}</small><em>Explore {{ t.name|lower }} →</em></span></a></li>{% endfor %}
+        <li><a class="tcard tcard-all" href="/collections/wigs/" data-cursor="Shop">
+          <span class="tcard-collage">{% for im in all_tile %}{{ macros.picture(im.file, "", "(max-width:900px) 36vw, 13vw") }}{% endfor %}</span>
+          <span class="tcard-no">08</span>
+          <span class="tcard-txt"><b>All 50 wigs</b><small>Every texture and shade, side by side.</small><em>Shop the collection →</em></span></a></li>
+      </ol>
+    </div>
   </div>
-  <ol class="tex-rail" data-rv-track data-drag>
-    {% for t in textures %}<li><a class="tex" data-cursor="Explore" href="/collections/{{ t.slug }}-wigs/">
-      <span class="tex-img">{{ macros.picture(t.tile.file, t.name ~ " lace front wig", "(max-width:720px) 72vw, 24vw") }}</span>
-      <span class="tex-no">{{ "%02d"|format(loop.index) }}</span><b>{{ t.name }}</b><span class="tex-sub">{{ t.short }}</span></a></li>{% endfor %}
-    <li><a class="tex tex-all" data-cursor="Shop" href="/collections/wigs/">
-      <span class="tex-img tex-collage">{% for im in all_tile %}{{ macros.picture(im.file, "", "(max-width:720px) 36vw, 12vw") }}{% endfor %}<span class="tex-all-label"><b>All 50 wigs</b><i aria-hidden="true">→</i></span></span>
-      <span class="tex-no">08</span><b>The full collection</b><span class="tex-sub">Every texture and shade, side by side.</span></a></li>
-  </ol>
-  <div class="rail-progress wrap" aria-hidden="true"><span data-rail-bar></span></div>
 </section>
 
 {# 6. EDITORIAL SPREAD #}
@@ -141,7 +152,7 @@
       <div><p class="eyebrow light">Lookbook</p><h2 id="lookH" class="display-sm" data-split>Worn in real rooms</h2></div>
       <p>Sunday light, plants, bathroom mirrors. Every wig, lived in the way you'll actually wear it.</p>
     </div>
-    <ul class="look-track" role="list" id="lookTrack">
+    <ul class="look-track" role="list" id="lookTrack" data-htrack>
       {% for l in lookbook %}<li><a href="{{ l.product.url }}" data-cursor="View">{{ macros.picture(l.img.file, l.img.alt, "(max-width:720px) 78vw, 30vw") }}<span><b>{{ l.product.color.key }}</b>{{ l.product.texture.name }}</span></a></li>{% endfor %}
     </ul>
   </div>

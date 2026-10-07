@@ -80,8 +80,6 @@ all_tile = [find("Straight", "Red")["images"][0], find("Body Wave", "Honey Blond
 # home: texture spotlight with a shade switcher (every shade of the banner texture)
 spotlight = [dict(color=p["color"], img=p["images"][0], url=p["url"], price=p["price"]) for p in products if p["texture"]["key"] == banner_texture["key"]]
 spot_start = next(i for i, x in enumerate(spotlight) if x["color"]["key"] == "Natural Black 1B")
-# home: statement strip, the same model in six shades
-statement_imgs = [theater[i]["img"] for i in (0, 3, 5, 6, 8, 9)]
 story_p = find("Curly", "Natural Black 1B")
 story = story_p["images"][0]
 
@@ -182,7 +180,7 @@ def org_ld():
 render("index.html", "/", seo_title="Chesed Hair | Human Hair Lace Front Wigs",
        seo_description="Lace front wigs in 100% unprocessed virgin Remy human hair. 7 textures, 10 shades, 10 to 32 inches, all shown on the same model.",
        canonical="/", body_class="home overlay", page_id="home", hero=hero, hero_product=hero_product, hero_imgs=hero_imgs, banner_imgs=banner_imgs, banner_texture=banner_texture, all_tile=all_tile, theater=theater,
-       best=best, lookbook=lookbook, story=story, spotlight=spotlight, spot_start=spot_start, statement_imgs=statement_imgs, home_faq=home_faq, jsonld=json.dumps(org_ld()),
+       best=best, lookbook=lookbook, story=story, spotlight=spotlight, spot_start=spot_start, home_faq=home_faq, jsonld=json.dumps(org_ld()),
        og_image=f"/assets/p/{hero['file']}-1024.webp")
 
 # COLLECTIONS
