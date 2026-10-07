@@ -16,7 +16,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="/assets/fonts/marcellus-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/hanken-grotesk-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/css/style.css?v=1791389048">
+<link rel="stylesheet" href="/assets/css/style.css?v=1791389594">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://chesedhair.com/"}, {"@type": "ListItem", "position": 2, "name": "Wigs", "item": "https://chesedhair.com/collections/wigs/"}, {"@type": "ListItem", "position": 3, "name": "Ginger Wigs", "item": "https://chesedhair.com/collections/ginger-wigs/"}]}</script></head>
 <body class="shop overlay">
 <a class="skip-link" href="#main">Skip to content</a>
@@ -206,16 +206,32 @@
 </section>
 <section class="col-intro wrap split" aria-label="About this collection"><div class="split-head"><p class="eyebrow">About ginger wigs</p></div><p data-reveal>Ginger 350 is our boldest warm shade: bright copper orange with lighter tones where the light catches it. It turns heads in daylight and glows under warm lamps. Shop ginger lace front wigs in body wave, curly, kinky straight, loose deep wave and straight, made from 100% unprocessed virgin Remy human hair, from 10 to 32 inches.</p></section>
 
-<div class="col-bar wrap">
-  <div class="filters" role="group" aria-label="Filter by texture">
-    <button type="button" class="fchip" aria-pressed="true" data-filter="all">All <span>5</span></button>
-<button type="button" class="fchip" aria-pressed="false" data-filter="body-wave">Body Wave</button><button type="button" class="fchip" aria-pressed="false" data-filter="curly">Curly</button><button type="button" class="fchip" aria-pressed="false" data-filter="kinky-straight">Kinky Straight</button><button type="button" class="fchip" aria-pressed="false" data-filter="loose-deep-wave">Loose Deep Wave</button><button type="button" class="fchip" aria-pressed="false" data-filter="straight">Straight</button>  </div>
-  <label class="sort"><span class="sr-only">Sort</span>
-    <select id="sort"><option value="featured">Featured</option><option value="az">Name A–Z</option><option value="price">Price</option></select>
-  </label>
+<div class="fbar-wrap" data-fbar>
+  <div class="fbar wrap">
+    <div class="fbar-groups">
+      <div class="fgroup" data-fgroup="texture">
+        <button type="button" class="fbtn" aria-expanded="false" aria-controls="fpop-texture"><span data-flabel>Texture</span><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button>
+        <div class="fpop" id="fpop-texture" role="group" aria-label="Texture">
+          <p class="fpop-h">Texture</p>
+          <ul role="list">
+<li><label class="fopt"><input type="checkbox" value="body-wave" data-fname="Body Wave"><b class="fbox" aria-hidden="true"></b><span>Body Wave</span><small>1</small></label></li><li><label class="fopt"><input type="checkbox" value="curly" data-fname="Curly"><b class="fbox" aria-hidden="true"></b><span>Curly</span><small>1</small></label></li><li><label class="fopt"><input type="checkbox" value="kinky-straight" data-fname="Kinky Straight"><b class="fbox" aria-hidden="true"></b><span>Kinky Straight</span><small>1</small></label></li><li><label class="fopt"><input type="checkbox" value="loose-deep-wave" data-fname="Loose Deep Wave"><b class="fbox" aria-hidden="true"></b><span>Loose Deep Wave</span><small>1</small></label></li><li><label class="fopt"><input type="checkbox" value="straight" data-fname="Straight"><b class="fbox" aria-hidden="true"></b><span>Straight</span><small>1</small></label></li>          </ul>
+          <div class="fpop-foot"><button type="button" class="link sm" data-fclear-group>Clear</button><button type="button" class="btn rose" data-fdone>Show <span data-fcount>5</span> wigs</button></div>
+        </div>
+      </div>
+      <ul class="fpills" role="list" data-fpills></ul>
+      <button type="button" class="fclear link sm" data-fclear hidden>Clear all</button>
+    </div>
+    <div class="fbar-r">
+      <p class="fcount" aria-live="polite"><b data-fcount>5</b> wigs</p>
+      <label class="sort"><span>Sort</span>
+        <select id="sort"><option value="featured">Featured</option><option value="az">Name A–Z</option><option value="price">Price</option></select>
+      </label>
+    </div>
+  </div>
+  <div class="fscrim" data-fscrim></div>
 </div>
 
-<div class="grid wrap col-grid" id="colGrid" data-key="texture">
+<div class="grid wrap col-grid" id="colGrid">
 <article class="card" data-color="ginger-350" data-texture="body-wave" data-name="Ginger 350 Body Wave Lace Front Wig" data-price="289.0" data-reveal>
   <a class="card-link" href="/products/ginger-350-body-wave-lace-front-wig/" data-cursor="View">
     <div class="card-img">
@@ -287,7 +303,7 @@
   <div class="card-lens" role="group" aria-label="Choose a length to add Ginger 350 Straight Lace Front Wig" hidden data-quick-lens data-title="Ginger 350 Straight Lace Front Wig" data-price="289.0" data-img="/assets/p/ginger-350-straight-lace-front-wig-head-tilt-fingers-through-roots-green-wall-560.webp">
 <button type="button" data-len="10">10"</button><button type="button" data-len="12">12"</button><button type="button" data-len="14">14"</button><button type="button" data-len="16">16"</button><button type="button" data-len="18">18"</button><button type="button" data-len="20">20"</button><button type="button" data-len="22">22"</button><button type="button" data-len="24">24"</button><button type="button" data-len="26">26"</button><button type="button" data-len="28">28"</button><button type="button" data-len="30">30"</button><button type="button" data-len="32">32"</button>  </div>
 </article></div>
-<p class="wrap no-match" id="noMatch" hidden>No wigs match that filter.</p>
+<p class="wrap no-match" id="noMatch" hidden>No wigs match these filters. <button type="button" class="link sm" data-fclear>Clear filters</button></p>
 
 <section class="faq wrap split" aria-labelledby="faqH">
   <div class="split-head">
@@ -329,7 +345,7 @@
       <li><a href="/pages/faq/">FAQ</a></li><li><a href="/pages/shipping/">Shipping</a></li><li><a href="/pages/returns/">Returns</a></li>
       <li><a href="/pages/contact/">Contact</a></li><li><a href="/pages/about/">About</a></li><li><a href="/pages/sitemap/">All pages</a></li></ul></nav>
   </div>
-  <div class="ftr-mark" aria-hidden="true"><span data-chars>CHESED</span></div>
+  <div class="ftr-sign" aria-hidden="true"><p class="ftr-tag">Effortless beauty, rooted in love</p><span class="ftr-word" data-reveal>CHESED</span></div>
   <div class="ftr-legal wrap">
     <span>© 2026 Chesed Hair Collection</span>
     <span class="pay" aria-label="Payment methods">Visa · Mastercard · Amex · Shop Pay · Apple Pay</span>
@@ -414,6 +430,6 @@
 <button class="spin-tab" id="spinTab" type="button" hidden>Spin to win</button><a class="wa" href="https://wa.me/10000000000?text=Hi%20Chesed%2C%20I%20have%20a%20question%20about%20your%20wigs" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp" data-ph-wa><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg><span class="wa-tip">Questions? Chat on WhatsApp</span></a>
 <script>window.CHESED={freeShip:200.0};</script>
 <script src="/assets/js/vendor/lenis.min.js" defer></script>
-<script src="/assets/js/main.js?v=1791389048" defer></script>
+<script src="/assets/js/main.js?v=1791389594" defer></script>
 </body>
 </html>
