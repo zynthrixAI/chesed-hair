@@ -201,11 +201,19 @@ if(theater&&stage){ const imgs=[...stage.querySelectorAll('img')], btns=$$('.th-
   scrollers.push(()=>{ if(!desktop()) return; const p=progress(theater); $('#thBar').style.width=(p*100)+'%'; setShade(Math.min(n-1,Math.floor(p*n))); });
   imgs.slice(1,3).forEach(im=>im.loading='eager'); }
 
-/* home: lookbook moves sideways while you scroll down (desktop) */
-const hs=$('[data-hscroll]'), track=$('#lookTrack');
-if(hs&&track){ const size=()=>{ if(desktop()){ hs.style.height=(track.scrollWidth-innerWidth+innerHeight-hdrH())+'px'; } else { hs.style.height=''; track.style.transform=''; } };
+/* home: pinned sections whose track moves sideways while you scroll down (desktop): textures + lookbook */
+$$('[data-hscroll]').forEach(hs=>{ const track=hs.querySelector('[data-htrack]'); if(!track) return;
+  const now=hs.querySelector('[data-hnow]'), bar=hs.querySelector('[data-hbar]'), n=track.children.length;
+  const dist=()=>Math.max(0,track.scrollWidth-track.parentElement.clientWidth);
+  const size=()=>{ if(desktop()){ hs.style.height=(dist()+innerHeight-hdrH())+'px'; } else { hs.style.height=''; track.style.transform=''; } };
   size(); addEventListener('load',size); addEventListener('resize',size);
-  scrollers.push(()=>{ if(!desktop()) return; track.style.transform='translate3d('+(-progress(hs)*(track.scrollWidth-innerWidth))+'px,0,0)'; }); }
+  scrollers.push(()=>{ if(!desktop()) return; const p=progress(hs); track.style.transform='translate3d('+(-p*dist())+'px,0,0)';
+    if(now) now.textContent=String(Math.min(n,1+Math.round(p*(n-1)))).padStart(2,'0');
+    if(bar) bar.style.transform='scaleX('+Math.max(1/n,p)+')'; }); });
+
+/* home: shade panels open on hover or focus (tap scrolls on phones) */
+$$('[data-sx]').forEach(row=>{ const items=[...row.children];
+  items.forEach(li=>{ const open=()=>items.forEach(x=>x.classList.toggle('on',x===li)); li.addEventListener('mouseenter',open); li.querySelector('a').addEventListener('focus',open); }); });
 
 /* home: layered hero parallax */
 const hero=$('.hero');
