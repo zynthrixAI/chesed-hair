@@ -37,18 +37,18 @@ def img_like(p, *words):
             return im
     return p["images"][0]
 
-# texture tiles (menu + homepage): Natural Black 1B where it exists
+# texture tiles (menu + homepage): 1B where it exists
 for t in D.TEXTURES:
     pool = [p for p in products if p["texture"]["key"] == t["key"]]
-    tp = next((p for p in pool if p["color"]["key"] == "Natural Black 1B"), pool[0])
+    tp = next((p for p in pool if p["color"]["key"] == "1B"), pool[0])
     t["tile"] = tp["images"][0]
     t["product"] = tp
 
-hero_product = find("Body Wave", "Natural Black 1B")
+hero_product = find("Body Wave", "1B")
 hero = img_like(hero_product, "grey-wall-lamp")
-hero_imgs = [find("Body Wave", "Burgundy 530")["images"][0], hero, find("Curly", "Honey Blonde")["images"][0]]
+hero_imgs = [find("Body Wave", "530")["images"][0], hero, find("Curly", "Honey Blonde")["images"][0]]
 banner_texture = D.TEX["Kinky Straight"]
-banner_imgs = [find("Kinky Straight", "Natural Black 1B")["images"][0], find("Kinky Straight", "Ginger 350")["images"][0]]
+banner_imgs = [find("Kinky Straight", "1B")["images"][0], find("Kinky Straight", "350")["images"][0]]
 
 def banner_for(pool):
     """Three images for a collection banner: different products, first image each."""
@@ -67,26 +67,26 @@ for c in D.COLORS:
     cc = color_to_cc[c["key"]]
     theater.append(dict(color=c, product=p, img=p["images"][0], family_slug=cc["slug"], family_name=cc["name"]))
 
-best = [find(*k) for k in [("Body Wave", "Natural Black 1B"), ("Body Wave", "Burgundy 530"), ("Straight", "Natural Black 1B"),
-                           ("Kinky Straight", "Natural Black 1B"), ("Loose Deep", "Ginger 350"), ("Curly", "Honey Blonde"),
-                           ("Body Wave", "Honey Auburn"), ("Virgin Curl", "Virgin Natural")]]
-look_keys = [("Straight", "Red"), ("Loose Deep", "Honey Auburn"), ("Kinky Straight", "Ginger 350"), ("Curly", "Burgundy 530"),
-             ("Body Wave", "Honey Blonde"), ("Kinky Curly", "Burgundy 530"), ("Straight", "Jet Black 1"), ("Loose Deep", "Natural Auburn")]
+best = [find(*k) for k in [("Body Wave", "1B"), ("Body Wave", "530"), ("Straight", "1B"),
+                           ("Kinky Straight", "1B"), ("Loose Deep", "350"), ("Curly", "Honey Blonde"),
+                           ("Body Wave", "Honey Auburn"), ("Virgin Curl", "Virgin")]]
+look_keys = [("Straight", "Red"), ("Loose Deep", "Honey Auburn"), ("Kinky Straight", "350"), ("Curly", "530"),
+             ("Body Wave", "Honey Blonde"), ("Kinky Curly", "530"), ("Straight", "1"), ("Loose Deep", "Natural Auburn")]
 lookbook = []
 for k in look_keys:
     p = find(*k)
     lookbook.append(dict(product=p, img=p["images"][1] if len(p["images"]) > 1 else p["images"][0]))
-all_tile = [find("Straight", "Red")["images"][0], find("Body Wave", "Honey Blonde")["images"][0], find("Loose Deep", "Ginger 350")["images"][0], find("Kinky Straight", "Burgundy 530")["images"][0]]
+all_tile = [find("Straight", "Red")["images"][0], find("Body Wave", "Honey Blonde")["images"][0], find("Loose Deep", "350")["images"][0], find("Kinky Straight", "530")["images"][0]]
 # home: texture spotlight with a shade switcher (every shade of the banner texture)
 spotlight = [dict(color=p["color"], img=p["images"][0], url=p["url"], price=p["price"]) for p in products if p["texture"]["key"] == banner_texture["key"]]
-spot_start = next(i for i, x in enumerate(spotlight) if x["color"]["key"] == "Natural Black 1B")
-story_p = find("Curly", "Natural Black 1B")
+spot_start = next(i for i, x in enumerate(spotlight) if x["color"]["key"] == "1B")
+story_p = find("Curly", "1B")
 story = story_p["images"][0]
 
 home_faq = [
     ("What are Chesed wigs made of?", "Every Chesed wig is 100% unprocessed virgin Remy human hair on a lace front, so you can color, heat-style and wash it like your own hair."),
     ("How do I choose my length?", "Use the length guide: it shows where each length from 10 to 32 inches ends on the body. Waves and curls sit about 2 inches higher than straight hair."),
-    ("How do I choose my shade?", "Every shade is shown on the same model in real rooms. The color guide puts all ten side by side, including the ones people mix up, like 1B vs Jet Black."),
+    ("How do I choose my shade?", "Every shade is shown on the same model in real rooms. The color guide puts all ten side by side, including the ones people mix up, like 1B vs 1."),
     ("What if the wig isn't right?", "Return unworn wigs within 30 days with the lace uncut."),
 ]
 
@@ -222,7 +222,7 @@ col_related = [dict(label=cc["name"], url=f"/collections/{cc['slug']}-wigs/", he
 hub = dict(h1="Lace Front Wigs", intro="Every Chesed wig in one place: 7 textures and 10 shades of lace front wigs in 100% unprocessed virgin Remy human hair, each available from 10 to 32 inches. All of them are shown on the same model, so you can compare textures and shades fairly. Filter by texture and shade below to narrow it down.",
            products=products, filters=texture_filters(products), filter_key="texture", filter_label="Texture", image=None,
            faq=home_faq, related_heading="Shop by color", related=col_related,
-           banner=[find("Straight", "Red")["images"][0], find("Body Wave", "Natural Black 1B")["images"][0], find("Loose Deep", "Honey Auburn")["images"][0]])
+           banner=[find("Straight", "Red")["images"][0], find("Body Wave", "1B")["images"][0], find("Loose Deep", "Honey Auburn")["images"][0]])
 render("collection.html", "/collections/wigs/", seo_title="Lace Front Wigs in 7 Textures & 10 Colors | Chesed",
        seo_description="Shop all Chesed lace front wigs: body wave, curly, kinky curly, kinky straight, loose deep wave, straight and virgin curl, in 10 shades, 10 to 32 inches.",
        canonical="/collections/wigs/", body_class="shop overlay", page_id="hub", c=hub, is_hub=True,
@@ -272,7 +272,7 @@ render("length_guide.html", "/pages/wig-length-guide/", seo_title="Wig Length Ch
        canonical="/pages/wig-length-guide/", body_class="shop", page_id="lg", lengths=D.LENGTHS, landmarks=D.LANDMARKS, curly_landmarks=D.CURLY_LANDMARKS,
        page=dict(h1="Wig Length Chart: 10 to 32 Inches", lede="Where each length ends on the body, for straight and for curly textures."))
 render("color_guide.html", "/pages/wig-color-guide/", seo_title="Wig Color Chart: 10 Shades on Deep Skin | Chesed",
-       seo_description="All 10 Chesed wig colors on the same model: 1B, Jet Black, Virgin Natural, Burgundy 530, 99J, Ginger 350, Honey Auburn, Natural Auburn, Honey Blonde and Red.",
+       seo_description="All 10 Chesed wig colors on the same model: 1, 1B, Virgin, 530, 99J, 350, Honey Auburn, Natural Auburn, Honey Blonde and Red.",
        canonical="/pages/wig-color-guide/", body_class="shop", page_id="cg", theater=theater,
        page=dict(h1="Wig Colors on Deep Skin", lede="All ten shades on the same model, so you can compare them fairly."))
 

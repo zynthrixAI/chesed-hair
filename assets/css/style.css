@@ -223,7 +223,7 @@ ul,ol{margin:0;padding:0;list-style:none}
 
 
 /* best sellers + cards */
-.best{padding-top:var(--sec);padding-bottom:var(--sec)}
+.best{padding-top:var(--sec);padding-bottom:clamp(56px,7vw,110px)}
 .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(36px,4vw,60px) clamp(14px,1.8vw,26px)}
 .card-link{text-decoration:none;display:block}
 .card-img{position:relative;overflow:hidden;background:var(--pearl);aspect-ratio:4/5}
@@ -970,6 +970,7 @@ button.link{border:0;background-color:transparent;cursor:pointer;padding:0 0 4px
 
 /* home: expanding shade panels */
 .shades-x{padding:clamp(64px,8vw,120px) 0}
+.best + .shades-x{padding-top:0}
 .sx-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px 60px;flex-wrap:wrap;margin-bottom:clamp(26px,3vw,40px)}
 .sx-head h2{max-width:16ch}
 .sx-head>p{color:var(--slate);max-width:34ch;font-size:15px}

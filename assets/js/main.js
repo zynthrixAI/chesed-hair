@@ -265,7 +265,7 @@ if(grid&&fb){ const cards=[...grid.querySelectorAll('.card')], groups=[...fb.que
   fb.querySelector('[data-fscrim]').addEventListener('click',()=>setOpen(null,false));
   document.addEventListener('click',e=>{ if(!e.target.closest('.fgroup')) setOpen(null,false); });
   addEventListener('keydown',e=>{ if(e.key==='Escape') setOpen(null,false); });
-  /* restore filters from the URL, e.g. ?color=red,ginger-350 */
+  /* restore filters from the URL, e.g. ?color=red,350 */
   const u=new URL(location); groups.forEach(g=>{ const v=(u.searchParams.get(g.dataset.fgroup)||'').split(','); g.querySelectorAll('input').forEach(i=>i.checked=v.includes(i.value)); });
   apply();
   const sorter=$('#sort'); sorter&&sorter.addEventListener('change',e=>{ const v=e.target.value; const s=[...cards];
