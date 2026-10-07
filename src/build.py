@@ -250,7 +250,7 @@ for cc in D.COLOR_COLLECTIONS:
              related=[r for r in col_related if r["label"] != cc["name"]] + tex_related)
     url = f"/collections/{cc['slug']}-wigs/"
     render("collection.html", url, seo_title=cc["title"], seo_description=cc["intro"][:155].rsplit(" ", 1)[0] + "…",
-           canonical=url, body_class="shop overlay", page_id=cc["slug"], c=c, is_hub=False,
+           canonical=url, body_class="shop overlay", page_id=cc["slug"], c=c, is_hub=False, card_lead="texture",
            jsonld=json.dumps(breadcrumb_ld([("Home", "/"), ("Wigs", "/collections/wigs/"), (c["h1"], url)])))
 
 # PRODUCTS
