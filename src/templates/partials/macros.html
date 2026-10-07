@@ -2,7 +2,7 @@
 <img class="{{ cls }}" src="/assets/p/{{ file }}-1024.webp" srcset="/assets/p/{{ file }}-560.webp 560w, /assets/p/{{ file }}-1024.webp 1024w" sizes="{{ sizes }}" width="1024" height="1024" alt="{{ alt }}"{% if lazy %} loading="lazy" decoding="async"{% endif %}{% if priority %} fetchpriority="high"{% endif %}>
 {%- endmacro %}
 {% macro money(v) -%}${{ "%.2f"|format(v) }}{%- endmacro %}
-{% macro product_card(p, sizes="(max-width:720px) 50vw, 25vw") -%}
+{% macro product_card(p, sizes="(max-width:720px) 50vw, 25vw", lead="color") -%}
 <article class="card" data-color="{{ p.color.slug }}" data-texture="{{ p.texture.slug }}" data-name="{{ p.title }}" data-price="{{ p.price }}" data-reveal>
   <a class="card-link" href="{{ p.url }}" data-cursor="View">
     <div class="card-img">
@@ -10,7 +10,8 @@
       {% if p.images|length > 1 %}{{ picture(p.images[1].file, "", sizes, cls="alt") }}{% endif %}
       <span class="card-quick">View wig</span>
     </div>
-    <h3 class="card-title"><span>{{ p.color.key }}</span> {{ p.texture.name }} Lace Front Wig</h3>
+    {% if lead == "texture" %}<h3 class="card-title"><span>{{ p.texture.name }}</span> {{ p.color.key }} Lace Front Wig</h3>
+    {% else %}<h3 class="card-title"><span>{{ p.color.key }}</span> {{ p.texture.name }} Lace Front Wig</h3>{% endif %}
   </a>
   <div class="card-meta">
     <p class="card-price">{{ money(p.price) }}<small>or 4 × {{ money(p.price/4) }}</small></p>

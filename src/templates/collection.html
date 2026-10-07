@@ -54,7 +54,7 @@
 </div>
 
 <div class="grid wrap col-grid" id="colGrid">
-  {% for p in c.products %}{{ macros.product_card(p) }}{% endfor %}
+  {% for p in c.products %}{{ macros.product_card(p, lead=card_lead|default("color")) }}{% endfor %}
 </div>
 <p class="wrap no-match" id="noMatch" hidden>No wigs match these filters. <button type="button" class="link sm" data-fclear>Clear filters</button></p>
 

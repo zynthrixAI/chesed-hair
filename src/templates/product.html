@@ -108,7 +108,7 @@
 {% if p.same_color %}
 <section class="xsell wrap" aria-labelledby="xsH">
   <div class="sec-head"><h2 id="xsH">{{ p.color.key }} in other textures</h2><a class="link" href="/collections/{{ p.color_collection.slug }}-wigs/">All {{ p.color_collection.name|lower }}</a></div>
-  <div class="grid">{% for s in p.same_color[:4] %}{{ macros.product_card(s) }}{% endfor %}</div>
+  <div class="grid">{% for s in p.same_color[:4] %}{{ macros.product_card(s, lead="texture") }}{% endfor %}</div>
 </section>
 {% endif %}
 
