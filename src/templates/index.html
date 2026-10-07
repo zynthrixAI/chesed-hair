@@ -22,9 +22,14 @@
 </section>
 
 {# 2. MARQUEE #}
-<div class="marquee" aria-hidden="true"><div class="mq-track">
-  {% for i in range(2) %}<span>100% virgin Remy human hair</span><i>✦</i><span>Lace front</span><i>✦</i><span>Seven textures</span><i>✦</i><span>Ten shades</span><i>✦</i><span>10 to 32 inches</span><i>✦</i><span>30-day returns</span><i>✦</i>{% endfor %}
-</div></div>
+<div class="marquee" aria-hidden="true">
+  <div class="mq-row"><div class="mq-track" data-mq="-1">
+    {% for i in range(2) %}{% for t in textures %}<span class="mq-item{% if loop.index is even %} mq-out{% endif %}"><i class="mq-thumb">{{ macros.picture(t.tile.file, "", "64px") }}</i>{{ t.name }}</span>{% endfor %}{% endfor %}
+  </div></div>
+  <div class="mq-row mq-small"><div class="mq-track" data-mq="1">
+    {% for i in range(3) %}{% for w in ["100% virgin Remy human hair", "Lace front", "Ten shades", "10 to 32 inches", "Free US shipping over $" ~ free_ship|int, "30-day returns", "Pay in 4"] %}<span>{{ w }}</span><b>✦</b>{% endfor %}{% endfor %}
+  </div></div>
+</div>
 
 {# 3. STATEMENT #}
 <section class="best wrap" id="best" aria-labelledby="bestH">
@@ -36,7 +41,11 @@
 </section>
 
 <section class="statement wrap" aria-label="The Chesed promise">
-  <p data-split>One model. Every texture, every shade, every length. No retouched color, no guessing. <em>Just the wig you'll actually receive.</em></p>
+  <p class="statement-copy" data-split>One model. Every texture, every shade, every length. <em>Just the wig you'll actually receive.</em></p>
+  <ul class="statement-strip" role="list" aria-label="The same model in six shades">
+    {% for im in statement_imgs %}<li style="--i:{{ loop.index0 }}" data-reveal>{{ macros.picture(im.file, im.alt, "(max-width:720px) 30vw, 9vw") }}</li>{% endfor %}
+  </ul>
+  <p class="statement-note">No retouched color. Same model, same light, every shade.</p>
 </section>
 
 {# 4. SHADE THEATER #}
@@ -64,33 +73,42 @@
 </section>
 
 {# 5. TEXTURES #}
-<section class="textures wrap" aria-labelledby="texH">
-  <div class="sec-head">
+<section class="textures" aria-labelledby="texH">
+  <div class="sec-head wrap">
     <div><p class="eyebrow">The collection</p><h2 id="texH" class="display-sm" data-split>Seven textures.<br>One standard.</h2></div>
-    <a class="link" href="/collections/wigs/">Shop all wigs</a>
+    <div class="rail-tools"><a class="link" href="/collections/wigs/">Shop all wigs</a><div class="rv-nav"><button type="button" class="rv-btn" data-rv="-1" aria-label="Previous textures">←</button><button type="button" class="rv-btn" data-rv="1" aria-label="More textures">→</button></div></div>
   </div>
-  <ol class="tex-grid">
-    {% for t in textures %}<li data-reveal><a class="tex" data-cursor="Explore" href="/collections/{{ t.slug }}-wigs/">
-      <span class="tex-img" data-wipe>{{ macros.picture(t.tile.file, t.name ~ " lace front wig", "(max-width:720px) 50vw, 25vw") }}</span>
+  <ol class="tex-rail" data-rv-track data-drag>
+    {% for t in textures %}<li><a class="tex" data-cursor="Explore" href="/collections/{{ t.slug }}-wigs/">
+      <span class="tex-img">{{ macros.picture(t.tile.file, t.name ~ " lace front wig", "(max-width:720px) 72vw, 24vw") }}</span>
       <span class="tex-no">{{ "%02d"|format(loop.index) }}</span><b>{{ t.name }}</b><span class="tex-sub">{{ t.short }}</span></a></li>{% endfor %}
-    <li data-reveal><a class="tex tex-all" data-cursor="Shop" href="/collections/wigs/">
-      <span class="tex-img tex-collage" data-wipe>{% for im in all_tile %}{{ macros.picture(im.file, "", "(max-width:720px) 25vw, 12vw") }}{% endfor %}<span class="tex-all-label"><b>All 50 wigs</b><i aria-hidden="true">→</i></span></span>
+    <li><a class="tex tex-all" data-cursor="Shop" href="/collections/wigs/">
+      <span class="tex-img tex-collage">{% for im in all_tile %}{{ macros.picture(im.file, "", "(max-width:720px) 36vw, 12vw") }}{% endfor %}<span class="tex-all-label"><b>All 50 wigs</b><i aria-hidden="true">→</i></span></span>
       <span class="tex-no">08</span><b>The full collection</b><span class="tex-sub">Every texture and shade, side by side.</span></a></li>
   </ol>
+  <div class="rail-progress wrap" aria-hidden="true"><span data-rail-bar></span></div>
 </section>
 
 {# 6. EDITORIAL SPREAD #}
-<section class="spread" aria-labelledby="spH">
-  <div class="spread-type" aria-hidden="true" data-drift><span>{{ banner_texture.name }}</span><span>{{ banner_texture.name }}</span></div>
-  <div class="spread-grid wrap">
-    <figure class="sp-a" data-wipe>{{ macros.picture(banner_imgs[0].file, banner_texture.name ~ " lace front wig in Natural Black 1B", "(max-width:900px) 80vw, 44vw") }}</figure>
-    <figure class="sp-b" data-wipe data-speed="-0.08">{{ macros.picture(banner_imgs[1].file, banner_texture.name ~ " lace front wig in Ginger 350", "(max-width:900px) 50vw, 24vw") }}<figcaption>Ginger 350</figcaption></figure>
-    <div class="sp-copy">
-      <p class="eyebrow rose">The {{ banner_texture.name }} edit · 04</p>
-      <h2 id="spH" class="display-sm" data-split>Made to blend. Made to last.</h2>
-      <p>Straight, with the soft blown-out texture of natural hair. It's the closest match to relaxed and silk-pressed hair, so it looks real up close.</p>
-      <ul class="sp-facts" role="list"><li><b>Yaki texture</b><span>No glassy shine</span></li><li><b>9 shades</b><span>1B to Red</span></li><li><b>10–32"</b><span>Every length</span></li></ul>
-      <a class="btn" href="/collections/{{ banner_texture.slug }}-wigs/">Shop {{ banner_texture.name }}</a>
+<section class="spot" aria-labelledby="spH" data-spot>
+  <div class="spot-grid wrap">
+    <div class="spot-media">
+      {% for x in spotlight %}{{ macros.picture(x.img.file, x.img.alt, "(max-width:900px) 100vw, 50vw", cls="on" if loop.index0 == spot_start else "") }}{% endfor %}
+      <span class="spot-tag" id="spotTag">{{ spotlight[spot_start].color.key }}</span>
+    </div>
+    <div class="spot-copy">
+      <p class="eyebrow rose">Texture spotlight</p>
+      <h2 id="spH" class="display-sm" data-split>{{ banner_texture.name }}</h2>
+      <p class="spot-lede">Straight, with the soft blown-out texture of natural hair. The closest match to relaxed and silk-pressed hair, so it looks real up close.</p>
+      <p class="spot-label"><span>Shade</span><b id="spotName">{{ spotlight[spot_start].color.key }}</b><small>{{ spotlight|length }} shades</small></p>
+      <ul class="spot-sw" role="list" aria-label="Choose a shade">
+        {% for x in spotlight %}<li><button type="button" style="--sw:{{ x.color.hex }}" aria-label="{{ x.color.key }}" aria-pressed="{{ 'true' if loop.index0 == spot_start else 'false' }}" data-i="{{ loop.index0 }}" data-name="{{ x.color.key }}" data-url="{{ x.url }}"></button></li>{% endfor %}
+      </ul>
+      <ul class="spot-facts" role="list"><li><b>Yaki texture</b><span>No glassy shine</span></li><li><b>10–32"</b><span>Every length</span></li><li><b>{{ macros.money(spotlight[0].price) }}</b><span>or 4 × {{ macros.money(spotlight[0].price/4) }}</span></li></ul>
+      <div class="cta-row">
+        <a class="btn rose" id="spotBuy" href="{{ spotlight[spot_start].url }}">Shop this shade</a>
+        <a class="link" href="/collections/{{ banner_texture.slug }}-wigs/">All {{ banner_texture.name|lower }}</a>
+      </div>
     </div>
   </div>
 </section>
@@ -131,13 +149,21 @@
 
 {# 10. STORY #}
 <section class="story" aria-labelledby="storyH">
-  <figure class="story-img" data-wipe>{{ macros.picture(story.file, story.alt, "(max-width:900px) 100vw, 50vw") }}</figure>
-  <div class="story-copy">
-    <p class="eyebrow pink">Our name</p>
-    <h2 id="storyH" class="display-sm" data-split>Chesed means lovingkindness.</h2>
-    <p>It's the Hebrew word for a deep, unconditional love. We named the brand after it because that's how hair should be made: with care for the woman who wears it and the people who make it.</p>
-    <p>So every Chesed unit starts as 100% unprocessed virgin Remy human hair, sourced and made without exploited labor.</p>
-    <a class="link" href="/pages/about/">Our story</a>
+  <div class="story-grid wrap">
+    <figure class="story-img" data-wipe>{{ macros.picture(story.file, story.alt, "(max-width:900px) 80vw, 34vw") }}</figure>
+    <div class="story-copy">
+      <p class="eyebrow rose">Our name</p>
+      <p class="story-word" lang="he">חֶסֶד</p>
+      <h2 id="storyH" class="display-sm" data-split>Chesed means lovingkindness.</h2>
+      <p class="story-def"><i>noun, Hebrew</i> · a deep, unconditional love, shown through care.</p>
+      <p>We named the brand after it because that's how hair should be made: with care for the woman who wears it and the people who make it.</p>
+      <ul class="story-pillars" role="list">
+        <li><b>Unprocessed</b><span>100% virgin Remy human hair</span></li>
+        <li><b>Made fairly</b><span>Sourced without exploited labor</span></li>
+        <li><b>Shown honestly</b><span>One model, real light, no retouched color</span></li>
+      </ul>
+      <a class="link" href="/pages/about/">Our story</a>
+    </div>
   </div>
 </section>
 
