@@ -169,7 +169,7 @@ def render(template, path, **ctx):
     html = env.get_template(template).render(**ctx)
     out = os.path.join(ROOT, path.strip("/"), "index.html") if path != "/" else os.path.join(ROOT, "index.html")
     os.makedirs(os.path.dirname(out), exist_ok=True)
-    open(out, "w").write(html)
+    open(out, "w", encoding="utf-8", newline="\n").write(html)
     written.append(path)
 
 def org_ld():
@@ -314,7 +314,7 @@ idx += [dict(t="Length Guide", u="/pages/wig-length-guide/", k="Guide", s="inche
         dict(t="Color Guide", u="/pages/wig-color-guide/", k="Guide", s="shade colour chart compare")]
 idx += [dict(t=h1, u=f"/pages/{h}/", k="Help", s=lede or "") for h, _, h1, lede, _ in simple_pages]
 os.makedirs(os.path.join(ROOT, "assets"), exist_ok=True)
-json.dump(idx, open(os.path.join(ROOT, "assets", "search.json"), "w"), separators=(",", ":"))
+json.dump(idx, open(os.path.join(ROOT, "assets", "search.json"), "w", encoding="utf-8"), separators=(",", ":"))
 
 assert len(written) == env.globals["page_count"], (len(written), env.globals["page_count"])
 print(f"Wrote {len(written)} pages")
