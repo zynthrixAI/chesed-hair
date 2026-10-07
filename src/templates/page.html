@@ -2,5 +2,25 @@
 {% block main %}
 <nav class="crumbs wrap" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span aria-current="page">{{ page.h1 }}</span></nav>
 <header class="page-head wrap"><h1>{{ page.h1 }}</h1>{% if page.lede %}<p>{{ page.lede }}</p>{% endif %}</header>
-{% block content %}<div class="page-body wrap prose">{{ page.body|safe }}</div>{% endblock %}
+{% block content %}
+{% if page.steps %}
+<section class="steps wrap" aria-label="How it works">
+  <ol class="steps-row">
+    {% for icon, h, t in page.steps %}<li data-reveal style="--d:{{ loop.index0 * 90 }}ms">
+      <span class="step-ic" aria-hidden="true">{{ macros.icon(icon) }}<i>{{ loop.index }}</i></span>
+      <h2>{{ h }}</h2><p>{{ t|safe }}</p></li>{% endfor %}
+  </ol>
+</section>
+{% endif %}
+{% if page.toc %}
+<div class="toc-layout wrap">
+  <nav class="toc" aria-label="On this page"><p class="toc-h">On this page</p><ol>{% for id, label in page.toc %}<li><a href="#{{ id }}">{{ label }}</a></li>{% endfor %}</ol></nav>
+  <div class="toc-body">{{ page.body|safe }}</div>
+</div>
+{% elif page.steps %}
+<div class="page-body wrap">{{ page.body|safe }}</div>
+{% else %}
+<div class="page-body wrap prose">{{ page.body|safe }}</div>
+{% endif %}
+{% endblock %}
 {% endblock %}

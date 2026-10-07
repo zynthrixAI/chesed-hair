@@ -211,6 +211,13 @@ def facets(pool):
     return [f for f in out if len(f["options"]) > 1]
 env.globals["facets"] = facets
 
+def split_intro(text, n=2):
+    """First n sentences as the lead, the rest behind Read more."""
+    import re as _re
+    parts = _re.split(r"(?<=[.!?])\s+", text.strip())
+    return " ".join(parts[:n]), " ".join(parts[n:])
+env.globals["split_intro"] = split_intro
+
 tex_related = [dict(label=t["name"], url=f"/collections/{t['slug']}-wigs/") for t in D.TEXTURES]
 col_related = [dict(label=cc["name"], url=f"/collections/{cc['slug']}-wigs/", hex=D.COL[cc["colors"][0]]["hex"]) for cc in D.COLOR_COLLECTIONS]
 
@@ -275,14 +282,24 @@ simple_pages = [
     ("about", "About Chesed Hair", "About Chesed Hair", "Chesed means lovingkindness.",
      "<p>Chesed is the Hebrew word for a deep, unconditional love. We named the brand after it because that's how hair should be made: with care for the woman who wears it and the people who make it.</p><p>Every Chesed unit starts as 100% unprocessed virgin Remy human hair, sourced and made without exploited labor.</p><p class='ph-note'>Founder story and photos to come from Chesed.</p>"),
     ("faq", "Wig FAQ: Lace, Fit, Shipping | Chesed Hair", "Frequently Asked Questions", "Choosing, wearing and caring for your wig.",
-     "".join(f"<h2>{q}</h2><p>{a}</p>" for q, a in home_faq) + "<p class='ph-note'>Shipping, lace, density and cap-size answers will be added once Chesed confirms the details.</p>"),
-    ("shipping", "Shipping | Chesed Hair", "Shipping", None, f"<p>Free US shipping on orders over ${int(D.FREE_SHIP)}.</p><p class='ph-note'>Processing times, carriers and international rates to be confirmed by Chesed.</p>"),
-    ("returns", "Returns | Chesed Hair", "Returns", None, "<p>Return unworn wigs within 30 days with the lace uncut.</p><p class='ph-note'>Full return policy to be confirmed by Chesed.</p>"),
+     "".join(f"<h2 id='q{i + 1}'>{q}</h2><p>{a}</p>" for i, (q, a) in enumerate(home_faq)) + "<p class='ph-note'>Shipping, lace, density and cap-size answers will be added once Chesed confirms the details.</p>"),
+    ("shipping", "Shipping | Chesed Hair", "Shipping", None, "<p class='ph-note'>Processing times, carriers and international rates to be confirmed by Chesed.</p>"),
+    ("returns", "Returns | Chesed Hair", "Returns", None, "<p class='ph-note'>Full return policy to be confirmed by Chesed.</p>"),
     ("contact", "Contact | Chesed Hair", "Contact", None, "<p>Email <a href='mailto:info@chesedhair.com'>info@chesedhair.com</a>. We reply within <span class='ph'>X</span> business days.</p>"),
 ]
+PAGE_STEPS = {
+    "shipping": [("bag", "You order", "Pay in full or in 4 with Shop Pay. You get a confirmation email right away."),
+                 ("box", "We pack and ship", "Your wig ships within <span class='ph'>X</span> business days, with tracking."),
+                 ("home", "It arrives", f"Free US shipping on orders over ${int(D.FREE_SHIP)}. Delivery times <span class='ph'>to confirm</span>.")],
+    "returns": [("chat", "Tell us within 30 days", "Email us with your order number. We'll reply with a return label <span class='ph'>(to confirm)</span>."),
+                ("box", "Send it back", "Unworn, with the lace uncut and the wig in its original packaging."),
+                ("card", "Get your refund", "Refunded to your original payment once it arrives <span class='ph'>(timing to confirm)</span>.")],
+}
+TOC_PAGES = {"faq"}
 for handle, title, h1, lede, body in simple_pages:
     render("page.html", f"/pages/{handle}/", seo_title=title, seo_description=lede or h1, canonical=f"/pages/{handle}/",
-           body_class="shop", page_id=handle, page=dict(h1=h1, lede=lede, body=body))
+           body_class="shop", page_id=handle, page=dict(h1=h1, lede=lede, body=body, steps=PAGE_STEPS.get(handle),
+           toc=[(f"q{i + 1}", q) for i, (q, _) in enumerate(home_faq)] if handle in TOC_PAGES else None))
 
 assert [h for h, *_ in simple_pages] == SIMPLE_PAGES
 
