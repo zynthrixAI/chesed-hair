@@ -1,0 +1,21 @@
+<div class="srch" id="srch" hidden>
+  <div class="drawer-scrim" data-close></div>
+  <div class="srch-panel" role="dialog" aria-modal="true" aria-label="Search">
+    <form class="srch-bar wrap" role="search" id="srchForm">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>
+      <label class="sr-only" for="srchIn">Search wigs, shades and guides</label>
+      <input id="srchIn" type="search" placeholder="Search wigs, shades, guides" autocomplete="off" aria-controls="srchList">
+      <button class="ib" type="button" aria-label="Close search" data-close><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </form>
+    <div class="srch-body wrap" data-lenis-prevent>
+      <div class="srch-pop" id="srchPop">
+        <p class="srch-h">Popular</p>
+        <ul class="srch-chips">
+          {% for q in ["Body wave", "Burgundy", "Kinky straight", "1B", "Honey blonde", "Curly"] %}<li><button type="button" data-q="{{ q }}">{{ q }}</button></li>{% endfor %}
+        </ul>
+      </div>
+      <ul class="srch-list" id="srchList" role="list" aria-live="polite"></ul>
+      <p class="srch-none" id="srchNone" hidden>No matches. Try a texture like “body wave” or a shade like “ginger”.</p>
+    </div>
+  </div>
+</div>

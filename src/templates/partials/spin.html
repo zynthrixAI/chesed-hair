@@ -1,0 +1,34 @@
+<div class="spin" id="spin" hidden data-prizes='{{ spin_prizes|tojson }}'>
+  <div class="drawer-scrim" data-spin-close></div>
+  <div class="spin-panel" role="dialog" aria-modal="true" aria-labelledby="spinH">
+    <button class="ib spin-x" type="button" aria-label="Close" data-spin-close><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    <div class="spin-wheel">
+      <span class="spin-ptr" aria-hidden="true"></span>
+      {{ wheel() }}
+    </div>
+    <div class="spin-copy">
+      <div class="spin-step" id="spinStep1">
+        <p class="eyebrow rose">Welcome gift</p>
+        <h2 id="spinH">Spin to unlock your first-order discount</h2>
+        <p class="spin-sub">Every spin wins, up to $60 off your first wig.</p>
+        <form class="spin-form" id="spinForm" novalidate>
+          <label class="sr-only" for="spinEmail">Email address</label>
+          <input id="spinEmail" type="email" placeholder="Your email address" autocomplete="email" required>
+          <button class="btn rose wide" type="submit">Spin the wheel</button>
+          <p class="msg" id="spinMsg" aria-live="polite"></p>
+        </form>
+        <button class="spin-no" type="button" data-spin-close>No thanks, I'll pay full price</button>
+        <p class="spin-fine">One spin per email, first order only. Odds: {{ spin_odds }}.</p>
+      </div>
+      <div class="spin-step" id="spinStep2" hidden>
+        <p class="eyebrow rose">You won</p>
+        <h2 class="spin-won" id="spinWon" tabindex="-1"></h2>
+        <p class="spin-sub">Your code is saved to your bag and applies at checkout.</p>
+        <p class="spin-code"><b id="spinCode"></b><button type="button" class="chip-btn" id="spinCopy">Copy</button></p>
+        <button class="btn rose wide" type="button" data-spin-close data-spin-shop>Shop with my discount</button>
+      </div>
+      <p class="spin-fine ph-inline">Preview: prizes, odds and codes are placeholders for Chesed to confirm. No email is saved.</p>
+    </div>
+  </div>
+</div>
+<button class="spin-tab" id="spinTab" type="button" hidden>Spin to win</button>

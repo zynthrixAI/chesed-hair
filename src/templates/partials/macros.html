@@ -13,8 +13,11 @@
     <h3 class="card-title"><span>{{ p.color.key }}</span> {{ p.texture.name }} Lace Front Wig</h3>
   </a>
   <div class="card-meta">
-    <p class="card-price">{{ money(p.price) }}</p>
-    <p class="card-len">10–32"</p>
+    <p class="card-price">{{ money(p.price) }}<small>or 4 × {{ money(p.price/4) }}</small></p>
+    <button class="card-add" type="button" aria-expanded="false" data-quick>Quick add</button>
+  </div>
+  <div class="card-lens" role="group" aria-label="Choose a length to add {{ p.title }}" hidden data-quick-lens data-title="{{ p.title }}" data-price="{{ p.price }}" data-img="/assets/p/{{ p.images[0].file }}-560.webp">
+    {% for l in [10,12,14,16,18,20,22,24,26,28,30,32] %}<button type="button" data-len="{{ l }}">{{ l }}"</button>{% endfor %}
   </div>
 </article>
 {%- endmacro %}

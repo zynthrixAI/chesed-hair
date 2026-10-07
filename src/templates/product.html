@@ -14,8 +14,10 @@
   <div class="buy" id="buy">
     <p class="eyebrow rose">{{ p.texture.name }} · Lace front</p>
     <h1>{{ p.title }}</h1>
+    <a class="rating-slot" href="#reviews"><span class="ph">★★★★★ Judge.me star rating and review count show here</span></a>
     <p class="price">{{ macros.money(p.price) }}</p>
     <p class="bnpl">or 4 interest-free payments of <b>{{ macros.money(p.price/4) }}</b> with <b>Shop Pay</b></p>
+    <p class="code-note" data-code-note hidden></p>
 
     <p class="shade-line"><i style="--sw:{{ p.color.hex }}"></i><span>Shade</span><b>{{ p.color.key }}</b><a class="link sm" href="#moreShades">Other shades</a></p>
 
@@ -32,7 +34,13 @@
 
     <button class="btn rose wide" type="button" id="addBtn">Add to bag · <span id="addPrice">{{ macros.money(p.price) }}</span></button>
     <button class="btn shop-pay wide" type="button" aria-label="Buy with Shop Pay">Buy with <b>Shop Pay</b></button>
-    <p class="ship-line">Ships within <span class="ph">X</span> business days · Free US shipping over ${{ free_ship|int }} · 30-day returns</p>
+    <ul class="trust" role="list">
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="17.5" r="1.6"/><circle cx="17" cy="17.5" r="1.6"/></svg><span><b>Free US shipping</b>on orders over ${{ free_ship|int }}</span></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.3-5.6M4 4v4h4"/></svg><span><b>30-day returns</b>unworn, lace uncut</span></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/></svg><span><b>Pay in 4</b>interest-free with Shop Pay</span></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span><b>Secure checkout</b>encrypted by Shopify</span></li>
+    </ul>
+    <p class="ship-line">Order today, ships within <span class="ph">X</span> business days.</p>
     <ul class="ticks" role="list"><li>100% unprocessed virgin Remy human hair</li><li>Lace front with natural hairline</li><li>Cap size and density: <span class="ph">to confirm</span></li></ul>
 
     <div class="acc">
@@ -68,7 +76,16 @@
   <p data-reveal>{{ p.texture.intro }}</p>
 </section>
 
-{{ macros.reviews_block() }}
+<section class="pdp-rev wrap split" id="reviews" aria-labelledby="prH">
+  <div class="split-head"><p class="eyebrow">Reviews</p><h2 id="prH" data-split>Worn by you</h2></div>
+  <div>
+    <ul class="ugc" role="list" aria-label="Customer try-on videos">
+      {% for i in range(4) %}<li><span class="ugc-play" aria-hidden="true"></span><span class="ph">Customer try-on video {{ i + 1 }}</span></li>{% endfor %}
+    </ul>
+    <div class="rev-slot"><p class="ph">Judge.me review widget: star summary, photo reviews and verified-buyer badges for this wig</p></div>
+    <p class="ph-note">Preview note: on Shopify, Judge.me fills this section with this wig's verified reviews and customer photos and videos. Ask the first buyers for a photo or try-on video with their review.</p>
+  </div>
+</section>
 
 {{ macros.faq_list(p.texture.faq[:3], "Questions about " ~ p.texture.name|lower) }}
 
