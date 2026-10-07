@@ -10,20 +10,38 @@
 </section>
 <section class="col-intro wrap split" aria-label="About this collection"><div class="split-head"><p class="eyebrow">About {{ c.h1|lower }}</p></div><p data-reveal>{{ c.intro }}</p></section>
 
-<div class="col-bar wrap">
-  <div class="filters" role="group" aria-label="Filter by {{ c.filter_label|lower }}">
-    <button type="button" class="fchip" aria-pressed="true" data-filter="all">All <span>{{ c.products|length }}</span></button>
-    {% for f in c.filters %}<button type="button" class="fchip" aria-pressed="false" data-filter="{{ f.value }}">{% if f.hex %}<i style="--sw:{{ f.hex }}"></i>{% endif %}{{ f.label }}{% if f.count > 1 %} <span>{{ f.count }}</span>{% endif %}</button>{% endfor %}
+<div class="fbar-wrap" data-fbar>
+  <div class="fbar wrap">
+    <div class="fbar-groups">
+      {% for f in facets(c.products) %}
+      <div class="fgroup" data-fgroup="{{ f.key }}">
+        <button type="button" class="fbtn" aria-expanded="false" aria-controls="fpop-{{ f.key }}"><span data-flabel>{{ f.label }}</span><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button>
+        <div class="fpop{% if f.key == 'color' %} fpop-sw{% endif %}" id="fpop-{{ f.key }}" role="group" aria-label="{{ f.label }}">
+          <p class="fpop-h">{{ f.label }}</p>
+          <ul role="list">
+          {% for o in f.options %}<li><label class="fopt"><input type="checkbox" value="{{ o.value }}" data-fname="{{ o.label }}">{% if o.hex %}<i style="--sw:{{ o.hex }}"></i>{% else %}<b class="fbox" aria-hidden="true"></b>{% endif %}<span>{{ o.label }}</span><small>{{ o.count }}</small></label></li>{% endfor %}
+          </ul>
+          <div class="fpop-foot"><button type="button" class="link sm" data-fclear-group>Clear</button><button type="button" class="btn rose" data-fdone>Show <span data-fcount>{{ c.products|length }}</span> wigs</button></div>
+        </div>
+      </div>
+      {% endfor %}
+      <ul class="fpills" role="list" data-fpills></ul>
+      <button type="button" class="fclear link sm" data-fclear hidden>Clear all</button>
+    </div>
+    <div class="fbar-r">
+      <p class="fcount" aria-live="polite"><b data-fcount>{{ c.products|length }}</b> {{ "wig" if c.products|length == 1 else "wigs" }}</p>
+      <label class="sort"><span>Sort</span>
+        <select id="sort"><option value="featured">Featured</option><option value="az">Name A–Z</option><option value="price">Price</option></select>
+      </label>
+    </div>
   </div>
-  <label class="sort"><span class="sr-only">Sort</span>
-    <select id="sort"><option value="featured">Featured</option><option value="az">Name A–Z</option><option value="price">Price</option></select>
-  </label>
+  <div class="fscrim" data-fscrim></div>
 </div>
 
-<div class="grid wrap col-grid" id="colGrid" data-key="{{ c.filter_key }}">
+<div class="grid wrap col-grid" id="colGrid">
   {% for p in c.products %}{{ macros.product_card(p) }}{% endfor %}
 </div>
-<p class="wrap no-match" id="noMatch" hidden>No wigs match that filter.</p>
+<p class="wrap no-match" id="noMatch" hidden>No wigs match these filters. <button type="button" class="link sm" data-fclear>Clear filters</button></p>
 
 {{ macros.faq_list(c.faq, (c.h1 ~ ": questions, answered") if not is_hub else "Questions, answered") }}
 

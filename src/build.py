@@ -204,10 +204,17 @@ def texture_filters(pool):
         if n: out.append(dict(value=t["slug"], label=t["name"], hex=None, count=n))
     return out
 
+def facets(pool):
+    """Filter groups for a collection: only groups with more than one option."""
+    out = [dict(key="texture", label="Texture", options=texture_filters(pool)),
+           dict(key="color", label="Shade", options=color_filters(pool))]
+    return [f for f in out if len(f["options"]) > 1]
+env.globals["facets"] = facets
+
 tex_related = [dict(label=t["name"], url=f"/collections/{t['slug']}-wigs/") for t in D.TEXTURES]
 col_related = [dict(label=cc["name"], url=f"/collections/{cc['slug']}-wigs/", hex=D.COL[cc["colors"][0]]["hex"]) for cc in D.COLOR_COLLECTIONS]
 
-hub = dict(h1="Lace Front Wigs", intro="Every Chesed wig in one place: 7 textures and 10 shades of lace front wigs in 100% unprocessed virgin Remy human hair, each available from 10 to 32 inches. All of them are shown on the same model, so you can compare textures and shades fairly. Filter by texture below, or shop by color from the menu.",
+hub = dict(h1="Lace Front Wigs", intro="Every Chesed wig in one place: 7 textures and 10 shades of lace front wigs in 100% unprocessed virgin Remy human hair, each available from 10 to 32 inches. All of them are shown on the same model, so you can compare textures and shades fairly. Filter by texture and shade below to narrow it down.",
            products=products, filters=texture_filters(products), filter_key="texture", filter_label="Texture", image=None,
            faq=home_faq, related_heading="Shop by color", related=col_related,
            banner=[find("Straight", "Red")["images"][0], find("Body Wave", "Natural Black 1B")["images"][0], find("Loose Deep", "Honey Auburn")["images"][0]])

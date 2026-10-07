@@ -228,13 +228,39 @@ if(range){ let curly=0; const chart=strandChart($('.lenviz .strands'),i=>{ range
 $$('.lg-seg button').forEach(b=>b.addEventListener('click',()=>{ $$('.lg-seg button').forEach(x=>x.setAttribute('aria-checked',x===b?'true':'false'));
   const svg=$('.lg-chart .strands'); if(svg) svg.classList.toggle('curly',b.dataset.curly==='1'); }));
 
-/* collection: filter + sort */
-const grid=$('#colGrid');
-if(grid){ const key=grid.dataset.key, cards=[...grid.querySelectorAll('.card')], chips=$$('.fchip');
-  chips.forEach(ch=>ch.addEventListener('click',()=>{ chips.forEach(x=>x.setAttribute('aria-pressed',x===ch?'true':'false'));
-    const f=ch.dataset.filter; let shown=0; cards.forEach(c=>{ const ok=f==='all'||c.dataset[key]===f; c.hidden=!ok; if(ok)shown++; });
-    $('#noMatch').hidden=!!shown; }));
-  $('#sort')&&$('#sort').addEventListener('change',e=>{ const v=e.target.value; const s=[...cards];
+/* collection: dropdown filters (multi-select, AND across groups), pills, live count, sort */
+const grid=$('#colGrid'), fb=$('[data-fbar]');
+if(grid&&fb){ const cards=[...grid.querySelectorAll('.card')], groups=[...fb.querySelectorAll('[data-fgroup]')];
+  const sel=()=>{ const o={}; groups.forEach(g=>o[g.dataset.fgroup]=[...g.querySelectorAll('input:checked')].map(i=>i.value)); return o; };
+  const matches=(c,o)=>Object.entries(o).every(([k,v])=>!v.length||v.includes(c.dataset[k]));
+  function setOpen(g,open){ groups.forEach(x=>{ const on=open&&x===g; x.classList.toggle('open',on); x.querySelector('.fbtn').setAttribute('aria-expanded',on?'true':'false'); });
+    fb.classList.toggle('popped',!!open); document.body.classList.toggle('sheet-open',!!open&&innerWidth<=720); }
+  function preview(){ const o=sel(), n=cards.filter(c=>matches(c,o)).length; $$('[data-fpop-count],.fpop [data-fcount]').forEach(e=>e.textContent=n); }
+  function apply(){ const o=sel(); let n=0;
+    cards.forEach(c=>{ const ok=matches(c,o); if(ok) n++;
+      if(ok&&c.hidden){ c.hidden=false; c.classList.add('fout'); requestAnimationFrame(()=>requestAnimationFrame(()=>c.classList.remove('fout'))); }
+      else if(!ok) c.hidden=true; });
+    $$('.fcount [data-fcount]').forEach(e=>e.textContent=n); preview();
+    $('#noMatch').hidden=!!n;
+    const pills=fb.querySelector('[data-fpills]'); pills.innerHTML=''; let any=false;
+    groups.forEach(g=>{ const ch=[...g.querySelectorAll('input:checked')], b=g.querySelector('.fbtn'), lab=b.querySelector('[data-flabel]');
+      const base=g.querySelector('.fpop-h').textContent; lab.textContent=ch.length?base+' ('+ch.length+')':base; b.classList.toggle('has',!!ch.length);
+      ch.forEach(i=>{ any=true; const li=document.createElement('li'), x=document.createElement('button'); x.type='button'; x.textContent=i.dataset.fname; x.setAttribute('aria-label','Remove '+i.dataset.fname);
+        x.addEventListener('click',()=>{ i.checked=false; apply(); }); li.appendChild(x); pills.appendChild(li); }); });
+    fb.querySelector('[data-fclear]').hidden=!any;
+    const u=new URL(location); Object.entries(o).forEach(([k,v])=>v.length?u.searchParams.set(k,v.join(',')):u.searchParams.delete(k)); history.replaceState(null,'',u); }
+  groups.forEach(g=>{ g.querySelector('.fbtn').addEventListener('click',e=>{ e.stopPropagation(); setOpen(g,!g.classList.contains('open')); });
+    g.querySelectorAll('input').forEach(i=>i.addEventListener('change',()=>{ apply(); }));
+    g.querySelector('[data-fdone]').addEventListener('click',()=>setOpen(null,false));
+    g.querySelector('[data-fclear-group]').addEventListener('click',()=>{ g.querySelectorAll('input').forEach(i=>i.checked=false); apply(); }); });
+  $$('[data-fclear]').forEach(b=>b.addEventListener('click',()=>{ fb.querySelectorAll('input').forEach(i=>i.checked=false); apply(); }));
+  fb.querySelector('[data-fscrim]').addEventListener('click',()=>setOpen(null,false));
+  document.addEventListener('click',e=>{ if(!e.target.closest('.fgroup')) setOpen(null,false); });
+  addEventListener('keydown',e=>{ if(e.key==='Escape') setOpen(null,false); });
+  /* restore filters from the URL, e.g. ?color=red,ginger-350 */
+  const u=new URL(location); groups.forEach(g=>{ const v=(u.searchParams.get(g.dataset.fgroup)||'').split(','); g.querySelectorAll('input').forEach(i=>i.checked=v.includes(i.value)); });
+  apply();
+  const sorter=$('#sort'); sorter&&sorter.addEventListener('change',e=>{ const v=e.target.value; const s=[...cards];
     if(v==='az') s.sort((a,b)=>a.dataset.name.localeCompare(b.dataset.name));
     if(v==='price') s.sort((a,b)=>a.dataset.price-b.dataset.price);
     s.forEach(c=>grid.appendChild(c)); }); }
