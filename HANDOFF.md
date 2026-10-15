@@ -8,7 +8,7 @@ Read this first when continuing the project. For the full history and the to-do 
 - **Project folder:** `C:\Users\syedh\code\chesed-hair` (open this folder in VS Code)
 - **GitHub:** `github.com/zynthrixAI/chesed-hair`. `main` is what the live site shows.
 - **Live preview:** https://lime-deer-681625.hostingersite.com. Hostinger deploys `main` automatically, usually within about 20 seconds of a merge. If it doesn't update, redeploy from the Git section in Hostinger's hPanel.
-- **Open work:** branch `claude/home-style-names` (pull request 8), not merged yet.
+- **Open work:** none. Everything is merged into `main`.
 
 ## Tools on this PC (Windows 11)
 - **Python 3.14** with Jinja2 installed. Use `python`, not `python3`.

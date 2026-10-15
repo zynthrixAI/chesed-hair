@@ -76,17 +76,16 @@ All of this is live on the preview unless marked otherwise.
 - On style pages (e.g. Body Wave Wigs) the big name stays the **shade**: **1B**, with "Body Wave Lace Front Wig" under it.
 - Merged on 15 October 2026.
 
-### Pull request 8: homepage best sellers lead with the style (NOT live yet)
+### Homepage best sellers lead with the style
 - On the homepage, the big name on each best seller is now the **style** (e.g. **Body Wave**, with "1B Lace Front Wig" under it).
 - The **All wigs** page still leads with the shade.
-- **Status:** waiting for approval. Tell Claude "merge it".
+- Merged on 15 October 2026 (branch `claude/home-style-names`; no pull request page because the GitHub tool was signed out).
 
 ---
 
 ## To do
 
 ### Our next steps
-- [ ] **Approve and merge pull request 8** (homepage best sellers lead with the style).
 - [ ] Decide whether the **All wigs** page should also lead with the style (it currently leads with the shade).
 - [ ] Send the preview to Chesed for approval.
 
