@@ -34,7 +34,7 @@
     <div><p class="eyebrow">Most loved</p><h2 id="bestH" class="display-sm" data-split>Best sellers</h2></div>
     <a class="link" href="/collections/wigs/">Shop all</a>
   </div>
-  <div class="grid">{% for p in best %}{{ macros.product_card(p) }}{% endfor %}</div>
+  <div class="grid">{% for p in best %}{{ macros.product_card(p, lead="texture") }}{% endfor %}</div>
 </section>
 
 <section class="shades-x" aria-labelledby="sxH">
