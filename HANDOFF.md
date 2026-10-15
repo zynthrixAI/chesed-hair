@@ -1,0 +1,70 @@
+# Chesed Hair: handoff for VS Code
+
+Read this first when continuing the project. For the full history and the to-do list, see [PROJECT.md](PROJECT.md).
+
+**About the user:** they are not a programmer. Explain things in plain language, without jargon, and show results (screenshots or the live link) rather than code.
+
+## Where things are
+- **Project folder:** `C:\Users\syedh\code\chesed-hair` (open this folder in VS Code)
+- **GitHub:** `github.com/zynthrixAI/chesed-hair`. `main` is what the live site shows.
+- **Live preview:** https://lime-deer-681625.hostingersite.com. Hostinger deploys `main` automatically, usually within about 20 seconds of a merge. If it doesn't update, redeploy from the Git section in Hostinger's hPanel.
+- **Open work:** branch `claude/home-style-names` (pull request 8), not merged yet.
+
+## Tools on this PC (Windows 11)
+- **Python 3.14** with Jinja2 installed. Use `python`, not `python3`.
+- **Git**, with name `Claude <noreply@anthropic.com>` set for this repo only (matches every earlier commit).
+- **GitHub CLI**, at `"C:\Program Files\GitHub CLI\gh.exe"` (may not be on the PATH). On 15 October 2026 it was **signed out**; run `gh auth login` to sign back in. Until then, `git push` still works, and a PR can be merged by fast-forwarding `main` to the branch and pushing (`git merge --ff-only <branch>` then `git push origin main`); GitHub marks the PR as merged.
+- **Not installed:** Playwright. Check pages in a browser instead.
+
+## Commands
+Build every page (writes 73 pages into the repo root, plus `assets/search.json`):
+```bash
+python src/build.py
+```
+
+Preview locally, then open http://127.0.0.1:8000:
+```bash
+python -m http.server 8000 --bind 127.0.0.1
+```
+
+## How the code is laid out
+| Path | What it is |
+|---|---|
+| `src/data.py` | The catalog and settings: `TEXTURES`, `COLORS` (the 10 shades), `COLOR_COLLECTIONS`, `PRICE`, `FREE_SHIP`, `REVIEWS`, `SPIN_PRIZES`, `WHATSAPP` |
+| `src/picks.json` | Which photo belongs to which texture and shade (199 photos) |
+| `src/build.py` | Renders every page. Also sets the homepage picks (`best`, `look_keys`, hero) and `HEADER` (`"simple"` or `"visual"` menu) |
+| `src/templates/` | Jinja templates: `index`, `collection`, `product`, `page`, guides, `sitemap` |
+| `src/templates/partials/` | Header, footer, search, spin wheel, cart, and `macros.html` (the product card) |
+| `assets/css/style.css` | The only stylesheet |
+| `assets/js/main.js` | The only script |
+| `assets/p/` | Product photos as WebP, 1024px and 560px. File names start with the product handle |
+| Everything else in the root | **Built output.** Never edit it by hand: change `src/`, rebuild, and commit both |
+
+### Useful details
+- **Handles** are `<shade slug>-<texture slug>-lace-front-wig`, e.g. `350-loose-deep-wave-lace-front-wig`. Renaming a shade means renaming its photos in `assets/p/` and deleting the old built folders under `products/` and `collections/`, because the build doesn't remove pages it no longer makes.
+- **Collection URLs** are `/collections/<slug>-wigs/`. Color slugs: `1-1b-virgin`, `530-99j`, `350`, `auburn`, `honey-blonde`, `red`.
+- **Product card** (`macros.product_card`) takes `lead="color"` (default) or `lead="texture"`. Color collections pass `card_lead="texture"` from `build.py`.
+- **Stylesheet and script links** get a `?v=` number from the file's modified time. After a fresh clone, a rebuild changes that number on every page. That change is harmless.
+
+## Workflow
+1. Start each change on a **new branch from the latest `main`** (`git fetch` first).
+2. Edit `src/` or `assets/`, then run `python src/build.py`.
+3. Check the pages in a browser at about 1440px wide and at phone width (about 390px).
+4. Commit the source **and** the built pages, push, and open a PR into `main` with `gh pr create`.
+5. Explain the change to the user in plain words. Merge only when they say **"merge it"**: `gh pr merge <n> --rebase`.
+6. After merging, check the live site picked it up. Tell the user to press Ctrl + Shift + R if they still see the old version.
+
+## Rules
+- **Every page stays `noindex`.** Keep `robots.txt` and the noindex tags until this becomes the real store.
+- **Don't commit** `src/__pycache__/` or `.claude/`. Both are in `.gitignore`.
+- **Hostinger serves the whole repo root,** so anything committed is publicly reachable on the preview site.
+- **CLAUDE.md, HANDOFF.md and PROJECT.md stay on this PC only.** The user chose this. They're listed in `.git/info/exclude`, so Git ignores them. Never commit them; update them in place as the project moves on.
+- **Placeholders** that Chesed must confirm are marked in pink on the pages. See PROJECT.md for the list.
+
+## Gotchas
+- **Class-name collisions broke things twice:** `.sm` vs `.link.sm` (now `.smenu`), and `.trust` vs the homepage strip (now `.pdp-trust`). Search the CSS for a class name before adding a new one.
+- **Hidden dropdowns:** never set `visibility:visible` inside a hidden panel. Use `inherit`, or the hidden panel catches mouse hovers and opens the menu.
+- **The sticky filter bar** has a `backdrop-filter`, which traps `position:fixed` children. It's turned off on phones for that reason.
+- **Windows build:** files must be written with `encoding="utf-8"` (the ✦ symbol and the Hebrew חֶסֶד crash cp1252). Already fixed in `build.py`; keep it that way for any new file writes.
+- **Line-ending warnings** ("LF will be replaced by CRLF") come from the PC's Git settings and are harmless.
+- **GitHub's merge sometimes returns error 500.** Wait a moment and retry.
