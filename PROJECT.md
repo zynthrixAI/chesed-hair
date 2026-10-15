@@ -5,7 +5,7 @@ A preview of the Chesed Hair online store (lace front wigs), built by Web Wrough
 - **Live preview:** https://lime-deer-681625.hostingersite.com
 - **Code:** https://github.com/zynthrixAI/chesed-hair
 - **On this PC:** `C:\Users\syedh\code\chesed-hair`
-- **Last updated:** 15 October 2026
+- **Last updated:** 15 October 2026 (paused; see [NEXT-SESSION.md](NEXT-SESSION.md))
 
 ---
 
@@ -86,6 +86,7 @@ All of this is live on the preview unless marked otherwise.
 ## To do
 
 ### Our next steps
+- [ ] Sign the GitHub tool on this PC back in (`gh auth login`).
 - [ ] Decide whether the **All wigs** page should also lead with the style (it currently leads with the shade).
 - [ ] Send the preview to Chesed for approval.
 

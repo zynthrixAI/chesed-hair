@@ -1,6 +1,6 @@
 # Chesed Hair: handoff for VS Code
 
-Read this first when continuing the project. For the full history and the to-do list, see [PROJECT.md](PROJECT.md).
+Read this first when continuing the project. For where we paused and what to do next, see [NEXT-SESSION.md](NEXT-SESSION.md). For the full history and the to-do list, see [PROJECT.md](PROJECT.md).
 
 **About the user:** they are not a programmer. Explain things in plain language, without jargon, and show results (screenshots or the live link) rather than code.
 
@@ -51,8 +51,9 @@ python -m http.server 8000 --bind 127.0.0.1
 2. Edit `src/` or `assets/`, then run `python src/build.py`.
 3. Check the pages in a browser at about 1440px wide and at phone width (about 390px).
 4. Commit the source **and** the built pages, push, and open a PR into `main` with `gh pr create`.
-5. Explain the change to the user in plain words. Merge only when they say **"merge it"**: `gh pr merge <n> --rebase`.
-6. After merging, check the live site picked it up. Tell the user to press Ctrl + Shift + R if they still see the old version.
+5. Ask before `git push`: Claude Code's safety check blocks pushes until the user gives a clear go-ahead.
+6. Explain the change to the user in plain words. Merge only when they say **"merge it"**: `gh pr merge <n> --rebase`.
+7. After merging, check the live site picked it up. Tell the user to press Ctrl + Shift + R if they still see the old version.
 
 ## Rules
 - **Every page stays `noindex`.** Keep `robots.txt` and the noindex tags until this becomes the real store.
