@@ -11,7 +11,7 @@ A preview of the Chesed Hair online store (lace front wigs), built by Web Wrough
 
 ## What the site has
 
-- **119 pages:** the homepage, 18 shopping pages ("collections"), 66 wig pages, 26 extras pages and 8 info pages (About, FAQ, Shipping, Returns, Contact, Color guide, Length guide, All pages).
+- **123 pages:** the homepage, 22 shopping pages ("collections"), 66 wig pages, 26 extras pages and 8 info pages (About, FAQ, Shipping, Returns, Contact, Color guide, Length guide, All pages).
 - **9 wig textures:** Body Wave, Curly, Kinky Curly, Kinky Straight, Loose Deep Wave, Straight, Virgin Curl, plus **Permed Straight** and **Wet & Wavy** (placeholder photos for now).
 - **Two extra categories:** Crochet & Feather Extensions (22 products) and Hair Bundles (4 products).
 - **10 shades:** 1, 1B, 99J, 350, 530, Honey Auburn, Honey Blonde, Natural Auburn, Red, Virgin.
@@ -87,6 +87,11 @@ All of this is live on the preview unless marked otherwise.
 - Every product photo crops from the top centre.
 - Clicking a wig from anywhere morphs the photo into the wig page, and back again (Chrome and Edge).
 - All wigs page leads with the style (pull request 8).
+
+### One page per shade (16 October 2026)
+- The grouped color pages (1, 1B & Virgin; 530 & 99J; Auburn) are gone. Every shade has its own page, e.g. `/collections/1b-wigs/`, `/collections/99j-wigs/`, and the menu, footer and links list the 10 shades separately. 350, Honey Blonde and Red keep their old addresses.
+- Shade page copy is generated in `make_color_collections()` in `src/data.py`.
+- The Shop menu was redesigned: two-column shades, cards for the extra categories, one footer strip.
 
 ### Products from the client's files (16 October 2026)
 - **Permed Straight** and **Wet & Wavy** wig styles, 8 shades each (1, 1B, Virgin, 350, 530, Honey Auburn, Honey Blonde, Red), with pink placeholder photos.

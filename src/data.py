@@ -115,50 +115,41 @@ COLORS = [
 ]
 COL = {c["key"]: c for c in COLORS}
 
-COLOR_COLLECTIONS = [
-    dict(slug="1-1b-virgin", name="1, 1B & Virgin Wigs", h1="1, 1B & Virgin Wigs", colors=["1B", "1", "Virgin"],
-         title="1, 1B & Virgin Lace Front Wigs | Chesed",
-         intro="Three blacks, three different looks. 1B is soft off-black with a warm undertone, the closest match to most natural hair. 1 is the deepest, coolest black. Virgin is untreated hair in its own dark brown-black. Every 1, 1B and Virgin wig is a lace front unit in 100% unprocessed virgin Remy human hair, in every texture and length from 10 to 32 inches.",
-         faq=[("What is the difference between 1B and 1?", "1B is off-black with a warm brown undertone. 1 is jet black, cooler and darker."),
-              ("Which one looks most natural?", "1B for most people. Virgin is the softest."),
-              ("Can I dye these wigs?", "Virgin is the best base for color because it has never been processed."),
-              ("Do 1, 1B and Virgin come in every texture?", "Eight of the nine. Kinky curly comes in 530 only.")]),
-    dict(slug="530-99j", name="530 & 99J Wigs", h1="530 & 99J Wigs", colors=["530", "99J"],
-         title="530 & 99J Lace Front Wigs | Chesed Hair",
-         intro="530 is a rich wine red with violet depth. 99J is darker and cooler, almost black cherry in shadow. Both glow on deep skin and soften into a dark shade indoors, which makes them the easiest bold colors to wear daily. Shop 530 and 99J lace front wigs in 100% unprocessed virgin Remy human hair, from 10 to 32 inches.",
-         faq=[("What is the difference between 530 and 99J?", "530 is a brighter wine red. 99J is a darker, cooler plum."),
-              ("Do 530 and 99J fade?", "Wash in cool water with a color-safe shampoo to keep the shade rich."),
-              ("Which textures come in 530 and 99J?", "530 comes in eight textures. 99J is in body wave."),
-              ("Are 530 and 99J good for dark skin?", "Yes. They are some of the most flattering bold shades on deep skin.")]),
-    dict(slug="auburn", name="Auburn Wigs", h1="Auburn Wigs", colors=["Honey Auburn", "Natural Auburn"],
-         title="Honey & Natural Auburn Wigs | Chesed Hair",
-         intro="Auburn sits between brown and red. Honey Auburn is golden brown with soft honey highlights. Natural Auburn is a natural reddish brown that warms up in sunlight. Both add warmth without going full red. Every auburn wig is a lace front unit in 100% unprocessed virgin Remy human hair, from 10 to 32 inches.",
-         faq=[("What is the difference between honey auburn and natural auburn?", "Honey Auburn has golden highlights. Natural Auburn is a more even reddish brown."),
-              ("Is auburn orange?", "No. Both shades are brown-based, warm but not orange."),
-              ("Which textures come in auburn?", "Body wave, curly, kinky straight, loose deep wave, straight, permed straight and wet & wavy."),
-              ("Will auburn suit deep skin?", "Yes. Warm browns flatter warm undertones especially well.")]),
-    dict(slug="350", name="350 Wigs", h1="350 Wigs", colors=["350"],
-         title="350 Lace Front Wigs | Chesed Hair",
-         intro="350 is our boldest warm shade: bright copper orange with lighter tones where the light catches it. It turns heads in daylight and glows under warm lamps. Shop 350 lace front wigs in body wave, curly, kinky straight, loose deep wave, straight, permed straight and wet & wavy, made from 100% unprocessed virgin Remy human hair, from 10 to 32 inches.",
-         faq=[("Is 350 orange or red?", "Orange-copper. It is brighter and more orange than auburn."),
-              ("How do I keep 350 bright?", "Use color-safe shampoo and cool water."),
-              ("Which textures come in 350?", "Body wave, curly, kinky straight, loose deep wave, straight, permed straight and wet & wavy."),
-              ("Does 350 suit dark skin?", "Yes. It is one of the most popular bold shades on deep skin.")]),
-    dict(slug="honey-blonde", name="Honey Blonde Wigs", h1="Honey Blonde Wigs", colors=["Honey Blonde"],
-         title="Honey Blonde Lace Front Wigs | Chesed Hair",
-         intro="Honey Blonde is warm golden blonde from root to tip: buttery rather than ash or platinum, so it looks soft against deep skin instead of harsh. Shop honey blonde lace front wigs in body wave, curly, kinky straight, loose deep wave, straight, permed straight and wet & wavy, made from 100% unprocessed virgin Remy human hair, from 10 to 32 inches.",
-         faq=[("Is honey blonde the same as 613?", "No. Honey blonde is a warm golden shade. 613 is a pale platinum blonde."),
-              ("Will honey blonde look brassy?", "It is meant to be warm. A purple shampoo once a month keeps it golden, not orange."),
-              ("Which textures come in honey blonde?", "Body wave, curly, kinky straight, loose deep wave, straight, permed straight and wet & wavy."),
-              ("Does honey blonde suit deep skin?", "Yes. Warm blondes flatter deep skin more than ash blondes.")]),
-    dict(slug="red", name="Red Wigs", h1="Red Wigs", colors=["Red"],
-         title="Red Lace Front Wigs, 10-32 Inch | Chesed",
-         intro="Our Red is true cherry red from root to tip, with no orange and no pink. It is the most saturated shade in the range, made for statement looks. Shop red lace front wigs in body wave, curly, kinky straight, loose deep wave, straight, permed straight and wet & wavy, made from 100% unprocessed virgin Remy human hair, from 10 to 32 inches.",
-         faq=[("Will red fade quickly?", "All bright reds fade a little. Cool water and color-safe shampoo keep it vivid."),
-              ("Is this red or 530?", "True red. For a darker wine shade, see 530."),
-              ("Which textures come in red?", "Body wave, curly, kinky straight, loose deep wave, straight, permed straight and wet & wavy."),
-              ("Does red suit dark skin?", "Yes. A true red reads rich and vivid on deep skin.")]),
-]
+COLOR_COLLECTIONS = []   # one collection per shade, filled in by make_color_collections() once products exist
+
+# how each shade differs from the ones people mix it up with
+COLOR_COMPARE = {
+    "1": ("What is the difference between 1 and 1B?", "1 is jet black, cooler and darker. 1B is off-black with a warm brown undertone."),
+    "1B": ("What is the difference between 1B and 1?", "1B is off-black with a warm brown undertone. 1 is jet black, cooler and darker."),
+    "Virgin": ("How is Virgin different from 1B?", "Virgin is untreated hair in its natural dark brown-black, softer than 1 and a touch warmer than 1B."),
+    "530": ("Is 530 the same as red?", "No. 530 is a deep wine red with violet depth. Red is true cherry red, and 99J is darker still."),
+    "99J": ("How is 99J different from 530?", "99J is darker and cooler than 530, almost black cherry in shadow."),
+    "350": ("Is 350 orange or red?", "Orange-copper. It is brighter and more orange than auburn."),
+    "Honey Auburn": ("How is Honey Auburn different from Natural Auburn?", "Honey Auburn is golden brown with honey highlights. Natural Auburn is a more even reddish brown."),
+    "Natural Auburn": ("How is Natural Auburn different from Honey Auburn?", "Natural Auburn is an even reddish brown. Honey Auburn is golden, with lighter honey highlights."),
+    "Honey Blonde": ("Is honey blonde the same as 613?", "No. Honey blonde is a warm golden shade. 613 is a pale platinum blonde."),
+    "Red": ("Is this red or 530?", "True cherry red. For a darker wine shade, see 530."),
+}
+
+def make_color_collections(products):
+    """One collection page per shade, with the textures that shade actually comes in."""
+    out = []
+    for c in COLORS:
+        texs = [t["name"].lower() for t in TEXTURES if any(p["texture"]["key"] == t["key"] and p["color"]["key"] == c["key"] for p in products)]
+        if not texs:
+            continue
+        tl = texs[0] if len(texs) == 1 else ", ".join(texs[:-1]) + " and " + texs[-1]
+        key = c["key"]
+        q, a = COLOR_COMPARE[key]
+        out.append(dict(
+            slug=c["slug"], name=f"{key} Wigs", label=key, h1=f"{key} Wigs", colors=[key],
+            title=f"{key} Lace Front Wigs | Chesed Hair",
+            intro=f"{c['blurb']} Shop {key} lace front wigs in {tl}, made from 100% unprocessed virgin Remy human hair, in lengths from 10 to 32 inches.",
+            faq=[(f"Which textures come in {key}?", f"{tl.capitalize()}."), (q, a),
+                 (f"Can I dye {key}?", "Virgin is the best base for color because it has never been processed. We recommend a professional colorist for any color change."),
+                 (f"How do I keep {key} looking its best?", "Wash in cool water with sulfate-free shampoo and conditioner, and store the wig on a stand.")]))
+    return out
+
 
 def gallery_images(handle, color, texture_name):
     """The six AI gallery photos for a wig, in order: front, three-quarter, back, side, fingers, lifestyle."""
