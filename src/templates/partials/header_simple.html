@@ -11,13 +11,14 @@
             <div class="sm-col">
               <h3>Wigs by texture</h3>
               <ul class="sm-tex" data-sm-tabs>
-              {% for t in nav_textures %}<li><a href="/collections/{{ t.slug }}-wigs/" data-sm="{{ loop.index0 }}"{% if loop.first %} class="on"{% endif %}>{{ t.name }}<small>{{ t.products|length }}</small></a></li>{% endfor %}
+              {% for t in nav_textures %}<li><a href="/collections/{{ t.slug }}-wigs/" data-sm="{{ loop.index0 }}"{% if loop.first %} class="on"{% endif %}>{{ t.name }}<span class="sm-r"><small>{{ t.products|length }}</small><i class="sm-chev" aria-hidden="true">›</i></span></a></li>{% endfor %}
               </ul>
             </div>
             <div class="sm-col sm-panes">
             {% for t in nav_textures %}
               <div class="sm-pane{% if loop.first %} on{% endif %}" data-sm-pane="{{ loop.index0 }}">
-                <h3>{{ t.name }} shades</h3>
+                <p class="sm-pane-h"><b>{{ t.name }}</b><small>{{ t.products|length }} {{ "shade" if t.products|length == 1 else "shades" }}</small></p>
+                <p class="sm-pane-sub">Choose a shade</p>
                 <ul class="sm-list sm-2col">
                 {% for p in t.products %}<li><a href="{{ p.url }}"><i style="--sw:{{ p.color.hex }}"></i>{{ p.color.key }}</a></li>{% endfor %}
                 </ul>
