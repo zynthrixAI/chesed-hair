@@ -375,10 +375,28 @@ if(mq&&rows.length&&lenis){ mq.classList.add('mq-js'); let last=0, skew=0, vis=t
       if(half){ if(-r.x>=half) r.x+=half; if(r.x>0) r.x-=half; }
       r.t.style.transform='translate3d('+r.x+'px,0,0) skewX('+(r.dir<0?skew:-skew).toFixed(2)+'deg)'; }); }; }
 
-/* shared-image page transition: the clicked product photo flies into the product page */
-if(CSS.supports&&CSS.supports('view-transition-name','a')){
-  document.addEventListener('click',e=>{ const a=e.target.closest('.card-link'); if(!a) return; $$('[style*="view-transition-name"]').forEach(x=>x.style.viewTransitionName='');
-    const im=a.querySelector('.card-img img'); if(im) im.style.viewTransitionName='pdp-hero'; }); }
+/* shared-image page transition: the clicked product photo morphs into the product page's main photo,
+   and back again when you return to a list. Works from any product link (cards, lookbook, search, menu, bag). */
+if(CSS.supports&&CSS.supports('view-transition-name','a')&&!reduce){
+  const NAME='pdp-hero', isProduct=u=>/^\/products\/[^/]+\/?$/.test(u.pathname);
+  const clear=()=>$$('.vt-source').forEach(x=>{x.style.viewTransitionName='';x.classList.remove('vt-source');});
+  const tag=im=>{ clear(); if(im){ im.style.viewTransitionName=NAME; im.classList.add('vt-source'); } };
+  const photoIn=a=>{ const ims=[...a.querySelectorAll('img')].filter(i=>i.offsetWidth>0); return ims.find(i=>!i.classList.contains('alt'))||ims[0]||null; };
+  const linkTo=path=>[...document.links].find(l=>{ try{ const u=new URL(l.href); return u.origin===location.origin&&u.pathname===path; }catch(_){ return false; } });
+  let clicked=null;
+  document.addEventListener('click',e=>{ const a=e.target.closest('a[href]'); if(!a||e.defaultPrevented) return;
+    try{ const u=new URL(a.href); clicked=(u.origin===location.origin&&isProduct(u))?a:null; }catch(_){ clicked=null; } });
+  // leaving a page: name the photo the visitor pressed (or, going back from a product, its main photo)
+  addEventListener('pageswap',e=>{ if(!e.viewTransition) return;
+    const to=e.activation&&e.activation.entry&&new URL(e.activation.entry.url);
+    if(to&&isProduct(to)){ const a=(clicked&&clicked.isConnected)?clicked:linkTo(to.pathname); tag(a&&photoIn(a)); }
+    else if(document.querySelector('.g-hero')) tag(document.querySelector('.g-hero'));
+    else clear(); });
+  // arriving on a list page after a product: name the photo of the wig we just left so it morphs back
+  addEventListener('pagereveal',e=>{ if(!e.viewTransition) return;
+    const from=navigation.activation&&navigation.activation.from&&new URL(navigation.activation.from.url);
+    if(from&&isProduct(from)&&!isProduct(location)){ const a=linkTo(from.pathname); const im=a&&photoIn(a); if(im){ tag(im); e.viewTransition.finished.finally(clear); } } });
+}
 
 /* custom cursor + magnetic buttons (mouse only) */
 if(matchMedia('(hover:hover) and (pointer:fine)').matches && !reduce){
