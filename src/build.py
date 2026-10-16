@@ -16,6 +16,10 @@ env = Environment(loader=FileSystemLoader(os.path.join(SRC, "templates")),
 
 products = D.build_products()
 extras = D.build_extras()
+for _ec in D.EXTRA_COLLECTIONS:   # count and thumbnail for the menu cards
+    _pool = [x for x in extras if x["kind"] == _ec["kind"]]
+    _ec["count"] = len(_pool)
+    _ec["thumb"] = next((x["images"][0] for x in _pool if not x["placeholder"]), _pool[0]["images"][0])
 by_handle = {p["handle"]: p for p in products}
 fam = {cc["slug"]: cc for cc in D.COLOR_COLLECTIONS}
 color_to_cc = {k: cc for cc in D.COLOR_COLLECTIONS for k in cc["colors"]}

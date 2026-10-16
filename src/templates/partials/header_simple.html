@@ -9,41 +9,42 @@
         <div class="dd-panel">
           <div class="smenu">
             <div class="sm-col">
-              <h3>By texture</h3>
+              <h3>Wigs by texture</h3>
               <ul class="sm-tex" data-sm-tabs>
               {% for t in nav_textures %}<li><a href="/collections/{{ t.slug }}-wigs/" data-sm="{{ loop.index0 }}"{% if loop.first %} class="on"{% endif %}>{{ t.name }}<small>{{ t.products|length }}</small></a></li>{% endfor %}
               </ul>
-              <a class="sm-more" href="/collections/wigs/">Shop all wigs</a>
             </div>
             <div class="sm-col sm-panes">
             {% for t in nav_textures %}
               <div class="sm-pane{% if loop.first %} on{% endif %}" data-sm-pane="{{ loop.index0 }}">
-                <h3>{{ t.name }} wigs</h3>
-                <ul class="sm-list">
+                <h3>{{ t.name }} shades</h3>
+                <ul class="sm-list sm-2col">
                 {% for p in t.products %}<li><a href="{{ p.url }}"><i style="--sw:{{ p.color.hex }}"></i>{{ p.color.key }}</a></li>{% endfor %}
                 </ul>
+                <a class="sm-more" href="/collections/{{ t.slug }}-wigs/">All {{ t.name|lower }} wigs</a>
               </div>
             {% endfor %}
             </div>
             <div class="sm-col">
-              <h3>By color</h3>
+              <h3>Wigs by color</h3>
               <ul class="sm-list">
               {% for cc in color_collections %}<li><a href="/collections/{{ cc.slug }}-wigs/"><span class="dots">{% for k in cc.colors %}<i style="--sw:{{ colmap[k].hex }}"></i>{% endfor %}</span>{{ cc.name }}</a></li>{% endfor %}
               </ul>
             </div>
-            <div class="sm-col">
+            <div class="sm-col sm-cards">
               <h3>More to shop</h3>
-              <ul class="sm-list">
-              {% for ec in extra_collections %}<li><a href="/collections/{{ ec.slug }}/">{{ ec.name }}</a></li>{% endfor %}
-              </ul>
-              <h3 class="sm-gap">Guides</h3>
-              <ul class="sm-list">
-                <li><a href="/pages/wig-length-guide/">Length Guide</a></li>
-                <li><a href="/pages/wig-color-guide/">Color Guide</a></li>
-              </ul>
+              {% for ec in extra_collections %}
+              <a class="sm-card" href="/collections/{{ ec.slug }}/">
+                <span class="sm-card-img">{{ macros.picture(ec.thumb.file, "", "72px") }}</span>
+                <span><b>{{ ec.name }}</b><small>{{ ec.count }} {{ ec.noun }}s</small></span>
+              </a>
+              {% endfor %}
+            </div>
+            <div class="sm-foot">
+              <a class="sm-all" href="/collections/wigs/">Shop all wigs</a>
+              <span class="sm-foot-links"><a href="/pages/wig-length-guide/">Length Guide</a><a href="/pages/wig-color-guide/">Color Guide</a><a href="/pages/sitemap/">See all {{ page_count }} pages</a></span>
             </div>
           </div>
-          <a class="dd-all" href="/pages/sitemap/">See all {{ page_count }} pages</a>
         </div>
       </div>
       <div class="dd dd-sm">
