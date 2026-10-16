@@ -15,19 +15,28 @@
     <div class="ftr-brand">
       <a class="brand" href="/" aria-label="Chesed Hair home">{% include "partials/logo.html" %}<b>CHESED</b></a>
       <p>Effortless beauty, rooted in love. Lace front wigs in 100% unprocessed virgin Remy human hair.</p>
+      <a class="ftr-mail" href="mailto:info@chesedhair.com">info@chesedhair.com</a>
     </div>
-    <nav aria-label="Textures"><h3>Textures</h3><ul>{% for t in textures %}<li><a href="/collections/{{ t.slug }}-wigs/">{{ t.name }}</a></li>{% endfor %}</ul></nav>
-    <nav aria-label="Colors"><h3>Colors</h3><ul>{% for cc in color_collections %}<li><a href="/collections/{{ cc.slug }}-wigs/">{{ cc.name }}</a></li>{% endfor %}</ul>
-      <h3 class="ftr-more">More to shop</h3><ul>{% for ec in extra_collections %}<li><a href="/collections/{{ ec.slug }}/">{{ ec.name }}</a></li>{% endfor %}</ul></nav>
-    <nav aria-label="Help"><h3>Help</h3><ul>
-      <li><a href="/pages/wig-length-guide/">Length Guide</a></li><li><a href="/pages/wig-color-guide/">Color Guide</a></li>
-      <li><a href="/pages/faq/">FAQ</a></li><li><a href="/pages/shipping/">Shipping</a></li><li><a href="/pages/returns/">Returns</a></li>
-      <li><a href="/pages/contact/">Contact</a></li><li><a href="/pages/about/">About</a></li><li><a href="/pages/sitemap/">All pages</a></li></ul></nav>
+    <nav class="ftr-wide" aria-label="Wigs by texture"><h3>Wigs by texture</h3>
+      <ul class="ftr-2">{% for t in textures %}<li><a href="/collections/{{ t.slug }}-wigs/">{{ t.name }}</a></li>{% endfor %}</ul>
+      <a class="ftr-all" href="/collections/wigs/">Shop all wigs</a>
+    </nav>
+    <nav class="ftr-wide" aria-label="Wigs by color"><h3>Wigs by color</h3>
+      <ul class="ftr-2">{% for cc in color_collections %}<li><a href="/collections/{{ cc.slug }}-wigs/"><i class="ftr-dot" style="--sw:{{ colmap[cc.label].hex }}"></i>{{ cc.label }}</a></li>{% endfor %}</ul>
+    </nav>
+    <nav aria-label="More to shop"><h3>More to shop</h3>
+      <ul>{% for ec in extra_collections %}<li><a href="/collections/{{ ec.slug }}/">{{ ec.name }}</a></li>{% endfor %}</ul>
+      <h3 class="ftr-more">Guides</h3>
+      <ul><li><a href="/pages/wig-length-guide/">Length Guide</a></li><li><a href="/pages/wig-color-guide/">Color Guide</a></li></ul>
+    </nav>
+    <nav aria-label="Help"><h3>Help</h3>
+      <ul><li><a href="/pages/faq/">FAQ</a></li><li><a href="/pages/shipping/">Shipping</a></li><li><a href="/pages/returns/">Returns</a></li>
+      <li><a href="/pages/contact/">Contact</a></li><li><a href="/pages/about/">About</a></li><li><a href="/pages/sitemap/">All pages</a></li></ul>
+    </nav>
   </div>
   <div class="ftr-sign" aria-hidden="true"><p class="ftr-tag">Effortless beauty, rooted in love</p><span class="ftr-word" data-reveal>CHESED</span></div>
   <div class="ftr-legal wrap">
-    <span>© 2026 Chesed Hair Collection</span>
+    <span>© 2026 Chesed Hair Collection · Preview by Web Wroughts. Prices and shipping terms are placeholders.</span>
     <span class="pay" aria-label="Payment methods">Visa · Mastercard · Amex · Shop Pay · Apple Pay</span>
-    <span>Preview by Web Wroughts. Prices and shipping terms are placeholders.</span>
   </div>
 </footer>

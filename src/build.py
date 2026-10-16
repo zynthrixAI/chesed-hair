@@ -37,6 +37,11 @@ for p in products:
 def find(texture, color):
     return next(p for p in products if p["texture"]["key"] == texture and p["color"]["key"] == color)
 
+def shot(texture, color, n):
+    """Photo n of a wig (0 front, 1 three-quarter, 2 back, 3 side, 4 fingers, 5 lifestyle), falling back to the first."""
+    ims = find(texture, color)["images"]
+    return ims[n] if len(ims) > n else ims[0]
+
 def img_like(p, *words):
     for im in p["images"]:
         if all(w in im["file"] for w in words):
@@ -47,7 +52,7 @@ def img_like(p, *words):
 for t in D.TEXTURES:
     pool = [p for p in products if p["texture"]["key"] == t["key"]]
     tp = next((p for p in pool if p["color"]["key"] == "1B"), pool[0])
-    t["tile"] = tp["images"][0]
+    t["tile"] = tp["images"][1] if len(tp["images"]) > 1 else tp["images"][0]
     t["product"] = tp
 
 home_textures = [t for t in D.TEXTURES if not t["tile"].get("placeholder")]
@@ -56,26 +61,32 @@ n_tex_word = NUM.get(len(D.TEXTURES), str(len(D.TEXTURES)))
 
 hero_product = find("Body Wave", "1B")
 hero = img_like(hero_product, "6-lifestyle")
-hero_imgs = [find("Body Wave", "530")["images"][0], hero, find("Curly", "Honey Blonde")["images"][0]]
+# the most striking editorial shots: side panes frame the centre one
+hero = shot("Body Wave", "530", 1)
+hero_imgs = [shot("Straight", "1B", 1), hero, shot("Loose Deep", "Honey Blonde", 1)]
 banner_texture = D.TEX["Kinky Straight"]
-banner_imgs = [find("Kinky Straight", "1B")["images"][0], find("Kinky Straight", "350")["images"][0]]
+banner_imgs = [shot("Kinky Straight", "350", 1), shot("Kinky Straight", "530", 1)]
 
 def banner_for(pool):
     """Three images for a collection banner: different products, first image each."""
     picks, seen = [], set()
-    for p in pool:
+    pool = [p for p in pool if not p.get("placeholder")] or pool     # real photos first
+    spread = [pool[0], pool[len(pool) // 2], pool[-1]] + pool    # first, middle, last: three different looks
+    for p in spread:
         if p["handle"] not in seen:
-            picks.append(p["images"][0]); seen.add(p["handle"])
+            picks.append(p["images"][1] if len(p["images"]) > 1 else p["images"][0]); seen.add(p["handle"])
         if len(picks) == 3: break
     i = 1
     while len(picks) < 3 and i < len(pool[0]["images"]):
         picks.append(pool[0]["images"][i]); i += 1
+    while len(picks) < 3:
+        picks.append(picks[-1])
     return picks
 theater = []
 for c in D.COLORS:
     p = find("Body Wave", c["key"])
     cc = color_to_cc[c["key"]]
-    theater.append(dict(color=c, product=p, img=p["images"][0], family_slug=cc["slug"], family_name=cc["name"]))
+    theater.append(dict(color=c, product=p, img=p["images"][1] if len(p["images"]) > 1 else p["images"][0], family_slug=cc["slug"], family_name=cc["name"]))
 
 best = [find(*k) for k in [("Body Wave", "1B"), ("Body Wave", "530"), ("Straight", "1B"),
                            ("Kinky Straight", "1B"), ("Loose Deep", "350"), ("Curly", "Honey Blonde"),
@@ -86,12 +97,11 @@ lookbook = []
 for k in look_keys:
     p = find(*k)
     lookbook.append(dict(product=p, img=p["images"][1] if len(p["images"]) > 1 else p["images"][0]))
-all_tile = [find("Straight", "Red")["images"][0], find("Body Wave", "Honey Blonde")["images"][0], find("Loose Deep", "350")["images"][0], find("Kinky Straight", "530")["images"][0]]
+all_tile = [shot("Straight", "Red", 1), shot("Body Wave", "Honey Blonde", 1), shot("Loose Deep", "350", 1), shot("Kinky Straight", "530", 1)]
 # home: texture spotlight with a shade switcher (every shade of the banner texture)
-spotlight = [dict(color=p["color"], img=p["images"][0], url=p["url"], price=p["price"]) for p in products if p["texture"]["key"] == banner_texture["key"]]
+spotlight = [dict(color=p["color"], img=p["images"][1], url=p["url"], price=p["price"]) for p in products if p["texture"]["key"] == banner_texture["key"]]
 spot_start = next(i for i, x in enumerate(spotlight) if x["color"]["key"] == "1B")
-story_p = find("Curly", "1B")
-story = story_p["images"][0]
+story = shot("Body Wave", "Honey Auburn", 5)      # warm, smiling: the "lovingkindness" photo
 
 home_faq = [
     ("What are Chesed wigs made of?", "Every Chesed wig is 100% unprocessed virgin Remy human hair on a lace front, so you can color, heat-style and wash it like your own hair."),
@@ -234,7 +244,7 @@ col_related = [dict(label=cc["name"], url=f"/collections/{cc['slug']}-wigs/", he
 hub = dict(h1="Lace Front Wigs", intro=f"Every Chesed wig in one place: {len(D.TEXTURES)} textures and 10 shades of lace front wigs in 100% unprocessed virgin Remy human hair, each available from 10 to 32 inches. All of them are shown on the same model, so you can compare textures and shades fairly. Filter by texture and shade below to narrow it down.",
            products=products, filters=texture_filters(products), filter_key="texture", filter_label="Texture", image=None,
            faq=home_faq, related_heading="Shop by color", related=col_related,
-           banner=[find("Straight", "Red")["images"][0], find("Body Wave", "1B")["images"][0], find("Loose Deep", "Honey Auburn")["images"][0]])
+           banner=[shot("Straight", "Red", 1), shot("Body Wave", "530", 1), shot("Loose Deep", "Honey Blonde", 1)])
 render("collection.html", "/collections/wigs/", seo_title=f"Lace Front Wigs in {len(D.TEXTURES)} Textures & 10 Colors | Chesed",
        seo_description="Shop all Chesed lace front wigs: body wave, curly, kinky curly, kinky straight, loose deep wave, straight, permed straight, wet & wavy and virgin curl, in 10 shades, 10 to 32 inches.",
        canonical="/collections/wigs/", body_class="shop overlay", page_id="hub", c=hub, is_hub=True, card_lead="texture",

@@ -1119,3 +1119,24 @@ a.card-add{text-decoration:none;display:inline-block}
 .sm-pane-sub{margin:6px 0 14px;font:600 10px/1 var(--mark);letter-spacing:.18em;text-transform:uppercase;color:var(--rose)}
 .sm-panes .sm-more{color:var(--ink);text-decoration:underline;text-underline-offset:4px}
 .sm-tex a.on small{color:var(--rose)}
+
+/* footer: brand, two wide link groups (two columns each), then shop extras and help */
+.ftr-cols{grid-template-columns:1.25fr 1.5fr 1.5fr .95fr .8fr;gap:32px clamp(24px,3vw,48px);align-items:start}
+.ftr-2{column-count:2;column-gap:24px}
+.ftr-2 li{break-inside:avoid}
+.ftr nav li{margin-bottom:10px;font-size:14.5px}
+.ftr nav li a{display:inline-flex;align-items:center;gap:10px}
+.ftr-dot{width:11px;height:11px;border-radius:50%;background:var(--sw);flex:none;box-shadow:0 0 0 1px rgba(255,255,255,.35)}
+.ftr-all{display:inline-block;margin-top:8px;font:600 11px/1 var(--mark);letter-spacing:.18em;text-transform:uppercase;color:var(--pink);text-decoration:underline;text-underline-offset:4px}
+.ftr-mail{display:inline-block;margin-top:18px;font-size:14px;color:#fff;text-decoration:underline;text-underline-offset:4px}
+.ftr-mail:hover{color:var(--pink)}
+.ftr-more{margin-top:26px}
+.ftr-legal{align-items:center}
+@media (max-width:1180px){
+  .ftr-cols{grid-template-columns:1fr 1fr 1fr}
+  .ftr-brand{grid-column:1/-1}
+}
+@media (max-width:720px){
+  .ftr-cols{grid-template-columns:1fr 1fr}
+  .ftr-wide{grid-column:1/-1}
+}

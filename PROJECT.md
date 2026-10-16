@@ -88,6 +88,10 @@ All of this is live on the preview unless marked otherwise.
 - Clicking a wig from anywhere morphs the photo into the wig page, and back again (Chrome and Edge).
 - All wigs page leads with the style (pull request 8).
 
+### Best photos and a tidier footer (16 October 2026)
+- Homepage hero, banners, shade showcase, spotlight, story ("Our name") and collection banners now use the most striking three-quarter and lifestyle shots. Picks are set in `src/build.py` with `shot(texture, color, n)` (0 front, 1 three-quarter, 5 lifestyle). Banners skip placeholder photos.
+- Footer regrouped: brand and email, wigs by texture and by color (two columns each), more to shop and guides, help.
+
 ### One page per shade (16 October 2026)
 - The grouped color pages (1, 1B & Virgin; 530 & 99J; Auburn) are gone. Every shade has its own page, e.g. `/collections/1b-wigs/`, `/collections/99j-wigs/`, and the menu, footer and links list the 10 shades separately. 350, Honey Blonde and Red keep their old addresses.
 - Shade page copy is generated in `make_color_collections()` in `src/data.py`.
