@@ -7,7 +7,9 @@ Prices, shipping threshold and review counts are PLACEHOLDERS until the client c
 import json, os, re
 
 HERE = os.path.dirname(__file__)
-PICKS = json.load(open(os.path.join(HERE, "picks.json")))
+ASSETS_P = os.path.join(HERE, "..", "assets", "p")
+POSE_NAMES = {"front": "front view", "three-quarter": "three-quarter view", "back": "back view",
+              "side": "side view", "fingers": "fingers through the lengths", "lifestyle": "lifestyle shot"}
 
 PRICE = 289.00            # placeholder price (same as the approved preview)
 FREE_SHIP = 200.00        # placeholder free-shipping threshold
@@ -142,35 +144,33 @@ COLOR_COLLECTIONS = [
               ("Does red suit dark skin?", "Yes. A true red reads rich and vivid on deep skin.")]),
 ]
 
-POSE_ORDER = ["Straight-On Front", "Fingers Through Lengths", "Head Tilt Fingers Through Roots",
-              "Smile Fingers Through Hair", "Three-Quarter Hand Through Lengths", "Both Hands in Hair",
-              "Chin Up Hand Behind Head", "Smile Hand at Temple"]
+def gallery_images(handle, color, texture_name):
+    """The six AI gallery photos for a wig, in order: front, three-quarter, back, side, fingers, lifestyle."""
+    found = sorted(f for f in os.listdir(ASSETS_P) if f.startswith(handle + "-") and f.endswith("-1024.webp"))
+    images = []
+    for f in found:
+        pose = f[len(handle) + 1:-len("-1024.webp")]          # e.g. "1-front"
+        order, _, name = pose.partition("-")
+        images.append((int(order), dict(
+            file=f[:-len("-1024.webp")],
+            alt=f"{color} {texture_name.lower()} lace front wig on model, {POSE_NAMES.get(name, name.replace('-', ' '))}",
+        )))
+    return [im for _, im in sorted(images, key=lambda x: x[0])]
 
 def build_products():
-    groups = {}
-    for p in PICKS:
-        groups.setdefault((p["style"], p["color"]), []).append(p)
     products = []
-    for (style, color), picks in groups.items():
-        t, c = TEX[style], COL[color]
-        handle = f"{c['slug']}-{t['slug']}-lace-front-wig"
-        title = f"{color} {t['name']} Lace Front Wig"
-        def pose_of(p): return p["new"].split(" - ")[2]
-        picks = sorted(picks, key=lambda p: (POSE_ORDER.index(pose_of(p)) if pose_of(p) in POSE_ORDER else 99, p["new"]))
-        images = []
-        for i, p in enumerate(picks):
-            parts = p["new"].rsplit(".", 1)[0].split(" - ")
-            scene = " - ".join(parts[2:])
-            images.append(dict(
-                src=p["src"],
-                file=f"{handle}-{slug(scene)}",
-                alt=f"{color} {t['name'].lower()} lace front wig on model, {parts[2].lower()}, {parts[3].lower()}",
+    for style, t in TEX.items():
+        for color, c in COL.items():
+            handle = f"{c['slug']}-{t['slug']}-lace-front-wig"
+            images = gallery_images(handle, color, t["name"])
+            if not images:
+                continue
+            title = f"{color} {t['name']} Lace Front Wig"
+            products.append(dict(
+                handle=handle, title=title, texture=t, color=c, price=PRICE,
+                images=images, url=f"/products/{handle}/",
+                options=["Length"], variants=[dict(length=l, title=f'{l}"', price=PRICE, landmark=LANDMARKS[i]) for i, l in enumerate(LENGTHS)],
             ))
-        products.append(dict(
-            handle=handle, title=title, texture=t, color=c, price=PRICE,
-            images=images, url=f"/products/{handle}/",
-            options=["Length"], variants=[dict(length=l, title=f'{l}"', price=PRICE, landmark=LANDMARKS[i]) for i, l in enumerate(LENGTHS)],
-        ))
     # sort: texture order then color order
     tix = {t["key"]: i for i, t in enumerate(TEXTURES)}
     cix = {c["key"]: i for i, c in enumerate(COLORS)}
