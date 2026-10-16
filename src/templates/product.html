@@ -23,7 +23,7 @@
     <div class="shade-pick">
       <p class="opt-label"><span>Shade</span><b id="shadeName">{{ p.color.key }}</b><a class="link sm" href="/pages/wig-color-guide/">Color guide</a></p>
       <ul class="shade-sw" role="list" aria-label="Choose a shade">
-        {% for s in p.siblings %}<li><a href="{{ s.url }}" style="--sw:{{ s.color.hex }}" aria-label="{{ s.color.key }}" data-name="{{ s.color.key }}"{% if s.handle == p.handle %} aria-current="true" class="on"{% endif %}><span>{{ macros.picture(s.images[0].file, "", "64px") }}</span></a></li>{% endfor %}
+        {% for s in p.siblings %}<li><a href="{{ s.url }}" style="--sw:{{ s.color.hex }}" aria-label="{{ s.color.key }}" data-name="{{ s.color.key }}"{% if s.handle == p.handle %} aria-current="true" class="on"{% endif %}><span></span><em class="sw-n">{{ s.color.key }}</em></a></li>{% endfor %}
       </ul>
     </div>
 
