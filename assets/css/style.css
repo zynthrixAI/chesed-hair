@@ -821,14 +821,13 @@ details.anim{overflow:hidden}
 
 /* product page: shade swatches */
 .shade-pick{margin-top:28px;padding-top:20px;border-top:1px solid var(--line)}
-.shade-sw{display:flex;flex-wrap:wrap;gap:16px 8px}
-.shade-sw a{display:flex;flex-direction:column;align-items:center;gap:8px;width:66px;text-decoration:none}
-.shade-sw a span{display:block;width:44px;height:44px;border-radius:50%;background:var(--sw);box-shadow:inset 0 0 0 1px rgba(127,127,127,.35),0 0 0 3px var(--porcelain),0 0 0 4px var(--line);transition:box-shadow .3s var(--ease),transform .3s var(--ease)}
-.shade-sw .sw-n{font:500 11.5px/1.25 var(--sans);text-align:center;color:var(--slate);transition:color .25s}
-.shade-sw a:hover span{transform:translateY(-2px);box-shadow:inset 0 0 0 1px rgba(127,127,127,.35),0 0 0 3px var(--porcelain),0 0 0 4px var(--slate)}
-.shade-sw a:hover .sw-n{color:var(--ink)}
-.shade-sw a.on span{box-shadow:inset 0 0 0 1px rgba(127,127,127,.35),0 0 0 3px var(--porcelain),0 0 0 5px var(--ink)}
-.shade-sw a.on .sw-n{color:var(--ink);font-weight:700}
+.shade-sw{display:flex;flex-wrap:wrap;gap:10px}
+.shade-sw a{display:block;width:36px;height:36px;border-radius:50%;box-shadow:0 0 0 2px var(--porcelain),0 0 0 4px var(--sw);transition:box-shadow .3s var(--ease),transform .3s var(--ease)}
+.shade-sw a span{display:block;width:100%;height:100%;border-radius:50%;overflow:hidden;background:var(--sw)}
+/* tight crop on the hair beside the face, so the swatch shows the shade and not the face */
+.shade-sw img{width:100%;height:100%;object-fit:cover;object-position:0 62%;transform:translateX(-16%) scale(2.9);transform-origin:10% 62%}
+.shade-sw a:hover{transform:translateY(-2px)}
+.shade-sw a.on{box-shadow:0 0 0 2px var(--porcelain),0 0 0 4px var(--sw),0 0 0 6px var(--ink)}
 /* product page trust row */
 .pdp-trust{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px;margin:22px 0 6px;padding:18px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .pdp-trust li{display:flex;gap:12px;align-items:flex-start;font-size:13px;color:var(--slate);line-height:1.35}
