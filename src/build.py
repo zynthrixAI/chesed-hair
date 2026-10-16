@@ -45,7 +45,7 @@ for t in D.TEXTURES:
     t["product"] = tp
 
 hero_product = find("Body Wave", "1B")
-hero = img_like(hero_product, "grey-wall-lamp")
+hero = img_like(hero_product, "6-lifestyle")
 hero_imgs = [find("Body Wave", "530")["images"][0], hero, find("Curly", "Honey Blonde")["images"][0]]
 banner_texture = D.TEX["Kinky Straight"]
 banner_imgs = [find("Kinky Straight", "1B")["images"][0], find("Kinky Straight", "350")["images"][0]]
