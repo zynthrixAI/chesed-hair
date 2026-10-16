@@ -27,8 +27,8 @@
             </div>
             <div class="sm-col">
               <h3>Wigs by color</h3>
-              <ul class="sm-list">
-              {% for cc in color_collections %}<li><a href="/collections/{{ cc.slug }}-wigs/"><span class="dots">{% for k in cc.colors %}<i style="--sw:{{ colmap[k].hex }}"></i>{% endfor %}</span>{{ cc.name }}</a></li>{% endfor %}
+              <ul class="sm-list sm-2col">
+              {% for cc in color_collections %}<li><a href="/collections/{{ cc.slug }}-wigs/"><i style="--sw:{{ colmap[cc.label].hex }}"></i>{{ cc.label }}</a></li>{% endfor %}
               </ul>
             </div>
             <div class="sm-col sm-cards">

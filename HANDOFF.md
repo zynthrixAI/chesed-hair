@@ -17,7 +17,7 @@ Read this first when continuing the project. For where we paused and what to do 
 - **Not installed:** Playwright. Check pages in a browser instead.
 
 ## Commands
-Build every page (writes 119 pages into the repo root, plus `assets/search.json`):
+Build every page (writes 123 pages into the repo root, plus `assets/search.json`):
 ```bash
 python src/build.py
 ```
@@ -42,7 +42,7 @@ python -m http.server 8000 --bind 127.0.0.1
 
 ### Useful details
 - **Handles** are `<shade slug>-<texture slug>-lace-front-wig`, e.g. `350-loose-deep-wave-lace-front-wig`. Renaming a shade means renaming its photos in `assets/p/` and deleting the old built folders under `products/` and `collections/`, because the build doesn't remove pages it no longer makes.
-- **Collection URLs** are `/collections/<slug>-wigs/`. Color slugs: `1-1b-virgin`, `530-99j`, `350`, `auburn`, `honey-blonde`, `red`.
+- **Collection URLs** are `/collections/<slug>-wigs/`. Color slugs are the shade slugs: `1`, `1b`, `virgin`, `530`, `99j`, `350`, `honey-auburn`, `natural-auburn`, `honey-blonde`, `red`.
 - **Product card** (`macros.product_card`) takes `lead="color"` (default) or `lead="texture"`. Color collections pass `card_lead="texture"` from `build.py`.
 - **Stylesheet and script links** get a `?v=` number from the file's modified time. After a fresh clone, a rebuild changes that number on every page. That change is harmless.
 

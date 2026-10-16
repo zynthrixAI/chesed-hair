@@ -15,6 +15,7 @@ env = Environment(loader=FileSystemLoader(os.path.join(SRC, "templates")),
                   autoescape=select_autoescape(["html"]), trim_blocks=True, lstrip_blocks=True)
 
 products = D.build_products()
+D.COLOR_COLLECTIONS[:] = D.make_color_collections(products)
 extras = D.build_extras()
 for _ec in D.EXTRA_COLLECTIONS:   # count and thumbnail for the menu cards
     _pool = [x for x in extras if x["kind"] == _ec["kind"]]
