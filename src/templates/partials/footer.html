@@ -17,7 +17,8 @@
       <p>Effortless beauty, rooted in love. Lace front wigs in 100% unprocessed virgin Remy human hair.</p>
     </div>
     <nav aria-label="Textures"><h3>Textures</h3><ul>{% for t in textures %}<li><a href="/collections/{{ t.slug }}-wigs/">{{ t.name }}</a></li>{% endfor %}</ul></nav>
-    <nav aria-label="Colors"><h3>Colors</h3><ul>{% for cc in color_collections %}<li><a href="/collections/{{ cc.slug }}-wigs/">{{ cc.name }}</a></li>{% endfor %}</ul></nav>
+    <nav aria-label="Colors"><h3>Colors</h3><ul>{% for cc in color_collections %}<li><a href="/collections/{{ cc.slug }}-wigs/">{{ cc.name }}</a></li>{% endfor %}</ul>
+      <h3 class="ftr-more">More to shop</h3><ul>{% for ec in extra_collections %}<li><a href="/collections/{{ ec.slug }}/">{{ ec.name }}</a></li>{% endfor %}</ul></nav>
     <nav aria-label="Help"><h3>Help</h3><ul>
       <li><a href="/pages/wig-length-guide/">Length Guide</a></li><li><a href="/pages/wig-color-guide/">Color Guide</a></li>
       <li><a href="/pages/faq/">FAQ</a></li><li><a href="/pages/shipping/">Shipping</a></li><li><a href="/pages/returns/">Returns</a></li>

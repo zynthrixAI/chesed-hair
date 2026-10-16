@@ -72,6 +72,22 @@ TEXTURES = [
               ("Can I dye it?", "Yes. Unprocessed hair takes color best. We recommend a professional colorist."),
               ("Which shades are available?", "1B, 1 and Virgin."),
               ("How do I care for it?", "Treat it like natural curly hair: moisture, gentle detangling, air-drying.")]),
+    dict(key="Permed Straight", name="Permed Straight", slug="permed-straight", curly=False,
+         only_colors=["1", "1B", "Virgin", "350", "530", "Honey Auburn", "Honey Blonde", "Red"],
+         short="Straight with a soft perm texture and extra body.",
+         intro="Permed straight falls straight but has a soft perm texture through it, so it looks fuller and more natural than glassy, silky straight hair. It is a good match for relaxed or lightly textured natural hair and keeps its body between washes. Each Chesed permed straight wig is a lace front unit in 100% unprocessed virgin Remy human hair, in 8 shades and lengths from 10 to 32 inches.",
+         faq=[("How is permed straight different from straight?", "Straight is smooth and silky. Permed straight has a soft texture and more body, so it looks less flat."),
+              ("Can I curl a permed straight wig?", "Yes. Use a heat protectant and a curling iron or wand."),
+              ("Does it blend with my natural hair?", "It blends best with relaxed, silk-pressed or lightly textured hair."),
+              ("Which shades are available?", "1, 1B, Virgin, 350, 530, Honey Auburn, Honey Blonde and Red.")]),
+    dict(key="Wet & Wavy", name="Wet & Wavy", slug="wet-and-wavy", curly=True,
+         only_colors=["1", "1B", "Virgin", "350", "530", "Honey Auburn", "Honey Blonde", "Red"],
+         short="Loose, glossy waves that look freshly wet-set.",
+         intro="Wet & wavy has loose, flowing waves with a glossy, just-styled finish that looks like freshly wet-set hair. The pattern is defined from root to tip and moves easily. Each Chesed wet & wavy wig is a lace front unit in 100% unprocessed virgin Remy human hair, in 8 shades and lengths from 10 to 32 inches. Refresh the waves with water and a light leave-in conditioner.",
+         faq=[("How do I keep the waves defined?", "Wet the hair, add a leave-in conditioner and let it air-dry or diffuse. Avoid brushing when dry."),
+              ("Is wet & wavy the same as body wave?", "No. Wet & wavy has a looser, glossier, more water-like pattern. Body wave is a softer S-shape."),
+              ("Does it look shorter than its length?", "Yes. The waves take up length, so it sits about 2 inches higher than straight hair."),
+              ("Which shades are available?", "1, 1B, Virgin, 350, 530, Honey Auburn, Honey Blonde and Red.")]),
 ]
 TEX = {t["key"]: t for t in TEXTURES}
 
@@ -106,41 +122,41 @@ COLOR_COLLECTIONS = [
          faq=[("What is the difference between 1B and 1?", "1B is off-black with a warm brown undertone. 1 is jet black, cooler and darker."),
               ("Which one looks most natural?", "1B for most people. Virgin is the softest."),
               ("Can I dye these wigs?", "Virgin is the best base for color because it has never been processed."),
-              ("Do 1, 1B and Virgin come in every texture?", "Six of the seven. Kinky curly comes in 530 only.")]),
+              ("Do 1, 1B and Virgin come in every texture?", "Eight of the nine. Kinky curly comes in 530 only.")]),
     dict(slug="530-99j", name="530 & 99J Wigs", h1="530 & 99J Wigs", colors=["530", "99J"],
          title="530 & 99J Lace Front Wigs | Chesed Hair",
          intro="530 is a rich wine red with violet depth. 99J is darker and cooler, almost black cherry in shadow. Both glow on deep skin and soften into a dark shade indoors, which makes them the easiest bold colors to wear daily. Shop 530 and 99J lace front wigs in 100% unprocessed virgin Remy human hair, from 10 to 32 inches.",
          faq=[("What is the difference between 530 and 99J?", "530 is a brighter wine red. 99J is a darker, cooler plum."),
               ("Do 530 and 99J fade?", "Wash in cool water with a color-safe shampoo to keep the shade rich."),
-              ("Which textures come in 530 and 99J?", "530 comes in six textures. 99J is in body wave."),
+              ("Which textures come in 530 and 99J?", "530 comes in eight textures. 99J is in body wave."),
               ("Are 530 and 99J good for dark skin?", "Yes. They are some of the most flattering bold shades on deep skin.")]),
     dict(slug="auburn", name="Auburn Wigs", h1="Auburn Wigs", colors=["Honey Auburn", "Natural Auburn"],
          title="Honey & Natural Auburn Wigs | Chesed Hair",
          intro="Auburn sits between brown and red. Honey Auburn is golden brown with soft honey highlights. Natural Auburn is a natural reddish brown that warms up in sunlight. Both add warmth without going full red. Every auburn wig is a lace front unit in 100% unprocessed virgin Remy human hair, from 10 to 32 inches.",
          faq=[("What is the difference between honey auburn and natural auburn?", "Honey Auburn has golden highlights. Natural Auburn is a more even reddish brown."),
               ("Is auburn orange?", "No. Both shades are brown-based, warm but not orange."),
-              ("Which textures come in auburn?", "Body wave, curly, kinky straight, loose deep wave and straight."),
+              ("Which textures come in auburn?", "Body wave, curly, kinky straight, loose deep wave, straight, permed straight and wet & wavy."),
               ("Will auburn suit deep skin?", "Yes. Warm browns flatter warm undertones especially well.")]),
     dict(slug="350", name="350 Wigs", h1="350 Wigs", colors=["350"],
          title="350 Lace Front Wigs | Chesed Hair",
-         intro="350 is our boldest warm shade: bright copper orange with lighter tones where the light catches it. It turns heads in daylight and glows under warm lamps. Shop 350 lace front wigs in body wave, curly, kinky straight, loose deep wave and straight, made from 100% unprocessed virgin Remy human hair, from 10 to 32 inches.",
+         intro="350 is our boldest warm shade: bright copper orange with lighter tones where the light catches it. It turns heads in daylight and glows under warm lamps. Shop 350 lace front wigs in body wave, curly, kinky straight, loose deep wave, straight, permed straight and wet & wavy, made from 100% unprocessed virgin Remy human hair, from 10 to 32 inches.",
          faq=[("Is 350 orange or red?", "Orange-copper. It is brighter and more orange than auburn."),
               ("How do I keep 350 bright?", "Use color-safe shampoo and cool water."),
-              ("Which textures come in 350?", "Body wave, curly, kinky straight, loose deep wave and straight."),
+              ("Which textures come in 350?", "Body wave, curly, kinky straight, loose deep wave, straight, permed straight and wet & wavy."),
               ("Does 350 suit dark skin?", "Yes. It is one of the most popular bold shades on deep skin.")]),
     dict(slug="honey-blonde", name="Honey Blonde Wigs", h1="Honey Blonde Wigs", colors=["Honey Blonde"],
          title="Honey Blonde Lace Front Wigs | Chesed Hair",
-         intro="Honey Blonde is warm golden blonde from root to tip: buttery rather than ash or platinum, so it looks soft against deep skin instead of harsh. Shop honey blonde lace front wigs in body wave, curly, kinky straight, loose deep wave and straight, made from 100% unprocessed virgin Remy human hair, from 10 to 32 inches.",
+         intro="Honey Blonde is warm golden blonde from root to tip: buttery rather than ash or platinum, so it looks soft against deep skin instead of harsh. Shop honey blonde lace front wigs in body wave, curly, kinky straight, loose deep wave, straight, permed straight and wet & wavy, made from 100% unprocessed virgin Remy human hair, from 10 to 32 inches.",
          faq=[("Is honey blonde the same as 613?", "No. Honey blonde is a warm golden shade. 613 is a pale platinum blonde."),
               ("Will honey blonde look brassy?", "It is meant to be warm. A purple shampoo once a month keeps it golden, not orange."),
-              ("Which textures come in honey blonde?", "Body wave, curly, kinky straight, loose deep wave and straight."),
+              ("Which textures come in honey blonde?", "Body wave, curly, kinky straight, loose deep wave, straight, permed straight and wet & wavy."),
               ("Does honey blonde suit deep skin?", "Yes. Warm blondes flatter deep skin more than ash blondes.")]),
     dict(slug="red", name="Red Wigs", h1="Red Wigs", colors=["Red"],
          title="Red Lace Front Wigs, 10-32 Inch | Chesed",
-         intro="Our Red is true cherry red from root to tip, with no orange and no pink. It is the most saturated shade in the range, made for statement looks. Shop red lace front wigs in body wave, curly, kinky straight, loose deep wave and straight, made from 100% unprocessed virgin Remy human hair, from 10 to 32 inches.",
+         intro="Our Red is true cherry red from root to tip, with no orange and no pink. It is the most saturated shade in the range, made for statement looks. Shop red lace front wigs in body wave, curly, kinky straight, loose deep wave, straight, permed straight and wet & wavy, made from 100% unprocessed virgin Remy human hair, from 10 to 32 inches.",
          faq=[("Will red fade quickly?", "All bright reds fade a little. Cool water and color-safe shampoo keep it vivid."),
               ("Is this red or 530?", "True red. For a darker wine shade, see 530."),
-              ("Which textures come in red?", "Body wave, curly, kinky straight, loose deep wave and straight."),
+              ("Which textures come in red?", "Body wave, curly, kinky straight, loose deep wave, straight, permed straight and wet & wavy."),
               ("Does red suit dark skin?", "Yes. A true red reads rich and vivid on deep skin.")]),
 ]
 
@@ -157,16 +173,23 @@ def gallery_images(handle, color, texture_name):
         )))
     return [im for _, im in sorted(images, key=lambda x: x[0])]
 
+PLACEHOLDER_IMG = "placeholder"   # assets/p/placeholder-1024.webp: pink "photo coming soon" stand-in
+
 def build_products():
     products = []
     for style, t in TEX.items():
         for color, c in COL.items():
             handle = f"{c['slug']}-{t['slug']}-lace-front-wig"
+            title = f"{color} {t['name']} Lace Front Wig"
             images = gallery_images(handle, color, t["name"])
+            placeholder = False
+            if not images and color in t.get("only_colors", []):
+                images = [dict(file=PLACEHOLDER_IMG, alt=f"Photo coming soon: {title}", placeholder=True)]
+                placeholder = True
             if not images:
                 continue
-            title = f"{color} {t['name']} Lace Front Wig"
             products.append(dict(
+                kind="wig", placeholder=placeholder,
                 handle=handle, title=title, texture=t, color=c, price=PRICE,
                 images=images, url=f"/products/{handle}/",
                 options=["Length"], variants=[dict(length=l, title=f'{l}"', price=PRICE, landmark=LANDMARKS[i]) for i, l in enumerate(LENGTHS)],
@@ -176,6 +199,40 @@ def build_products():
     cix = {c["key"]: i for i, c in enumerate(COLORS)}
     products.sort(key=lambda p: (tix[p["texture"]["key"]], cix[p["color"]["key"]]))
     return products
+
+# Crochet / feather extensions and hair bundles, imported from the client's product export and item list
+# (see src/extras.json). They are not wigs, so they live in their own collections.
+EXTRA_COLLECTIONS = [
+    dict(kind="crochet", slug="crochet-braid-extensions", name="Crochet & Feather Extensions", h1="Crochet & Feather Extensions", noun="extension",
+         title="Crochet & Feather Hair Extensions | Chesed Hair",
+         intro="Handmade feather and crochet braid hair extensions in human hair, in textures from body wave and deep wave to kinky curly and wet & wavy. Pick your shade and length on each product page. Packs, weights and lengths vary by style, so check the details on the page.",
+         faq=[("What are feather crochet extensions?", "They are hair extensions made to be installed with a crochet technique, so the finished look is seamless and light."),
+              ("How many packs do I need for a full head?", "It depends on the style and the length you choose. Some listings offer a 3-pack full-head option. Ask us if you are not sure."),
+              ("Can I dye or restyle them?", "They can be, but it is not recommended, because the hair is already styled and colored."),
+              ("How long do they last?", "With care they can last up to a year. Textured styles need regular upkeep.")]),
+    dict(kind="bundle", slug="hair-bundles", name="Hair Bundles", h1="Hair Bundles", noun="bundle",
+         title="Human Hair Bundles | Chesed Hair",
+         intro="Chesed hair bundles in body wave, straight, deep wave and water wave. Choose from natural darks, bold colors and blonde shades, in lengths from 10 inches up. Photos, prices and hair details are placeholders until Chesed confirms them.",
+         faq=[("Which bundle textures do you carry?", "Body wave, straight, deep wave and water wave."),
+              ("How do I choose a shade?", "Dark shades (1, 1B, Virgin) are the natural blacks. The color bundles and blonde shades are lighter and bolder."),
+              ("How many bundles do I need?", "Most people use 3 to 4 bundles for a full head. Longer lengths may need more."),
+              ("Can I color or style them?", "Details to be confirmed by Chesed.")]),
+]
+EXTRA_BY_KIND = {c["kind"]: c for c in EXTRA_COLLECTIONS}
+
+def build_extras():
+    raw = json.load(open(os.path.join(HERE, "extras.json"), encoding="utf-8"))
+    out = []
+    for r in raw:
+        col = EXTRA_BY_KIND[r["kind"]]
+        prices = [v["price"] for v in r["variants"]]
+        out.append(dict(
+            kind=r["kind"], collection=col, handle=r["handle"], title=r["title"], url=f"/products/{r['handle']}/",
+            price=min(prices), price_from=len(set(prices)) > 1, price_placeholder=r.get("placeholder_price", False),
+            images=r["images"], placeholder=bool(r["images"][0].get("placeholder")), options=r["options"], variants=r["variants"],
+            details=r.get("details", []), desc=r.get("desc", []),
+        ))
+    return out
 
 # Reviews shown on chesedhair.com (homepage "What Our Customers Say", scraped Oct 2026).
 # confirmed=False: they appear to be static theme testimonials. Chesed must confirm they are

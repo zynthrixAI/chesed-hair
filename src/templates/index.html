@@ -12,7 +12,7 @@
     <p class="eyebrow light">Lace front wigs · 100% virgin Remy human hair</p>
     <h1 id="heroH" class="display"><span class="ln"><span>Effortless beauty,</span></span><span class="ln"><span>rooted in love.</span></span></h1>
     <div class="hero-foot">
-      <p>Seven textures, ten shades, every length from 10 to 32 inches. All on one woman, so you see exactly what you get.</p>
+      <p>{{ n_tex_word }} textures, ten shades, every length from 10 to 32 inches. All on one woman, so you see exactly what you get.</p>
       <div class="cta-row">
         <a class="btn" href="#best">Shop best sellers</a>
         <a class="btn ghost" href="#shades">Find your shade</a>
@@ -81,13 +81,13 @@
       <p class="eyebrow">The collection</p>
       <h2 id="texH" class="display-sm" data-split>Seven textures. One standard.</h2>
       <p class="texh-sub">Every texture on the same model, in 1B, so you can compare them fairly.</p>
-      <p class="texh-count" aria-hidden="true"><b data-hnow>01</b> / {{ "%02d"|format(textures|length + 1) }}</p>
+      <p class="texh-count" aria-hidden="true"><b data-hnow>01</b> / {{ "%02d"|format(home_textures|length + 1) }}</p>
       <span class="texh-bar" aria-hidden="true"><i data-hbar></i></span>
       <a class="link" href="/collections/wigs/">Shop all wigs</a>
     </div>
     <div class="texh-view">
       <ol class="texh-track" data-htrack data-drag>
-        {% for t in textures %}<li><a class="tcard" href="/collections/{{ t.slug }}-wigs/" data-cursor="Explore">
+        {% for t in home_textures %}<li><a class="tcard" href="/collections/{{ t.slug }}-wigs/" data-cursor="Explore">
           {{ macros.picture(t.tile.file, t.name ~ " lace front wig", "(max-width:900px) 72vw, 26vw") }}
           <span class="tcard-no">{{ "%02d"|format(loop.index) }}</span>
           <span class="tcard-txt"><b>{{ t.name }}</b><small>{{ t.short }}</small><em>Explore {{ t.name|lower }} →</em></span></a></li>{% endfor %}

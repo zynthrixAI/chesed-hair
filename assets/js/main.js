@@ -122,7 +122,7 @@ document.addEventListener('click',e=>{ const q=e.target.closest('[data-quick]');
   g.hidden=true; const qb=g.closest('.card').querySelector('[data-quick]'); qb.setAttribute('aria-expanded','false'); qb.textContent='Quick add'; });
 
 /* product page: show what a won code saves on this wig */
-function codeNotes(){ const pz=prize(); $$('[data-code-note]').forEach(n=>{ const pr=+(n.closest('[data-product]')||{}).dataset?.price||0; const d=discOf(pz,pr);
+function codeNotes(){ const pz=prize(); $$('[data-code-note]').forEach(n=>{ const pr=+(n.closest('[data-product],[data-extra]')||{}).dataset?.price||0; const d=discOf(pz,pr);
   n.hidden=!d; if(d) n.innerHTML=`Your code <b>${pz.code}</b> takes ${pz.label}: <b>${money(pr-d)}</b> at checkout.`; }); }
 codeNotes();
 
@@ -296,6 +296,36 @@ if(pdp){
   $('#addBtn').addEventListener('click',add); $('#stickyAdd').addEventListener('click',add); $('#elAdd')&&$('#elAdd').addEventListener('click',add);
   $$('.buy .shop-pay').forEach(b=>b.addEventListener('click',()=>say('Preview only: Shop Pay connects on Shopify.')));
   /* sticky add-to-bag once the main button scrolls away (mobile) */
+  const sb=$('#stickyBuy');
+  if('IntersectionObserver' in window){ new IntersectionObserver(([e])=>{ const show=!e.isIntersecting&&e.boundingClientRect.top<0;
+    sb.classList.toggle('show',show); sb.setAttribute('aria-hidden',show?'false':'true'); $('#stickyAdd').tabIndex=show?0:-1; }).observe($('#addBtn')); }
+}
+
+/* extras product page (crochet and feather extensions, bundles): pick options, price follows the choice */
+const xp=$('[data-extra]');
+if(xp){
+  const gg=$('#gGrid'), dots=$$('.g-dots i');
+  if(gg&&dots.length) gg.addEventListener('scroll',()=>{ const i=Math.round(gg.scrollLeft/gg.clientWidth); dots.forEach((d,k)=>d.classList.toggle('on',k===i)); },{passive:true});
+  const D=JSON.parse($('#variants').textContent), V=D.variants, names=D.options.map(o=>o.name);
+  const fits=(v,sel,skip)=>names.filter(n=>n!==skip&&v.o[n]===sel[n]).length;
+  let sel={}, cur=null;
+  const pick=(want,keep)=>{ // the variant that matches the new choice and as many other current choices as possible
+    let best=null,score=-1; V.forEach(v=>{ if(keep&&v.o[keep]!==want[keep]) return; const sc=fits(v,want,keep); if(sc>score){ best=v; score=sc; } }); return best; };
+  const start={}; D.options.forEach(o=>{ start[o.name]=o.name==='Length'&&o.values.includes('16"')?'16"':o.values[0]; });
+  const money=n=>'$'+n.toFixed(2);
+  function render(){
+    names.forEach(n=>{ const box=$('[data-opt="'+n+'"]'); if(!box) return;
+      box.querySelectorAll('button').forEach(b=>b.setAttribute('aria-checked',b.dataset.v===sel[n]?'true':'false'));
+      box.querySelector('[data-opt-val]').textContent=sel[n]; });
+    $('#xPrice').textContent=money(cur.price); $('#xBnpl').textContent=money(cur.price/4);
+    $('#addPrice').textContent=money(cur.price); const sp=$('#stickyPrice'); if(sp) sp.textContent=money(cur.price);
+    $('#stickyLen').textContent=names.map(n=>sel[n]).join(' · '); }
+  const set=(want,keep)=>{ const v=pick(want,keep); if(!v) return; cur=v; sel={...v.o}; render(); };
+  set(start,null);
+  $$('[data-opt] button').forEach(b=>b.addEventListener('click',()=>{ const n=b.closest('[data-opt]').dataset.opt; set({...sel,[n]:b.dataset.v},n); }));
+  const add=()=>addToCart({title:xp.dataset.title,variant:names.map(n=>sel[n]).join(' · '),price:cur.price,img:xp.dataset.img});
+  $('#addBtn').addEventListener('click',add); $('#stickyAdd').addEventListener('click',add);
+  $$('.buy .shop-pay').forEach(b=>b.addEventListener('click',()=>say('Preview only: Shop Pay connects on Shopify.')));
   const sb=$('#stickyBuy');
   if('IntersectionObserver' in window){ new IntersectionObserver(([e])=>{ const show=!e.isIntersecting&&e.boundingClientRect.top<0;
     sb.classList.toggle('show',show); sb.setAttribute('aria-hidden',show?'false':'true'); $('#stickyAdd').tabIndex=show?0:-1; }).observe($('#addBtn')); }
