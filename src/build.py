@@ -225,7 +225,7 @@ hub = dict(h1="Lace Front Wigs", intro="Every Chesed wig in one place: 7 texture
            banner=[find("Straight", "Red")["images"][0], find("Body Wave", "1B")["images"][0], find("Loose Deep", "Honey Auburn")["images"][0]])
 render("collection.html", "/collections/wigs/", seo_title="Lace Front Wigs in 7 Textures & 10 Colors | Chesed",
        seo_description="Shop all Chesed lace front wigs: body wave, curly, kinky curly, kinky straight, loose deep wave, straight and virgin curl, in 10 shades, 10 to 32 inches.",
-       canonical="/collections/wigs/", body_class="shop overlay", page_id="hub", c=hub, is_hub=True,
+       canonical="/collections/wigs/", body_class="shop overlay", page_id="hub", c=hub, is_hub=True, card_lead="texture",
        jsonld=json.dumps(breadcrumb_ld([("Home", "/"), ("Lace Front Wigs", "/collections/wigs/")])))
 
 TEX_TITLES = {"body-wave": "Body Wave Lace Front Wigs, 10-32 Inch | Chesed", "curly": "Curly Lace Front Wigs, 10-32 Inch | Chesed",
