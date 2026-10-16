@@ -107,9 +107,9 @@ ul,ol{margin:0;padding:0;list-style:none}
 .dd-colors a:hover{color:var(--rose)}
 
 /* simple menu: text-only Shop panel (texture list swaps the wig list beside it) + small dropdowns */
-.smenu{display:grid;grid-template-columns:1.1fr 1.3fr 1.3fr .9fr;gap:40px;max-width:var(--max);margin:0 auto;padding:32px var(--g) 18px}
+.smenu{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr) minmax(0,1fr) minmax(0,1.1fr);column-gap:48px;row-gap:0;max-width:var(--max);margin:0 auto;padding:30px var(--g) 0}
 .smenu h3{font:600 11px/1 var(--mark);letter-spacing:.18em;text-transform:uppercase;color:var(--slate);margin-bottom:14px}
-.sm-tex a{display:flex;justify-content:space-between;align-items:baseline;padding:9px 0;border-bottom:1px solid var(--line);text-decoration:none;font:400 19px/1.2 var(--display);transition:color .25s,padding .35s var(--ease)}
+.sm-tex a{display:flex;justify-content:space-between;align-items:baseline;padding:7px 0;border-bottom:1px solid var(--line);text-decoration:none;font:400 18px/1.2 var(--display);transition:color .25s,padding .35s var(--ease)}
 .sm-tex small{font:400 12px/1 var(--sans);color:var(--slate)}
 .sm-tex a.on,.sm-tex a:hover{color:var(--rose);padding-left:6px}
 .sm-more{display:inline-block;margin-top:16px;font:600 11px/1 var(--mark);letter-spacing:.18em;text-transform:uppercase;color:var(--rose)}
@@ -1083,3 +1083,22 @@ a.card-add{text-decoration:none;display:inline-block}
 .sm-gap{margin-top:26px}
 .ftr-more{margin-top:24px}
 @media (max-width:720px){.len-row.opt-row button{min-height:44px}}
+
+/* mega menu: shades in two columns, cards for the extra categories, one footer strip */
+.sm-2col{display:grid;grid-template-columns:1fr 1fr;column-gap:24px}
+.smenu .sm-list a{padding:7px 0}
+.smenu .sm-more{margin-top:14px}
+.sm-cards h3{margin-bottom:10px}
+.sm-card{display:flex;align-items:center;gap:14px;padding:9px 0;border-bottom:1px solid var(--line);text-decoration:none}
+.sm-card:last-child{border-bottom:0}
+.sm-card-img{width:54px;height:68px;flex:none;overflow:hidden;background:var(--pearl);display:block}
+.sm-card-img img{width:100%;height:100%;object-fit:cover;object-position:50% 0;transition:transform .8s var(--ease)}
+.sm-card:hover .sm-card-img img{transform:scale(1.06)}
+.sm-card b{display:block;font:400 17px/1.2 var(--display);transition:color .25s}
+.sm-card:hover b{color:var(--rose)}
+.sm-card small{display:block;margin-top:4px;font-size:12px;color:var(--slate)}
+.sm-foot{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:24px;margin-top:24px;padding:16px 0 18px;border-top:1px solid var(--line)}
+.sm-all{font:600 11px/1 var(--mark);letter-spacing:.18em;text-transform:uppercase;color:var(--rose);text-decoration:underline;text-underline-offset:4px}
+.sm-foot-links{display:flex;gap:28px;font-size:14px}
+.sm-foot-links a{text-decoration:none;color:var(--slate);transition:color .25s}
+.sm-foot-links a:hover{color:var(--rose)}
