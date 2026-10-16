@@ -1102,3 +1102,20 @@ a.card-add{text-decoration:none;display:inline-block}
 .sm-foot-links{display:flex;gap:28px;font-size:14px}
 .sm-foot-links a{text-decoration:none;color:var(--slate);transition:color .25s}
 .sm-foot-links a:hover{color:var(--rose)}
+
+/* mega menu: the selected texture is a tab joined to a tinted shades panel */
+.sm-tex a{padding:7px 14px;margin-left:-14px;margin-right:0;border-bottom-color:transparent;position:relative}
+.sm-tex li{border-bottom:1px solid var(--line)}
+.sm-tex li:last-child{border-bottom:0}
+.sm-tex a:hover,.sm-tex a.on{padding-left:14px}
+.sm-tex a.on{background:var(--blush);color:var(--rose)}
+.sm-r{display:flex;align-items:center;gap:12px}
+.sm-chev{font:400 22px/1 var(--sans);color:var(--slate);font-style:normal;transition:transform .35s var(--ease),color .25s}
+.sm-tex a:hover .sm-chev,.sm-tex a.on .sm-chev{color:var(--rose);transform:translateX(4px)}
+.sm-panes{background:var(--blush);margin:-8px 0 0 -44px;padding:22px 28px 22px 44px;align-self:stretch}
+.sm-pane-h{display:flex;align-items:baseline;gap:12px;margin:0}
+.sm-pane-h b{font:400 26px/1.1 var(--display);color:var(--ink)}
+.sm-pane-h small{font-size:12px;color:var(--slate)}
+.sm-pane-sub{margin:6px 0 14px;font:600 10px/1 var(--mark);letter-spacing:.18em;text-transform:uppercase;color:var(--rose)}
+.sm-panes .sm-more{color:var(--ink);text-decoration:underline;text-underline-offset:4px}
+.sm-tex a.on small{color:var(--rose)}
