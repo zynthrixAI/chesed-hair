@@ -1070,3 +1070,16 @@ button.link{border:0;background-color:transparent;cursor:pointer;padding:0 0 4px
 
 /* product photos are portrait: always crop from the top centre so faces and hair stay in frame */
 img[src^="/assets/p/"]{object-position:50% 0}
+
+/* extras: option pills, spec list, card "from" price, menu and footer spacing */
+.len-row.opt-row{display:flex;flex-wrap:wrap;gap:6px}
+.len-row.opt-row button{padding:0 16px;min-width:56px}
+.spec{display:grid;grid-template-columns:max-content 1fr;gap:6px 18px;font-size:14px;margin:6px 0 0}
+.spec dt{color:var(--slate)}
+.spec dd{margin:0}
+.card-price small.from{display:inline;font-size:inherit;color:var(--slate);margin:0}
+.price .x-ph{font:600 11px/1 var(--mark);letter-spacing:.1em;text-transform:uppercase;vertical-align:middle}
+a.card-add{text-decoration:none;display:inline-block}
+.sm-gap{margin-top:26px}
+.ftr-more{margin-top:24px}
+@media (max-width:720px){.len-row.opt-row button{min-height:44px}}

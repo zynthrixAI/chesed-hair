@@ -1,31 +1,20 @@
 # Chesed Hair: pick up here
 
-Paused on 15 October 2026. Read this, then [HANDOFF.md](HANDOFF.md) for setup and [PROJECT.md](PROJECT.md) for the full history.
+Updated 16 October 2026. Read this, then [HANDOFF.md](HANDOFF.md) for setup and [PROJECT.md](PROJECT.md) for the full history.
 
 ## Where things stand
-- **Everything is merged and live.** No open branches or pull requests are waiting.
 - **Live preview:** https://lime-deer-681625.hostingersite.com
-- **Product names now:**
+- **Open work:** branch `claude/new-ai-images` holds the new photos, the top-centre crops, the image morph and the new products from the client's files. It is committed on this PC and may not be pushed or merged yet; check `git status` and `gh pr list`.
+- **GitHub tool:** signed in as zynthrixAI.
+- **Wig card names:** color pages, homepage best sellers and the All wigs page lead with the style (e.g. **Body Wave**, then "1B Lace Front Wig"). Style pages lead with the shade.
 
-| Page | Big name on each wig | Line under it |
-|---|---|---|
-| Color pages (e.g. 350 Wigs) | Style: **Body Wave** | 350 Lace Front Wig |
-| Homepage best sellers | Style: **Body Wave** | 1B Lace Front Wig |
-| Style pages (e.g. Body Wave Wigs) | Shade: **1B** | Body Wave Lace Front Wig |
-| All wigs page | Shade: **1B** | Body Wave Lace Front Wig |
-
-## Done on 15 October 2026
-1. Merged pull request 7: color pages lead with the style.
-2. Homepage best sellers now lead with the style too (merged without a pull request page, because the GitHub tool was signed out).
-3. Saved CLAUDE.md, HANDOFF.md, PROJECT.md and this file to GitHub. They are publicly readable on the preview site; the user chose that.
-
-## Start tomorrow with
-1. **Sign the GitHub tool back in** so changes get normal pull request pages:
-   `"C:\Program Files\GitHub CLI\gh.exe" auth login` (GitHub.com, then log in with a web browser).
-2. **Decide the All wigs page:** lead with the style or keep the shade? To switch it, add `card_lead="texture"` to the All wigs render call in `src/build.py` (the one with `is_hub=True`).
-3. **Send the preview to Chesed** for approval.
-4. Then work through the "Waiting on Chesed" list in PROJECT.md (reviews, WhatsApp number, prices, shipping, returns, wig details, About page, shade descriptions).
+## Start next time with
+1. Check whether the `claude/new-ai-images` pull request is open and merged. Merge only when the user says "merge it".
+2. **Send the preview to Chesed** for approval.
+3. Work through the "Waiting on Chesed" list in PROJECT.md. New items: photos for Permed Straight, Wet & Wavy, the bundles and Burmese Magic; bundle prices; wig lengths (the item list starts at 18").
 
 ## Things to know
-- **Uploading to GitHub needs the user's clear go-ahead.** Claude Code's safety check blocked `git push` until the user said yes. Ask before pushing, or the user can allow `git push` in `/permissions`.
+- **Uploading to GitHub needs the user's clear go-ahead.** Ask before `git push`.
 - **Merge only when the user says "merge it."**
+- Deleting lots of files at once is blocked by Claude Code's safety check until the user says yes.
+- Test pages with headless Chrome: `"C:\Program Files\Google\Chrome\Application\chrome.exe" --headless=new --screenshot=out.png --window-size=1440,1500 --virtual-time-budget=6000 http://127.0.0.1:8000/...`

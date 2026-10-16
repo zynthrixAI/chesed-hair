@@ -3,14 +3,17 @@
 <section class="col-hero" aria-labelledby="colH">
   <div class="col-hero-media">{% for im in c.banner %}<div>{{ macros.picture(im.file, im.alt if loop.first else "", "(max-width:720px) 100vw, 34vw", lazy=False, priority=loop.first) }}</div>{% endfor %}</div>
   <div class="col-hero-copy wrap">
-    <nav class="crumbs light" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span>{% if not is_hub %}<a href="/collections/wigs/">Wigs</a><span aria-hidden="true">/</span>{% endif %}<span aria-current="page">{{ c.h1 }}</span></nav>
+    <nav class="crumbs light" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span>{% if not is_hub and c.kind|default("wig") == "wig" %}<a href="/collections/wigs/">Wigs</a><span aria-hidden="true">/</span>{% endif %}<span aria-current="page">{{ c.h1 }}</span></nav>
     <h1 id="colH" class="display" data-split>{{ c.h1 }}</h1>
-    <p class="col-count">{{ c.products|length }} {{ "wig" if c.products|length == 1 else "wigs" }} · 10 to 32 inches · 100% virgin Remy human hair</p>
+    {% set noun = c.noun|default("wig") %}
+    <p class="col-count">{{ c.products|length }} {{ noun if c.products|length == 1 else noun ~ "s" }}{% if noun == "wig" %} · 10 to 32 inches · 100% virgin Remy human hair{% endif %}</p>
   </div>
 </section>
 {% set lead, more = split_intro(c.intro) %}
+{% if noun == "wig" %}
 {% set n_shades = c.products|map(attribute="color.key")|unique|list|length %}
 {% set n_tex = c.products|map(attribute="texture.key")|unique|list|length %}
+{% endif %}
 <section class="col-intro wrap" aria-label="About this collection">
   <div class="ci-text">
     <p class="eyebrow">About {{ c.h1|lower }}</p>
@@ -18,10 +21,16 @@
     {% if more %}<details class="ci-more"><summary><span class="rm-o">Read more</span><span class="rm-c">Read less</span></summary><p>{{ more }}</p></details>{% endif %}
   </div>
   <ul class="ci-facts" role="list">
+    {% if noun != "wig" %}
+    <li><b>{{ c.products|length }}</b><span>{{ noun ~ "s" }}</span></li>
+    <li><b>{{ c.facts.options }}</b><span>{{ c.facts.options_label }}</span></li>
+    <li><b>{% if c.facts.price_ph %}<span class="ph">{{ macros.money(c.facts.min_price) }}</span>{% else %}{{ macros.money(c.facts.min_price) }}{% endif %}</b><span>{% if c.facts.price_ph %}price to confirm{% else %}lowest price{% endif %}</span></li>
+    {% else %}
     <li><b>{{ n_shades }}</b><span>{{ "shade" if n_shades == 1 else "shades" }}</span></li>
     <li><b>{% if n_tex > 1 %}{{ n_tex }}{% else %}{{ c.products[0].texture.name }}{% endif %}</b><span>{% if n_tex > 1 %}textures{% else %}texture{% endif %}</span></li>
     <li><b>10–32"</b><span>every length</span></li>
     <li><b>{{ macros.money(c.products[0].price) }}</b><span>or 4 × {{ macros.money(c.products[0].price/4) }}</span></li>
+    {% endif %}
   </ul>
 </section>
 
@@ -36,7 +45,7 @@
           <ul role="list">
           {% for o in f.options %}<li><label class="fopt"><input type="checkbox" value="{{ o.value }}" data-fname="{{ o.label }}">{% if o.hex %}<i style="--sw:{{ o.hex }}"></i>{% else %}<b class="fbox" aria-hidden="true"></b>{% endif %}<span>{{ o.label }}</span><small>{{ o.count }}</small></label></li>{% endfor %}
           </ul>
-          <div class="fpop-foot"><button type="button" class="link sm" data-fclear-group>Clear</button><button type="button" class="btn rose" data-fdone>Show <span data-fcount>{{ c.products|length }}</span> wigs</button></div>
+          <div class="fpop-foot"><button type="button" class="link sm" data-fclear-group>Clear</button><button type="button" class="btn rose" data-fdone>Show <span data-fcount>{{ c.products|length }}</span> {{ noun ~ "s" }}</button></div>
         </div>
       </div>
       {% endfor %}
@@ -44,7 +53,7 @@
       <button type="button" class="fclear link sm" data-fclear hidden>Clear all</button>
     </div>
     <div class="fbar-r">
-      <p class="fcount" aria-live="polite"><b data-fcount>{{ c.products|length }}</b> {{ "wig" if c.products|length == 1 else "wigs" }}</p>
+      <p class="fcount" aria-live="polite"><b data-fcount>{{ c.products|length }}</b> {{ noun if c.products|length == 1 else noun ~ "s" }}</p>
       <label class="sort"><span>Sort</span>
         <select id="sort"><option value="featured">Featured</option><option value="az">Name A–Z</option><option value="price">Price</option></select>
       </label>
@@ -56,7 +65,7 @@
 <div class="grid wrap col-grid" id="colGrid">
   {% for p in c.products %}{{ macros.product_card(p, lead=card_lead|default("color")) }}{% endfor %}
 </div>
-<p class="wrap no-match" id="noMatch" hidden>No wigs match these filters. <button type="button" class="link sm" data-fclear>Clear filters</button></p>
+<p class="wrap no-match" id="noMatch" hidden>No {{ noun ~ "s" }} match these filters. <button type="button" class="link sm" data-fclear>Clear filters</button></p>
 
 {{ macros.faq_list(c.faq, (c.h1 ~ ": questions, answered") if not is_hub else "Questions, answered") }}
 
@@ -64,6 +73,6 @@
   <div class="split-head"><p class="eyebrow">Keep exploring</p>
   <h2 id="relH">{{ c.related_heading }}</h2></div>
   <ul class="pill-row" role="list">{% for r in c.related %}<li><a class="pill" href="{{ r.url }}">{% if r.hex %}<i style="--sw:{{ r.hex }}"></i>{% endif %}{{ r.label }}</a></li>{% endfor %}
-    <li><a class="pill" href="/pages/wig-color-guide/">Color guide</a></li><li><a class="pill" href="/pages/wig-length-guide/">Length guide</a></li></ul>
+    {% if noun == "wig" %}<li><a class="pill" href="/pages/wig-color-guide/">Color guide</a></li><li><a class="pill" href="/pages/wig-length-guide/">Length guide</a></li>{% endif %}</ul>
 </section>
 {% endblock %}

@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block preload %}<link rel="preload" as="image" href="/assets/p/{{ p.images[0].file }}-1024.webp" imagesrcset="/assets/p/{{ p.images[0].file }}-560.webp 560w, /assets/p/{{ p.images[0].file }}-1024.webp 1024w" imagesizes="(max-width:900px) 100vw, 55vw">{% endblock %}
+{% block main %}
+{% set col = p.collection %}
+<nav class="crumbs wrap" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/collections/{{ col.slug }}/">{{ col.name }}</a><span aria-hidden="true">/</span><span aria-current="page">{{ p.title }}</span></nav>
+
+<section class="pdp wrap" data-extra data-handle="{{ p.handle }}" data-title="{{ p.title }}" data-img="/assets/p/{{ p.images[0].file }}-560.webp">
+  <div class="gallery">
+    <ul class="g-grid" id="gGrid" role="list" aria-label="Product photos">
+      {% for im in p.images %}<li{% if loop.first %} class="g-first"{% endif %}>{{ macros.picture(im.file, im.alt, "(max-width:900px) 100vw, 30vw" if not loop.first else "(max-width:900px) 100vw, 58vw", lazy=not loop.first, priority=loop.first, cls="g-hero" if loop.first else "") }}</li>{% endfor %}
+    </ul>
+    {% if p.placeholder %}<p class="ph-note">Photos for this product are coming soon. The pink image is a placeholder.</p>{% endif %}
+    {% if p.images|length > 1 %}<div class="g-dots" aria-hidden="true">{% for im in p.images %}<i{% if loop.first %} class="on"{% endif %}></i>{% endfor %}</div>{% endif %}
+  </div>
+
+  <div class="buy" id="buy">
+    <p class="eyebrow rose">{{ col.name }}</p>
+    <h1>{{ p.title }}</h1>
+    <a class="rating-slot" href="#reviews"><span class="ph">★★★★★ Judge.me star rating and review count show here</span></a>
+    <p class="price"><span id="xPrice">{{ macros.money(p.price) }}</span>{% if p.price_placeholder %} <span class="ph x-ph">price to confirm</span>{% endif %}</p>
+    <p class="bnpl">or 4 interest-free payments of <b id="xBnpl">{{ macros.money(p.price/4) }}</b> with <b>Shop Pay</b></p>
+    <p class="code-note" data-code-note hidden></p>
+
+    {% for o in p.options %}
+    <div class="opt" data-opt="{{ o.name }}">
+      <p class="opt-label"><span>{{ o.name }}</span><b data-opt-val></b></p>
+      <div class="len-row opt-row" role="radiogroup" aria-label="Choose {{ o.name|lower }}">
+        {% for v in o["values"] %}<button type="button" role="radio" aria-checked="false" data-v="{{ v }}">{{ v }}</button>{% endfor %}
+      </div>
+    </div>
+    {% endfor %}
+
+    <button class="btn rose wide" type="button" id="addBtn">Add to bag · <span id="addPrice">{{ macros.money(p.price) }}</span></button>
+    <button class="btn shop-pay wide" type="button" aria-label="Buy with Shop Pay">Buy with <b>Shop Pay</b></button>
+    <ul class="pdp-trust" role="list">
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="17.5" r="1.6"/><circle cx="17" cy="17.5" r="1.6"/></svg><span><b>Free US shipping</b>on orders over ${{ free_ship|int }}</span></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.3-5.6M4 4v4h4"/></svg><span><b>30-day returns</b><span class="ph">policy to confirm</span></span></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/></svg><span><b>Pay in 4</b>interest-free with Shop Pay</span></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span><b>Secure checkout</b>encrypted by Shopify</span></li>
+    </ul>
+    <p class="ship-line">Order today, ships within <span class="ph">X</span> business days.</p>
+
+    <div class="acc">
+      {% if p.details %}
+      <details open><summary>Details</summary>
+        <dl class="spec">{% for k, v in p.details %}<dt>{{ k }}</dt><dd>{{ v }}</dd>{% endfor %}</dl>
+        {% if p.kind == "bundle" %}<p><span class="ph">Hair type, weight and lace or closure details to confirm</span></p>{% endif %}
+      </details>
+      {% else %}
+      <details open><summary>Details</summary><p>{{ col.name }}. <span class="ph">Hair type, weight and care details to confirm</span></p></details>
+      {% endif %}
+      {% if p.desc %}<details><summary>About this style</summary>{% for line in p.desc %}<p>{{ line }}</p>{% endfor %}</details>{% endif %}
+      <details><summary>Shipping and returns</summary><p>Free US shipping over ${{ free_ship|int }}. <span class="ph">Return policy to confirm</span></p></details>
+    </div>
+  </div>
+</section>
+
+<section class="pdp-rev wrap split" id="reviews" aria-labelledby="prH">
+  <div class="split-head"><p class="eyebrow">Reviews</p><h2 id="prH" data-split>Worn by you</h2></div>
+  <div>
+    <ul class="ugc" role="list" aria-label="Customer try-on videos">
+      {% for i in range(4) %}<li><span class="ugc-play" aria-hidden="true"></span><span class="ph">Customer try-on video {{ i + 1 }}</span></li>{% endfor %}
+    </ul>
+    <div class="rev-slot"><p class="ph">Judge.me review widget: star summary, photo reviews and verified-buyer badges for this product</p></div>
+    <p class="ph-note">Preview note: on Shopify, Judge.me fills this section with this product's verified reviews and customer photos and videos.</p>
+  </div>
+</section>
+
+{{ macros.faq_list(col.faq, "Questions about " ~ col.name|lower) }}
+
+{% set more = extras|selectattr("kind", "equalto", p.kind)|rejectattr("handle", "equalto", p.handle)|list %}
+{% if more %}
+<section class="xsell wrap" aria-labelledby="moreH">
+  <div class="sec-head"><h2 id="moreH">More {{ col.name|lower }}</h2><a class="link" href="/collections/{{ col.slug }}/">See all</a></div>
+  <div class="grid">{% for s in more[:4] %}{{ macros.product_card(s) }}{% endfor %}</div>
+</section>
+{% endif %}
+
+<div class="sticky-buy" id="stickyBuy" aria-hidden="true">
+  <div><b>{{ p.title }}</b><span id="stickyLen"></span></div>
+  <button class="btn rose" type="button" id="stickyAdd" tabindex="-1">Add to bag · <span id="stickyPrice">{{ macros.money(p.price) }}</span></button>
+</div>
+<script type="application/json" id="variants">{{ dict(options=p.options, variants=p.variants)|tojson }}</script>
+{% endblock %}

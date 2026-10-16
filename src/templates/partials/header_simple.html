@@ -32,7 +32,11 @@
               </ul>
             </div>
             <div class="sm-col">
-              <h3>Guides</h3>
+              <h3>More to shop</h3>
+              <ul class="sm-list">
+              {% for ec in extra_collections %}<li><a href="/collections/{{ ec.slug }}/">{{ ec.name }}</a></li>{% endfor %}
+              </ul>
+              <h3 class="sm-gap">Guides</h3>
               <ul class="sm-list">
                 <li><a href="/pages/wig-length-guide/">Length Guide</a></li>
                 <li><a href="/pages/wig-color-guide/">Color Guide</a></li>
@@ -94,6 +98,12 @@
       <summary>Shop by color</summary>
       <ul class="sm-list">
       {% for cc in color_collections %}<li><a href="/collections/{{ cc.slug }}-wigs/"><span class="dots">{% for k in cc.colors %}<i style="--sw:{{ colmap[k].hex }}"></i>{% endfor %}</span>{{ cc.name }}</a></li>{% endfor %}
+      </ul>
+    </details>
+    <details class="dw">
+      <summary>More to shop</summary>
+      <ul class="sm-list">
+      {% for ec in extra_collections %}<li><a href="/collections/{{ ec.slug }}/">{{ ec.name }}</a></li>{% endfor %}
       </ul>
     </details>
     <details class="dw">

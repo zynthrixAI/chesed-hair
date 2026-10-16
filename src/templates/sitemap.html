@@ -15,6 +15,10 @@
     <ul class="smap-list">
     {% for cc in color_collections %}<li><a href="/collections/{{ cc.slug }}-wigs/">{{ cc.name }}</a></li>{% endfor %}
     </ul>
+    <h3>More to shop</h3>
+    <ul class="smap-list">
+    {% for ec in extra_collections %}<li><a href="/collections/{{ ec.slug }}/">{{ ec.name }}</a></li>{% endfor %}
+    </ul>
   </section>
   <section class="smap-sec smap-wigs">
     <h2>Every wig</h2>
@@ -29,6 +33,14 @@
     {% endfor %}
     </div>
   </section>
+  {% for ec in extra_collections %}
+  <section class="smap-sec">
+    <h2>{{ ec.name }}</h2>
+    <ul class="sm-list">
+    {% for p in extras if p.kind == ec.kind %}<li><a href="{{ p.url }}">{{ p.title }}</a></li>{% endfor %}
+    </ul>
+  </section>
+  {% endfor %}
   <section class="smap-sec">
     <h2>Guides</h2>
     <ul class="smap-list">

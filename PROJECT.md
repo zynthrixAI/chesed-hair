@@ -11,8 +11,9 @@ A preview of the Chesed Hair online store (lace front wigs), built by Web Wrough
 
 ## What the site has
 
-- **73 pages:** the homepage, 14 shopping pages ("collections"), 50 wig pages and 8 info pages (About, FAQ, Shipping, Returns, Contact, Color guide, Length guide, All pages).
-- **7 textures:** Body Wave, Curly, Kinky Curly, Kinky Straight, Loose Deep Wave, Straight, Virgin Curl.
+- **119 pages:** the homepage, 18 shopping pages ("collections"), 66 wig pages, 26 extras pages and 8 info pages (About, FAQ, Shipping, Returns, Contact, Color guide, Length guide, All pages).
+- **9 wig textures:** Body Wave, Curly, Kinky Curly, Kinky Straight, Loose Deep Wave, Straight, Virgin Curl, plus **Permed Straight** and **Wet & Wavy** (placeholder photos for now).
+- **Two extra categories:** Crochet & Feather Extensions (22 products) and Hair Bundles (4 products).
 - **10 shades:** 1, 1B, 99J, 350, 530, Honey Auburn, Honey Blonde, Natural Auburn, Red, Virgin.
 - **12 lengths:** 10" to 32".
 - **Web addresses work like Shopify's**, e.g. `/collections/body-wave-wigs/` or `/products/1b-body-wave-lace-front-wig/`, so the move to Shopify is simpler later.
@@ -81,13 +82,25 @@ All of this is live on the preview unless marked otherwise.
 - The **All wigs** page still leads with the shade.
 - Merged on 15 October 2026 (branch `claude/home-style-names`; no pull request page because the GitHub tool was signed out).
 
+### New photos, crops and the image morph (16 October 2026)
+- All 50 wigs now use the new AI gallery: 6 photos per wig (front, three-quarter, back, side, fingers, lifestyle). Old photos deleted.
+- Every product photo crops from the top centre.
+- Clicking a wig from anywhere morphs the photo into the wig page, and back again (Chrome and Edge).
+- All wigs page leads with the style (pull request 8).
+
+### Products from the client's files (16 October 2026)
+- **Permed Straight** and **Wet & Wavy** wig styles, 8 shades each (1, 1B, Virgin, 350, 530, Honey Auburn, Honey Blonde, Red), with pink placeholder photos.
+- **Crochet & Feather Extensions:** 21 listings from the Shopify export plus Burmese Magic from the item list. Client photos and real prices. Skipped as duplicates: the second "Water Wave Soft Feather" listing (same title, its color is already in the first) and the repeated "Deep Wave / Small Kinky Curly" listing. The CROCHET tab of the item list matched the export, so only Burmese Magic was new.
+- **Hair Bundles:** Body Wave, Straight, Deep Wave, Water Wave from the Bundle tab (shades and lengths from the sheet). Placeholder photos and a placeholder $99 price.
+- Wigs with no other shades hide the "Same texture" rail.
+
 ---
 
 ## To do
 
 ### Our next steps
-- [ ] Sign the GitHub tool on this PC back in (`gh auth login`).
-- [ ] Decide whether the **All wigs** page should also lead with the style (it currently leads with the shade).
+- [x] GitHub tool signed in (16 October 2026).
+- [x] All wigs page leads with the style.
 - [ ] Send the preview to Chesed for approval.
 
 ### Waiting on Chesed
@@ -95,7 +108,10 @@ These are placeholders on the site. Most are marked in **pink** so they're easy 
 - [ ] **Reviews:** the three homepage reviews (Jessica L., Monica R., Danielle K.) couldn't be verified and look like sample text from a website theme. Chesed must confirm they are real customers or replace them. Posting fake reviews breaks US advertising (FTC) rules.
 - [ ] **WhatsApp number:** until Chesed provides it, tapping the button shows a "preview" notice.
 - [ ] **Spin wheel:** the prizes, odds and discount codes.
-- [ ] **Price:** currently $289 for every wig and length.
+- [ ] **Price:** currently $289 for every wig and length, and a placeholder $99 for bundles.
+- [ ] **New photos needed:** Permed Straight and Wet & Wavy wigs, all 4 bundles, and Burmese Magic.
+- [ ] **Check the item list:** its wig tab starts at 18" but the site shows 10 to 32". The "TP" shades (TP27, TP30...) in the bundle tab need a plain-language name. The extension listings still use the old store's descriptions and are missing a return policy. Several are drafts in Shopify (21 of 23), so confirm they should all go live.
+- [ ] **Copy for the two new wig styles and the two new categories** was written by us. Chesed should check it.
 - [ ] **Free shipping threshold:** currently $200.
 - [ ] **Processing and delivery times.**
 - [ ] **Returns:** how the return label works and how long refunds take.

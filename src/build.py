@@ -15,6 +15,7 @@ env = Environment(loader=FileSystemLoader(os.path.join(SRC, "templates")),
                   autoescape=select_autoescape(["html"]), trim_blocks=True, lstrip_blocks=True)
 
 products = D.build_products()
+extras = D.build_extras()
 by_handle = {p["handle"]: p for p in products}
 fam = {cc["slug"]: cc for cc in D.COLOR_COLLECTIONS}
 color_to_cc = {k: cc for cc in D.COLOR_COLLECTIONS for k in cc["colors"]}
@@ -43,6 +44,10 @@ for t in D.TEXTURES:
     tp = next((p for p in pool if p["color"]["key"] == "1B"), pool[0])
     t["tile"] = tp["images"][0]
     t["product"] = tp
+
+home_textures = [t for t in D.TEXTURES if not t["tile"].get("placeholder")]
+NUM = {7: "Seven", 8: "Eight", 9: "Nine", 10: "Ten", 11: "Eleven", 12: "Twelve"}
+n_tex_word = NUM.get(len(D.TEXTURES), str(len(D.TEXTURES)))
 
 hero_product = find("Body Wave", "1B")
 hero = img_like(hero_product, "6-lifestyle")
@@ -129,7 +134,7 @@ def strands(sel=6, hair="#1A1A1C", uid="s", show_curly=False, interactive=True, 
     return Markup("".join(out))
 
 G = dict(textures=D.TEXTURES, color_collections=D.COLOR_COLLECTIONS, colmap=D.COL, free_ship=D.FREE_SHIP,
-         version=str(int(time.time())), macros=None)
+         version=str(int(time.time())), macros=None, extras=extras, extra_collections=D.EXTRA_COLLECTIONS)
 env.globals.update(G)
 env.globals["strands"] = strands
 
@@ -161,8 +166,8 @@ HEADER = "simple"
 env.globals["header_style"] = HEADER
 env.globals["nav_textures"] = [dict(t, products=[p for p in products if p["texture"]["key"] == t["key"]]) for t in D.TEXTURES]
 SIMPLE_PAGES = ["about", "faq", "shipping", "returns", "contact"]
-# home + all-wigs hub + texture and color collections + products + 2 guides + simple pages + site map
-env.globals["page_count"] = 2 + len(D.TEXTURES) + len(D.COLOR_COLLECTIONS) + len(products) + 2 + len(SIMPLE_PAGES) + 1
+# home + all-wigs hub + texture, color and extra collections + wigs and extras + 2 guides + simple pages + site map
+env.globals["page_count"] = 2 + len(D.TEXTURES) + len(D.COLOR_COLLECTIONS) + len(D.EXTRA_COLLECTIONS) + len(products) + len(extras) + 2 + len(SIMPLE_PAGES) + 1
 
 written = []
 def render(template, path, **ctx):
@@ -178,9 +183,9 @@ def org_ld():
 
 # HOME
 render("index.html", "/", seo_title="Chesed Hair | Human Hair Lace Front Wigs",
-       seo_description="Lace front wigs in 100% unprocessed virgin Remy human hair. 7 textures, 10 shades, 10 to 32 inches, all shown on the same model.",
+       seo_description=f"Lace front wigs in 100% unprocessed virgin Remy human hair. {len(D.TEXTURES)} textures, 10 shades, 10 to 32 inches, all shown on the same model.",
        canonical="/", body_class="home overlay", page_id="home", hero=hero, hero_product=hero_product, hero_imgs=hero_imgs, banner_imgs=banner_imgs, banner_texture=banner_texture, all_tile=all_tile, theater=theater,
-       best=best, lookbook=lookbook, story=story, spotlight=spotlight, spot_start=spot_start, home_faq=home_faq, jsonld=json.dumps(org_ld()),
+       best=best, home_textures=home_textures, n_tex_word=n_tex_word, lookbook=lookbook, story=story, spotlight=spotlight, spot_start=spot_start, home_faq=home_faq, jsonld=json.dumps(org_ld()),
        og_image=f"/assets/p/{hero['file']}-1024.webp")
 
 # COLLECTIONS
@@ -203,7 +208,9 @@ def texture_filters(pool):
     return out
 
 def facets(pool):
-    """Filter groups for a collection: only groups with more than one option."""
+    """Filter groups for a collection: only groups with more than one option. Extras have no texture or shade."""
+    if pool and pool[0].get("kind", "wig") != "wig":
+        return []
     out = [dict(key="texture", label="Texture", options=texture_filters(pool)),
            dict(key="color", label="Shade", options=color_filters(pool))]
     return [f for f in out if len(f["options"]) > 1]
@@ -219,16 +226,17 @@ env.globals["split_intro"] = split_intro
 tex_related = [dict(label=t["name"], url=f"/collections/{t['slug']}-wigs/") for t in D.TEXTURES]
 col_related = [dict(label=cc["name"], url=f"/collections/{cc['slug']}-wigs/", hex=D.COL[cc["colors"][0]]["hex"]) for cc in D.COLOR_COLLECTIONS]
 
-hub = dict(h1="Lace Front Wigs", intro="Every Chesed wig in one place: 7 textures and 10 shades of lace front wigs in 100% unprocessed virgin Remy human hair, each available from 10 to 32 inches. All of them are shown on the same model, so you can compare textures and shades fairly. Filter by texture and shade below to narrow it down.",
+hub = dict(h1="Lace Front Wigs", intro=f"Every Chesed wig in one place: {len(D.TEXTURES)} textures and 10 shades of lace front wigs in 100% unprocessed virgin Remy human hair, each available from 10 to 32 inches. All of them are shown on the same model, so you can compare textures and shades fairly. Filter by texture and shade below to narrow it down.",
            products=products, filters=texture_filters(products), filter_key="texture", filter_label="Texture", image=None,
            faq=home_faq, related_heading="Shop by color", related=col_related,
            banner=[find("Straight", "Red")["images"][0], find("Body Wave", "1B")["images"][0], find("Loose Deep", "Honey Auburn")["images"][0]])
-render("collection.html", "/collections/wigs/", seo_title="Lace Front Wigs in 7 Textures & 10 Colors | Chesed",
-       seo_description="Shop all Chesed lace front wigs: body wave, curly, kinky curly, kinky straight, loose deep wave, straight and virgin curl, in 10 shades, 10 to 32 inches.",
+render("collection.html", "/collections/wigs/", seo_title=f"Lace Front Wigs in {len(D.TEXTURES)} Textures & 10 Colors | Chesed",
+       seo_description="Shop all Chesed lace front wigs: body wave, curly, kinky curly, kinky straight, loose deep wave, straight, permed straight, wet & wavy and virgin curl, in 10 shades, 10 to 32 inches.",
        canonical="/collections/wigs/", body_class="shop overlay", page_id="hub", c=hub, is_hub=True, card_lead="texture",
        jsonld=json.dumps(breadcrumb_ld([("Home", "/"), ("Lace Front Wigs", "/collections/wigs/")])))
 
-TEX_TITLES = {"body-wave": "Body Wave Lace Front Wigs, 10-32 Inch | Chesed", "curly": "Curly Lace Front Wigs, 10-32 Inch | Chesed",
+TEX_TITLES = {"permed-straight": "Permed Straight Lace Front Wigs | Chesed", "wet-and-wavy": "Wet & Wavy Lace Front Wigs | Chesed",
+              "body-wave": "Body Wave Lace Front Wigs, 10-32 Inch | Chesed", "curly": "Curly Lace Front Wigs, 10-32 Inch | Chesed",
               "kinky-curly": "Kinky Curly Lace Front Wigs | Chesed Hair", "kinky-straight": "Kinky Straight Wigs, Yaki Texture | Chesed",
               "loose-deep-wave": "Loose Deep Wave Lace Front Wigs | Chesed", "straight": "Silky Straight Lace Front Wigs | Chesed",
               "virgin-curl": "Virgin Curl Human Hair Wigs | Chesed Hair"}
@@ -265,6 +273,40 @@ for p in products:
            canonical=p["url"], body_class="shop pdp-page", page_id=p["handle"], p=p, og_type="product",
            og_image=f"/assets/p/{p['images'][0]['file']}-1024.webp",
            jsonld=json.dumps([ld, breadcrumb_ld([("Home", "/"), (f"{p['texture']['name']} Wigs", f"/collections/{p['texture']['slug']}-wigs/"), (p["title"], p["url"])])]))
+
+# EXTRA COLLECTIONS (crochet & feather extensions, hair bundles)
+for ec in D.EXTRA_COLLECTIONS:
+    pool = [x for x in extras if x["kind"] == ec["kind"]]
+    real = [x for x in pool if not x["placeholder"]] or pool
+    opt_name, label = ("Color", "shades") if ec["kind"] == "bundle" else ("Length", "lengths")
+    facts = dict(options=len({v for x in pool for o in x["options"] if o["name"] == opt_name for v in o["values"]}), options_label=label,
+                 min_price=min(x["price"] for x in pool), price_ph=any(x["price_placeholder"] for x in pool))
+    banner = []
+    for x in real:
+        if len(banner) < 3 and x["images"][0]["file"] not in [b["file"] for b in banner]:
+            banner.append(x["images"][0])
+    while len(banner) < 3:
+        banner.append(banner[-1] if banner else dict(file="placeholder", alt=""))
+    c = dict(h1=ec["h1"], intro=ec["intro"], products=pool, kind=ec["kind"], noun=ec["noun"], facts=facts, filters=[], filter_key="",
+             filter_label="", image=banner[0], faq=ec["faq"], related_heading="Keep exploring", banner=banner,
+             related=[dict(label="All wigs", url="/collections/wigs/")] + [dict(label=o["name"], url=f"/collections/{o['slug']}/") for o in D.EXTRA_COLLECTIONS if o["kind"] != ec["kind"]] + tex_related)
+    url = f"/collections/{ec['slug']}/"
+    render("collection.html", url, seo_title=ec["title"], seo_description=ec["intro"][:155].rsplit(" ", 1)[0] + "…",
+           canonical=url, body_class="shop overlay", page_id=ec["slug"], c=c, is_hub=False,
+           jsonld=json.dumps(breadcrumb_ld([("Home", "/"), (c["h1"], url)])))
+
+for x in extras:
+    lo, hi = min(v["price"] for v in x["variants"]), max(v["price"] for v in x["variants"])
+    ld = {"@context": "https://schema.org", "@type": "Product", "name": x["title"], "brand": {"@type": "Brand", "name": "Chesed Hair"},
+          "image": [f"https://chesedhair.com/assets/p/{im['file']}-1024.webp" for im in x["images"]],
+          "description": f"{x['title']} from Chesed Hair.",
+          "offers": {"@type": "AggregateOffer", "lowPrice": f"{lo:.2f}", "highPrice": f"{hi:.2f}", "priceCurrency": "USD",
+                     "offerCount": len(x["variants"]), "availability": "https://schema.org/InStock"}}
+    render("extra.html", x["url"], seo_title=f"{x['title']} | Chesed",
+           seo_description=f"{x['title']}. Choose your options and add to bag. {x['collection']['name']} from Chesed Hair.",
+           canonical=x["url"], body_class="shop pdp-page", page_id=x["handle"], p=x, og_type="product",
+           og_image=f"/assets/p/{x['images'][0]['file']}-1024.webp",
+           jsonld=json.dumps([ld, breadcrumb_ld([("Home", "/"), (x["collection"]["name"], f"/collections/{x['collection']['slug']}/"), (x["title"], x["url"])])]))
 
 # PAGES
 render("length_guide.html", "/pages/wig-length-guide/", seo_title="Wig Length Chart, 10-32 Inch on a Model | Chesed",
@@ -310,6 +352,8 @@ idx = [dict(t="All wigs", u="/collections/wigs/", k="Collection", s="lace front 
 idx += [dict(t=f"{t['name']} Wigs", u=f"/collections/{t['slug']}-wigs/", k="Texture", s=t["short"]) for t in D.TEXTURES]
 idx += [dict(t=cc["name"], u=f"/collections/{cc['slug']}-wigs/", k="Color", s=" ".join(cc["colors"])) for cc in D.COLOR_COLLECTIONS]
 idx += [dict(t=p["title"], u=p["url"], k="Wig", s=f"{p['color']['family']} {p['texture']['short']}", i=f"/assets/p/{p['images'][0]['file']}-560.webp", p=p["price"]) for p in products]
+idx += [dict(t=ec["name"], u=f"/collections/{ec['slug']}/", k="Collection", s=ec["name"].lower() + " hair") for ec in D.EXTRA_COLLECTIONS]
+idx += [dict(t=x["title"], u=x["url"], k=x["collection"]["name"], s=x["kind"] + " hair extensions bundles", i=f"/assets/p/{x['images'][0]['file']}-560.webp", p=x["price"]) for x in extras]
 idx += [dict(t="Length Guide", u="/pages/wig-length-guide/", k="Guide", s="inches length chart how long"),
         dict(t="Color Guide", u="/pages/wig-color-guide/", k="Guide", s="shade colour chart compare")]
 idx += [dict(t=h1, u=f"/pages/{h}/", k="Help", s=lede or "") for h, _, h1, lede, _ in simple_pages]
