@@ -164,6 +164,16 @@ def gallery_images(handle, color, texture_name):
         )))
     return [im for _, im in sorted(images, key=lambda x: x[0])]
 
+# Which photo leads each wig's gallery (and its card): the bright, smiling lifestyle shot, with exceptions below.
+# The rest follow in their original order: front, three-quarter, back, side, fingers.
+COVER_POSE = "6-lifestyle"
+COVER_OVERRIDES = {("Body Wave", "1"): "2-three-quarter"}   # (texture, shade) -> pose
+
+def cover_first(images, texture, color):
+    pose = COVER_OVERRIDES.get((texture, color), COVER_POSE)
+    lead = [im for im in images if f"-{pose}" in im["file"]]
+    return lead + [im for im in images if im not in lead] if lead else images
+
 PLACEHOLDER_IMG = "placeholder"   # assets/p/placeholder-1024.webp: pink "photo coming soon" stand-in
 
 def build_products():
@@ -172,7 +182,7 @@ def build_products():
         for color, c in COL.items():
             handle = f"{c['slug']}-{t['slug']}-lace-front-wig"
             title = f"{color} {t['name']} Lace Front Wig"
-            images = gallery_images(handle, color, t["name"])
+            images = cover_first(gallery_images(handle, color, t["name"]), t["key"], color)
             placeholder = False
             if not images and color in t.get("only_colors", []):
                 images = [dict(file=PLACEHOLDER_IMG, alt=f"Photo coming soon: {title}", placeholder=True)]

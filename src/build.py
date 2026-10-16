@@ -37,10 +37,15 @@ for p in products:
 def find(texture, color):
     return next(p for p in products if p["texture"]["key"] == texture and p["color"]["key"] == color)
 
+POSES = ["1-front", "2-three-quarter", "3-back", "4-side", "5-fingers", "6-lifestyle"]
+
+def pose_img(p, n):
+    """A wig's photo by pose (0 front, 1 three-quarter, 2 back, 3 side, 4 fingers, 5 lifestyle), falling back to its first photo.
+    The first photo in p["images"] is the cover, so never use list position for a specific pose."""
+    return next((im for im in p["images"] if f"-{POSES[n]}" in im["file"]), p["images"][0])
+
 def shot(texture, color, n):
-    """Photo n of a wig (0 front, 1 three-quarter, 2 back, 3 side, 4 fingers, 5 lifestyle), falling back to the first."""
-    ims = find(texture, color)["images"]
-    return ims[n] if len(ims) > n else ims[0]
+    return pose_img(find(texture, color), n)
 
 def img_like(p, *words):
     for im in p["images"]:
@@ -52,7 +57,7 @@ def img_like(p, *words):
 for t in D.TEXTURES:
     pool = [p for p in products if p["texture"]["key"] == t["key"]]
     tp = next((p for p in pool if p["color"]["key"] == "1B"), pool[0])
-    t["tile"] = tp["images"][1] if len(tp["images"]) > 1 else tp["images"][0]
+    t["tile"] = pose_img(tp, 1)
     t["product"] = tp
 
 home_textures = [t for t in D.TEXTURES if not t["tile"].get("placeholder")]
@@ -74,7 +79,7 @@ def banner_for(pool):
     spread = [pool[0], pool[len(pool) // 2], pool[-1]] + pool    # first, middle, last: three different looks
     for p in spread:
         if p["handle"] not in seen:
-            picks.append(p["images"][1] if len(p["images"]) > 1 else p["images"][0]); seen.add(p["handle"])
+            picks.append(pose_img(p, 1)); seen.add(p["handle"])
         if len(picks) == 3: break
     i = 1
     while len(picks) < 3 and i < len(pool[0]["images"]):
@@ -86,7 +91,7 @@ theater = []
 for c in D.COLORS:
     p = find("Body Wave", c["key"])
     cc = color_to_cc[c["key"]]
-    theater.append(dict(color=c, product=p, img=p["images"][1] if len(p["images"]) > 1 else p["images"][0], family_slug=cc["slug"], family_name=cc["name"]))
+    theater.append(dict(color=c, product=p, img=pose_img(p, 1), family_slug=cc["slug"], family_name=cc["name"]))
 
 best = [find(*k) for k in [("Body Wave", "1B"), ("Body Wave", "530"), ("Straight", "1B"),
                            ("Kinky Straight", "1B"), ("Loose Deep", "350"), ("Curly", "Honey Blonde"),
@@ -96,10 +101,10 @@ look_keys = [("Straight", "Red"), ("Loose Deep", "Honey Auburn"), ("Kinky Straig
 lookbook = []
 for k in look_keys:
     p = find(*k)
-    lookbook.append(dict(product=p, img=p["images"][1] if len(p["images"]) > 1 else p["images"][0]))
+    lookbook.append(dict(product=p, img=pose_img(p, 1)))
 all_tile = [shot("Straight", "Red", 1), shot("Body Wave", "Honey Blonde", 1), shot("Loose Deep", "350", 1), shot("Kinky Straight", "530", 1)]
 # home: texture spotlight with a shade switcher (every shade of the banner texture)
-spotlight = [dict(color=p["color"], img=p["images"][1], url=p["url"], price=p["price"]) for p in products if p["texture"]["key"] == banner_texture["key"]]
+spotlight = [dict(color=p["color"], img=pose_img(p, 1), url=p["url"], price=p["price"]) for p in products if p["texture"]["key"] == banner_texture["key"]]
 spot_start = next(i for i, x in enumerate(spotlight) if x["color"]["key"] == "1B")
 story = shot("Body Wave", "Honey Auburn", 5)      # warm, smiling: the "lovingkindness" photo
 

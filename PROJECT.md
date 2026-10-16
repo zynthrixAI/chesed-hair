@@ -90,6 +90,7 @@ All of this is live on the preview unless marked otherwise.
 
 ### Best photos and a tidier footer (16 October 2026)
 - Homepage hero, banners, shade showcase, spotlight, story ("Our name") and collection banners now use the most striking three-quarter and lifestyle shots. Picks are set in `src/build.py` with `shot(texture, color, n)` (0 front, 1 three-quarter, 5 lifestyle). Banners skip placeholder photos.
+- Every wig's first photo (cards, wig page, search, bag) is now the bright smiling lifestyle shot; the three-quarter shot is second (the card hover image). Body Wave 1 uses the three-quarter shot because its lifestyle shot has closed eyes. Set in `COVER_POSE` / `COVER_OVERRIDES` in `src/data.py`. In `build.py` use `pose_img(p, n)`, never a list position, to pick a specific pose.
 - Footer regrouped: brand and email, wigs by texture and by color (two columns each), more to shop and guides, help.
 
 ### One page per shade (16 October 2026)
