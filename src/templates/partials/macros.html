@@ -20,7 +20,7 @@
 {%- endmacro %}
 {% macro product_card(p, sizes="(max-width:720px) 50vw, 25vw", lead="color") -%}
 {% if p.kind != "wig" %}{{ extra_card(p, sizes) }}{% else %}
-<article class="card" data-color="{{ p.color.slug }}" data-texture="{{ p.texture.slug }}" data-name="{{ p.title }}" data-price="{{ p.price }}" data-reveal>
+<article class="card card-wig" data-color="{{ p.color.slug }}" data-texture="{{ p.texture.slug }}" data-name="{{ p.title }}" data-price="{{ p.price }}" data-reveal>
   <a class="card-link" href="{{ p.url }}" data-cursor="View">
     <div class="card-img">
       {{ picture(p.images[0].file, p.images[0].alt, sizes) }}

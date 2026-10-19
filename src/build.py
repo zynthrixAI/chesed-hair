@@ -185,6 +185,18 @@ env.globals["macros"] = env.get_template("partials/macros.html").module
 HEADER = "simple"
 env.globals["header_style"] = HEADER
 env.globals["nav_textures"] = [dict(t, products=[p for p in products if p["texture"]["key"] == t["key"]]) for t in D.TEXTURES]
+NAV_NAMES = {"crochet": "Crochet & Feather", "bundle": "Hair Bundles"}
+NAV_BLURBS = {"crochet": "Handmade feather and crochet braid extensions in human hair: body wave, deep wave, water wave, kinky curly and more.",
+              "bundle": "Body wave, straight, deep wave and water wave bundles, from natural darks to bold colors."}
+nav_extras = []
+for _ec in D.EXTRA_COLLECTIONS:
+    _pool = [x for x in extras if x["kind"] == _ec["kind"]]
+    _real = [x for x in _pool if not x["placeholder"]]
+    nav_extras.append(dict(_ec, nav_name=NAV_NAMES[_ec["kind"]], blurb=NAV_BLURBS[_ec["kind"]], cards=bool(_real),
+                           picks=(_real or _pool)[:6] if _real else _pool))
+env.globals["nav_extras"] = nav_extras
+env.globals["nav_wig_count"] = len(products)
+env.globals["wig_feature"] = shot("Body Wave", "530", 1)
 SIMPLE_PAGES = ["about", "faq", "shipping", "returns", "contact"]
 # home + all-wigs hub + texture, color and extra collections + wigs and extras + 2 guides + simple pages + site map
 env.globals["page_count"] = 2 + len(D.TEXTURES) + len(D.COLOR_COLLECTIONS) + len(D.EXTRA_COLLECTIONS) + len(products) + len(extras) + 2 + len(SIMPLE_PAGES) + 1
