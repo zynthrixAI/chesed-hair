@@ -5,7 +5,7 @@ A preview of the Chesed Hair online store (lace front wigs), built by Web Wrough
 - **Live preview:** https://lime-deer-681625.hostingersite.com
 - **Code:** https://github.com/zynthrixAI/chesed-hair
 - **On this PC:** `C:\Users\syedh\code\chesed-hair`
-- **Last updated:** 15 October 2026 (paused; see [NEXT-SESSION.md](NEXT-SESSION.md))
+- **Last updated:** 20 October 2026 (see [NEXT-SESSION.md](NEXT-SESSION.md))
 
 ---
 
@@ -104,6 +104,17 @@ All of this is live on the preview unless marked otherwise.
 - **Hair Bundles:** Body Wave, Straight, Deep Wave, Water Wave from the Bundle tab (shades and lengths from the sheet). Placeholder photos and a placeholder $99 price.
 - Wigs with no other shades hide the "Same texture" rail.
 
+### Homepage feedback, round 1 (19 to 20 October 2026; pull requests 10 to 15)
+- **Navigation:** the top menu is now **Wigs / Crochet & Feather / Hair Bundles / Guides / Help / About**, so crochet and bundles sit beside wigs instead of hiding under "Shop". Wigs keeps its texture tabs and shade lists. Crochet has its own **by texture** and **by color** lists plus popular products; its links open the crochet page already filtered (`?texture=water-wave`, `?color=blonde`). Bundles lists its four products. Phones get the same three groups. Texture and color families for the extras are worked out in `classify_extra()` in `src/data.py` from each listing's title, options and details, so a few may need correcting.
+- **Crochet page filters:** Texture and Shade filters, like wigs. Cards carry `data-texture` and `data-color` (space separated, a product can have several).
+- **Homepage banner:** photo 1 is the client's favourite (1B Straight). Photos 2 and 3 are two curly photos the client supplied (burgundy in the middle, black on the right): `banner-curly-burgundy` and `banner-curly-black` in `assets/p/`, set in `hero_imgs` in `src/build.py`.
+- **Banner heading:** "100% Virgin Remy Human Hair" is a bold rose label (`.hero-badge`) above the headline.
+- **Shade theater:** the scroll-driven behaviour was removed; you click a swatch to change shade.
+- **Textures section ("Seven textures. One standard."):** now a plain 4-column grid of cards (2 columns on phones) instead of a pinned sideways scroll with a fade. Section is `.texg` in `index.html`.
+- **Photos no longer cropped:** the wig photos are 2:3 and are now shown in full in the product gallery, shop cards, lookbook, spotlight, "on deep skin" and description photos (`.card-wig`, `.g-wig` and friends in `style.css`).
+- **Product page photos:** the original layout (first photo large, the rest in pairs). Clicking any photo opens a popup gallery with arrows, thumbnails, swipe and keyboard support (the lightbox in `main.js`, works on wigs and extras). Two redesigns (a thumbnail rail, then a full-width frame with a blurred backdrop) were tried and **rejected by the client**; do not bring them back.
+- **Mannequin photos (open):** the client's studio shots (front and back of each wig on a mannequin) are meant to be the last photos in each wig's gallery. Several automatic attempts (cropping the combined front-and-back picture, centring, background removal) were **rejected**, so **there are no mannequin photos on the site now**. The user will prepare them by hand. The unedited source shots, picked and named per wig, are in `D:\Work\Chesed Hair\Images\Mannequin Photos - To Upload` (98 files, `<handle>-mannequin-front.jpg` / `-back.jpg`, for 49 wigs; Kinky Curly, Permed Straight and Wet & Wavy have none). To add them: save each finished photo as WebP into `assets/p/` as `<handle>-7-mannequin-front-1024.webp` and `-560.webp` (front) and `<handle>-8-mannequin-back-1024.webp` and `-560.webp` (back), then rebuild. `build_products()` in `src/data.py` then puts them in the last two gallery slots (replacing the "fingers" photo); wigs without them keep the six AI photos.
+
 ---
 
 ## To do
@@ -120,6 +131,7 @@ These are placeholders on the site. Most are marked in **pink** so they're easy 
 - [ ] **Spin wheel:** the prizes, odds and discount codes.
 - [ ] **Price:** currently $289 for every wig and length, and a placeholder $99 for bundles.
 - [ ] **New photos needed:** Permed Straight and Wet & Wavy wigs, all 4 bundles, and Burmese Magic.
+- [ ] **Mannequin photos:** prepared by the user (see "Homepage feedback, round 1"). Kinky Curly has no mannequin shots from the client.
 - [ ] **Check the item list:** its wig tab starts at 18" but the site shows 10 to 32". The "TP" shades (TP27, TP30...) in the bundle tab need a plain-language name. The extension listings still use the old store's descriptions and are missing a return policy. Several are drafts in Shopify (21 of 23), so confirm they should all go live.
 - [ ] **Copy for the two new wig styles and the two new categories** was written by us. Chesed should check it.
 - [ ] **Free shipping threshold:** currently $200.
