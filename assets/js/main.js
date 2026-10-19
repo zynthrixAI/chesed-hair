@@ -239,7 +239,7 @@ $$('.lg-seg button').forEach(b=>b.addEventListener('click',()=>{ $$('.lg-seg but
 const grid=$('#colGrid'), fb=$('[data-fbar]');
 if(grid&&fb){ const cards=[...grid.querySelectorAll('.card')], groups=[...fb.querySelectorAll('[data-fgroup]')];
   const sel=()=>{ const o={}; groups.forEach(g=>o[g.dataset.fgroup]=[...g.querySelectorAll('input:checked')].map(i=>i.value)); return o; };
-  const matches=(c,o)=>Object.entries(o).every(([k,v])=>!v.length||v.includes(c.dataset[k]));
+  const matches=(c,o)=>Object.entries(o).every(([k,v])=>{ if(!v.length) return true; const own=(c.dataset[k]||'').split(' '); return v.some(x=>own.includes(x)); });
   function setOpen(g,open){ groups.forEach(x=>{ const on=open&&x===g; x.classList.toggle('open',on); x.querySelector('.fbtn').setAttribute('aria-expanded',on?'true':'false'); });
     fb.classList.toggle('popped',!!open); document.body.classList.toggle('sheet-open',!!open&&innerWidth<=720); }
   function preview(){ const o=sel(), n=cards.filter(c=>matches(c,o)).length; $$('[data-fpop-count],.fpop [data-fcount]').forEach(e=>e.textContent=n); }
@@ -442,6 +442,27 @@ if(matchMedia('(hover:hover) and (pointer:fine)').matches && !reduce){
 const lbSrc=$('[data-lightbox]');
 if(lbSrc){
   const shots=[...lbSrc.querySelectorAll('li img')].map(im=>({src:im.currentSrc||im.src,big:im.src,thumb:(im.getAttribute('srcset')||'').split(',')[0].trim().split(' ')[0]||im.src,alt:im.alt}));
+  /* gallery: one big photo, thumbnails beside it (desktop); phones keep the swipe strip */
+  const gLis=[...lbSrc.querySelectorAll('li')], gWrap=lbSrc.parentElement; let gi=0, setG=()=>{};
+  if(gLis.length>1&&gWrap&&gWrap.classList.contains('gallery')){
+    gWrap.classList.add('gal'); if(lbSrc.classList.contains('g-wig')) gWrap.classList.add('gal-wig');
+    gLis.forEach(li=>{ const im=li.querySelector('img'); if(im) im.loading='eager'; });
+    const stage=document.createElement('div'); stage.className='g-stage'; gWrap.insertBefore(stage,lbSrc); stage.appendChild(lbSrc);
+    const rail=document.createElement('div'); rail.className='g-thumbs'; rail.setAttribute('role','group'); rail.setAttribute('aria-label','Choose a photo');
+    rail.innerHTML=shots.map((x,i)=>'<button type="button" aria-label="Show photo '+(i+1)+' of '+shots.length+'"><img src="'+x.thumb+'" alt=""></button>').join('');
+    gWrap.insertBefore(rail,stage);
+    const arrow=(cls,label,d)=>{ const b=document.createElement('button'); b.type='button'; b.className='g-nav '+cls; b.setAttribute('aria-label',label); b.innerHTML='<svg viewBox="0 0 24 24"><path d="'+d+'"/></svg>'; stage.appendChild(b); return b; };
+    const prev=arrow('g-prev','Previous photo','M15 5l-7 7 7 7'), next=arrow('g-next','Next photo','M9 5l7 7-7 7');
+    const cnt=document.createElement('span'); cnt.className='g-count'; cnt.setAttribute('aria-hidden','true'); stage.appendChild(cnt);
+    const tb=[...rail.querySelectorAll('button')];
+    setG=i=>{ gi=(i+gLis.length)%gLis.length; gLis.forEach((li,k)=>li.classList.toggle('on',k===gi));
+      tb.forEach((t,k)=>{ t.classList.toggle('on',k===gi); if(k===gi) t.setAttribute('aria-current','true'); else t.removeAttribute('aria-current'); });
+      cnt.textContent=(gi+1)+' / '+gLis.length; };
+    tb.forEach((t,i)=>t.addEventListener('click',()=>setG(i)));
+    prev.addEventListener('click',()=>setG(gi-1)); next.addEventListener('click',()=>setG(gi+1));
+    gWrap.addEventListener('keydown',e=>{ if(e.target.closest('.lb')) return; if(e.key==='ArrowLeft'){ setG(gi-1); } else if(e.key==='ArrowRight'){ setG(gi+1); } });
+    setG(0);
+  }
   const lb=document.createElement('div'); lb.className='lb'; lb.setAttribute('role','dialog'); lb.setAttribute('aria-modal','true'); lb.setAttribute('aria-label','Product photos'); lb.setAttribute('data-lenis-prevent',''); lb.hidden=true;
   lb.innerHTML='<div class="lb-top"><span class="lb-count" aria-live="polite"></span><button type="button" class="lb-btn lb-close" aria-label="Close photos"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>'
     +'<div class="lb-stage"><button type="button" class="lb-btn lb-prev" aria-label="Previous photo"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><img alt=""><button type="button" class="lb-btn lb-next" aria-label="Next photo"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button></div>'
@@ -449,7 +470,7 @@ if(lbSrc){
   document.body.appendChild(lb);
   const big=lb.querySelector('.lb-stage>img'), count=lb.querySelector('.lb-count'), thumbs=[...lb.querySelectorAll('.lb-thumbs button')];
   let cur=0, opener=null;
-  const show=i=>{ cur=(i+shots.length)%shots.length; big.src=shots[cur].big; big.alt=shots[cur].alt; count.textContent=(cur+1)+' / '+shots.length;
+  const show=i=>{ cur=(i+shots.length)%shots.length; setG(cur); big.src=shots[cur].big; big.alt=shots[cur].alt; count.textContent=(cur+1)+' / '+shots.length;
     thumbs.forEach((t,k)=>t.classList.toggle('on',k===cur)); thumbs[cur].scrollIntoView({block:'nearest',inline:'center'}); };
   const open=(i,from)=>{ opener=from; lb.hidden=false; void lb.offsetWidth; lb.classList.add('open'); document.body.classList.add('lb-lock'); show(i); lb.querySelector('.lb-close').focus(); };
   const close=()=>{ lb.classList.remove('open'); document.body.classList.remove('lb-lock'); setTimeout(()=>{ lb.hidden=true; },300); opener&&opener.focus&&opener.focus(); };
