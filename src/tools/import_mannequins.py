@@ -1,9 +1,10 @@
-"""Turn the client's mannequin studio shots into two gallery photos per wig: front and back, each centred.
+"""Turn the client's mannequin studio shots into two gallery photos per wig: front and back, cut out, centred on a plain background.
 
     python src/tools/import_mannequins.py "D:/Work/Chesed Hair/Images/Assets - Chesed Hair/Hair Styles"
 
 Writes assets/p/<handle>-7-mannequin-front-{1024,560}.webp and <handle>-8-mannequin-back-{1024,560}.webp.
-Needs Pillow, numpy and opencv-python-headless (the face finder tells the front shot from the back shot).
+Needs Pillow, numpy, opencv-python-headless (the face finder tells the front shot from the back shot)
+and rembg[cpu] (cuts the wig and bust out of the studio backdrop; downloads its model on first run).
 Shots the script can't sort out on its own are listed in PICKS below (checked by eye).
 """
 import os, re, sys
@@ -48,42 +49,45 @@ def pair_in(folder):
     fs = [f for f in fs if (lambda s: s[1] >= 1.5 * s[0])(Image.open(os.path.join(folder, f)).size)]
     return fs
 
-def wig_box(arr):
-    """Bounding box (x0, y0, x1, y1) of the wig and bust: everything that differs from the plain backdrop. The thin stand is ignored."""
-    h, w, _ = arr.shape
-    edge = max(2, int(w * .04))
-    bg = np.concatenate([arr[:, edge:edge * 2], arr[:, -edge * 2:-edge]], axis=1).astype(int).mean(axis=1)   # backdrop colour per row
-    diff = np.abs(arr.astype(int) - bg[:, None, :]).max(axis=2) > 28
-    diff[:, :edge] = diff[:, -edge:] = False
-    cols = np.where(diff.sum(axis=0) > h * .03)[0]
-    x0, x1 = cols.min(), cols.max()
-    rows = np.where(diff[:, x0:x1 + 1].sum(axis=1) > w * .08)[0]      # the stand is narrower than this, so it drops out
-    return x0, rows.min(), x1, rows.max()
+BG = (243, 242, 241)          # the site's --pearl, so the photos sit flush on the page
+SIZE = (1024, 1536)
+_session = None
 
-def centred(path, size=(1024, 1536)):
-    im, k = small(path, 700)
-    arr = np.asarray(im)
-    x0, y0, x1, y1 = wig_box(arr)
-    full = Image.open(path).convert("RGB")
-    s = 1 / k
-    x0, y0, x1, y1 = [v * s for v in (x0, y0, x1, y1)]
-    bw, bh = x1 - x0, y1 - y0
-    cw = bw * 1.28; ch = cw * 1.5
-    if ch < bh * 1.12: ch = bh * 1.12; cw = ch / 1.5
-    cx, cy = (x0 + x1) / 2, (y0 + y1) / 2
-    # stay inside the photo, away from its edges (a few shots are slightly rotated and have blank wedges in the corners)
-    rx0, ry0, rx1, ry1 = full.width * .06, full.height * .04, full.width * .94, full.height * .96
-    z = min(1.0, (rx1 - rx0) / cw, (ry1 - ry0) / ch)
-    cw, ch = cw * z, ch * z
-    cx = min(max(cx, rx0 + cw / 2), rx1 - cw / 2)
-    cy = min(max(cy, ry0 + ch / 2), ry1 - ch / 2)
-    left, top = int(round(cx - cw / 2)), int(round(cy - ch / 2))
-    box = (left, top, int(round(left + cw)), int(round(top + ch)))
-    bgc = tuple(int(v) for v in np.median(np.asarray(full.crop((0, 0, full.width, 40))).reshape(-1, 3), axis=0))
-    canvas = Image.new("RGB", (box[2] - box[0], box[3] - box[1]), bgc)
-    src = (max(0, box[0]), max(0, box[1]), min(full.width, box[2]), min(full.height, box[3]))
-    canvas.paste(full.crop(src), (src[0] - box[0], src[1] - box[1]))
-    return canvas.resize(size, Image.LANCZOS)
+def drop_stand(alpha):
+    """Remove the metal stand under the bust: everything below the lowest hair or bust pixel that sits outside the stand's column."""
+    a = alpha > 128
+    h, w = a.shape
+    bottom = np.where(a[int(h * .97):].any(axis=0))[0]
+    if not len(bottom) or (bottom.max() - bottom.min()) > w * .12:
+        return alpha                              # nothing narrow touches the bottom edge (e.g. a torso form): no stand
+    x0, x1 = bottom.min(), bottom.max()
+    pad = max(int((x1 - x0) * 1.6), int(w * .03))
+    out = a.copy(); out[:, max(0, x0 - pad):x1 + pad + 1] = False
+    rows = np.where(out.sum(axis=1) > w * .004)[0]
+    if not len(rows):
+        return alpha
+    alpha = alpha.copy(); alpha[rows.max() + 1:, :] = 0
+    return alpha
+
+def centred(path):
+    """Cut the wig and bust out of the studio shot, drop the stand, and centre it on the plain background."""
+    global _session
+    from rembg import remove, new_session
+    if _session is None:
+        _session = new_session("birefnet-general-lite")
+    im = Image.open(path); im.draft("RGB", (1400, 2800)); im = im.convert("RGB")
+    if im.height > 2400:
+        im = im.resize((int(im.width * 2400 / im.height), 2400), Image.LANCZOS)
+    cut = remove(im, session=_session)
+    alpha = drop_stand(np.asarray(cut.split()[3]))
+    rows, cols = np.where(alpha > 40)
+    y0, y1, x0, x1 = rows.min(), rows.max(), cols.min(), cols.max()
+    sub = cut.crop((x0, y0, x1 + 1, y1 + 1)); sub.putalpha(Image.fromarray(alpha[y0:y1 + 1, x0:x1 + 1]))
+    k = min(SIZE[0] * .80 / sub.width, SIZE[1] * .84 / sub.height)
+    sub = sub.resize((max(1, int(sub.width * k)), max(1, int(sub.height * k))), Image.LANCZOS)
+    canvas = Image.new("RGB", SIZE, BG)
+    canvas.paste(sub, ((SIZE[0] - sub.width) // 2, (SIZE[1] - sub.height) // 2), sub)
+    return canvas
 
 def save(im, name):
     im.save(os.path.join(OUT, f"{name}-1024.webp"), "WEBP", quality=84, method=6)
