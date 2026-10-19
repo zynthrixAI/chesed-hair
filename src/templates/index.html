@@ -74,28 +74,22 @@
 </section>
 
 {# 5. TEXTURES #}
-<section class="texh" aria-labelledby="texH" data-hscroll>
-  <div class="texh-pin">
-    <div class="texh-copy">
-      <p class="eyebrow">The collection</p>
-      <h2 id="texH" class="display-sm" data-split>Seven textures. One standard.</h2>
-      <p class="texh-sub">Every texture on the same model, in 1B, so you can compare them fairly.</p>
-      <p class="texh-count" aria-hidden="true"><b data-hnow>01</b> / {{ "%02d"|format(home_textures|length + 1) }}</p>
-      <span class="texh-bar" aria-hidden="true"><i data-hbar></i></span>
-      <a class="link" href="/collections/wigs/">Shop all wigs</a>
+<section class="texg" aria-labelledby="texH">
+  <div class="wrap">
+    <div class="texg-head">
+      <div><p class="eyebrow">The collection</p><h2 id="texH" class="display-sm" data-split>{{ n_home_tex_word }} textures. One standard.</h2></div>
+      <div class="texg-r"><p class="texh-sub">Every texture on the same model, in 1B, so you can compare them fairly.</p><a class="link" href="/collections/wigs/">Shop all wigs</a></div>
     </div>
-    <div class="texh-view">
-      <ol class="texh-track" data-htrack data-drag>
-        {% for t in home_textures %}<li><a class="tcard" href="/collections/{{ t.slug }}-wigs/" data-cursor="Explore">
-          {{ macros.picture(t.tile.file, t.name ~ " lace front wig", "(max-width:900px) 72vw, 26vw") }}
-          <span class="tcard-no">{{ "%02d"|format(loop.index) }}</span>
-          <span class="tcard-txt"><b>{{ t.name }}</b><small>{{ t.short }}</small><em>Explore {{ t.name|lower }} →</em></span></a></li>{% endfor %}
-        <li><a class="tcard tcard-all" href="/collections/wigs/" data-cursor="Shop">
-          <span class="tcard-collage">{% for im in all_tile %}{{ macros.picture(im.file, "", "(max-width:900px) 36vw, 13vw") }}{% endfor %}</span>
-          <span class="tcard-no">08</span>
-          <span class="tcard-txt"><b>All 50 wigs</b><small>Every texture and shade, side by side.</small><em>Shop the collection →</em></span></a></li>
-      </ol>
-    </div>
+    <ul class="texg-grid" role="list">
+      {% for t in home_textures %}<li><a class="tcard" href="/collections/{{ t.slug }}-wigs/" data-cursor="Explore">
+        {{ macros.picture(t.tile.file, t.name ~ " lace front wig", "(max-width:900px) 50vw, 25vw") }}
+        <span class="tcard-no">{{ "%02d"|format(loop.index) }}</span>
+        <span class="tcard-txt"><b>{{ t.name }}</b><small>{{ t.short }}</small><em>Explore {{ t.name|lower }} →</em></span></a></li>{% endfor %}
+      <li><a class="tcard tcard-all" href="/collections/wigs/" data-cursor="Shop">
+        <span class="tcard-collage">{% for im in all_tile %}{{ macros.picture(im.file, "", "(max-width:900px) 25vw, 13vw") }}{% endfor %}</span>
+        <span class="tcard-no">{{ "%02d"|format(home_textures|length + 1) }}</span>
+        <span class="tcard-txt"><b>All wigs</b><small>Every texture and shade, side by side.</small><em>Shop the collection →</em></span></a></li>
+    </ul>
   </div>
 </section>
 

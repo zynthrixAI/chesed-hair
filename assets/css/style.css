@@ -1022,21 +1022,16 @@ button.link{border:0;background-color:transparent;cursor:pointer;padding:0 0 4px
   .sx-info{opacity:1;transform:none}
 }
 
-/* home: textures, pinned while the cards slide sideways (desktop) */
-.texh{padding:var(--sec) 0}
-.texh-pin{display:grid;grid-template-columns:minmax(300px,calc(28vw + var(--g))) minmax(0,1fr);align-items:center}
-.texh-copy{position:relative;z-index:2;align-self:stretch;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:0 clamp(24px,3vw,48px) 0 var(--g);background:var(--porcelain)}
-.texh-copy::after{content:"";position:absolute;top:0;bottom:0;left:100%;width:40px;background:linear-gradient(90deg,var(--porcelain),rgba(251,250,249,0));pointer-events:none}
-.texh-copy h2{margin:12px 0 16px}
-.texh-sub{color:var(--slate);font-size:15px;max-width:30ch}
-.texh-count{margin:34px 0 10px;font:600 11px/1 var(--mark);letter-spacing:.2em;color:var(--slate)}
-.texh-count b{color:var(--ink);font-weight:600}
-.texh-bar{display:block;height:1px;background:var(--line);margin-bottom:30px;max-width:240px}
-.texh-bar i{display:block;height:2px;margin-top:-.5px;width:100%;background:var(--rose);transform-origin:left;transform:scaleX(.125)}
-.texh-view{min-width:0;overflow:hidden}
-.texh-track{display:flex;gap:clamp(14px,1.4vw,20px);padding-right:var(--g);overflow-x:auto;scrollbar-width:none;scroll-snap-type:x mandatory}
-.texh-track::-webkit-scrollbar{display:none}
-.texh-track li{flex:0 0 clamp(260px,25vw,380px);scroll-snap-align:start}
+/* home: textures as a plain grid of cards (no pinning, no sideways scroll, no fade) */
+.texg{padding:var(--sec) 0}
+.texg-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px 60px;flex-wrap:wrap;margin-bottom:clamp(28px,3vw,44px)}
+.texg-head h2{margin:12px 0 0}
+.texg-head .texh-sub{color:var(--slate);font-size:15px;max-width:34ch;margin:0 0 12px}
+.texg-r{display:flex;flex-direction:column;align-items:flex-start}
+.texg-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(12px,1.4vw,20px);margin:0;padding:0;list-style:none}
+.texg .tcard{aspect-ratio:2/3}
+.texg .tcard>img{object-position:50% 0}
+@media (max-width:900px){.texg-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.texg .tcard-txt{left:14px;right:14px;bottom:14px}.texg .tcard-txt small{display:none}}
 .tcard{position:relative;display:block;aspect-ratio:3/4;overflow:hidden;background:var(--pearl);color:#fff;text-decoration:none}
 .tcard>img,.tcard-collage{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.4s var(--ease)}
 .tcard:hover>img,.tcard:hover .tcard-collage{transform:scale(1.05)}
@@ -1049,22 +1044,6 @@ button.link{border:0;background-color:transparent;cursor:pointer;padding:0 0 4px
 .tcard-txt small{display:block;margin-top:6px;font-size:13.5px;color:rgba(255,255,255,.85);line-height:1.4}
 .tcard-txt em{display:block;font-style:normal;margin-top:12px;font:600 10px/1 var(--mark);letter-spacing:.18em;text-transform:uppercase;max-height:0;opacity:0;overflow:hidden;transition:max-height .6s var(--ease),opacity .5s var(--ease),margin .6s var(--ease)}
 .tcard:hover .tcard-txt em,.tcard:focus-visible .tcard-txt em{max-height:20px;opacity:1}
-@media (min-width:901px){
-  .js .texh{padding:0}
-  .js .texh-pin{position:sticky;top:var(--hdr-h,114px);height:calc(100vh - var(--hdr-h,114px));overflow:hidden}
-  .js .texh-view{overflow:visible}
-  .js .texh-track{overflow:visible;scroll-snap-type:none;will-change:transform;cursor:auto}
-  .js .texh-track li{flex-basis:min(25vw,calc((100vh - var(--hdr-h,114px)) * .6))}
-}
-@media (max-width:900px){
-  .texh-pin{grid-template-columns:1fr}
-  .texh-copy{padding:0 var(--g) 24px}
-  .texh-copy::after{display:none}
-  .texh-view{padding-left:var(--g)}
-  .texh-track li{flex-basis:72%}
-  .texh-count,.texh-bar{display:none}
-}
-@media (prefers-reduced-motion:reduce){.js .texh{padding:var(--sec) 0}.js .texh-pin{position:static;height:auto}.js .texh-track{overflow-x:auto}}
 
 /* tighter rhythm between home sections */
 .story{padding-bottom:clamp(32px,4vw,56px)}
@@ -1082,7 +1061,7 @@ button.link{border:0;background-color:transparent;cursor:pointer;padding:0 0 4px
 .join .btn:hover{color:var(--noir)}
 .join .msg{position:absolute;left:0;top:calc(100% + 8px);font-size:13px;color:var(--mist)}
 @media (max-width:720px){.ftr-join h2{white-space:normal}.join{flex-basis:100%}.join .btn{padding:0 16px}}
-.texh-copy h2{font-size:clamp(34px,3.2vw,54px)}
+.texg-head h2{font-size:clamp(34px,3.2vw,54px)}
 @media (max-width:900px){.sx-row{scroll-padding-left:var(--g)}}
 
 /* product photos are portrait: always crop from the top centre so faces and hair stay in frame */
@@ -1227,45 +1206,6 @@ a.card-add{text-decoration:none;display:inline-block}
 body.lb-lock{overflow:hidden}
 @media (max-width:720px){.lb-stage{padding:0 8px}.lb-prev,.lb-next{display:none}.lb-thumbs button{width:40px;height:54px}}
 .lb[hidden]{display:none}
-
-/* product gallery (desktop): 50/50 columns. The photo frame fills the gallery column and the whole photo shows (never cropped)
-   over a soft blurred copy of itself, so there are no empty side bars. Thumbnails sit underneath. The gallery stays on
-   screen while the details scroll, so photo and text end together. Phones keep the swipe strip. */
-.g-stage{position:relative}
-.g-nav,.g-thumbs,.g-bars,.g-zi,.g-bg{display:none}
-@media (min-width:901px){
-  .pdp-page .pdp{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,4vw,64px)}
-  .pdp-page .buy{position:static;padding-top:4px}
-  .gallery.gal{position:sticky;top:calc(var(--hdr-h,114px) + 20px);align-self:start;display:flex;flex-direction:column;gap:12px}
-  .gal .g-stage{width:100%;height:min(calc(100svh - var(--hdr-h,114px) - 170px),calc((50vw - 60px) * 1.25),900px);min-height:440px;background:var(--pearl);overflow:hidden;cursor:zoom-in;isolation:isolate}
-  .gal .g-bg{display:block;position:absolute;inset:-60px;background-size:cover;background-position:center;filter:blur(36px) saturate(1.05) brightness(1.04);opacity:.85;z-index:0}
-  .gal .g-stage::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(251,250,249,.18),rgba(251,250,249,0) 30%,rgba(14,14,16,0) 75%,rgba(14,14,16,.12));z-index:1;pointer-events:none}
-  .gal .g-grid{display:block;position:relative;z-index:1;height:100%;margin:0}
-  .gal .g-grid li{display:none;height:100%;overflow:hidden;background:transparent}
-  .gal .g-grid li.on{display:flex;justify-content:center;align-items:center;animation:fadein .45s}
-  .gal .g-grid li img,.gal .g-grid li:first-child img{width:auto;max-width:100%;height:100%;aspect-ratio:auto;object-fit:contain;box-shadow:0 18px 50px rgba(14,14,16,.18);transition:transform .45s var(--ease);will-change:transform}
-  .gal .g-stage.zoom li.on img{transform:scale(2.1);transition:transform .2s ease-out}
-  .gal .g-nav{display:grid;place-items:center;position:absolute;top:50%;transform:translateY(-50%);width:46px;height:46px;border:0;border-radius:50%;background:rgba(251,250,249,.94);color:var(--ink);cursor:pointer;box-shadow:0 8px 22px rgba(14,14,16,.16);z-index:3;transition:transform .3s var(--ease),opacity .25s,background .25s}
-  .gal .g-nav:hover{background:#fff;transform:translateY(-50%) scale(1.06)}
-  .gal .g-nav svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.6}
-  .gal .g-prev{left:16px}.gal .g-next{right:16px}
-  .gal .g-bars{display:flex;gap:6px;position:absolute;left:50%;bottom:18px;transform:translateX(-50%);z-index:3;pointer-events:none}
-  .gal .g-bars i{display:block;width:22px;height:3px;border-radius:2px;background:rgba(255,255,255,.55);box-shadow:0 0 0 .5px rgba(14,14,16,.15);transition:width .35s var(--ease),background .35s}
-  .gal .g-bars i.on{width:40px;background:#fff}
-  .gal .g-zi{display:grid;place-items:center;position:absolute;right:16px;top:16px;width:38px;height:38px;border-radius:50%;background:rgba(251,250,249,.94);color:var(--ink);z-index:3;pointer-events:none;box-shadow:0 6px 16px rgba(14,14,16,.12)}
-  .gal .g-zi svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8}
-  .gal .g-stage.zoom .g-nav,.gal .g-stage.zoom .g-bars,.gal .g-stage.zoom .g-zi{opacity:0}
-  .gal .g-thumbs{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;padding:2px}
-  .gal .g-thumbs::-webkit-scrollbar{display:none}
-  .gal .g-thumbs button{position:relative;flex:none;height:84px;width:auto;aspect-ratio:2/3;padding:0;border:0;background:var(--pearl);cursor:pointer;opacity:.55;transition:opacity .25s}
-  .gal:not(.gal-wig) .g-thumbs button{aspect-ratio:1}
-  .gal .g-thumbs button::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 2px var(--ink);opacity:0;transition:opacity .25s}
-  .gal .g-thumbs button:hover{opacity:.9}
-  .gal .g-thumbs button.on{opacity:1}
-  .gal .g-thumbs button.on::after{opacity:1}
-  .gal .g-thumbs img{width:100%;height:100%;object-fit:cover;object-position:50% 0;display:block}
-  .gal .g-dots{display:none}
-}
 
 /* crochet menu: its own texture and colour lists, like wigs */
 .cmenu{grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,2.2fr)}
