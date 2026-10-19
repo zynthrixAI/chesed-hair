@@ -225,7 +225,7 @@ def org_ld():
 render("index.html", "/", seo_title="Chesed Hair | Human Hair Lace Front Wigs",
        seo_description=f"Lace front wigs in 100% unprocessed virgin Remy human hair. {len(D.TEXTURES)} textures, 10 shades, 10 to 32 inches, all shown on the same model.",
        canonical="/", body_class="home overlay", page_id="home", hero=hero, hero_product=hero_product, hero_imgs=hero_imgs, banner_imgs=banner_imgs, banner_texture=banner_texture, all_tile=all_tile, theater=theater,
-       best=best, home_textures=home_textures, n_tex_word=n_tex_word, lookbook=lookbook, story=story, spotlight=spotlight, spot_start=spot_start, home_faq=home_faq, jsonld=json.dumps(org_ld()),
+       best=best, home_textures=home_textures, n_tex_word=n_tex_word, n_home_tex_word=NUM.get(len(home_textures), str(len(home_textures))), lookbook=lookbook, story=story, spotlight=spotlight, spot_start=spot_start, home_faq=home_faq, jsonld=json.dumps(org_ld()),
        og_image=f"/assets/p/{hero['file']}-1024.webp")
 
 # COLLECTIONS
