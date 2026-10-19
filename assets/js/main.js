@@ -454,6 +454,12 @@ if(lbSrc){
     const arrow=(cls,label,d)=>{ const b=document.createElement('button'); b.type='button'; b.className='g-nav '+cls; b.setAttribute('aria-label',label); b.innerHTML='<svg viewBox="0 0 24 24"><path d="'+d+'"/></svg>'; stage.appendChild(b); return b; };
     const prev=arrow('g-prev','Previous photo','M15 5l-7 7 7 7'), next=arrow('g-next','Next photo','M9 5l7 7-7 7');
     const cnt=document.createElement('span'); cnt.className='g-count'; cnt.setAttribute('aria-hidden','true'); stage.appendChild(cnt);
+    const hint=document.createElement('span'); hint.className='g-hint'; hint.setAttribute('aria-hidden','true'); hint.innerHTML='<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5M11 8v6M8 11h6"/></svg>Hover to zoom · click to enlarge'; stage.appendChild(hint);
+    /* hover zoom (mouse only): the photo enlarges and follows the pointer */
+    if(matchMedia('(hover:hover) and (pointer:fine)').matches){
+      const zoomAt=e=>{ if(e.target.closest('.g-nav')){ stage.classList.remove('zoom'); return; } const r=stage.getBoundingClientRect(), im=lbSrc.querySelector('li.on img'); if(!im) return;
+        im.style.transformOrigin=((e.clientX-r.left)/r.width*100)+'% '+((e.clientY-r.top)/r.height*100)+'%'; stage.classList.add('zoom'); };
+      stage.addEventListener('mousemove',zoomAt); stage.addEventListener('mouseleave',()=>stage.classList.remove('zoom')); }
     const tb=[...rail.querySelectorAll('button')];
     setG=i=>{ gi=(i+gLis.length)%gLis.length; gLis.forEach((li,k)=>li.classList.toggle('on',k===gi));
       tb.forEach((t,k)=>{ t.classList.toggle('on',k===gi); if(k===gi) t.setAttribute('aria-current','true'); else t.removeAttribute('aria-current'); });
