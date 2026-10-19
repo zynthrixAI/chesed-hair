@@ -68,7 +68,7 @@ hero_product = find("Body Wave", "1B")
 hero = img_like(hero_product, "6-lifestyle")
 # the most striking editorial shots: side panes frame the centre one
 hero = shot("Body Wave", "530", 1)
-hero_imgs = [shot("Straight", "1B", 1), hero, shot("Loose Deep", "Honey Blonde", 1)]
+hero_imgs = [shot("Straight", "1B", 1), shot("Straight", "530", 1), shot("Straight", "Honey Blonde", 1)]   # the client's favourite (1B) leads; the others match it: sleek straight, same framing, different wigs
 banner_texture = D.TEX["Kinky Straight"]
 banner_imgs = [shot("Kinky Straight", "350", 1), shot("Kinky Straight", "530", 1)]
 

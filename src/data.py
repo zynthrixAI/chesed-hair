@@ -153,7 +153,7 @@ def make_color_collections(products):
 
 
 def gallery_images(handle, color, texture_name):
-    """The gallery photos for a wig, in order: front, three-quarter, back, side, fingers, lifestyle, then the real mannequin photo (where the client supplied one)."""
+    """The gallery photos for a wig, in order: front, three-quarter, back, side, fingers, lifestyle, then the real mannequin photo (where the client supplied one); build_products puts it in the last slot."""
     found = sorted(f for f in os.listdir(ASSETS_P) if f.startswith(handle + "-") and f.endswith("-1024.webp"))
     images = []
     for f in found:
@@ -184,7 +184,11 @@ def build_products():
         for color, c in COL.items():
             handle = f"{c['slug']}-{t['slug']}-lace-front-wig"
             title = f"{color} {t['name']} Lace Front Wig"
-            images = cover_first(gallery_images(handle, color, t["name"]), t["key"], color)
+            images = gallery_images(handle, color, t["name"])
+            mannequin = [im for im in images if im.get("mannequin")]
+            images = cover_first([im for im in images if not im.get("mannequin")], t["key"], color)
+            if mannequin and images:        # the real mannequin photo takes the last slot in the gallery
+                images = images[:-1] + mannequin
             placeholder = False
             if not images and color in t.get("only_colors", []):
                 images = [dict(file=PLACEHOLDER_IMG, alt=f"Photo coming soon: {title}", placeholder=True)]
