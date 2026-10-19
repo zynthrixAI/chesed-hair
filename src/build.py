@@ -68,7 +68,9 @@ hero_product = find("Body Wave", "1B")
 hero = img_like(hero_product, "6-lifestyle")
 # the most striking editorial shots: side panes frame the centre one
 hero = shot("Body Wave", "530", 1)
-hero_imgs = [shot("Straight", "1B", 1), shot("Straight", "530", 1), shot("Straight", "Honey Blonde", 1)]   # the client's favourite (1B) leads; the others match it: sleek straight, same framing, different wigs
+hero_imgs = [shot("Straight", "1B", 1),      # the client's favourite leads
+             dict(file="banner-curly-black", alt="Long black curly lace front wig on a model in an orange knit sweater"),
+             dict(file="banner-curly-burgundy", alt="Long burgundy curly lace front wig on a smiling model in a sage hoodie")]
 banner_texture = D.TEX["Kinky Straight"]
 banner_imgs = [shot("Kinky Straight", "350", 1), shot("Kinky Straight", "530", 1)]
 
@@ -194,6 +196,12 @@ for _ec in D.EXTRA_COLLECTIONS:
     _real = [x for x in _pool if not x["placeholder"]]
     nav_extras.append(dict(_ec, nav_name=NAV_NAMES[_ec["kind"]], blurb=NAV_BLURBS[_ec["kind"]], cards=bool(_real),
                            picks=(_real or _pool)[:6] if _real else _pool))
+for _n in nav_extras:
+    if _n["kind"] == "crochet":
+        _pool = [x for x in extras if x["kind"] == "crochet"]
+        _n["textures"] = [dict(name=n, count=c, url=f"/collections/{_n['slug']}/?texture={s}") for s, n in D.CROCHET_TEXTURES if (c := sum(1 for x in _pool if s in x["textures"]))]
+        _n["colors"] = [dict(name=n, hex=h, count=c, url=f"/collections/{_n['slug']}/?color={s}") for s, n, h in D.CROCHET_COLORS if (c := sum(1 for x in _pool if s in x["colors"]))]
+        _n["picks"] = _n["picks"][:4]
 env.globals["nav_extras"] = nav_extras
 env.globals["nav_wig_count"] = len(products)
 env.globals["wig_feature"] = shot("Body Wave", "530", 1)
@@ -239,8 +247,15 @@ def texture_filters(pool):
         if n: out.append(dict(value=t["slug"], label=t["name"], hex=None, count=n))
     return out
 
+def crochet_facets(pool):
+    tex = [dict(value=s, label=n, hex=None, count=c) for s, n in D.CROCHET_TEXTURES if (c := sum(1 for x in pool if s in x["textures"]))]
+    col = [dict(value=s, label=n, hex=h, count=c) for s, n, h in D.CROCHET_COLORS if (c := sum(1 for x in pool if s in x["colors"]))]
+    return [dict(key="texture", label="Texture", options=tex), dict(key="color", label="Shade", options=col)]
+
 def facets(pool):
     """Filter groups for a collection: only groups with more than one option. Extras have no texture or shade."""
+    if pool and pool[0].get("kind", "wig") == "crochet":
+        return crochet_facets(pool)
     if pool and pool[0].get("kind", "wig") != "wig":
         return []
     out = [dict(key="texture", label="Texture", options=texture_filters(pool)),

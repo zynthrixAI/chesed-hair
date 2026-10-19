@@ -3,7 +3,7 @@
 {%- endmacro %}
 {% macro money(v) -%}${{ "%.2f"|format(v) }}{%- endmacro %}
 {% macro extra_card(p, sizes="(max-width:720px) 50vw, 25vw") -%}
-<article class="card" data-name="{{ p.title }}" data-price="{{ p.price }}" data-reveal>
+<article class="card"{% if p.kind == "crochet" %} data-texture="{{ p.textures|join(' ') }}" data-color="{{ p.colors|join(' ') }}"{% endif %} data-name="{{ p.title }}" data-price="{{ p.price }}" data-reveal>
   <a class="card-link" href="{{ p.url }}" data-cursor="View">
     <div class="card-img">
       {{ picture(p.images[0].file, p.images[0].alt, sizes) }}

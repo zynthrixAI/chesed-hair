@@ -51,22 +51,43 @@
       <div class="dd">
         <a href="/collections/{{ ec.slug }}/" class="dd-top">{{ ec.nav_name }}</a>
         <div class="dd-panel">
-          <div class="xmenu{% if ec.cards %} xmenu-cards{% endif %}">
+          {% if ec.kind == "crochet" %}
+          <div class="smenu cmenu">
+            <div class="sm-col">
+              <h3>{{ ec.nav_name }} by texture</h3>
+              <ul class="sm-tex">
+              {% for t in ec.textures %}<li><a href="{{ t.url }}">{{ t.name }}<span class="sm-r"><small>{{ t.count }}</small><i class="sm-chev" aria-hidden="true">›</i></span></a></li>{% endfor %}
+              </ul>
+            </div>
+            <div class="sm-col">
+              <h3>{{ ec.nav_name }} by color</h3>
+              <ul class="sm-list">
+              {% for c in ec.colors %}<li><a href="{{ c.url }}"><i style="--sw:{{ c.hex }}"></i>{{ c.name }}<small class="sm-n">{{ c.count }}</small></a></li>{% endfor %}
+              </ul>
+            </div>
+            <div class="sm-col sm-span2">
+              <h3>Popular right now</h3>
+              <ul class="xm-cards xm-cards4" role="list">
+                {% for x in ec.picks %}<li><a href="{{ x.url }}"><span class="xm-img">{{ macros.picture(x.images[0].file, "", "150px") }}</span><b>{{ x.title }}</b><small>{% if x.price_from %}From {% endif %}{{ macros.money(x.price) }}</small></a></li>{% endfor %}
+              </ul>
+            </div>
+            <div class="sm-foot">
+              <a class="sm-all" href="/collections/{{ ec.slug }}/">Shop all {{ ec.count }} {{ ec.noun }}s</a>
+              <span class="sm-foot-links"><a href="/pages/wig-length-guide/">Length Guide</a><a href="/pages/wig-color-guide/">Color Guide</a></span>
+            </div>
+          </div>
+          {% else %}
+          <div class="xmenu">
             <div class="xm-intro">
               <h3>{{ ec.name }}</h3>
               <p>{{ ec.blurb }}</p>
               <a class="sm-all" href="/collections/{{ ec.slug }}/">Shop all {{ ec.count }} {{ ec.noun }}s</a>
             </div>
-            {% if ec.cards %}
-            <ul class="xm-cards" role="list">
-              {% for x in ec.picks %}<li><a href="{{ x.url }}"><span class="xm-img">{{ macros.picture(x.images[0].file, "", "150px") }}</span><b>{{ x.title }}</b><small>{% if x.price_from %}From {% endif %}{{ macros.money(x.price) }}</small></a></li>{% endfor %}
-            </ul>
-            {% else %}
             <ul class="xm-list sm-list" role="list">
               {% for x in ec.picks %}<li><a href="{{ x.url }}"><b>{{ x.title }}</b><small>{{ macros.money(x.price) }}</small></a></li>{% endfor %}
             </ul>
-            {% endif %}
           </div>
+          {% endif %}
         </div>
       </div>
       {% endfor %}
@@ -127,10 +148,20 @@
     {% for ec in nav_extras %}
     <details class="dw">
       <summary>{{ ec.nav_name }}</summary>
+      {% if ec.kind == "crochet" %}
+      <ul>
+        <li><a class="dw-link" href="/collections/{{ ec.slug }}/">Shop all {{ ec.count }} {{ ec.noun }}s</a></li>
+        <li><details class="dw-sub"><summary>By texture<small>{{ ec.textures|length }}</small></summary>
+          <ul class="sm-list">{% for t in ec.textures %}<li><a href="{{ t.url }}">{{ t.name }}</a></li>{% endfor %}</ul></details></li>
+        <li><details class="dw-sub"><summary>By color<small>{{ ec.colors|length }}</small></summary>
+          <ul class="sm-list">{% for c in ec.colors %}<li><a href="{{ c.url }}"><i style="--sw:{{ c.hex }}"></i>{{ c.name }}</a></li>{% endfor %}</ul></details></li>
+      </ul>
+      {% else %}
       <ul class="sm-list">
         <li><a class="dw-link" href="/collections/{{ ec.slug }}/">Shop all {{ ec.count }} {{ ec.noun }}s</a></li>
         {% for x in ec.picks %}<li><a href="{{ x.url }}">{{ x.title }}</a></li>{% endfor %}
       </ul>
+      {% endif %}
     </details>
     {% endfor %}
     <details class="dw">

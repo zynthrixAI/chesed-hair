@@ -10,7 +10,7 @@ HERE = os.path.dirname(__file__)
 ASSETS_P = os.path.join(HERE, "..", "assets", "p")
 POSE_NAMES = {"front": "front view", "three-quarter": "three-quarter view", "back": "back view",
               "side": "side view", "fingers": "fingers through the lengths", "lifestyle": "lifestyle shot",
-              "mannequin": "front and back on a mannequin"}
+              "mannequin-front": "front view on a mannequin", "mannequin-back": "back view on a mannequin"}
 
 PRICE = 289.00            # placeholder price (same as the approved preview)
 FREE_SHIP = 200.00        # placeholder free-shipping threshold
@@ -153,7 +153,7 @@ def make_color_collections(products):
 
 
 def gallery_images(handle, color, texture_name):
-    """The gallery photos for a wig, in order: front, three-quarter, back, side, fingers, lifestyle, then the real mannequin photo (where the client supplied one); build_products puts it in the last slot."""
+    """The gallery photos for a wig, in order: front, three-quarter, back, side, fingers, lifestyle, then the real mannequin photos, front and back (where the client supplied them); build_products puts them in the last slots."""
     found = sorted(f for f in os.listdir(ASSETS_P) if f.startswith(handle + "-") and f.endswith("-1024.webp"))
     images = []
     for f in found:
@@ -161,8 +161,8 @@ def gallery_images(handle, color, texture_name):
         order, _, name = pose.partition("-")
         images.append((int(order), dict(
             file=f[:-len("-1024.webp")],
-            mannequin=(name == "mannequin"),
-            alt=f"{color} {texture_name.lower()} lace front wig {'' if name == 'mannequin' else 'on model, '}{POSE_NAMES.get(name, name.replace('-', ' '))}",
+            mannequin=name.startswith("mannequin"),
+            alt=f"{color} {texture_name.lower()} lace front wig {'' if name.startswith('mannequin') else 'on model, '}{POSE_NAMES.get(name, name.replace('-', ' '))}",
         )))
     return [im for _, im in sorted(images, key=lambda x: x[0])]
 
@@ -187,7 +187,7 @@ def build_products():
             images = gallery_images(handle, color, t["name"])
             mannequin = [im for im in images if im.get("mannequin")]
             images = cover_first([im for im in images if not im.get("mannequin")], t["key"], color)
-            if mannequin and images:        # the real mannequin photo takes the last slot in the gallery
+            if mannequin and images:        # the real mannequin photos (front, then back) take the last slots in the gallery
                 images = images[:-1] + mannequin
             placeholder = False
             if not images and color in t.get("only_colors", []):
@@ -227,6 +227,53 @@ EXTRA_COLLECTIONS = [
 ]
 EXTRA_BY_KIND = {c["kind"]: c for c in EXTRA_COLLECTIONS}
 
+# Textures and colour families for the crochet extensions and bundles (read from each listing's title, options and details),
+# so the menu and the collection page can filter them the way wigs are filtered.
+CROCHET_TEXTURES = [("body-wave", "Body Wave"), ("deep-wave", "Deep Wave"), ("water-wave", "Water Wave"), ("loose-wave", "Loose Wave"),
+                    ("wet-and-wavy", "Wet & Wavy"), ("straight", "Straight"), ("kinky-straight", "Kinky Straight"),
+                    ("kinky-curly", "Kinky Curly"), ("burmese-curly", "Burmese Curly")]
+CROCHET_COLORS = [("black", "Black", "#1A1614"), ("brown", "Brown", "#4A2F22"), ("auburn", "Auburn", "#9A4F2B"),
+                  ("blonde", "Blonde", "#D9B26A"), ("burgundy", "Burgundy & Red", "#6E1B2E"),
+                  ("highlight", "Highlights & Ombre", "linear-gradient(135deg,#4A2F22 0 33%,#B4552C 33% 66%,#D9B26A 66%)")]
+
+def _texture_slugs(text):
+    t = text.lower().replace("&", "and")
+    found = [s for s, kw in (("wet-and-wavy", "wet and wavy"), ("burmese-curly", "burmese"), ("kinky-straight", "kinky straight"),
+                              ("kinky-curly", "kinky curly"), ("deep-wave", "deep wave"), ("water-wave", "water wave"),
+                              ("body-wave", "body wave"), ("loose-wave", "loose wave")) if kw in t]
+    if "straight" in t.replace("kinky straight", ""):
+        found.append("straight")
+    return found
+
+def _color_slug(v):
+    v = v.lower()
+    if any(k in v for k in ("+", "ombre", "salt", "highlight", "each color", "of each")): return "highlight"
+    if "auburn" in v: return "auburn"
+    if any(k in v for k in ("blonde", "hondy", "#27")): return "blonde"
+    if any(k in v for k in ("burgundy", "ruby", "wine", "red", "#530", "99j")): return "burgundy"
+    if "brown" in v or v.strip("# ").startswith(("4", "2")): return "brown"
+    if "black" in v or "#1b" in v or v.strip("# ") == "natural": return "black"
+    return None
+
+def classify_extra(title, options, details):
+    tex, col = set(_texture_slugs(title)), set()
+    for o in options:
+        for v in o["values"]:
+            if o["name"] == "Color" or (o["name"] == "Texture" and "#" in v):
+                c = _color_slug(v)
+                if c: col.add(c)
+            elif o["name"] == "Texture":
+                tex.update(_texture_slugs(v))
+    for k, v in details:
+        if k == "Hair Texture": tex.update(_texture_slugs(v))
+        if k == "Color":
+            for part in v.replace(",", ";").split(";"):
+                c = _color_slug(part)
+                if c: col.add(c)
+    if "multi-color" in title.lower() or "highlight" in title.lower(): col.add("highlight")
+    if "natural black" in title.lower(): col.add("black")
+    return [s for s, _ in CROCHET_TEXTURES if s in tex], [s for s, *_ in CROCHET_COLORS if s in col]
+
 def build_extras():
     raw = json.load(open(os.path.join(HERE, "extras.json"), encoding="utf-8"))
     out = []
@@ -239,6 +286,7 @@ def build_extras():
             images=r["images"], placeholder=bool(r["images"][0].get("placeholder")), options=r["options"], variants=r["variants"],
             details=r.get("details", []), desc=r.get("desc", []),
         ))
+        out[-1]["textures"], out[-1]["colors"] = classify_extra(r["title"], r["options"], r.get("details", []))
     return out
 
 # Reviews shown on chesedhair.com (homepage "What Our Customers Say", scraped Oct 2026).
