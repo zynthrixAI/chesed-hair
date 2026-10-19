@@ -9,7 +9,8 @@ import json, os, re
 HERE = os.path.dirname(__file__)
 ASSETS_P = os.path.join(HERE, "..", "assets", "p")
 POSE_NAMES = {"front": "front view", "three-quarter": "three-quarter view", "back": "back view",
-              "side": "side view", "fingers": "fingers through the lengths", "lifestyle": "lifestyle shot"}
+              "side": "side view", "fingers": "fingers through the lengths", "lifestyle": "lifestyle shot",
+              "mannequin": "front and back on a mannequin"}
 
 PRICE = 289.00            # placeholder price (same as the approved preview)
 FREE_SHIP = 200.00        # placeholder free-shipping threshold
@@ -152,7 +153,7 @@ def make_color_collections(products):
 
 
 def gallery_images(handle, color, texture_name):
-    """The six AI gallery photos for a wig, in order: front, three-quarter, back, side, fingers, lifestyle."""
+    """The gallery photos for a wig, in order: front, three-quarter, back, side, fingers, lifestyle, then the real mannequin photo (where the client supplied one)."""
     found = sorted(f for f in os.listdir(ASSETS_P) if f.startswith(handle + "-") and f.endswith("-1024.webp"))
     images = []
     for f in found:
@@ -160,7 +161,8 @@ def gallery_images(handle, color, texture_name):
         order, _, name = pose.partition("-")
         images.append((int(order), dict(
             file=f[:-len("-1024.webp")],
-            alt=f"{color} {texture_name.lower()} lace front wig on model, {POSE_NAMES.get(name, name.replace('-', ' '))}",
+            mannequin=(name == "mannequin"),
+            alt=f"{color} {texture_name.lower()} lace front wig {'' if name == 'mannequin' else 'on model, '}{POSE_NAMES.get(name, name.replace('-', ' '))}",
         )))
     return [im for _, im in sorted(images, key=lambda x: x[0])]
 

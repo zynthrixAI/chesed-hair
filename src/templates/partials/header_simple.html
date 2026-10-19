@@ -5,7 +5,7 @@
     <a class="brand" href="/" aria-label="Chesed Hair home">{% include "partials/logo.html" %}<b>CHESED</b></a>
     <nav class="nav" aria-label="Main">
       <div class="dd">
-        <a href="/collections/wigs/" class="dd-top">Shop</a>
+        <a href="/collections/wigs/" class="dd-top">Wigs</a>
         <div class="dd-panel">
           <div class="smenu">
             <div class="sm-col">
@@ -32,22 +32,44 @@
               {% for cc in color_collections %}<li><a href="/collections/{{ cc.slug }}-wigs/"><i style="--sw:{{ colmap[cc.label].hex }}"></i>{{ cc.label }}</a></li>{% endfor %}
               </ul>
             </div>
-            <div class="sm-col sm-cards">
-              <h3>More to shop</h3>
-              {% for ec in extra_collections %}
-              <a class="sm-card" href="/collections/{{ ec.slug }}/">
-                <span class="sm-card-img">{{ macros.picture(ec.thumb.file, "", "72px") }}</span>
-                <span><b>{{ ec.name }}</b><small>{{ ec.count }} {{ ec.noun }}s</small></span>
+            <div class="sm-col sm-feature">
+              <h3>New to wigs?</h3>
+              <a class="sm-feat" href="/collections/wigs/">
+                <span class="sm-feat-img">{{ macros.picture(wig_feature.file, "", "240px") }}</span>
+                <b>All {{ nav_wig_count }} lace front wigs</b>
+                <small>{{ textures|length }} textures · 10 shades · 10 to 32 inches</small>
               </a>
-              {% endfor %}
             </div>
             <div class="sm-foot">
               <a class="sm-all" href="/collections/wigs/">Shop all wigs</a>
-              <span class="sm-foot-links"><a href="/pages/wig-length-guide/">Length Guide</a><a href="/pages/wig-color-guide/">Color Guide</a><a href="/pages/sitemap/">See all {{ page_count }} pages</a></span>
+              <span class="sm-foot-links"><a href="/pages/wig-length-guide/">Length Guide</a><a href="/pages/wig-color-guide/">Color Guide</a></span>
             </div>
           </div>
         </div>
       </div>
+      {% for ec in nav_extras %}
+      <div class="dd">
+        <a href="/collections/{{ ec.slug }}/" class="dd-top">{{ ec.nav_name }}</a>
+        <div class="dd-panel">
+          <div class="xmenu{% if ec.cards %} xmenu-cards{% endif %}">
+            <div class="xm-intro">
+              <h3>{{ ec.name }}</h3>
+              <p>{{ ec.blurb }}</p>
+              <a class="sm-all" href="/collections/{{ ec.slug }}/">Shop all {{ ec.count }} {{ ec.noun }}s</a>
+            </div>
+            {% if ec.cards %}
+            <ul class="xm-cards" role="list">
+              {% for x in ec.picks %}<li><a href="{{ x.url }}"><span class="xm-img">{{ macros.picture(x.images[0].file, "", "150px") }}</span><b>{{ x.title }}</b><small>{% if x.price_from %}From {% endif %}{{ macros.money(x.price) }}</small></a></li>{% endfor %}
+            </ul>
+            {% else %}
+            <ul class="xm-list sm-list" role="list">
+              {% for x in ec.picks %}<li><a href="{{ x.url }}"><b>{{ x.title }}</b><small>{{ macros.money(x.price) }}</small></a></li>{% endfor %}
+            </ul>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
       <div class="dd dd-sm">
         <a href="/pages/wig-length-guide/" class="dd-top">Guides</a>
         <div class="dd-panel">
@@ -81,11 +103,11 @@
   <div class="drawer-scrim" data-close></div>
   <nav class="drawer-panel" aria-label="Mobile" data-lenis-prevent>
     <button class="ib drawer-x" type="button" aria-label="Close menu" data-close><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
-    <a class="dw-top" href="/collections/wigs/">Shop all wigs</a>
     <details class="dw" open>
-      <summary>Shop by texture</summary>
+      <summary>Wigs</summary>
       <ul>
-      {% for t in nav_textures %}
+        <li><a class="dw-link" href="/collections/wigs/">Shop all wigs</a></li>
+        {% for t in nav_textures %}
         <li><details class="dw-sub">
           <summary>{{ t.name }}<small>{{ t.products|length }}</small></summary>
           <ul class="sm-list">
@@ -93,21 +115,24 @@
             {% for p in t.products %}<li><a href="{{ p.url }}"><i style="--sw:{{ p.color.hex }}"></i>{{ p.color.key }}</a></li>{% endfor %}
           </ul>
         </details></li>
-      {% endfor %}
+        {% endfor %}
+        <li><details class="dw-sub">
+          <summary>By color<small>{{ color_collections|length }}</small></summary>
+          <ul class="sm-list">
+          {% for cc in color_collections %}<li><a href="/collections/{{ cc.slug }}-wigs/"><span class="dots">{% for k in cc.colors %}<i style="--sw:{{ colmap[k].hex }}"></i>{% endfor %}</span>{{ cc.name }}</a></li>{% endfor %}
+          </ul>
+        </details></li>
       </ul>
     </details>
+    {% for ec in nav_extras %}
     <details class="dw">
-      <summary>Shop by color</summary>
+      <summary>{{ ec.nav_name }}</summary>
       <ul class="sm-list">
-      {% for cc in color_collections %}<li><a href="/collections/{{ cc.slug }}-wigs/"><span class="dots">{% for k in cc.colors %}<i style="--sw:{{ colmap[k].hex }}"></i>{% endfor %}</span>{{ cc.name }}</a></li>{% endfor %}
+        <li><a class="dw-link" href="/collections/{{ ec.slug }}/">Shop all {{ ec.count }} {{ ec.noun }}s</a></li>
+        {% for x in ec.picks %}<li><a href="{{ x.url }}">{{ x.title }}</a></li>{% endfor %}
       </ul>
     </details>
-    <details class="dw">
-      <summary>More to shop</summary>
-      <ul class="sm-list">
-      {% for ec in extra_collections %}<li><a href="/collections/{{ ec.slug }}/">{{ ec.name }}</a></li>{% endfor %}
-      </ul>
-    </details>
+    {% endfor %}
     <details class="dw">
       <summary>Guides</summary>
       <ul class="sm-list">

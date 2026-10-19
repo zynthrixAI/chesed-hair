@@ -9,7 +9,7 @@
     {% for im in hero_imgs %}<div class="hero-pane{% if loop.index0 == 1 %} main{% endif %}" data-par="{{ [0.10, 0.04, 0.16][loop.index0] }}">{{ macros.picture(im.file, im.alt if loop.index0 == 1 else "", "(max-width:900px) 100vw, 34vw", lazy=False, priority=(loop.index0 == 1)) }}</div>{% endfor %}
   </div>
   <div class="hero-copy wrap" id="heroCopy">
-    <p class="eyebrow light">Lace front wigs · 100% virgin Remy human hair</p>
+    <p class="hero-badge"><span>Lace front wigs</span><b>100% Virgin Remy Human Hair</b></p>
     <h1 id="heroH" class="display"><span class="ln"><span>Effortless beauty,</span></span><span class="ln"><span>rooted in love.</span></span></h1>
     <div class="hero-foot">
       <p>{{ n_tex_word }} textures, ten shades, every length from 10 to 32 inches. All on one woman, so you see exactly what you get.</p>
@@ -69,7 +69,6 @@
       <a class="btn" id="thCol" href="/collections/{{ theater[0].family_slug }}-wigs/">Shop {{ theater[0].family_name }}</a>
       <a class="link" id="thProd" href="{{ theater[0].product.url }}">See this exact wig</a>
     </div>
-    <div class="th-progress" aria-hidden="true"><span id="thBar"></span></div>
   </div>
   </div>
 </section>

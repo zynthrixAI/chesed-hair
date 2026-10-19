@@ -211,12 +211,9 @@ ul,ol{margin:0;padding:0;list-style:none}
 .th-sw button:hover{transform:scale(1.1)}
 .th-sw button[aria-pressed="true"]{box-shadow:0 0 0 3px var(--noir),0 0 0 4px #fff}
 .th-copy .link{color:#fff}
-.th-progress{height:1px;background:var(--line-d);margin-top:44px;max-width:360px;position:relative;display:none}
-.th-progress span{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--pink)}
 @media (min-width:901px){
-  .js .theater{height:calc(10 * 62vh + 100vh)}
-  .js .th-pin{position:sticky;top:var(--hdr-h,114px);height:calc(100vh - var(--hdr-h,114px));min-height:0}
-  .js .th-progress{display:block}
+  .th-pin{min-height:0}
+  .th-stage{aspect-ratio:4/5;min-height:0}
 }
 
 /* textures */
@@ -530,7 +527,6 @@ ul,ol{margin:0;padding:0;list-style:none}
   .js [data-split] .w>span{transform:none}
   .js [data-wipe]{clip-path:none}
   .js [data-wipe] img{transform:none}
-  .js .theater{height:auto}.js .th-pin{position:static;height:auto;min-height:100svh}
   .js .lookbook{padding:var(--sec) 0}.js .lb-pin{position:static;height:auto}.js .look-track{overflow-x:auto}
   .cursor{display:none}
   @view-transition{navigation:none}
@@ -1161,3 +1157,79 @@ a.card-add{text-decoration:none;display:inline-block}
   .ftr-cols{grid-template-columns:1fr 1fr}
   .ftr-wide{grid-column:1/-1}
 }
+
+/* nav: wigs, crochet & feather extensions and hair bundles sit side by side as equal categories */
+.sm-feature h3{margin-bottom:12px}
+.sm-feat{display:block;text-decoration:none}
+.sm-feat-img{display:block;aspect-ratio:4/5;overflow:hidden;background:var(--pearl);margin-bottom:12px}
+.sm-feat-img img{width:100%;height:100%;object-fit:cover;object-position:50% 0;transition:transform .8s var(--ease)}
+.sm-feat:hover .sm-feat-img img{transform:scale(1.05)}
+.sm-feat b{display:block;font:400 19px/1.2 var(--display);transition:color .25s}
+.sm-feat:hover b{color:var(--rose)}
+.sm-feat small{display:block;margin-top:4px;font-size:12.5px;color:var(--slate)}
+.xmenu{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,3fr);column-gap:56px;max-width:var(--max);margin:0 auto;padding:30px var(--g) 30px}
+.xmenu h3{font:400 26px/1.1 var(--display);letter-spacing:normal;text-transform:none;color:var(--ink);margin:0 0 12px}
+.xm-intro p{font-size:14.5px;line-height:1.55;color:var(--slate);margin:0 0 20px;max-width:30ch}
+.xm-cards{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:18px;margin:0;padding:0;list-style:none}
+.xm-cards a{display:block;text-decoration:none}
+.xm-img{display:block;aspect-ratio:4/5;overflow:hidden;background:var(--pearl);margin-bottom:10px}
+.xm-img img{width:100%;height:100%;object-fit:cover;object-position:50% 0;transition:transform .8s var(--ease)}
+.xm-cards a:hover .xm-img img{transform:scale(1.05)}
+.xm-cards b{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font:400 14px/1.3 var(--display);transition:color .25s}
+.xm-cards a:hover b{color:var(--rose)}
+.xm-cards small,.xm-list small{display:block;margin-top:4px;font-size:12px;color:var(--slate)}
+.xm-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 40px;align-content:start;margin:0;padding:0;list-style:none}
+.xm-list a{display:block;padding:12px 0;border-bottom:1px solid var(--line);white-space:normal}
+.xm-list b{font:400 18px/1.25 var(--display);font-weight:400}
+.dw-link{font-weight:600}
+
+/* photos show in full: the wig photos are 2:3, so their frames are 2:3 and nothing is cropped (the mannequin photo is square) */
+.g-wig img{aspect-ratio:2/3}
+.g-wig li:first-child img{aspect-ratio:2/3}
+.g-wig li:nth-child(6){grid-column:1/-1}
+.g-wig li:last-child:nth-child(even) img{aspect-ratio:2/3}
+.g-wig li.g-sq{grid-column:1/-1;background:#f1f0ee}
+.g-wig li.g-sq img{aspect-ratio:1}
+.g-grid[data-lightbox] img{cursor:zoom-in}
+.card-wig .card-img{aspect-ratio:2/3}
+.look-track a>img{aspect-ratio:2/3}
+.spot-media{aspect-ratio:2/3}
+.desc-img{aspect-ratio:2/3}
+.scene-grid img{aspect-ratio:2/3}
+.cg-item img{aspect-ratio:2/3}
+@media (min-width:901px){
+  .th-pin{grid-template-columns:minmax(0,.75fr) minmax(0,1fr)}
+  .th-stage{aspect-ratio:2/3}
+}
+@media (max-width:900px){
+  .th-stage{aspect-ratio:2/3}
+  .g-wig img,.g-wig li:first-child img{aspect-ratio:2/3}
+  .g-wig li.g-sq img{aspect-ratio:1}
+  .g-wig li{align-self:center}
+}
+
+/* hero heading: the quality claim is the loudest line in the banner */
+.hero-badge{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;margin:0 0 22px}
+.hero-badge span{font:600 11.5px/1.2 var(--mark);letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.85)}
+.hero-badge b{display:inline-block;padding:12px 20px 11px;background:var(--rose);color:#fff;font:700 clamp(13px,1.35vw,17px)/1.1 var(--mark);letter-spacing:.16em;text-transform:uppercase;box-shadow:0 10px 30px rgba(14,14,16,.35)}
+
+/* photo popup on product pages */
+.lb{position:fixed;inset:0;z-index:200;display:grid;grid-template-rows:auto minmax(0,1fr) auto;background:rgba(14,14,16,.97);color:#fff;opacity:0;visibility:hidden;transition:opacity .3s var(--ease),visibility .3s}
+.lb.open{opacity:1;visibility:visible}
+.lb-top{display:flex;align-items:center;justify-content:space-between;padding:14px var(--g)}
+.lb-count{font:600 11px/1 var(--mark);letter-spacing:.2em}
+.lb-btn{width:44px;height:44px;display:grid;place-items:center;border:0;border-radius:50%;background:rgba(255,255,255,.08);color:#fff;cursor:pointer;transition:background .25s}
+.lb-btn:hover{background:rgba(255,255,255,.2)}
+.lb-btn svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.6}
+.lb-stage{position:relative;display:flex;align-items:center;justify-content:center;min-height:0;padding:0 clamp(56px,7vw,110px)}
+.lb-stage img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;user-select:none;-webkit-user-drag:none}
+.lb-prev,.lb-next{position:absolute;top:50%;transform:translateY(-50%)}
+.lb-prev{left:clamp(8px,2vw,28px)}.lb-next{right:clamp(8px,2vw,28px)}
+.lb-thumbs{display:flex;justify-content:center;gap:8px;padding:14px var(--g) 18px;overflow-x:auto}
+.lb-thumbs button{flex:none;width:48px;height:64px;padding:0;border:0;background:#222;opacity:.5;cursor:pointer;outline-offset:2px;transition:opacity .25s}
+.lb-thumbs button.on,.lb-thumbs button:hover{opacity:1}
+.lb-thumbs button.on{outline:1px solid #fff}
+.lb-thumbs img{width:100%;height:100%;object-fit:cover;object-position:50% 0;display:block}
+body.lb-lock{overflow:hidden}
+@media (max-width:720px){.lb-stage{padding:0 8px}.lb-prev,.lb-next{display:none}.lb-thumbs button{width:40px;height:54px}}
+.lb[hidden]{display:none}
