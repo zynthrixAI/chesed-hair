@@ -8,7 +8,7 @@ Read this first when continuing the project. For where we paused and what to do 
 - **Project folder:** `C:\Users\syedh\code\chesed-hair` (open this folder in VS Code)
 - **GitHub:** `github.com/zynthrixAI/chesed-hair`. `main` is what the live site shows.
 - **Live preview:** https://lime-deer-681625.hostingersite.com. Hostinger deploys `main` automatically, usually within about 20 seconds of a merge. If it doesn't update, redeploy from the Git section in Hostinger's hPanel.
-- **Open work:** none. Everything is merged into `main`. The mannequin photos are being prepared by the user (see PROJECT.md).
+- **Open work:** branch `claude/remove-mannequin-photos` (removes the generated mannequin photos) is committed locally and not pushed; everything else is merged into `main`. The user is preparing the mannequin photos by hand (see PROJECT.md).
 
 ## Tools on this PC (Windows 11)
 - **Python 3.14** with Jinja2 installed. Use `python`, not `python3`.
