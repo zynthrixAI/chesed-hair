@@ -442,28 +442,30 @@ if(matchMedia('(hover:hover) and (pointer:fine)').matches && !reduce){
 const lbSrc=$('[data-lightbox]');
 if(lbSrc){
   const shots=[...lbSrc.querySelectorAll('li img')].map(im=>({src:im.currentSrc||im.src,big:im.src,thumb:(im.getAttribute('srcset')||'').split(',')[0].trim().split(' ')[0]||im.src,alt:im.alt}));
-  /* gallery: one big photo, thumbnails beside it (desktop); phones keep the swipe strip */
+  /* gallery (desktop): a full-width photo frame with a soft blurred backdrop of the same photo, progress bars, arrows and a
+     thumbnail strip underneath; hover to zoom, click to enlarge. Phones keep the swipe strip. */
   const gLis=[...lbSrc.querySelectorAll('li')], gWrap=lbSrc.parentElement; let gi=0, setG=()=>{};
   if(gLis.length>1&&gWrap&&gWrap.classList.contains('gallery')){
     gWrap.classList.add('gal'); if(lbSrc.classList.contains('g-wig')) gWrap.classList.add('gal-wig');
     gLis.forEach(li=>{ const im=li.querySelector('img'); if(im) im.loading='eager'; });
-    const stage=document.createElement('div'); stage.className='g-stage'; gWrap.insertBefore(stage,lbSrc); stage.appendChild(lbSrc);
-    const rail=document.createElement('div'); rail.className='g-thumbs'; rail.setAttribute('role','group'); rail.setAttribute('aria-label','Choose a photo');
-    rail.innerHTML=shots.map((x,i)=>'<button type="button" aria-label="Show photo '+(i+1)+' of '+shots.length+'"><img src="'+x.thumb+'" alt=""></button>').join('');
-    gWrap.insertBefore(rail,stage);
+    const stage=document.createElement('div'); stage.className='g-stage'; gWrap.insertBefore(stage,lbSrc);
+    const bg=document.createElement('span'); bg.className='g-bg'; bg.setAttribute('aria-hidden','true'); stage.appendChild(bg); stage.appendChild(lbSrc);
     const arrow=(cls,label,d)=>{ const b=document.createElement('button'); b.type='button'; b.className='g-nav '+cls; b.setAttribute('aria-label',label); b.innerHTML='<svg viewBox="0 0 24 24"><path d="'+d+'"/></svg>'; stage.appendChild(b); return b; };
     const prev=arrow('g-prev','Previous photo','M15 5l-7 7 7 7'), next=arrow('g-next','Next photo','M9 5l7 7-7 7');
-    const cnt=document.createElement('span'); cnt.className='g-count'; cnt.setAttribute('aria-hidden','true'); stage.appendChild(cnt);
-    const hint=document.createElement('span'); hint.className='g-hint'; hint.setAttribute('aria-hidden','true'); hint.innerHTML='<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5M11 8v6M8 11h6"/></svg>Hover to zoom · click to enlarge'; stage.appendChild(hint);
+    const bars=document.createElement('span'); bars.className='g-bars'; bars.setAttribute('aria-hidden','true'); bars.innerHTML=gLis.map(()=>'<i></i>').join(''); stage.appendChild(bars);
+    const zi=document.createElement('span'); zi.className='g-zi'; zi.setAttribute('aria-hidden','true'); zi.innerHTML='<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5M11 8v6M8 11h6"/></svg>'; stage.appendChild(zi);
+    const rail=document.createElement('div'); rail.className='g-thumbs'; rail.setAttribute('role','group'); rail.setAttribute('aria-label','Choose a photo');
+    rail.innerHTML=shots.map((x,i)=>'<button type="button" aria-label="Show photo '+(i+1)+' of '+shots.length+'"><img src="'+x.thumb+'" alt=""></button>').join('');
+    stage.after(rail);
     /* hover zoom (mouse only): the photo enlarges and follows the pointer */
     if(matchMedia('(hover:hover) and (pointer:fine)').matches){
-      const zoomAt=e=>{ if(e.target.closest('.g-nav')){ stage.classList.remove('zoom'); return; } const r=stage.getBoundingClientRect(), im=lbSrc.querySelector('li.on img'); if(!im) return;
-        im.style.transformOrigin=((e.clientX-r.left)/r.width*100)+'% '+((e.clientY-r.top)/r.height*100)+'%'; stage.classList.add('zoom'); };
+      const zoomAt=e=>{ if(e.target.closest('.g-nav')){ stage.classList.remove('zoom'); return; } const im=lbSrc.querySelector('li.on img'); if(!im) return; const r=im.getBoundingClientRect();
+        im.style.transformOrigin=Math.min(100,Math.max(0,(e.clientX-r.left)/r.width*100))+'% '+Math.min(100,Math.max(0,(e.clientY-r.top)/r.height*100))+'%'; stage.classList.add('zoom'); };
       stage.addEventListener('mousemove',zoomAt); stage.addEventListener('mouseleave',()=>stage.classList.remove('zoom')); }
-    const tb=[...rail.querySelectorAll('button')];
+    const tb=[...rail.querySelectorAll('button')], bi=[...bars.children];
     setG=i=>{ gi=(i+gLis.length)%gLis.length; gLis.forEach((li,k)=>li.classList.toggle('on',k===gi));
       tb.forEach((t,k)=>{ t.classList.toggle('on',k===gi); if(k===gi) t.setAttribute('aria-current','true'); else t.removeAttribute('aria-current'); });
-      cnt.textContent=(gi+1)+' / '+gLis.length; };
+      bi.forEach((x,k)=>x.classList.toggle('on',k===gi)); bg.style.backgroundImage='url("'+shots[gi].thumb+'")'; };
     tb.forEach((t,i)=>t.addEventListener('click',()=>setG(i)));
     prev.addEventListener('click',()=>setG(gi-1)); next.addEventListener('click',()=>setG(gi+1));
     gWrap.addEventListener('keydown',e=>{ if(e.target.closest('.lb')) return; if(e.key==='ArrowLeft'){ setG(gi-1); } else if(e.key==='ArrowRight'){ setG(gi+1); } });
