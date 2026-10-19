@@ -1228,33 +1228,44 @@ body.lb-lock{overflow:hidden}
 @media (max-width:720px){.lb-stage{padding:0 8px}.lb-prev,.lb-next{display:none}.lb-thumbs button{width:40px;height:54px}}
 .lb[hidden]{display:none}
 
-/* product gallery (desktop): one big photo with a column of thumbnails; phones keep the swipe strip */
+/* product gallery (desktop): a tall photo that fills the screen height, a slim thumbnail rail beside it, and the whole
+   gallery stays on screen while the details scroll past, so photo and text end together. Phones keep the swipe strip. */
 .g-stage{position:relative}
-.g-nav,.g-count,.g-thumbs{display:none}
+.g-nav,.g-count,.g-thumbs,.g-hint{display:none}
 @media (min-width:901px){
-  .gallery.gal{display:grid;grid-template-columns:62px auto;justify-content:center;gap:14px;align-items:start}
-  .gal .g-thumbs{display:flex;flex-direction:column;gap:8px}
-  .gal .g-thumbs button{display:block;width:62px;aspect-ratio:2/3;padding:0;border:0;background:var(--pearl);cursor:pointer;opacity:.55;outline:1px solid transparent;outline-offset:2px;transition:opacity .25s,outline-color .25s}
-  .gal:not(.gal-wig) .g-thumbs button{aspect-ratio:1}
-  .gal .g-thumbs button:hover{opacity:.9}
-  .gal .g-thumbs button.on{opacity:1;outline-color:var(--ink)}
+  .pdp-page .pdp{grid-template-columns:auto minmax(0,1fr);gap:clamp(28px,3vw,52px)}
+  .pdp-page .buy{position:static;padding-top:4px}
+  .gallery.gal{--gh:min(calc(100svh - var(--hdr-h,114px) - 84px),960px);position:sticky;top:calc(var(--hdr-h,114px) + 24px);align-self:start;
+    display:grid;grid-template-columns:60px auto;gap:12px;align-items:start}
+  .gal .g-thumbs{display:flex;flex-direction:column;gap:8px;max-height:var(--gh);overflow-y:auto;scrollbar-width:none}
+  .gal .g-thumbs::-webkit-scrollbar{display:none}
+  .gal .g-thumbs button{position:relative;display:block;flex:none;width:60px;aspect-ratio:2/3;padding:0;border:0;background:var(--pearl);cursor:pointer;opacity:.5;transition:opacity .25s}
+  .gal .g-thumbs button::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 1.5px var(--ink);opacity:0;transition:opacity .25s}
+  .gal .g-thumbs button:hover{opacity:.85}
+  .gal .g-thumbs button.on{opacity:1}
+  .gal .g-thumbs button.on::after{opacity:1}
   .gal .g-thumbs img{width:100%;height:100%;object-fit:cover;object-position:50% 0;display:block}
-  .gal .g-stage{width:min(100%,calc((100svh - 190px) * .6667));min-width:420px;aspect-ratio:2/3;background:var(--pearl);overflow:hidden}
-  .gal:not(.gal-wig) .g-stage{aspect-ratio:4/5;width:min(100%,calc((100svh - 190px) * .8));min-width:440px}
+  .gal:not(.gal-wig) .g-thumbs button{aspect-ratio:1}
+  .gal .g-stage{height:var(--gh);aspect-ratio:2/3;max-width:min(46vw,660px);background:var(--pearl);overflow:hidden;cursor:zoom-in}
+  .gal:not(.gal-wig) .g-stage{aspect-ratio:4/5}
   .gal .g-grid{display:block;height:100%;margin:0}
-  .gal .g-grid li{display:none;height:100%;background:transparent}
-  .gal .g-grid li.on{display:block;animation:fadein .35s}
-  .gal .g-grid li img,.gal .g-grid li:first-child img{width:100%;height:100%;aspect-ratio:auto;object-fit:contain;object-position:50% 50%}
-  .gal .g-grid[data-lightbox] img{cursor:zoom-in}
-  .gal .g-nav{display:grid;place-items:center;position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border:0;border-radius:50%;background:rgba(251,250,249,.9);color:var(--ink);cursor:pointer;opacity:0;transition:opacity .25s,background .25s;z-index:2}
+  .gal .g-grid li{display:none;height:100%;overflow:hidden;background:transparent}
+  .gal .g-grid li.on{display:block;animation:fadein .4s}
+  .gal .g-grid li img,.gal .g-grid li:first-child img{width:100%;height:100%;aspect-ratio:auto;object-fit:contain;object-position:50% 50%;transition:transform .45s var(--ease);will-change:transform}
+  .gal .g-stage.zoom li.on img{transform:scale(2);transition:transform .2s ease-out}
+  .gal .g-nav{display:grid;place-items:center;position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border:0;border-radius:50%;background:rgba(251,250,249,.92);color:var(--ink);cursor:pointer;box-shadow:0 6px 18px rgba(14,14,16,.12);opacity:0;transition:opacity .25s,background .25s;z-index:2}
   .gal .g-stage:hover .g-nav,.gal .g-nav:focus-visible{opacity:1}
+  .gal .g-stage.zoom .g-nav{opacity:0}
   .gal .g-nav:hover{background:#fff}
   .gal .g-nav svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.6}
-  .gal .g-prev{left:12px}.gal .g-next{right:12px}
-  .gal .g-count{display:block;position:absolute;right:12px;bottom:12px;padding:7px 10px;background:rgba(14,14,16,.55);color:#fff;font:600 11px/1 var(--mark);letter-spacing:.16em;z-index:2;pointer-events:none}
+  .gal .g-prev{left:14px}.gal .g-next{right:14px}
+  .gal .g-count{display:block;position:absolute;left:14px;bottom:14px;padding:7px 10px;background:rgba(14,14,16,.55);color:#fff;font:600 10.5px/1 var(--mark);letter-spacing:.16em;z-index:2;pointer-events:none}
+  .gal .g-hint{display:flex;align-items:center;gap:7px;position:absolute;right:14px;bottom:14px;padding:7px 11px;background:rgba(251,250,249,.92);color:var(--ink);font:600 10px/1 var(--mark);letter-spacing:.14em;text-transform:uppercase;z-index:2;pointer-events:none;transition:opacity .25s}
+  .gal .g-hint svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.8}
+  .gal .g-stage.zoom .g-hint,.gal .g-stage.zoom .g-count{opacity:0}
   .gal .g-dots{display:none}
+  .gal ~ .ph-note,.gallery.gal .ph-note{grid-column:1/-1}
 }
-
 
 /* crochet menu: its own texture and colour lists, like wigs */
 .cmenu{grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,2.2fr)}

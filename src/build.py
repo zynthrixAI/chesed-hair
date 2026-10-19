@@ -69,8 +69,8 @@ hero = img_like(hero_product, "6-lifestyle")
 # the most striking editorial shots: side panes frame the centre one
 hero = shot("Body Wave", "530", 1)
 hero_imgs = [shot("Straight", "1B", 1),      # the client's favourite leads
-             dict(file="banner-curly-black", alt="Long black curly lace front wig on a model in an orange knit sweater"),
-             dict(file="banner-curly-burgundy", alt="Long burgundy curly lace front wig on a smiling model in a sage hoodie")]
+             dict(file="banner-curly-burgundy", alt="Long burgundy curly lace front wig on a smiling model in a sage hoodie"),
+             dict(file="banner-curly-black", alt="Long black curly lace front wig on a model in an orange knit sweater")]
 banner_texture = D.TEX["Kinky Straight"]
 banner_imgs = [shot("Kinky Straight", "350", 1), shot("Kinky Straight", "530", 1)]
 
