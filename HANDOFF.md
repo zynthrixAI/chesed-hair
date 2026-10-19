@@ -8,7 +8,7 @@ Read this first when continuing the project. For where we paused and what to do 
 - **Project folder:** `C:\Users\syedh\code\chesed-hair` (open this folder in VS Code)
 - **GitHub:** `github.com/zynthrixAI/chesed-hair`. `main` is what the live site shows.
 - **Live preview:** https://lime-deer-681625.hostingersite.com. Hostinger deploys `main` automatically, usually within about 20 seconds of a merge. If it doesn't update, redeploy from the Git section in Hostinger's hPanel.
-- **Open work:** none. Everything is merged into `main`.
+- **Open work:** none. Everything is merged into `main`. The mannequin photos are being prepared by the user (see PROJECT.md).
 
 ## Tools on this PC (Windows 11)
 - **Python 3.14** with Jinja2 installed. Use `python`, not `python3`.
@@ -37,7 +37,7 @@ python -m http.server 8000 --bind 127.0.0.1
 | `src/templates/partials/` | Header, footer, search, spin wheel, cart, and `macros.html` (the product card) |
 | `assets/css/style.css` | The only stylesheet |
 | `assets/js/main.js` | The only script |
-| `assets/p/` | Product photos as WebP, 1024px and 560px. Wigs: `<handle>-1-front`, `-2-three-quarter`, `-3-back`, `-4-side`, `-5-fingers`, `-6-lifestyle` (6 per wig, read straight from this folder). Extras: `<handle>-<n>`. `placeholder` is the pink stand-in photo |
+| `assets/p/` | Product photos as WebP, 1024px and 560px. Wigs: `<handle>-1-front`, `-2-three-quarter`, `-3-back`, `-4-side`, `-5-fingers`, `-6-lifestyle` (6 per wig, read straight from this folder). Optional `-7-mannequin-front` and `-8-mannequin-back` (if present they take the last two slots and replace `-5-fingers`). Extras: `<handle>-<n>`. `placeholder` is the pink stand-in photo |
 | Everything else in the root | **Built output.** Never edit it by hand: change `src/`, rebuild, and commit both |
 
 ### Useful details
@@ -59,10 +59,11 @@ python -m http.server 8000 --bind 127.0.0.1
 - **Every page stays `noindex`.** Keep `robots.txt` and the noindex tags until this becomes the real store.
 - **Don't commit** `src/__pycache__/` or `.claude/`. Both are in `.gitignore`.
 - **Hostinger serves the whole repo root,** so anything committed is publicly reachable on the preview site.
-- **CLAUDE.md, HANDOFF.md and PROJECT.md stay on this PC only.** The user chose this. They're listed in `.git/info/exclude`, so Git ignores them. Never commit them; update them in place as the project moves on.
+- **CLAUDE.md, HANDOFF.md, NEXT-SESSION.md and PROJECT.md are committed in the repo** (they were meant to be local only, but are tracked). Keep them updated as the project moves on, and keep them free of anything private.
 - **Placeholders** that Chesed must confirm are marked in pink on the pages. See PROJECT.md for the list.
 
 ## Gotchas
+- **Wig photos are 2:3.** Frame them 2:3 (or `object-fit:contain`); 4:5 or square frames cut the bottom of the hair off.
 - **Class-name collisions broke things twice:** `.sm` vs `.link.sm` (now `.smenu`), and `.trust` vs the homepage strip (now `.pdp-trust`). Search the CSS for a class name before adding a new one.
 - **Hidden dropdowns:** never set `visibility:visible` inside a hidden panel. Use `inherit`, or the hidden panel catches mouse hovers and opens the menu.
 - **The sticky filter bar** has a `backdrop-filter`, which traps `position:fixed` children. It's turned off on phones for that reason.
