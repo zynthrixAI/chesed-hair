@@ -23,7 +23,7 @@ TITLES = {  # CSV row order -> clean title. Missing index = skipped duplicate.
     3: "Seamless Burmese Curly Feather Crochet Braid Hair Extensions",
     4: "Seamless Body Wave Feather Crochet Braid Hair Extensions",
     5: "Seamless Deep Wave Feather Crochet Braid Hair Extensions",
-    6: "Lightweight Ripple Deep Curl Hair Extensions",
+    # 6 removed: client asked to drop it (a Shopify draft), 22 October 2026
     7: "Water Wave Micro-Ring Hair Extensions",
     8: "Lightweight Natural Black Human Hair Extensions",
     9: "Handmade Feather Human Hair Extensions",
@@ -38,7 +38,7 @@ TITLES = {  # CSV row order -> clean title. Missing index = skipped duplicate.
     18: "Deep Wave Feather Crochet Braid Human Hair Extensions",
     19: "Multi-Color Water Wave Crochet Braid Hair Extensions",
     20: "Soft Kinky Curly Feather Crochet Braid Hair Extensions",
-    21: "Highlight #4/30/530 Water Wave Crochet Braid Hair Extensions",
+    # 21 removed: client asked to drop it (a Shopify draft), 22 October 2026
     # 22 skipped: identical options and prices to 18
 }
 OPT_NAME = {"Hair Length": "Length", "Colors": "Color", "Hair Color": "Color", "Color": "Color",
