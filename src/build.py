@@ -5,7 +5,7 @@
 Pages use Shopify-style URLs (/collections/<handle>/, /products/<handle>/, /pages/<handle>/)
 so the structure carries over to the real store.
 """
-import json, os, shutil, time
+import hashlib, json, os, shutil, time
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 import data as D
 
@@ -13,6 +13,16 @@ SRC = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(SRC)
 env = Environment(loader=FileSystemLoader(os.path.join(SRC, "templates")),
                   autoescape=select_autoescape(["html"]), trim_blocks=True, lstrip_blocks=True)
+
+_img_v = {}
+def img(file, w):
+    """Photo address with a short fingerprint of the file, so browsers fetch a photo again when it changes
+    (the host tells browsers to keep photos for 7 days)."""
+    path = os.path.join(ROOT, "assets", "p", f"{file}-{w}.webp")
+    if path not in _img_v:
+        _img_v[path] = hashlib.md5(open(path, "rb").read()).hexdigest()[:8] if os.path.exists(path) else "0"
+    return f"/assets/p/{file}-{w}.webp?v={_img_v[path]}"
+env.globals["img"] = img
 
 products = D.build_products()
 D.COLOR_COLLECTIONS[:] = D.make_color_collections(products)
@@ -229,7 +239,7 @@ render("index.html", "/", seo_title="Chesed Hair | Human Hair Lace Front Wigs",
        seo_description=f"Lace front wigs in 100% unprocessed virgin Remy human hair. {len(D.TEXTURES)} textures, 10 shades, 18 to 36 inches, all shown on the same model.",
        canonical="/", body_class="home overlay", page_id="home", hero=hero, hero_product=hero_product, hero_imgs=hero_imgs, banner_imgs=banner_imgs, banner_texture=banner_texture, all_tile=all_tile, theater=theater,
        best=best, home_textures=home_textures, n_tex_word=n_tex_word, n_home_tex_word=NUM.get(len(home_textures), str(len(home_textures))), lookbook=lookbook, story=story, spotlight=spotlight, spot_start=spot_start, home_faq=home_faq, jsonld=json.dumps(org_ld()),
-       og_image=f"/assets/p/{hero['file']}-1024.webp")
+       og_image=img(hero['file'], 1024))
 
 # COLLECTIONS
 def breadcrumb_ld(items):
@@ -322,7 +332,7 @@ for p in products:
     render("product.html", p["url"], seo_title=f"{p['title']} | Chesed",
            seo_description=f"{p['title']} in 100% unprocessed virgin Remy human hair. {p['color']['blurb']} 18 to 36 inches.",
            canonical=p["url"], body_class="shop pdp-page", page_id=p["handle"], p=p, og_type="product",
-           og_image=f"/assets/p/{p['images'][0]['file']}-1024.webp",
+           og_image=img(p['images'][0]['file'], 1024),
            jsonld=json.dumps([ld, breadcrumb_ld([("Home", "/"), (f"{p['texture']['name']} Wigs", f"/collections/{p['texture']['slug']}-wigs/"), (p["title"], p["url"])])]))
 
 # EXTRA COLLECTIONS (crochet & feather extensions, hair bundles)
@@ -365,7 +375,7 @@ for x in extras:
     render("extra.html", x["url"], seo_title=f"{x['title']} | Chesed",
            seo_description=f"{x['title']}. Choose your options and add to bag. {x['collection']['name']} from Chesed Hair.",
            canonical=x["url"], body_class="shop pdp-page", page_id=x["handle"], p=x, og_type="product",
-           og_image=f"/assets/p/{x['images'][0]['file']}-1024.webp",
+           og_image=img(x['images'][0]['file'], 1024),
            jsonld=json.dumps([ld, breadcrumb_ld([("Home", "/"), (x["collection"]["name"], f"/collections/{x['collection']['slug']}/"), (x["title"], x["url"])])]))
 
 # PAGES
@@ -419,9 +429,9 @@ render("sitemap.html", "/pages/sitemap/", seo_title="All Pages | Chesed Hair", s
 idx = [dict(t="All wigs", u="/collections/wigs/", k="Collection", s="lace front wigs all shop")]
 idx += [dict(t=f"{t['name']} Wigs", u=f"/collections/{t['slug']}-wigs/", k="Texture", s=t["short"]) for t in D.TEXTURES]
 idx += [dict(t=cc["name"], u=f"/collections/{cc['slug']}-wigs/", k="Color", s=" ".join(cc["colors"])) for cc in D.COLOR_COLLECTIONS]
-idx += [dict(t=p["title"], u=p["url"], k="Wig", s=f"{p['color']['family']} {p['texture']['short']}", i=f"/assets/p/{p['images'][0]['file']}-560.webp", p=p["price"]) for p in products]
+idx += [dict(t=p["title"], u=p["url"], k="Wig", s=f"{p['color']['family']} {p['texture']['short']}", i=img(p['images'][0]['file'], 560), p=p["price"]) for p in products]
 idx += [dict(t=ec["name"], u=f"/collections/{ec['slug']}/", k="Collection", s=ec["name"].lower() + " hair") for ec in D.EXTRA_COLLECTIONS]
-idx += [dict(t=x["title"], u=x["url"], k=x["collection"]["name"], s=x["kind"] + " hair extensions bundles", i=f"/assets/p/{x['images'][0]['file']}-560.webp", p=x["price"]) for x in extras]
+idx += [dict(t=x["title"], u=x["url"], k=x["collection"]["name"], s=x["kind"] + " hair extensions bundles", i=img(x['images'][0]['file'], 560), p=x["price"]) for x in extras]
 idx += [dict(t="Length Guide", u="/pages/wig-length-guide/", k="Guide", s="inches length chart how long"),
         dict(t="Color Guide", u="/pages/wig-color-guide/", k="Guide", s="shade colour chart compare")]
 idx += [dict(t=h1, u=f"/pages/{h}/", k="Help", s=lede or "") for h, _, h1, lede, _ in simple_pages]

@@ -1,5 +1,5 @@
 {% macro picture(file, alt, sizes="(max-width:720px) 100vw, 50vw", lazy=True, cls="", priority=False) -%}
-<img class="{{ cls }}" src="/assets/p/{{ file }}-1024.webp" srcset="/assets/p/{{ file }}-560.webp 560w, /assets/p/{{ file }}-1024.webp 1024w" sizes="{{ sizes }}" width="1024" height="1024" alt="{{ alt }}"{% if lazy %} loading="lazy" decoding="async"{% endif %}{% if priority %} fetchpriority="high"{% endif %}>
+<img class="{{ cls }}" src="{{ img(file, 1024) }}" srcset="{{ img(file, 560) }} 560w, {{ img(file, 1024) }} 1024w" sizes="{{ sizes }}" width="1024" height="1024" alt="{{ alt }}"{% if lazy %} loading="lazy" decoding="async"{% endif %}{% if priority %} fetchpriority="high"{% endif %}>
 {%- endmacro %}
 {% macro money(v) -%}${{ "%.2f"|format(v) }}{%- endmacro %}
 {% macro extra_card(p, sizes="(max-width:720px) 50vw, 25vw") -%}
@@ -34,7 +34,7 @@
     <p class="card-price"><small class="from">From </small>{{ money(p.price) }}<small>or 4 × {{ money(p.price/4) }}</small></p>
     <button class="card-add" type="button" aria-expanded="false" data-quick>Quick add</button>
   </div>
-  <div class="card-lens" role="group" aria-label="Choose a length to add {{ p.title }}" hidden data-quick-lens data-title="{{ p.title }}" data-price="{{ p.price }}" data-img="/assets/p/{{ p.images[0].file }}-560.webp">
+  <div class="card-lens" role="group" aria-label="Choose a length to add {{ p.title }}" hidden data-quick-lens data-title="{{ p.title }}" data-price="{{ p.price }}" data-img="{{ img(p.images[0].file, 560) }}">
     {% for v in p.variants %}<button type="button" data-len="{{ v.length }}" data-price="{{ v.price }}">{{ v.length }}"</button>{% endfor %}
   </div>
 </article>

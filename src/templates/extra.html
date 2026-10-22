@@ -1,10 +1,10 @@
 {% extends "base.html" %}
-{% block preload %}<link rel="preload" as="image" href="/assets/p/{{ p.images[0].file }}-1024.webp" imagesrcset="/assets/p/{{ p.images[0].file }}-560.webp 560w, /assets/p/{{ p.images[0].file }}-1024.webp 1024w" imagesizes="(max-width:900px) 100vw, 55vw">{% endblock %}
+{% block preload %}<link rel="preload" as="image" href="{{ img(p.images[0].file, 1024) }}" imagesrcset="{{ img(p.images[0].file, 560) }} 560w, {{ img(p.images[0].file, 1024) }} 1024w" imagesizes="(max-width:900px) 100vw, 55vw">{% endblock %}
 {% block main %}
 {% set col = p.collection %}
 <nav class="crumbs wrap" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/collections/{{ col.slug }}/">{{ col.name }}</a><span aria-hidden="true">/</span><span aria-current="page">{{ p.title }}</span></nav>
 
-<section class="pdp wrap" data-extra data-handle="{{ p.handle }}" data-title="{{ p.title }}" data-img="/assets/p/{{ p.images[0].file }}-560.webp">
+<section class="pdp wrap" data-extra data-handle="{{ p.handle }}" data-title="{{ p.title }}" data-img="{{ img(p.images[0].file, 560) }}">
   <div class="gallery">
     <ul class="g-grid" id="gGrid" role="list" aria-label="Product photos" data-lightbox>
       {% for im in p.images %}<li{% if loop.first %} class="g-first"{% endif %}>{{ macros.picture(im.file, im.alt, "(max-width:900px) 100vw, 46vw", lazy=not loop.first, priority=loop.first, cls="g-hero" if loop.first else "") }}</li>{% endfor %}

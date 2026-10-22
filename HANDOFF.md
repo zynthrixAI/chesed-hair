@@ -70,3 +70,4 @@ python -m http.server 8000 --bind 127.0.0.1
 - **Windows build:** files must be written with `encoding="utf-8"` (the ✦ symbol and the Hebrew חֶסֶד crash cp1252). Already fixed in `build.py`; keep it that way for any new file writes.
 - **Line-ending warnings** ("LF will be replaced by CRLF") come from the PC's Git settings and are harmless.
 - **GitHub's merge sometimes returns error 500.** Wait a moment and retry.
+- **Browsers keep photos for 7 days** (Hostinger sends `max-age=604800`). Every photo address is written with `img(file, width)` in `src/build.py`, which adds `?v=` plus a fingerprint of the file, so a replaced photo shows straight away. Never write `/assets/p/...webp` by hand in a template.
