@@ -11,9 +11,9 @@ A preview of the Chesed Hair online store (lace front wigs), built by Web Wrough
 
 ## What the site has
 
-- **135 pages:** the homepage, 24 shopping pages ("collections"), 82 wig pages, 20 extension pages and 8 info pages (About, FAQ, Shipping, Returns, Contact, Color guide, Length guide, All pages).
+- **120 pages:** the homepage, 24 shopping pages ("collections"), 82 wig pages, 5 extension pages and 8 info pages (About, FAQ, Shipping, Returns, Contact, Color guide, Length guide, All pages).
 - **11 wig textures:** Body Wave, Curly, Kinky Curly, Kinky Straight, Loose Deep Wave, Straight, Virgin Curl, plus **Permed Straight**, **Wet & Wavy**, **Deep Wave** and **Water Wave** (placeholder photos for now).
-- **Two extra categories:** Crochet & Feather Extensions (20 products) and Hair Bundles (coming soon).
+- **Two extra categories:** Crochet & Feather Extensions (5 products) and Hair Bundles (coming soon).
 - **10 shades:** 1, 1B, 99J, 350, 530, Honey Auburn, Honey Blonde, Natural Auburn, Red, Virgin.
 - **10 lengths:** 18" to 36".
 - **Web addresses work like Shopify's**, e.g. `/collections/body-wave-wigs/` or `/products/1b-body-wave-lace-front-wig/`, so the move to Shopify is simpler later.
@@ -125,7 +125,7 @@ All of this is live on the preview unless marked otherwise.
 - [ ] Send the preview to Chesed for approval.
 
 ### Client feedback, round 2 (22 October 2026)
-Feedback came in a Google Doc ("Website Updates"). Done on branch `claude/new-styles-coming-soon` (not yet uploaded):
+Feedback came in a Google Doc ("Website Updates"). Merged as pull requests 16 (mannequin photos removed) and 17:
 - **Wig lengths are 18" to 36"** (was 10" to 32"). Lengths and where they end on the body are set once in `LENGTHS`, `LANDMARKS` and `CURLY_LANDMARKS` in `src/data.py` and passed to the script through `window.CHESED`. Wig pages open on 24" (`DEFAULT_LENGTH`).
 - **Wig details:** 13x5 lace front, one size fits all cap, density removed.
 - **Shades in words:** each shade has a `name` in `COLORS` (1B Natural Black, 1 Jet Black, Virgin Natural Dark Brown, 530 Rich Wine Red, 99J Deep Plum, 350 Copper Ginger, Red Cherry Red; the auburns and Honey Blonde keep their names). The wig page "Shade" label, the swatch pop-ups and the homepage shade sections show the name. Product titles and web addresses still use the number.
@@ -137,7 +137,11 @@ Feedback came in a Google Doc ("Website Updates"). Done on branch `claude/new-st
 - **Deep Wave and Water Wave wigs** added as drafts (8 shades each, same as Permed Straight, with "Photo coming soon" pictures and copy we wrote).
 - **Not done yet: the length picture (reminder).** The client wants a body picture showing where each length ends, like their Amazon listing, but nicer. Two tries so far: a drawn back-view figure whose hair grows (rejected as worse), and an AI photo of a model from behind with a length ruler (on hold). Come back to this.
 
-**What Chesed needs to send:** **Deep Wave and Water Wave wigs** were added as drafts (8 shades each, same as Permed Straight, with "Photo coming soon" pictures and copy we wrote; branch `claude/new-styles-coming-soon`).
+**Follow-up (22 October 2026, branch `claude/cap-photos-live-crochet`):**
+- **Cap pictures on every wig:** the client's "One size fits all" and "6X secure fit guard" pictures (`wig-cap-one-size`, `wig-cap-secure-fit` in `assets/p/`) are the last two photos in every wig's gallery, full width so they aren't cropped. Set in `CAP_IMAGES` in `src/data.py`; they are kept out of shop cards and the "on deep skin" photos.
+- **Crochet & Feather: only the 5 listings that were live in Shopify** (Wet & Wavy, Kinky Straight, Burmese Curly, Body Wave, Deep Wave). The client said the 14 drafts were tests. Burmese Magic (only on the item list) was removed too. The importer skips drafts and Burmese Magic.
+
+**What Chesed needs to send:**
 - [ ] **Deep Wave and Water Wave wigs:** which shades each comes in, the price, lengths, approval of our copy, and photos for every shade (front, three-quarter, back, side, close-up, lifestyle, plus mannequin front and back).
 - [ ] **"Missing notes: Straight, Deep Wave, Water Wave":** confirm these are wig styles. Straight is already on the site.
 - [ ] **The 12 shades:** the site has 10. Names of the 2 missing shades, which styles they come in, and photos.
@@ -145,7 +149,7 @@ Feedback came in a Google Doc ("Website Updates"). Done on branch `claude/new-st
 - [ ] **Honey Auburn:** new photos with more blonde highlights.
 - [ ] **Shade names:** approve the names we wrote (e.g. "Rich Wine Red" for 530), listed above.
 - [ ] **Body positions for 34" and 36":** we guessed "mid thigh" and "lower thigh".
-- [ ] **Crochet & Feather:** which texture each listing is. Three listings are still named Kinky Curly ("Multi-Color Kinky Curly", "Kinky Curly Micro-Ring Loop", "Soft Kinky Curly Feather") and two offer Kinky Curly or Loose Wave as a choice: keep, rename or remove? (The two Shopify drafts "Lightweight Ripple Deep Curl" and "Highlight #4/30/530 Water Wave" were removed at the client's request, 22 October 2026; the importer skips them too.)
+- [x] **Crochet & Feather:** answered: only the 5 live listings stay (see the follow-up above). (The two Shopify drafts "Lightweight Ripple Deep Curl" and "Highlight #4/30/530 Water Wave" were removed at the client's request, 22 October 2026; the importer skips them too.)
 - [ ] **Length chart picture (ours to fix):** see the reminder above.
 - [ ] **Chesed's story:** we used the story from chesedhair.com on the About page; Chesed should check it and send a founder story and photos.
 
@@ -155,8 +159,8 @@ These are placeholders on the site. Most are marked in **pink** so they're easy 
 - [ ] **WhatsApp number:** until Chesed provides it, tapping the button shows a "preview" notice.
 - [ ] **Spin wheel:** the prizes, odds and discount codes.
 - [ ] **Price:** currently $289 for every wig and length. Bundles are "coming soon" (placeholder $99 when they return).
-- [ ] **New photos needed:** Permed Straight and Wet & Wavy wigs, all 4 bundles, and Burmese Magic.
-- [ ] **Check the item list:** the "TP" shades (TP27, TP30...) in the bundle tab need a plain-language name. The extension listings still use the old store's descriptions and are missing a return policy. Several are drafts in Shopify (21 of 23), so confirm they should all go live.
+- [ ] **New photos needed:** Permed Straight, Wet & Wavy, Deep Wave and Water Wave wigs, and the 4 bundles.
+- [ ] **Check the item list:** the "TP" shades (TP27, TP30...) in the bundle tab need a plain-language name. The 5 extension listings still use the old store's descriptions and are missing a return policy.
 - [ ] **Copy for the two new wig styles and the two new categories** was written by us. Chesed should check it.
 - [ ] **Processing and delivery times.**
 - [ ] **Returns:** how the return label works and how long refunds take.

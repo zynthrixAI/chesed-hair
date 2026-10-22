@@ -4,15 +4,14 @@ Updated 22 October 2026. Read this, then [HANDOFF.md](HANDOFF.md) for setup and 
 
 ## Where things stand
 - **Live preview:** https://lime-deer-681625.hostingersite.com
-- **Two branches are committed on this PC and not pushed** (the user has not asked yet). Check `git status` and `gh pr list`.
-  - `claude/remove-mannequin-photos`: removes the mannequin photos we generated. They are still on the live site, and the client noticed "a weird outline" around them.
-  - `claude/new-styles-coming-soon`: the client's round 2 feedback (see "Client feedback, round 2" in PROJECT.md). This includes lengths 18" to 36", shade names, 13x5 lace and one-size cap, the reviews section removed, crochet fixes, bundles "coming soon", free shipping over $100, the About story, and new Deep Wave and Water Wave wigs.
+- **Merged and live:** pull requests 16 (generated mannequin photos removed) and 17 (client feedback round 2). See PROJECT.md.
+- **Open work:** branch `claude/cap-photos-live-crochet` adds the client's two cap pictures to every wig and keeps only the 5 live crochet listings. Check `git status` and `gh pr list` to see whether it has been pushed and merged.
 - **GitHub tool:** signed in as zynthrixAI.
 - **Mannequin photos:** none on the site. The user is preparing them by hand; the source shots are in `D:\Work\Chesed Hair\Images\Mannequin Photos - To Upload`. File naming is in PROJECT.md.
 
 ## Start next time with
 1. **Reminder: the length picture still needs fixing.** The client wants a body picture showing where each length ends (like their Amazon listing, but nicer). A drawn figure was rejected; an AI photo of a model from behind with a length ruler is on hold. Ask the user how they want to continue.
-2. Push and open pull requests for the two branches when the user says so.
+2. Push and merge `claude/cap-photos-live-crochet` when the user says so.
 3. Send Chesed the list of what they need to send ("What Chesed needs to send" in PROJECT.md).
 
 ## Things to know

@@ -6,7 +6,7 @@
 <section class="pdp wrap" data-product data-handle="{{ p.handle }}" data-title="{{ p.title }}" data-price="{{ p.price }}" data-img="/assets/p/{{ p.images[0].file }}-560.webp" data-curly="{{ 1 if p.texture.curly else 0 }}">
   <div class="gallery">
     <ul class="g-grid g-wig" id="gGrid" role="list" aria-label="Product photos" data-lightbox>
-      {% for im in p.images %}<li{% if loop.first %} class="g-first"{% endif %}>{{ macros.picture(im.file, im.alt, "(max-width:900px) 100vw, 46vw", lazy=not loop.first, priority=loop.first, cls="g-hero" if loop.first else "") }}</li>{% endfor %}
+      {% for im in p.images %}<li{% if loop.first %} class="g-first"{% elif im.info %} class="g-info"{% endif %}>{{ macros.picture(im.file, im.alt, "(max-width:900px) 100vw, 46vw", lazy=not loop.first, priority=loop.first, cls="g-hero" if loop.first else "") }}</li>{% endfor %}
     </ul>
     {% if p.placeholder %}<p class="ph-note">Photos for this style are coming soon. The pink image is a placeholder.</p>{% endif %}
     {% if p.images|length > 1 %}<div class="g-dots" aria-hidden="true">{% for im in p.images %}<i{% if loop.first %} class="on"{% endif %}></i>{% endfor %}</div>{% endif %}
@@ -79,11 +79,11 @@
 {% if not p.placeholder %}
 <section class="scenes wrap" aria-labelledby="scH">
   <div class="sec-head"><h2 id="scH">{{ p.color.key }} on deep skin</h2><p>Real-room lighting, no filters on the shade.</p></div>
-  <ul class="scene-grid" role="list">{% for im in p.images if not im.mannequin %}<li>{{ macros.picture(im.file, im.alt, "(max-width:720px) 50vw, 25vw") }}</li>{% endfor %}</ul>
+  <ul class="scene-grid" role="list">{% for im in p.images if not im.mannequin and not im.info %}<li>{{ macros.picture(im.file, im.alt, "(max-width:720px) 50vw, 25vw") }}</li>{% endfor %}</ul>
 </section>
 {% endif %}
 
-{% set close = p.images[2] if p.images|length > 2 else p.images[-1] %}
+{% set photos = p.images|rejectattr("info")|list %}{% set close = photos[2] if photos|length > 2 else photos[-1] %}
 <section class="desc wrap" aria-labelledby="descH">
   <figure class="desc-img" data-wipe>{{ macros.picture(close.file, close.alt, "(max-width:900px) 100vw, 40vw") }}</figure>
   <div class="desc-copy">

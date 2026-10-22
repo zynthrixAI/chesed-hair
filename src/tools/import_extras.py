@@ -189,7 +189,8 @@ for name, colors, lens in B:
                          variants=variants, images=[dict(file="placeholder", alt="Photo coming soon", placeholder=True)],
                          details=[("Texture", name), ("Lengths", f"{lens[0]} to {lens[-1]}"), ("Shades", f"{len(colors)} shades")], desc=[], source="item list: Bundle"))
 
-# Burmese Magic crochet: on the item list but not in the export
+# Burmese Magic crochet: on the item list but not in the export.
+# Not on the site: the client wants only the 5 listings that were live in Shopify (22 October 2026).
 bm_colors = ["Natural", "Natural Black", "Brown Auburn", "Honey Auburn", "Honey Blonde HL", "Ruby Red", "Salt & Pepper"]
 bm_lens = ['12"', '14"', '16"', '18"', '22"']
 ref = next(p for p in products if p["handle"].startswith("seamless-burmese-curly"))
@@ -201,6 +202,8 @@ products.append(dict(kind="crochet", handle="seamless-burmese-magic-feather-croc
                      images=[dict(file="placeholder", alt="Photo coming soon", placeholder=True)],
                      details=[], desc=[], source="item list: Crochet"))
 
+# Only listings that were live in Shopify go on the site; drafts were tests (client, 22 October 2026)
+products = [p for p in products if p["kind"] != "crochet" or (p["status"] == "active" and not p["handle"].startswith("seamless-burmese-magic"))]
 json.dump(products, open(os.path.join(REPO, "src", "extras.json"), "w", encoding="utf-8"), indent=1, ensure_ascii=False)
 print(len(products), "products;", len(dl), "images to fetch")
 

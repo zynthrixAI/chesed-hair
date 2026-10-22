@@ -197,6 +197,9 @@ def cover_first(images, texture, color):
     return lead + [im for im in images if im not in lead] if lead else images
 
 PLACEHOLDER_IMG = "placeholder"   # assets/p/placeholder-1024.webp: pink "photo coming soon" stand-in
+# the client's cap and lace pictures, shown last in every wig's gallery (square, so they get the full width)
+CAP_IMAGES = [dict(file="wig-cap-one-size", alt="One size fits all cap: 3-panel design, adjustable band, side and top and bottom security combs", info=True),
+              dict(file="wig-cap-secure-fit", alt="13 by 5 inch pre-plucked HD lace and the 6x secure fit cap with elastic band and 4 security combs", info=True)]
 
 def build_products():
     products = []
@@ -215,6 +218,7 @@ def build_products():
                 placeholder = True
             if not images:
                 continue
+            images = images + CAP_IMAGES
             products.append(dict(
                 kind="wig", placeholder=placeholder,
                 handle=handle, title=title, texture=t, color=c, price=PRICE,

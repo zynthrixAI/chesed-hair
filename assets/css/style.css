@@ -1222,3 +1222,7 @@ body.lb-lock{overflow:hidden}
 .ci-soon p{margin:0 0 14px}
 .ci-soon-links{display:flex;flex-wrap:wrap;gap:10px}
 .xm-soon{margin-top:14px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--rose);font-weight:600}
+
+/* the client's square cap and lace pictures at the end of each wig gallery: full width, never cropped */
+.g-wig .g-info{grid-column:1/-1}
+.g-wig .g-info img{aspect-ratio:1/1;object-fit:contain}
