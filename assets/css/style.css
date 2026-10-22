@@ -1226,3 +1226,5 @@ body.lb-lock{overflow:hidden}
 /* the client's square cap and lace pictures at the end of each wig gallery: full width, never cropped */
 .g-wig .g-info{grid-column:1/-1}
 .g-wig .g-info img{aspect-ratio:1/1;object-fit:contain}
+/* the client's mannequin photos (front and back, square) sit side by side as a pair, never cropped */
+.g-wig .g-mq img{aspect-ratio:1/1;object-fit:contain;background:var(--pearl)}
