@@ -124,6 +124,18 @@ All of this is live on the preview unless marked otherwise.
 - [x] All wigs page leads with the style.
 - [ ] Send the preview to Chesed for approval.
 
+### Client feedback, round 2 (22 October 2026): what Chesed needs to send
+Feedback came in a Google Doc ("Website Updates"). **Deep Wave and Water Wave wigs** were added as drafts (8 shades each, same as Permed Straight, with "Photo coming soon" pictures and copy we wrote; branch `claude/new-styles-coming-soon`).
+- [ ] **Deep Wave and Water Wave wigs:** which shades each comes in, the price, lengths, approval of our copy, and photos for every shade (front, three-quarter, back, side, close-up, lifestyle, plus mannequin front and back).
+- [ ] **"Missing notes: Straight, Deep Wave, Water Wave":** confirm these are wig styles. Straight is already on the site.
+- [ ] **The 12 shades:** the site has 10. Names of the 2 missing shades, which styles they come in, and photos.
+- [ ] **Lengths 18" to 36":** confirm 34" and 36" cost the same as the rest.
+- [ ] **Honey Auburn:** new photos with more blonde highlights.
+- [ ] **Length chart picture:** a screenshot of the length image on their Amazon listing (Amazon blocks us).
+- [ ] **Shade names:** approve the descriptive names we write (e.g. "rich red wine" for 530).
+- [ ] **Crochet & Feather:** the real number of extensions and lengths; which texture each listing is; whether to keep the two Shopify drafts "Lightweight Ripple Deep Curl" and "Highlight #4/30/530 Water Wave" (both from `products_export_1.csv`, their Shopify product export).
+- [ ] **Chesed's story:** OK to use the story from chesedhair.com (or send the text), plus founder photos.
+
 ### Waiting on Chesed
 These are placeholders on the site. Most are marked in **pink** so they're easy to spot.
 - [ ] **Reviews:** the three homepage reviews (Jessica L., Monica R., Danielle K.) couldn't be verified and look like sample text from a website theme. Chesed must confirm they are real customers or replace them. Posting fake reviews breaks US advertising (FTC) rules.

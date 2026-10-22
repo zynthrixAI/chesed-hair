@@ -89,8 +89,25 @@ TEXTURES = [
               ("Is wet & wavy the same as body wave?", "No. Wet & wavy has a looser, glossier, more water-like pattern. Body wave is a softer S-shape."),
               ("Does it look shorter than its length?", "Yes. The waves take up length, so it sits about 2 inches higher than straight hair."),
               ("Which shades are available?", "1, 1B, Virgin, 350, 530, Honey Auburn, Honey Blonde and Red.")]),
+    # Deep Wave and Water Wave: styles from the client's feedback. Shades, copy and photos are placeholders until Chesed confirms them.
+    dict(key="Deep Wave", name="Deep Wave", slug="deep-wave", curly=True,
+         only_colors=["1", "1B", "Virgin", "350", "530", "Honey Auburn", "Honey Blonde", "Red"],
+         short="Deep, defined waves with full, bouncy volume.",
+         intro="Deep wave has deep, defined waves that are tighter than a body wave and looser than a curl, so it looks full and bouncy from root to tip. Each Chesed deep wave wig is a lace front unit in 100% unprocessed virgin Remy human hair, in 8 shades and lengths from 10 to 32 inches. Refresh the pattern with water and a curl cream.",
+         faq=[("How is deep wave different from loose deep wave?", "Deep wave has tighter, more defined waves. Loose deep wave is softer and more open."),
+              ("How do I keep the waves defined?", "Wet the hair, apply a curl cream and let it air-dry or diffuse. Avoid brushing when dry."),
+              ("Does it look shorter than its length?", "Yes. The waves take up length, so it sits 2 to 3 inches higher than straight hair."),
+              ("Which shades are available?", "1, 1B, Virgin, 350, 530, Honey Auburn, Honey Blonde and Red.")]),
+    dict(key="Water Wave", name="Water Wave", slug="water-wave", curly=True,
+         only_colors=["1", "1B", "Virgin", "350", "530", "Honey Auburn", "Honey Blonde", "Red"],
+         short="Small, rippling waves that look like water.",
+         intro="Water wave has small, rippling waves that look like the surface of water, with lots of movement and a soft, natural finish. Each Chesed water wave wig is a lace front unit in 100% unprocessed virgin Remy human hair, in 8 shades and lengths from 10 to 32 inches. Spray with water and add a leave-in conditioner to bring the waves back between washes.",
+         faq=[("How is water wave different from wet & wavy?", "Water wave has smaller, tighter ripples. Wet & wavy has looser, glossier waves."),
+              ("How do I keep the waves defined?", "Spray with water, add a leave-in conditioner and let it air-dry. Avoid brushing when dry."),
+              ("Does it look shorter than its length?", "Yes. The waves take up length, so it sits 2 to 3 inches higher than straight hair."),
+              ("Which shades are available?", "1, 1B, Virgin, 350, 530, Honey Auburn, Honey Blonde and Red.")]),
 ]
-TEX = {t["key"]: t for t in TEXTURES}
+TEX ={t["key"]: t for t in TEXTURES}
 
 COLORS = [
     dict(key="1B", slug="1b", hex="#2A201C", family="black",

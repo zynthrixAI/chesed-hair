@@ -278,11 +278,12 @@ hub = dict(h1="Lace Front Wigs", intro=f"Every Chesed wig in one place: {len(D.T
            faq=home_faq, related_heading="Shop by color", related=col_related,
            banner=[shot("Straight", "Red", 1), shot("Body Wave", "530", 1), shot("Loose Deep", "Honey Blonde", 1)])
 render("collection.html", "/collections/wigs/", seo_title=f"Lace Front Wigs in {len(D.TEXTURES)} Textures & 10 Colors | Chesed",
-       seo_description="Shop all Chesed lace front wigs: body wave, curly, kinky curly, kinky straight, loose deep wave, straight, permed straight, wet & wavy and virgin curl, in 10 shades, 10 to 32 inches.",
+       seo_description="Shop all Chesed lace front wigs: body wave, curly, kinky curly, kinky straight, loose deep wave, straight, permed straight, wet & wavy, deep wave, water wave and virgin curl, in 10 shades, 10 to 32 inches.",
        canonical="/collections/wigs/", body_class="shop overlay", page_id="hub", c=hub, is_hub=True, card_lead="texture",
        jsonld=json.dumps(breadcrumb_ld([("Home", "/"), ("Lace Front Wigs", "/collections/wigs/")])))
 
 TEX_TITLES = {"permed-straight": "Permed Straight Lace Front Wigs | Chesed", "wet-and-wavy": "Wet & Wavy Lace Front Wigs | Chesed",
+              "deep-wave": "Deep Wave Lace Front Wigs | Chesed", "water-wave": "Water Wave Lace Front Wigs | Chesed",
               "body-wave": "Body Wave Lace Front Wigs, 10-32 Inch | Chesed", "curly": "Curly Lace Front Wigs, 10-32 Inch | Chesed",
               "kinky-curly": "Kinky Curly Lace Front Wigs | Chesed Hair", "kinky-straight": "Kinky Straight Wigs, Yaki Texture | Chesed",
               "loose-deep-wave": "Loose Deep Wave Lace Front Wigs | Chesed", "straight": "Silky Straight Lace Front Wigs | Chesed",
