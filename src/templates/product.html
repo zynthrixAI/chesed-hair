@@ -15,30 +15,30 @@
   <div class="buy" id="buy">
     <p class="eyebrow rose">{{ p.texture.name }} · Lace front</p>
     <h1>{{ p.title }}</h1>
-    <a class="rating-slot" href="#reviews"><span class="ph">★★★★★ Judge.me star rating and review count show here</span></a>
+    
     <p class="price">{{ macros.money(p.price) }}</p>
     <p class="bnpl">or 4 interest-free payments of <b>{{ macros.money(p.price/4) }}</b> with <b>Shop Pay</b></p>
     <p class="code-note" data-code-note hidden></p>
 
     <div class="shade-pick">
-      <p class="opt-label"><span>Shade</span><b id="shadeName">{{ p.color.key }}</b><a class="link sm" href="/pages/wig-color-guide/">Color guide</a></p>
+      <p class="opt-label"><span>Shade</span><b id="shadeName">{{ p.color.name }}</b><a class="link sm" href="/pages/wig-color-guide/">Color guide</a></p>
       <ul class="shade-sw" role="list" aria-label="Choose a shade">
-        {% for s in p.siblings %}<li style="--sw:{{ s.color.hex }}"><a href="{{ s.url }}" aria-label="{{ s.color.key }}" data-name="{{ s.color.key }}"{% if s.handle == p.handle %} aria-current="true" class="on"{% endif %}><span class="sw-img">{{ macros.picture(s.images[0].file, "", "64px") }}</span><i class="sw-chip" aria-hidden="true"></i></a>
+        {% for s in p.siblings %}<li style="--sw:{{ s.color.hex }}"><a href="{{ s.url }}" aria-label="{{ s.color.name }} ({{ s.color.key }})" data-name="{{ s.color.name }}"{% if s.handle == p.handle %} aria-current="true" class="on"{% endif %}><span class="sw-img">{{ macros.picture(s.images[0].file, "", "64px") }}</span><i class="sw-chip" aria-hidden="true"></i></a>
           <div class="sw-pop" role="tooltip">
             <span class="sw-pop-img">{{ macros.picture(s.images[0].file, "", "72px") }}</span>
-            <span class="sw-pop-t"><b>{{ s.color.key }}<i style="--sw:{{ s.color.hex }}"></i></b><small>{{ s.color.blurb }}</small>{% if s.handle == p.handle %}<em>You're viewing this shade</em>{% endif %}</span>
+            <span class="sw-pop-t"><b>{{ s.color.name }}<i style="--sw:{{ s.color.hex }}"></i></b><small>{{ s.color.blurb }}</small>{% if s.handle == p.handle %}<em>You're viewing this shade</em>{% endif %}</span>
           </div></li>{% endfor %}
       </ul>
     </div>
 
     <div class="opt">
-      <p class="opt-label"><span>Length</span><b id="lenVal">16"</b><a class="link sm" href="/pages/wig-length-guide/">Length guide</a></p>
+      <p class="opt-label"><span>Length</span><b id="lenVal">{{ default_length }}"</b><a class="link sm" href="/pages/wig-length-guide/">Length guide</a></p>
       <div class="len-row" role="radiogroup" aria-label="Choose a length">
-        {% for v in p.variants %}<button type="button" role="radio" aria-checked="{{ 'true' if v.length == 16 else 'false' }}" data-len="{{ v.length }}" data-i="{{ loop.index0 }}">{{ v.length }}"</button>{% endfor %}
+        {% for v in p.variants %}<button type="button" role="radio" aria-checked="{{ 'true' if v.length == default_length else 'false' }}" data-len="{{ v.length }}" data-i="{{ loop.index0 }}">{{ v.length }}"</button>{% endfor %}
       </div>
       <div class="len-hint">
-        <span class="len-meter" aria-hidden="true"><i id="lenMeter" style="--p:{{ 3/11 }}"></i></span>
-        <p id="lenLand">16" ends at your <b>{{ p.landmark_for[3] }}</b>.{% if p.texture.curly %} {{ p.texture.name }} sits about 2 inches higher than straight hair.{% endif %}</p>
+        <span class="len-meter" aria-hidden="true"><i id="lenMeter" style="--p:{{ lengths.index(default_length) / (lengths|length - 1) }}"></i></span>
+        <p id="lenLand">{{ default_length }}" ends at your <b>{{ p.landmark_for[lengths.index(default_length)] }}</b>.{% if p.texture.curly %} {{ p.texture.name }} sits about 2 inches higher than straight hair.{% endif %}</p>
       </div>
     </div>
 
@@ -51,11 +51,11 @@
       <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span><b>Secure checkout</b>encrypted by Shopify</span></li>
     </ul>
     <p class="ship-line">Order today, ships within <span class="ph">X</span> business days.</p>
-    <ul class="ticks" role="list"><li>100% unprocessed virgin Remy human hair</li><li>Lace front with natural hairline</li><li>Cap size and density: <span class="ph">to confirm</span></li></ul>
+    <ul class="ticks" role="list"><li>100% unprocessed virgin Remy human hair</li><li>Lace front with natural hairline</li><li>13x5 lace · one size fits all cap</li></ul>
 
     <div class="acc">
       <details open><summary>About this shade</summary><p>{{ p.color.blurb }} Shown here on the same model as every other Chesed wig, so you can compare shades fairly.</p></details>
-      <details><summary>Details</summary><p>Texture: {{ p.texture.name }}. Hair: 100% unprocessed virgin Remy human hair. Lace: lace front (<span class="ph">lace size to confirm</span>). Density: <span class="ph">to confirm</span>. Cap: <span class="ph">to confirm</span>. Lengths: 10 to 32 inches.</p></details>
+      <details><summary>Details</summary><p>Texture: {{ p.texture.name }}. Hair: 100% unprocessed virgin Remy human hair. Lace: 13x5 lace front. Cap: one size fits all. Lengths: 18 to 36 inches.</p></details>
       <details><summary>How to install</summary><p>Braid or flatten your hair and put on a wig cap. Place the wig, line up the lace with your hairline, trim the lace, then secure with glue, tape or the adjustable band. Finish by laying the baby hairs.</p></details>
       <details><summary>Care</summary><p>Wash every 7 to 10 wears in cool water with sulfate-free shampoo and conditioner. {% if p.texture.curly %}Air-dry to keep the pattern defined.{% else %}Use a heat protectant before styling.{% endif %} Store on a stand.</p></details>
       <details><summary>Shipping and returns</summary><p>Free US shipping over ${{ free_ship|int }}. Return unworn wigs within 30 days with the lace uncut.</p></details>
@@ -68,11 +68,11 @@
     <div class="lv-copy">
       <p class="eyebrow rose">Length</p>
       <h2 id="elH" class="display-sm" data-split>Every length, side by side.</h2>
-      <p class="lv-read"><b class="el-val">16"</b><span>ends at your <em class="el-land">{{ p.landmark_for[3] }}</em></span></p>
+      <p class="lv-read"><b class="el-val">{{ default_length }}"</b><span>ends at your <em class="el-land">{{ p.landmark_for[lengths.index(default_length)] }}</em></span></p>
       <p class="lv-note">Tap a strand to choose that length.{% if p.texture.curly %} {{ p.texture.name }} springs up, so each length sits one step higher than straight hair.{% endif %}</p>
-      <button class="btn rose" type="button" id="elAdd">Add <span class="el-val">16"</span> to bag</button>
+      <button class="btn rose" type="button" id="elAdd">Add <span class="el-val">{{ default_length }}"</span> to bag</button>
     </div>
-    <div class="lv-chart" data-reveal>{{ strands(3, p.color.hex, "pdp", p.texture.curly, True, False) }}</div>
+    <div class="lv-chart" data-reveal>{{ strands(lengths.index(default_length), p.color.hex, "pdp", p.texture.curly, True, False) }}</div>
   </div>
 </section>
 
@@ -94,16 +94,7 @@
   </div>
 </section>
 
-<section class="pdp-rev wrap split" id="reviews" aria-labelledby="prH">
-  <div class="split-head"><p class="eyebrow">Reviews</p><h2 id="prH" data-split>Worn by you</h2></div>
-  <div>
-    <ul class="ugc" role="list" aria-label="Customer try-on videos">
-      {% for i in range(4) %}<li><span class="ugc-play" aria-hidden="true"></span><span class="ph">Customer try-on video {{ i + 1 }}</span></li>{% endfor %}
-    </ul>
-    <div class="rev-slot"><p class="ph">Judge.me review widget: star summary, photo reviews and verified-buyer badges for this wig</p></div>
-    <p class="ph-note">Preview note: on Shopify, Judge.me fills this section with this wig's verified reviews and customer photos and videos. Ask the first buyers for a photo or try-on video with their review.</p>
-  </div>
-</section>
+{# "Worn by you" (try-on videos and Judge.me reviews) removed for now at the client's request, 22 October 2026 #}
 
 {{ macros.faq_list(p.texture.faq[:3], "Questions about " ~ p.texture.name|lower) }}
 
@@ -122,7 +113,7 @@
 {% endif %}
 
 <div class="sticky-buy" id="stickyBuy" aria-hidden="true">
-  <div><b>{{ p.color.key }}</b><span id="stickyLen">16"</span></div>
+  <div><b>{{ p.color.key }}</b><span id="stickyLen">{{ default_length }}"</span></div>
   <button class="btn rose" type="button" id="stickyAdd" tabindex="-1">Add to bag · {{ macros.money(p.price) }}</button>
 </div>
 <script type="application/json" id="landmarks">{{ p.landmark_for|tojson }}</script>

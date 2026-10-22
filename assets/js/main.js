@@ -2,9 +2,7 @@
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const money=v=>'$'+Number(v).toFixed(2);
 const FREE=(window.CHESED&&window.CHESED.freeShip)||200;
-const LANDC=["jawline","chin","shoulders","collarbone","armpits","bust","below the bust","mid ribs","waist","below the waist","hips","top of the thighs"];
-const LAND=["chin","shoulders","collarbone","armpits","bust","below the bust","mid ribs","waist","below the waist","hips","top of the thighs","upper thighs"];
-const LENS=[10,12,14,16,18,20,22,24,26,28,30,32];
+const LANDC=window.CHESED.landc, LAND=window.CHESED.land, LENS=window.CHESED.lens;   // set by the build from src/data.py
 
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const root=document.documentElement;
@@ -280,17 +278,17 @@ if(pdp){
   const curly=pdp.dataset.curly==='1', LM=JSON.parse($('#landmarks').textContent);
   const lenBtns=$$('.len-row button'), meter=$('#lenMeter');
   const chart=strandChart($('.every-len .strands'),i=>setLen(LENS[i],true));
-  let len=16;
+  let len=24;
   function setLen(l,push){ len=l; const i=LENS.indexOf(l);
     lenBtns.forEach(b=>b.setAttribute('aria-checked',+b.dataset.len===l?'true':'false'));
     $('#lenVal').textContent=l+'"'; $('#stickyLen').textContent=l+'"';
     $('#lenLand').innerHTML=l+'" ends at your <b>'+LM[i]+'</b>.'+(curly?' Waves and curls sit about 2 inches higher than straight hair.':'');
-    if(meter) meter.style.setProperty('--p',i/11);
+    if(meter) meter.style.setProperty('--p',i/(LENS.length-1));
     $$('.el-val').forEach(e=>e.textContent=l+'"'); $$('.el-land').forEach(e=>e.textContent=LM[i]);
     chart&&chart.set(i,curly);
     if(push){ const u=new URL(location); u.searchParams.set('length',l); history.replaceState(null,'',u); } }
   lenBtns.forEach(b=>b.addEventListener('click',()=>setLen(+b.dataset.len,true)));
-  const q=+new URL(location).searchParams.get('length'); setLen(LENS.includes(q)?q:16,false);
+  const q=+new URL(location).searchParams.get('length'); setLen(LENS.includes(q)?q:24,false);
   const add=()=>addToCart({title:pdp.dataset.title,variant:len+'"',price:+pdp.dataset.price,img:pdp.dataset.img});
   $('#addBtn').addEventListener('click',add); $('#stickyAdd').addEventListener('click',add); $('#elAdd')&&$('#elAdd').addEventListener('click',add);
   $$('.buy .shop-pay').forEach(b=>b.addEventListener('click',()=>say('Preview only: Shop Pay connects on Shopify.')));

@@ -6,7 +6,7 @@
     <nav class="crumbs light" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span>{% if not is_hub and c.kind|default("wig") == "wig" %}<a href="/collections/wigs/">Wigs</a><span aria-hidden="true">/</span>{% endif %}<span aria-current="page">{{ c.h1 }}</span></nav>
     <h1 id="colH" class="display" data-split>{{ c.h1 }}</h1>
     {% set noun = c.noun|default("wig") %}
-    <p class="col-count">{{ c.products|length }} {{ noun if c.products|length == 1 else noun ~ "s" }}{% if noun == "wig" %} · 10 to 32 inches · 100% virgin Remy human hair{% endif %}</p>
+    <p class="col-count">{% if c.coming_soon %}Coming soon{% elif noun != "wig" %}100% human hair{% else %}{{ c.products|length }} {{ noun if c.products|length == 1 else noun ~ "s" }}{% if noun == "wig" %} · 18 to 36 inches · 100% virgin Remy human hair{% endif %}{% endif %}</p>
   </div>
 </section>
 {% set lead, more = split_intro(c.intro) %}
@@ -20,19 +20,24 @@
     <p class="ci-lead">{{ lead }}</p>
     {% if more %}<details class="ci-more"><summary><span class="rm-o">Read more</span><span class="rm-c">Read less</span></summary><p>{{ more }}</p></details>{% endif %}
   </div>
+  {% if c.coming_soon %}
+  <div class="ci-soon"><p class="eyebrow rose">Coming soon</p><p>We're getting our {{ c.h1|lower }} ready. Check back soon.</p>
+    <p class="ci-soon-links"><a class="btn rose" href="/collections/wigs/">Shop all wigs</a></p></div>
+  {% else %}
   <ul class="ci-facts" role="list">
     {% if noun != "wig" %}
-    <li><b>{{ c.products|length }}</b><span>{{ noun ~ "s" }}</span></li>
-    <li><b>{{ c.facts.options }}</b><span>{{ c.facts.options_label }}</span></li>
+    <li><b>Human hair</b><span>handmade</span></li>
     <li><b>{% if c.facts.price_ph %}<span class="ph">{{ macros.money(c.facts.min_price) }}</span>{% else %}{{ macros.money(c.facts.min_price) }}{% endif %}</b><span>{% if c.facts.price_ph %}price to confirm{% else %}lowest price{% endif %}</span></li>
     {% else %}
     <li><b>{{ n_shades }}</b><span>{{ "shade" if n_shades == 1 else "shades" }}</span></li>
     <li><b>{% if n_tex > 1 %}{{ n_tex }}{% else %}{{ c.products[0].texture.name }}{% endif %}</b><span>{% if n_tex > 1 %}textures{% else %}texture{% endif %}</span></li>
-    <li><b>10–32"</b><span>every length</span></li>
+    <li><b>18–36"</b><span>every length</span></li>
     <li><b>{{ macros.money(c.products[0].price) }}</b><span>or 4 × {{ macros.money(c.products[0].price/4) }}</span></li>
     {% endif %}
   </ul>
+  {% endif %}
 </section>
+{% if not c.coming_soon %}
 
 <div class="fbar-wrap" data-fbar>
   <div class="fbar wrap">
@@ -68,6 +73,7 @@
 <p class="wrap no-match" id="noMatch" hidden>No {{ noun ~ "s" }} match these filters. <button type="button" class="link sm" data-fclear>Clear filters</button></p>
 
 {{ macros.faq_list(c.faq, (c.h1 ~ ": questions, answered") if not is_hub else "Questions, answered") }}
+{% endif %}
 
 <section class="related wrap split" aria-labelledby="relH">
   <div class="split-head"><p class="eyebrow">Keep exploring</p>

@@ -35,7 +35,7 @@
     <button class="card-add" type="button" aria-expanded="false" data-quick>Quick add</button>
   </div>
   <div class="card-lens" role="group" aria-label="Choose a length to add {{ p.title }}" hidden data-quick-lens data-title="{{ p.title }}" data-price="{{ p.price }}" data-img="/assets/p/{{ p.images[0].file }}-560.webp">
-    {% for l in [10,12,14,16,18,20,22,24,26,28,30,32] %}<button type="button" data-len="{{ l }}">{{ l }}"</button>{% endfor %}
+    {% for l in lengths %}<button type="button" data-len="{{ l }}">{{ l }}"</button>{% endfor %}
   </div>
 </article>
 {% endif %}

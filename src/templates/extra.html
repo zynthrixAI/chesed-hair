@@ -16,7 +16,6 @@
   <div class="buy" id="buy">
     <p class="eyebrow rose">{{ col.name }}</p>
     <h1>{{ p.title }}</h1>
-    <a class="rating-slot" href="#reviews"><span class="ph">★★★★★ Judge.me star rating and review count show here</span></a>
     <p class="price"><span id="xPrice">{{ macros.money(p.price) }}</span>{% if p.price_placeholder %} <span class="ph x-ph">price to confirm</span>{% endif %}</p>
     <p class="bnpl">or 4 interest-free payments of <b id="xBnpl">{{ macros.money(p.price/4) }}</b> with <b>Shop Pay</b></p>
     <p class="code-note" data-code-note hidden></p>
@@ -55,16 +54,7 @@
   </div>
 </section>
 
-<section class="pdp-rev wrap split" id="reviews" aria-labelledby="prH">
-  <div class="split-head"><p class="eyebrow">Reviews</p><h2 id="prH" data-split>Worn by you</h2></div>
-  <div>
-    <ul class="ugc" role="list" aria-label="Customer try-on videos">
-      {% for i in range(4) %}<li><span class="ugc-play" aria-hidden="true"></span><span class="ph">Customer try-on video {{ i + 1 }}</span></li>{% endfor %}
-    </ul>
-    <div class="rev-slot"><p class="ph">Judge.me review widget: star summary, photo reviews and verified-buyer badges for this product</p></div>
-    <p class="ph-note">Preview note: on Shopify, Judge.me fills this section with this product's verified reviews and customer photos and videos.</p>
-  </div>
-</section>
+{# "Worn by you" (try-on videos and Judge.me reviews) removed for now at the client's request, 22 October 2026 #}
 
 {{ macros.faq_list(col.faq, "Questions about " ~ col.name|lower) }}
 

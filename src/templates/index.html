@@ -12,7 +12,7 @@
     <p class="hero-badge"><span>Lace front wigs</span><b>100% Virgin Remy Human Hair</b></p>
     <h1 id="heroH" class="display"><span class="ln"><span>Effortless beauty,</span></span><span class="ln"><span>rooted in love.</span></span></h1>
     <div class="hero-foot">
-      <p>{{ n_tex_word }} textures, ten shades, every length from 10 to 32 inches. All on one woman, so you see exactly what you get.</p>
+      <p>{{ n_tex_word }} textures, ten shades, every length from 18 to 36 inches. All on one woman, so you see exactly what you get.</p>
       <div class="cta-row">
         <a class="btn" href="#best">Shop best sellers</a>
         <a class="btn ghost" href="#shades">Find your shade</a>
@@ -24,7 +24,7 @@
 {# 2. MARQUEE #}
 <div class="marquee" aria-hidden="true">
   <div class="mq-row mq-small"><div class="mq-track" data-mq="1">
-    {% for i in range(3) %}{% for w in ["100% virgin Remy human hair", "Lace front", "Ten shades", "10 to 32 inches", "Free US shipping over $" ~ free_ship|int, "30-day returns", "Pay in 4"] %}<span>{{ w }}</span><b>✦</b>{% endfor %}{% endfor %}
+    {% for i in range(3) %}{% for w in ["100% virgin Remy human hair", "Lace front", "Ten shades", "18 to 36 inches", "Free US shipping over $" ~ free_ship|int, "30-day returns", "Pay in 4"] %}<span>{{ w }}</span><b>✦</b>{% endfor %}{% endfor %}
   </div></div>
 </div>
 
@@ -59,11 +59,11 @@
   </div>
   <div class="th-copy">
     <p class="eyebrow pink" id="thH">The shade theater</p>
-    <div class="th-name-wrap" aria-live="polite"><h2 class="th-name display" id="thName">{{ theater[0].color.key }}</h2></div>
+    <div class="th-name-wrap" aria-live="polite"><h2 class="th-name display" id="thName">{{ theater[0].color.name }}</h2></div>
     <p class="th-blurb" id="thBlurb">{{ theater[0].color.blurb }}</p>
     <ul class="th-sw" role="list" aria-label="Choose a shade">
       {% for s in theater %}<li><button type="button" style="--sw:{{ s.color.hex }}" aria-label="{{ s.color.key }}" title="{{ s.color.key }}" aria-pressed="{{ 'true' if loop.first else 'false' }}"
-        data-i="{{ loop.index0 }}" data-name="{{ s.color.key }}" data-blurb="{{ s.color.blurb }}" data-col="/collections/{{ s.family_slug }}-wigs/" data-colname="{{ s.family_name }}" data-prod="{{ s.product.url }}"></button></li>{% endfor %}
+        data-i="{{ loop.index0 }}" data-name="{{ s.color.name }}" data-blurb="{{ s.color.blurb }}" data-col="/collections/{{ s.family_slug }}-wigs/" data-colname="{{ s.family_name }}" data-prod="{{ s.product.url }}"></button></li>{% endfor %}
     </ul>
     <div class="cta-row">
       <a class="btn" id="thCol" href="/collections/{{ theater[0].family_slug }}-wigs/">Shop {{ theater[0].family_name }}</a>
@@ -98,17 +98,17 @@
   <div class="spot-grid wrap">
     <div class="spot-media">
       {% for x in spotlight %}{{ macros.picture(x.img.file, x.img.alt, "(max-width:900px) 100vw, 50vw", cls="on" if loop.index0 == spot_start else "") }}{% endfor %}
-      <span class="spot-tag" id="spotTag">{{ spotlight[spot_start].color.key }}</span>
+      <span class="spot-tag" id="spotTag">{{ spotlight[spot_start].color.name }}</span>
     </div>
     <div class="spot-copy">
       <p class="eyebrow rose">Texture spotlight</p>
       <h2 id="spH" class="display-sm" data-split>{{ banner_texture.name }}</h2>
       <p class="spot-lede">Straight, with the soft blown-out texture of natural hair. The closest match to relaxed and silk-pressed hair, so it looks real up close.</p>
-      <p class="spot-label"><span>Shade</span><b id="spotName">{{ spotlight[spot_start].color.key }}</b><small>{{ spotlight|length }} shades</small></p>
+      <p class="spot-label"><span>Shade</span><b id="spotName">{{ spotlight[spot_start].color.name }}</b><small>{{ spotlight|length }} shades</small></p>
       <ul class="spot-sw" role="list" aria-label="Choose a shade">
-        {% for x in spotlight %}<li><button type="button" style="--sw:{{ x.color.hex }}" aria-label="{{ x.color.key }}" aria-pressed="{{ 'true' if loop.index0 == spot_start else 'false' }}" data-i="{{ loop.index0 }}" data-name="{{ x.color.key }}" data-url="{{ x.url }}"></button></li>{% endfor %}
+        {% for x in spotlight %}<li><button type="button" style="--sw:{{ x.color.hex }}" aria-label="{{ x.color.name }} ({{ x.color.key }})" aria-pressed="{{ 'true' if loop.index0 == spot_start else 'false' }}" data-i="{{ loop.index0 }}" data-name="{{ x.color.name }}" data-url="{{ x.url }}"></button></li>{% endfor %}
       </ul>
-      <ul class="spot-facts" role="list"><li><b>Yaki texture</b><span>No glassy shine</span></li><li><b>10–32"</b><span>Every length</span></li><li><b>{{ macros.money(spotlight[0].price) }}</b><span>or 4 × {{ macros.money(spotlight[0].price/4) }}</span></li></ul>
+      <ul class="spot-facts" role="list"><li><b>Yaki texture</b><span>No glassy shine</span></li><li><b>18–36"</b><span>Every length</span></li><li><b>{{ macros.money(spotlight[0].price) }}</b><span>or 4 × {{ macros.money(spotlight[0].price/4) }}</span></li></ul>
       <div class="cta-row">
         <a class="btn rose" id="spotBuy" href="{{ spotlight[spot_start].url }}">Shop this shade</a>
         <a class="link" href="/collections/{{ banner_texture.slug }}-wigs/">All {{ banner_texture.name|lower }}</a>
@@ -126,7 +126,7 @@
       <p class="eyebrow rose">The length guide</p>
       <h2 id="lenH" class="display-sm" data-split>See your length before you buy.</h2>
       <p class="lv-read"><b id="lvVal">22"</b><span>ends at your <em id="lvLand">mid ribs</em></span></p>
-      <input type="range" id="lenRange" min="0" max="11" value="6" step="1" aria-label="Wig length" aria-describedby="lvNote">
+      <input type="range" id="lenRange" min="0" max="{{ lengths|length - 1 }}" value="2" step="1" aria-label="Wig length" aria-describedby="lvNote">
       <div class="seg" role="radiogroup" aria-label="Texture type">
         <button type="button" role="radio" aria-checked="true" data-curly="0">Straight</button>
         <button type="button" role="radio" aria-checked="false" data-curly="1">Wavy or curly</button>
@@ -134,7 +134,7 @@
       <p class="lv-note" id="lvNote">Lengths are measured with the hair pulled straight. Waves and curls spring up, so they sit about one step higher.</p>
       <a class="link" href="/pages/wig-length-guide/">Open the full length guide</a>
     </div>
-    <div class="lv-chart" data-reveal>{{ strands(6, "#1A1A1C", "home") }}</div>
+    <div class="lv-chart" data-reveal>{{ strands(2, "#1A1A1C", "home") }}</div>
   </div>
 </section>
 
