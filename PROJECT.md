@@ -133,7 +133,8 @@ Feedback came in a Google Doc ("Website Updates"). **Deep Wave and Water Wave wi
 - [ ] **Honey Auburn:** new photos with more blonde highlights.
 - [ ] **Length chart picture:** a screenshot of the length image on their Amazon listing (Amazon blocks us).
 - [ ] **Shade names:** approve the descriptive names we write (e.g. "rich red wine" for 530).
-- [ ] **Crochet & Feather:** the real number of extensions and lengths; which texture each listing is; whether to keep the two Shopify drafts "Lightweight Ripple Deep Curl" and "Highlight #4/30/530 Water Wave" (both from `products_export_1.csv`, their Shopify product export).
+- [ ] **Crochet & Feather:** the real number of extensions and lengths; which texture each listing is. (The two Shopify drafts "Lightweight Ripple Deep Curl" and "Highlight #4/30/530 Water Wave" were removed at the client's request, 22 October 2026; the importer skips them too.)
+- [ ] **Length chart picture:** the client wants a body picture like their Amazon listing, but nicer. A test of a back-view figure whose hair grows to the chosen length is in progress.
 - [ ] **Chesed's story:** OK to use the story from chesedhair.com (or send the text), plus founder photos.
 
 ### Waiting on Chesed
