@@ -17,10 +17,12 @@ env = Environment(loader=FileSystemLoader(os.path.join(SRC, "templates")),
 products = D.build_products()
 D.COLOR_COLLECTIONS[:] = D.make_color_collections(products)
 extras = D.build_extras()
+soon_kinds = {ec["kind"] for ec in D.EXTRA_COLLECTIONS if ec.get("coming_soon")}
+extras = [x for x in extras if x["kind"] not in soon_kinds]   # e.g. hair bundles: "coming soon" for now
 for _ec in D.EXTRA_COLLECTIONS:   # count and thumbnail for the menu cards
     _pool = [x for x in extras if x["kind"] == _ec["kind"]]
     _ec["count"] = len(_pool)
-    _ec["thumb"] = next((x["images"][0] for x in _pool if not x["placeholder"]), _pool[0]["images"][0])
+    _ec["thumb"] = next((x["images"][0] for x in _pool if not x["placeholder"]), _pool[0]["images"][0] if _pool else dict(file="placeholder", alt=""))
 by_handle = {p["handle"]: p for p in products}
 fam = {cc["slug"]: cc for cc in D.COLOR_COLLECTIONS}
 color_to_cc = {k: cc for cc in D.COLOR_COLLECTIONS for k in cc["colors"]}
@@ -112,7 +114,7 @@ story = shot("Body Wave", "Honey Auburn", 5)      # warm, smiling: the "lovingki
 
 home_faq = [
     ("What are Chesed wigs made of?", "Every Chesed wig is 100% unprocessed virgin Remy human hair on a lace front, so you can color, heat-style and wash it like your own hair."),
-    ("How do I choose my length?", "Use the length guide: it shows where each length from 10 to 32 inches ends on the body. Waves and curls sit about 2 inches higher than straight hair."),
+    ("How do I choose my length?", "Use the length guide: it shows where each length from 18 to 36 inches ends on the body. Waves and curls sit about 2 inches higher than straight hair."),
     ("How do I choose my shade?", "Every shade is shown on the same model in real rooms. The color guide puts all ten side by side, including the ones people mix up, like 1B vs 1."),
     ("What if the wig isn't right?", "Return unworn wigs within 30 days with the lace uncut."),
 ]
@@ -155,7 +157,8 @@ def strands(sel=6, hair="#1A1A1C", uid="s", show_curly=False, interactive=True, 
     out.append('</svg>')
     return Markup("".join(out))
 
-G = dict(textures=D.TEXTURES, color_collections=D.COLOR_COLLECTIONS, colmap=D.COL, free_ship=D.FREE_SHIP,
+G = dict(lengths=D.LENGTHS, default_length=D.DEFAULT_LENGTH, len_landmarks=D.LANDMARKS, len_curly_landmarks=D.CURLY_LANDMARKS,
+         textures=D.TEXTURES, color_collections=D.COLOR_COLLECTIONS, colmap=D.COL, free_ship=D.FREE_SHIP,
          version=str(int(time.time())), macros=None, extras=extras, extra_collections=D.EXTRA_COLLECTIONS)
 env.globals.update(G)
 env.globals["strands"] = strands
@@ -188,13 +191,13 @@ HEADER = "simple"
 env.globals["header_style"] = HEADER
 env.globals["nav_textures"] = [dict(t, products=[p for p in products if p["texture"]["key"] == t["key"]]) for t in D.TEXTURES]
 NAV_NAMES = {"crochet": "Crochet & Feather", "bundle": "Hair Bundles"}
-NAV_BLURBS = {"crochet": "Handmade feather and crochet braid extensions in human hair: body wave, deep wave, water wave, kinky curly and more.",
+NAV_BLURBS = {"crochet": "Handmade feather and crochet braid extensions in human hair: body wave, deep wave, water wave, wet & wavy and more.",
               "bundle": "Body wave, straight, deep wave and water wave bundles, from natural darks to bold colors."}
 nav_extras = []
 for _ec in D.EXTRA_COLLECTIONS:
     _pool = [x for x in extras if x["kind"] == _ec["kind"]]
     _real = [x for x in _pool if not x["placeholder"]]
-    nav_extras.append(dict(_ec, nav_name=NAV_NAMES[_ec["kind"]], blurb=NAV_BLURBS[_ec["kind"]], cards=bool(_real),
+    nav_extras.append(dict(_ec, nav_name=NAV_NAMES[_ec["kind"]], blurb=NAV_BLURBS[_ec["kind"]], cards=bool(_real), soon=bool(_ec.get("coming_soon")),
                            picks=(_real or _pool)[:6] if _real else _pool))
 for _n in nav_extras:
     if _n["kind"] == "crochet":
@@ -223,7 +226,7 @@ def org_ld():
 
 # HOME
 render("index.html", "/", seo_title="Chesed Hair | Human Hair Lace Front Wigs",
-       seo_description=f"Lace front wigs in 100% unprocessed virgin Remy human hair. {len(D.TEXTURES)} textures, 10 shades, 10 to 32 inches, all shown on the same model.",
+       seo_description=f"Lace front wigs in 100% unprocessed virgin Remy human hair. {len(D.TEXTURES)} textures, 10 shades, 18 to 36 inches, all shown on the same model.",
        canonical="/", body_class="home overlay", page_id="home", hero=hero, hero_product=hero_product, hero_imgs=hero_imgs, banner_imgs=banner_imgs, banner_texture=banner_texture, all_tile=all_tile, theater=theater,
        best=best, home_textures=home_textures, n_tex_word=n_tex_word, n_home_tex_word=NUM.get(len(home_textures), str(len(home_textures))), lookbook=lookbook, story=story, spotlight=spotlight, spot_start=spot_start, home_faq=home_faq, jsonld=json.dumps(org_ld()),
        og_image=f"/assets/p/{hero['file']}-1024.webp")
@@ -273,18 +276,18 @@ env.globals["split_intro"] = split_intro
 tex_related = [dict(label=t["name"], url=f"/collections/{t['slug']}-wigs/") for t in D.TEXTURES]
 col_related = [dict(label=cc["name"], url=f"/collections/{cc['slug']}-wigs/", hex=D.COL[cc["colors"][0]]["hex"]) for cc in D.COLOR_COLLECTIONS]
 
-hub = dict(h1="Lace Front Wigs", intro=f"Every Chesed wig in one place: {len(D.TEXTURES)} textures and 10 shades of lace front wigs in 100% unprocessed virgin Remy human hair, each available from 10 to 32 inches. All of them are shown on the same model, so you can compare textures and shades fairly. Filter by texture and shade below to narrow it down.",
+hub = dict(h1="Lace Front Wigs", intro=f"Every Chesed wig in one place: {len(D.TEXTURES)} textures and 10 shades of lace front wigs in 100% unprocessed virgin Remy human hair, each available from 18 to 36 inches. All of them are shown on the same model, so you can compare textures and shades fairly. Filter by texture and shade below to narrow it down.",
            products=products, filters=texture_filters(products), filter_key="texture", filter_label="Texture", image=None,
            faq=home_faq, related_heading="Shop by color", related=col_related,
            banner=[shot("Straight", "Red", 1), shot("Body Wave", "530", 1), shot("Loose Deep", "Honey Blonde", 1)])
 render("collection.html", "/collections/wigs/", seo_title=f"Lace Front Wigs in {len(D.TEXTURES)} Textures & 10 Colors | Chesed",
-       seo_description="Shop all Chesed lace front wigs: body wave, curly, kinky curly, kinky straight, loose deep wave, straight, permed straight, wet & wavy, deep wave, water wave and virgin curl, in 10 shades, 10 to 32 inches.",
+       seo_description="Shop all Chesed lace front wigs: body wave, curly, kinky curly, kinky straight, loose deep wave, straight, permed straight, wet & wavy, deep wave, water wave and virgin curl, in 10 shades, 18 to 36 inches.",
        canonical="/collections/wigs/", body_class="shop overlay", page_id="hub", c=hub, is_hub=True, card_lead="texture",
        jsonld=json.dumps(breadcrumb_ld([("Home", "/"), ("Lace Front Wigs", "/collections/wigs/")])))
 
 TEX_TITLES = {"permed-straight": "Permed Straight Lace Front Wigs | Chesed", "wet-and-wavy": "Wet & Wavy Lace Front Wigs | Chesed",
               "deep-wave": "Deep Wave Lace Front Wigs | Chesed", "water-wave": "Water Wave Lace Front Wigs | Chesed",
-              "body-wave": "Body Wave Lace Front Wigs, 10-32 Inch | Chesed", "curly": "Curly Lace Front Wigs, 10-32 Inch | Chesed",
+              "body-wave": "Body Wave Lace Front Wigs, 18-36 Inch | Chesed", "curly": "Curly Lace Front Wigs, 18-36 Inch | Chesed",
               "kinky-curly": "Kinky Curly Lace Front Wigs | Chesed Hair", "kinky-straight": "Kinky Straight Wigs, Yaki Texture | Chesed",
               "loose-deep-wave": "Loose Deep Wave Lace Front Wigs | Chesed", "straight": "Silky Straight Lace Front Wigs | Chesed",
               "virgin-curl": "Virgin Curl Human Hair Wigs | Chesed Hair"}
@@ -317,7 +320,7 @@ for p in products:
           "offers": [{"@type": "Offer", "name": f'{v["length"]} inch', "price": f'{v["price"]:.2f}', "priceCurrency": "USD",
                       "availability": "https://schema.org/InStock", "url": f"https://chesedhair.com{p['url']}?length={v['length']}"} for v in p["variants"]]}
     render("product.html", p["url"], seo_title=f"{p['title']} | Chesed",
-           seo_description=f"{p['title']} in 100% unprocessed virgin Remy human hair. {p['color']['blurb']} 10 to 32 inches.",
+           seo_description=f"{p['title']} in 100% unprocessed virgin Remy human hair. {p['color']['blurb']} 18 to 36 inches.",
            canonical=p["url"], body_class="shop pdp-page", page_id=p["handle"], p=p, og_type="product",
            og_image=f"/assets/p/{p['images'][0]['file']}-1024.webp",
            jsonld=json.dumps([ld, breadcrumb_ld([("Home", "/"), (f"{p['texture']['name']} Wigs", f"/collections/{p['texture']['slug']}-wigs/"), (p["title"], p["url"])])]))
@@ -325,6 +328,15 @@ for p in products:
 # EXTRA COLLECTIONS (crochet & feather extensions, hair bundles)
 for ec in D.EXTRA_COLLECTIONS:
     pool = [x for x in extras if x["kind"] == ec["kind"]]
+    if ec.get("coming_soon"):
+        c = dict(h1=ec["h1"], intro=ec["intro"], products=[], kind=ec["kind"], noun=ec["noun"], coming_soon=True, faq=[], filters=[],
+                 banner=[shot("Straight", "1B", 5), shot("Body Wave", "530", 1), shot("Straight", "Honey Blonde", 1)], related_heading="Shop now",
+                 related=[dict(label="All wigs", url="/collections/wigs/")] + [dict(label=o["name"], url=f"/collections/{o['slug']}/") for o in D.EXTRA_COLLECTIONS if not o.get("coming_soon")])
+        url = f"/collections/{ec['slug']}/"
+        render("collection.html", url, seo_title=ec["title"], seo_description=ec["intro"][:155].rsplit(" ", 1)[0] + "…",
+               canonical=url, body_class="shop overlay", page_id=ec["slug"], c=c, is_hub=False,
+               jsonld=json.dumps(breadcrumb_ld([("Home", "/"), (c["h1"], url)])))
+        continue
     real = [x for x in pool if not x["placeholder"]] or pool
     opt_name, label = ("Color", "shades") if ec["kind"] == "bundle" else ("Length", "lengths")
     facts = dict(options=len({v for x in pool for o in x["options"] if o["name"] == opt_name for v in o["values"]}), options_label=label,
@@ -357,10 +369,10 @@ for x in extras:
            jsonld=json.dumps([ld, breadcrumb_ld([("Home", "/"), (x["collection"]["name"], f"/collections/{x['collection']['slug']}/"), (x["title"], x["url"])])]))
 
 # PAGES
-render("length_guide.html", "/pages/wig-length-guide/", seo_title="Wig Length Chart, 10-32 Inch on a Model | Chesed",
-       seo_description="See where every wig length from 10 to 32 inches ends on the body, for straight and curly textures.",
+render("length_guide.html", "/pages/wig-length-guide/", seo_title="Wig Length Chart, 18-36 Inch on a Model | Chesed",
+       seo_description="See where every wig length from 18 to 36 inches ends on the body, for straight and curly textures.",
        canonical="/pages/wig-length-guide/", body_class="shop", page_id="lg", lengths=D.LENGTHS, landmarks=D.LANDMARKS, curly_landmarks=D.CURLY_LANDMARKS,
-       page=dict(h1="Wig Length Chart: 10 to 32 Inches", lede="Where each length ends on the body, for straight and for curly textures."))
+       page=dict(h1="Wig Length Chart: 18 to 36 Inches", lede="Where each length ends on the body, for straight and for curly textures."))
 render("color_guide.html", "/pages/wig-color-guide/", seo_title="Wig Color Chart: 10 Shades on Deep Skin | Chesed",
        seo_description="All 10 Chesed wig colors on the same model: 1, 1B, Virgin, 530, 99J, 350, Honey Auburn, Natural Auburn, Honey Blonde and Red.",
        canonical="/pages/wig-color-guide/", body_class="shop", page_id="cg", theater=theater,
@@ -368,9 +380,17 @@ render("color_guide.html", "/pages/wig-color-guide/", seo_title="Wig Color Chart
 
 simple_pages = [
     ("about", "About Chesed Hair", "About Chesed Hair", "Chesed means lovingkindness.",
-     "<p>Chesed is the Hebrew word for a deep, unconditional love. We named the brand after it because that's how hair should be made: with care for the woman who wears it and the people who make it.</p><p>Every Chesed unit starts as 100% unprocessed virgin Remy human hair, sourced and made without exploited labor.</p><p class='ph-note'>Founder story and photos to come from Chesed.</p>"),
+     # story text from chesedhair.com (client asked for it, 22 October 2026)
+     "<h2>More than a name</h2><p>\"Chesed\" is a Hebrew word meaning <b>lovingkindness</b>: a deep, unconditional love.</p>"
+     "<p>It reflects our belief that beauty should come from a place of care, intention, and authenticity.</p><p>We don't just create products. We create with purpose.</p>"
+     "<h2>Effortless from start to finish</h2><ul><li>Instant volume with a soft, natural flow</li><li>Easy installation, easy removal</li>"
+     "<li>Designed for everyday wear and long-lasting comfort</li><li>Moves like real hair, because it is</li></ul>"
+     "<h2>Care and versatility</h2><p>Chesed hair can be dyed, bleached and permed.</p>"
+     "<h2>Our ethical commitment</h2><p>We believe beauty should never come at the cost of people.</p>"
+     "<p>Our products are created in hygienic facilities that meet high ethical standards, <b>with no labor exploitation.</b></p>"
+     "<p class='ph-note'>Founder story and photos to come from Chesed.</p>"),
     ("faq", "Wig FAQ: Lace, Fit, Shipping | Chesed Hair", "Frequently Asked Questions", "Choosing, wearing and caring for your wig.",
-     "".join(f"<h2 id='q{i + 1}'>{q}</h2><p>{a}</p>" for i, (q, a) in enumerate(home_faq)) + "<p class='ph-note'>Shipping, lace, density and cap-size answers will be added once Chesed confirms the details.</p>"),
+     "".join(f"<h2 id='q{i + 1}'>{q}</h2><p>{a}</p>" for i, (q, a) in enumerate(home_faq)) + "<p class='ph-note'>Shipping answers will be added once Chesed confirms the details.</p>"),
     ("shipping", "Shipping | Chesed Hair", "Shipping", None, "<p class='ph-note'>Processing times, carriers and international rates to be confirmed by Chesed.</p>"),
     ("returns", "Returns | Chesed Hair", "Returns", None, "<p class='ph-note'>Full return policy to be confirmed by Chesed.</p>"),
     ("contact", "Contact | Chesed Hair", "Contact", None, "<p>Email <a href='mailto:info@chesedhair.com'>info@chesedhair.com</a>. We reply within <span class='ph'>X</span> business days.</p>"),

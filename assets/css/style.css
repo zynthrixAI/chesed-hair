@@ -1216,3 +1216,9 @@ body.lb-lock{overflow:hidden}
 .sm-n{margin-left:auto;font-size:12px;color:var(--slate)}
 .xm-cards4{grid-template-columns:repeat(4,minmax(0,1fr))}
 .sm-list a>i[style*="gradient"]{background:var(--sw)}
+
+/* "coming soon" collection (hair bundles) */
+.ci-soon{grid-column:span 1;align-self:center}
+.ci-soon p{margin:0 0 14px}
+.ci-soon-links{display:flex;flex-wrap:wrap;gap:10px}
+.xm-soon{margin-top:14px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--rose);font-weight:600}
