@@ -409,6 +409,8 @@ ul,ol{margin:0;padding:0;list-style:none}
 .prose h2{font-size:clamp(26px,2.6vw,38px);margin:44px 0 12px}
 .prose p{color:var(--slate);margin-bottom:14px;font-size:17px}
 .prose b{color:var(--ink)}
+.prose ul{list-style:disc;padding-left:22px;margin:0 0 14px;color:var(--slate);font-size:17px}
+.prose li{margin-bottom:6px}
 .prose .small{font-size:14px}
 .lg{padding-bottom:20px}
 .lg-seg{margin-bottom:26px}
@@ -1228,3 +1230,6 @@ body.lb-lock{overflow:hidden}
 .g-wig .g-info img{aspect-ratio:1/1;object-fit:contain}
 /* the client's mannequin photos (front and back, square) sit side by side as a pair, never cropped */
 .g-wig .g-mq img{aspect-ratio:1/1;object-fit:contain;background:var(--pearl)}
+/* crochet galleries: square Amazon photos and info slides, shown whole on white */
+.g-x img,.g-x li:first-child img{aspect-ratio:1/1;object-fit:contain;background:#fff}
+.rv-sample{font-size:10px;letter-spacing:.08em;text-transform:uppercase;margin-left:6px;vertical-align:middle}

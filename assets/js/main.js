@@ -318,7 +318,12 @@ if(xp){
       box.querySelector('[data-opt-val]').textContent=sel[n]; });
     $('#xPrice').textContent=money(cur.price); $('#xBnpl').textContent=money(cur.price/4);
     $('#addPrice').textContent=money(cur.price); const sp=$('#stickyPrice'); if(sp) sp.textContent=money(cur.price);
-    $('#stickyLen').textContent=names.map(n=>sel[n]).join(' · '); }
+    $('#stickyLen').textContent=names.map(n=>sel[n]).join(' · ');
+    showColor(sel.Color); }
+  const hero=$('#gGrid .g-first img');
+  function showColor(c){ // the chosen colour's photo leads the gallery
+    const li=c&&$('#gGrid li[data-color="'+c+'"] img'); if(!li||!hero) return;
+    hero.src=li.src; hero.srcset=li.srcset; hero.alt=li.alt; xp.dataset.img=li.currentSrc||li.src; }
   const set=(want,keep)=>{ const v=pick(want,keep); if(!v) return; cur=v; sel={...v.o}; render(); };
   set(start,null);
   $$('[data-opt] button').forEach(b=>b.addEventListener('click',()=>{ const n=b.closest('[data-opt]').dataset.opt; set({...sel,[n]:b.dataset.v},n); }));

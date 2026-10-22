@@ -63,10 +63,10 @@
       {% for r in reviews %}<li class="rv-card">
         <p class="rv-stars" aria-label="{{ r.stars }} out of 5 stars">{% for i in range(r.stars) %}★{% endfor %}</p>
         <blockquote><p>{{ r.text }}</p></blockquote>
-        <p class="rv-by"><b>{{ r.name }}</b><span>{{ r.product }}</span></p>
+        <p class="rv-by"><b>{{ r.name }}{% if r.sample %} <span class="ph rv-sample">Sample</span>{% endif %}</b><span>{{ r.product }}</span></p>
       </li>{% endfor %}
     </ul>
-    {% if reviews|selectattr("confirmed", "equalto", False)|list %}<p class="ph-note">Preview note: these three reviews are copied from chesedhair.com. They look like theme sample testimonials, so Chesed needs to confirm they're from real customers before launch. On Shopify this section pulls verified reviews from Judge.me.</p>{% endif %}
+    {% if reviews|selectattr("sample")|list %}<p class="ph-note">Preview note: these are sample reviews for the demo. They will be replaced with real customer reviews (Judge.me on Shopify) before the store launches.</p>{% endif %}
   </div>
 </section>
 {%- endmacro %}

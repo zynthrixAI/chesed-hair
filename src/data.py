@@ -327,13 +327,21 @@ def build_extras():
 # Reviews shown on chesedhair.com (homepage "What Our Customers Say", scraped Oct 2026).
 # confirmed=False: they appear to be static theme testimonials. Chesed must confirm they are
 # real customers before launch (FTC rule on fake reviews). Replace with Judge.me on Shopify.
+# Sample reviews for the preview (the client asked for demo reviews, 23 October 2026). Each one is tagged
+# "Sample" on the page. Replace them with real customer reviews (Judge.me on Shopify) before launch.
 REVIEWS = [
-    dict(name="Jessica L.", stars=5, product="Hair extensions", confirmed=False,
-         text="I was honestly surprised by the quality of the hair extensions. They feel incredibly soft, blend perfectly with my natural hair, and hold curls really well. The packaging was beautiful and delivery was fast. I'll definitely be ordering again!"),
-    dict(name="Monica R.", stars=5, product="Wig", confirmed=False,
-         text="I ordered a wig for a special event and it exceeded my expectations. The hairline looks very natural and the density is perfect — not too heavy, not too thin. I received so many compliments. Highly recommend Chesed Hair!"),
-    dict(name="Danielle K.", stars=5, product="Hair extensions", confirmed=False,
-         text="The customer service was amazing from start to finish. They helped me choose the right length and texture for my hair type. The quality is truly premium and it looks so natural. Worth every penny!"),
+    dict(name="Aaliyah M.", stars=5, product="1B Body Wave Lace Front Wig, 24\"", sample=True,
+         text="The hairline melted right into my skin and the waves still look fresh after a week. The 13x5 lace gave me so much room to part it however I want."),
+    dict(name="Keisha T.", stars=5, product="Burmese Curly Feather Crochet", sample=True,
+         text="Three packs gave me a full head of curls and the loops made install so easy. It feels light, and nobody believes it isn't my own hair."),
+    dict(name="Brianna J.", stars=5, product="530 Straight Lace Front Wig, 26\"", sample=True,
+         text="The wine colour is even richer in person. Silky, no shedding, and the adjustable band keeps it secure all day."),
+    dict(name="Tasha W.", stars=5, product="Kinky Straight Feather Crochet", sample=True,
+         text="It blends perfectly with my blown-out hair. I've washed it twice and it still looks brand new."),
+    dict(name="Monique R.", stars=4, product="Honey Blonde Loose Deep Wave Wig, 22\"", sample=True,
+         text="Gorgeous honey tone and soft curls. I went one size up because curls sit higher, and the length guide was right."),
+    dict(name="Jasmine C.", stars=5, product="Deep Wave Feather Crochet", sample=True,
+         text="Beginner friendly! The pre-made loops saved me so much time and the curls stay defined with just water and leave-in."),
 ]
 
 # Welcome wheel (email popup). Every spin wins; weights are the real odds and are shown to shoppers.
