@@ -17,7 +17,7 @@ Read this first when continuing the project. For where we paused and what to do 
 - **Not installed:** Playwright. Check pages in a browser instead.
 
 ## Commands
-Build every page (writes 135 pages into the repo root, plus `assets/search.json`):
+Build every page (writes 120 pages into the repo root, plus `assets/search.json`):
 ```bash
 python src/build.py
 ```
