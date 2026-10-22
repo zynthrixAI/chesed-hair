@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% from "partials/figure.html" import figure %}
-{% block preload %}<link rel="preload" as="image" href="/assets/p/{{ hero_imgs[1].file }}-1024.webp">{% endblock %}
+{% block preload %}<link rel="preload" as="image" href="{{ img(hero_imgs[1].file, 1024) }}">{% endblock %}
 {% block main %}
 
 {# 1. HERO: full-bleed campaign banner #}

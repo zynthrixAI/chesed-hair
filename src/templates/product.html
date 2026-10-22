@@ -1,10 +1,10 @@
 {% extends "base.html" %}
-{% block preload %}<link rel="preload" as="image" href="/assets/p/{{ p.images[0].file }}-1024.webp" imagesrcset="/assets/p/{{ p.images[0].file }}-560.webp 560w, /assets/p/{{ p.images[0].file }}-1024.webp 1024w" imagesizes="(max-width:900px) 100vw, 55vw">{% endblock %}
+{% block preload %}<link rel="preload" as="image" href="{{ img(p.images[0].file, 1024) }}" imagesrcset="{{ img(p.images[0].file, 560) }} 560w, {{ img(p.images[0].file, 1024) }} 1024w" imagesizes="(max-width:900px) 100vw, 55vw">{% endblock %}
 {% block main %}
 {% set dv = p.variants|selectattr("length", "equalto", default_length)|first %}
 <nav class="crumbs wrap" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/collections/{{ p.texture.slug }}-wigs/">{{ p.texture.name }} Wigs</a><span aria-hidden="true">/</span><span aria-current="page">{{ p.title }}</span></nav>
 
-<section class="pdp wrap" data-product data-handle="{{ p.handle }}" data-title="{{ p.title }}" data-price="{{ dv.price }}" data-prices='{{ p.variants|map(attribute="price")|list|tojson }}' data-img="/assets/p/{{ p.images[0].file }}-560.webp" data-curly="{{ 1 if p.texture.curly else 0 }}">
+<section class="pdp wrap" data-product data-handle="{{ p.handle }}" data-title="{{ p.title }}" data-price="{{ dv.price }}" data-prices='{{ p.variants|map(attribute="price")|list|tojson }}' data-img="{{ img(p.images[0].file, 560) }}" data-curly="{{ 1 if p.texture.curly else 0 }}">
   <div class="gallery">
     <ul class="g-grid g-wig" id="gGrid" role="list" aria-label="Product photos" data-lightbox>
       {% for im in p.images %}<li{% if loop.first %} class="g-first"{% elif im.info %} class="g-info"{% elif im.mannequin %} class="g-mq"{% endif %}>{{ macros.picture(im.file, im.alt, "(max-width:900px) 100vw, 46vw", lazy=not loop.first, priority=loop.first, cls="g-hero" if loop.first else "") }}</li>{% endfor %}
