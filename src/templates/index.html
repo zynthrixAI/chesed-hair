@@ -108,7 +108,7 @@
       <ul class="spot-sw" role="list" aria-label="Choose a shade">
         {% for x in spotlight %}<li><button type="button" style="--sw:{{ x.color.hex }}" aria-label="{{ x.color.name }} ({{ x.color.key }})" aria-pressed="{{ 'true' if loop.index0 == spot_start else 'false' }}" data-i="{{ loop.index0 }}" data-name="{{ x.color.name }}" data-url="{{ x.url }}"></button></li>{% endfor %}
       </ul>
-      <ul class="spot-facts" role="list"><li><b>Yaki texture</b><span>No glassy shine</span></li><li><b>18–36"</b><span>Every length</span></li><li><b>{{ macros.money(spotlight[0].price) }}</b><span>or 4 × {{ macros.money(spotlight[0].price/4) }}</span></li></ul>
+      <ul class="spot-facts" role="list"><li><b>Yaki texture</b><span>No glassy shine</span></li><li><b>18–36"</b><span>Every length</span></li><li><b>From {{ macros.money(spotlight[0].price) }}</b><span>or 4 × {{ macros.money(spotlight[0].price/4) }}</span></li></ul>
       <div class="cta-row">
         <a class="btn rose" id="spotBuy" href="{{ spotlight[spot_start].url }}">Shop this shade</a>
         <a class="link" href="/collections/{{ banner_texture.slug }}-wigs/">All {{ banner_texture.name|lower }}</a>

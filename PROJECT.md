@@ -141,16 +141,22 @@ Feedback came in a Google Doc ("Website Updates"). Merged as pull requests 16 (m
 - **Cap pictures on every wig:** the client's "One size fits all" and "6X secure fit guard" pictures (`wig-cap-one-size`, `wig-cap-secure-fit` in `assets/p/`) are the last two photos in every wig's gallery, full width so they aren't cropped. Set in `CAP_IMAGES` in `src/data.py`; they are kept out of shop cards and the "on deep skin" photos.
 - **Crochet & Feather: only the 5 listings that were live in Shopify** (Wet & Wavy, Kinky Straight, Burmese Curly, Body Wave, Deep Wave). The client said the 14 drafts were tests. Burmese Magic (only on the item list) was removed too. The importer skips drafts and Burmese Magic.
 
+**Wig prices (23 October 2026, branch `claude/wig-prices`):** from Chesed's price sheet ("CHESED WIG Selling Price", JK Trading, 1 September 2026). Set in `WIG_LENGTH_PRICE`, `COLOR_EXTRA` and `TEXTURE_EXTRA` in `src/data.py`.
+- Per length: 18" $69.95, 20" $79.95, 22" and 24" $99.95, 26" $129.95, 28" $139.95, 30" $149.95, 32" $189.95, 34" $219.95, 36" $249.95. The sheet's bands overlap ("18-20", "20-22", "22-24"); the user chose the lower band, so 20" = $79.95 and 22" = $99.95.
+- Plus $5 for every shade except 1, 1B and Virgin. Plus $3.50 for Loose Deep; $4.50 for Kinky Curly, Virgin Curl, Kinky Straight and Wet & Wavy.
+- The wig page price, "or 4 payments", Add to bag and the sticky bar follow the chosen length; quick add uses each length's price; cards show "From" the 18" price.
+- **Our estimates, for Chesed to confirm:** 28", 34" and 36" (not on the sheet), and the extras for Curly (+$4.50), Water Wave (+$4.50), Deep Wave (+$3.50) and Permed Straight (+$0).
+
 **What Chesed needs to send:**
 - [ ] **Deep Wave and Water Wave wigs:** which shades each comes in, the price, lengths, approval of our copy, and photos for every shade (front, three-quarter, back, side, close-up, lifestyle, plus mannequin front and back).
 - [ ] **"Missing notes: Straight, Deep Wave, Water Wave":** confirm these are wig styles. Straight is already on the site.
 - [ ] **The 12 shades:** the site has 10. Names of the 2 missing shades, which styles they come in, and photos.
-- [ ] **Lengths 18" to 36":** confirm 34" and 36" cost the same as the rest.
+- [ ] **Prices we estimated:** 28" ($139.95), 34" ($219.95), 36" ($249.95), and the extras for Curly, Water Wave, Deep Wave and Permed Straight.
 - [ ] **Honey Auburn:** new photos with more blonde highlights.
 - [ ] **Shade names:** approve the names we wrote (e.g. "Rich Wine Red" for 530), listed above.
 - [ ] **Body positions for 34" and 36":** we guessed "mid thigh" and "lower thigh".
 - [x] **Crochet & Feather:** answered: only the 5 live listings stay (see the follow-up above). (The two Shopify drafts "Lightweight Ripple Deep Curl" and "Highlight #4/30/530 Water Wave" were removed at the client's request, 22 October 2026; the importer skips them too.)
-- [ ] **Length chart picture (ours to fix):** see the reminder above.
+- [ ] **Length chart picture (ours to fix):** the client liked a "How to measure" chart with three back-view photos (straight, wave, curly) and length lines. A test with three AI photos and lines for 18" to 36" was shown to the user (23 October 2026); waiting for the go-ahead before building it into the length guide, wig pages and homepage.
 - [ ] **Chesed's story:** we used the story from chesedhair.com on the About page; Chesed should check it and send a founder story and photos.
 
 ### Waiting on Chesed
@@ -158,7 +164,7 @@ These are placeholders on the site. Most are marked in **pink** so they're easy 
 - [ ] **Reviews:** the three homepage reviews (Jessica L., Monica R., Danielle K.) couldn't be verified and look like sample text from a website theme. Chesed must confirm they are real customers or replace them. Posting fake reviews breaks US advertising (FTC) rules.
 - [ ] **WhatsApp number:** until Chesed provides it, tapping the button shows a "preview" notice.
 - [ ] **Spin wheel:** the prizes, odds and discount codes.
-- [ ] **Price:** currently $289 for every wig and length. Bundles are "coming soon" (placeholder $99 when they return).
+- [ ] **Price:** wigs use Chesed's price sheet (see above). Bundles are "coming soon" (placeholder $99 when they return).
 - [ ] **New photos needed:** Permed Straight, Wet & Wavy, Deep Wave and Water Wave wigs, and the 4 bundles.
 - [ ] **Check the item list:** the "TP" shades (TP27, TP30...) in the bundle tab need a plain-language name. The 5 extension listings still use the old store's descriptions and are missing a return policy.
 - [ ] **Copy for the two new wig styles and the two new categories** was written by us. Chesed should check it.

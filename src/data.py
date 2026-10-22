@@ -12,7 +12,17 @@ POSE_NAMES = {"front": "front view", "three-quarter": "three-quarter view", "bac
               "side": "side view", "fingers": "fingers through the lengths", "lifestyle": "lifestyle shot",
               "mannequin-front": "front view on a mannequin", "mannequin-back": "back view on a mannequin"}
 
-PRICE = 289.00            # placeholder price (same as the approved preview)
+# Wig prices from Chesed's price sheet ("CHESED WIG Selling Price", 1 September 2026): a price per length,
+# plus $5 for the coloured shades and an extra for some textures. 28", 34" and 36" are not on the sheet,
+# so those are our estimates; Curly, Permed Straight, Deep Wave and Water Wave extras are also estimates.
+WIG_LENGTH_PRICE = {18: 69.95, 20: 79.95, 22: 99.95, 24: 99.95, 26: 129.95, 28: 139.95, 30: 149.95, 32: 189.95, 34: 219.95, 36: 249.95}
+NATURAL_SHADES = {"1", "1B", "Virgin"}          # every other shade costs $5 more
+COLOR_EXTRA = 5.00
+TEXTURE_EXTRA = {"Loose Deep": 3.50, "Kinky Curly": 4.50, "Virgin Curl": 4.50, "Kinky Straight": 4.50, "Wet & Wavy": 4.50,
+                 "Curly": 4.50, "Water Wave": 4.50, "Deep Wave": 3.50}   # Body Wave, Straight, Permed Straight: no extra
+
+def wig_price(length, texture, color):
+    return round(WIG_LENGTH_PRICE[length] + (0 if color in NATURAL_SHADES else COLOR_EXTRA) + TEXTURE_EXTRA.get(texture, 0), 2)
 FREE_SHIP = 100.00        # free US shipping over $100 (client, 22 October 2026)
 LENGTHS = [18, 20, 22, 24, 26, 28, 30, 32, 34, 36]   # wigs come in 18" to 36" (client, 22 October 2026)
 DEFAULT_LENGTH = 24
@@ -221,9 +231,9 @@ def build_products():
             images = images + CAP_IMAGES
             products.append(dict(
                 kind="wig", placeholder=placeholder,
-                handle=handle, title=title, texture=t, color=c, price=PRICE,
+                handle=handle, title=title, texture=t, color=c, price=wig_price(LENGTHS[0], style, color),
                 images=images, url=f"/products/{handle}/",
-                options=["Length"], variants=[dict(length=l, title=f'{l}"', price=PRICE, landmark=LANDMARKS[i]) for i, l in enumerate(LENGTHS)],
+                options=["Length"], variants=[dict(length=l, title=f'{l}"', price=wig_price(l, style, color), landmark=LANDMARKS[i]) for i, l in enumerate(LENGTHS)],
             ))
     # sort: texture order then color order
     tix = {t["key"]: i for i, t in enumerate(TEXTURES)}

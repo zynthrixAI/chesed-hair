@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 {% block preload %}<link rel="preload" as="image" href="/assets/p/{{ p.images[0].file }}-1024.webp" imagesrcset="/assets/p/{{ p.images[0].file }}-560.webp 560w, /assets/p/{{ p.images[0].file }}-1024.webp 1024w" imagesizes="(max-width:900px) 100vw, 55vw">{% endblock %}
 {% block main %}
+{% set dv = p.variants|selectattr("length", "equalto", default_length)|first %}
 <nav class="crumbs wrap" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/collections/{{ p.texture.slug }}-wigs/">{{ p.texture.name }} Wigs</a><span aria-hidden="true">/</span><span aria-current="page">{{ p.title }}</span></nav>
 
-<section class="pdp wrap" data-product data-handle="{{ p.handle }}" data-title="{{ p.title }}" data-price="{{ p.price }}" data-img="/assets/p/{{ p.images[0].file }}-560.webp" data-curly="{{ 1 if p.texture.curly else 0 }}">
+<section class="pdp wrap" data-product data-handle="{{ p.handle }}" data-title="{{ p.title }}" data-price="{{ dv.price }}" data-prices='{{ p.variants|map(attribute="price")|list|tojson }}' data-img="/assets/p/{{ p.images[0].file }}-560.webp" data-curly="{{ 1 if p.texture.curly else 0 }}">
   <div class="gallery">
     <ul class="g-grid g-wig" id="gGrid" role="list" aria-label="Product photos" data-lightbox>
       {% for im in p.images %}<li{% if loop.first %} class="g-first"{% elif im.info %} class="g-info"{% endif %}>{{ macros.picture(im.file, im.alt, "(max-width:900px) 100vw, 46vw", lazy=not loop.first, priority=loop.first, cls="g-hero" if loop.first else "") }}</li>{% endfor %}
@@ -16,8 +17,8 @@
     <p class="eyebrow rose">{{ p.texture.name }} · Lace front</p>
     <h1>{{ p.title }}</h1>
     
-    <p class="price">{{ macros.money(p.price) }}</p>
-    <p class="bnpl">or 4 interest-free payments of <b>{{ macros.money(p.price/4) }}</b> with <b>Shop Pay</b></p>
+    <p class="price" id="wPrice">{{ macros.money(dv.price) }}</p>
+    <p class="bnpl">or 4 interest-free payments of <b id="wBnpl">{{ macros.money(dv.price/4) }}</b> with <b>Shop Pay</b></p>
     <p class="code-note" data-code-note hidden></p>
 
     <div class="shade-pick">
@@ -42,7 +43,7 @@
       </div>
     </div>
 
-    <button class="btn rose wide" type="button" id="addBtn">Add to bag · <span id="addPrice">{{ macros.money(p.price) }}</span></button>
+    <button class="btn rose wide" type="button" id="addBtn">Add to bag · <span id="addPrice">{{ macros.money(dv.price) }}</span></button>
     <button class="btn shop-pay wide" type="button" aria-label="Buy with Shop Pay">Buy with <b>Shop Pay</b></button>
     <ul class="pdp-trust" role="list">
       <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="17.5" r="1.6"/><circle cx="17" cy="17.5" r="1.6"/></svg><span><b>Free US shipping</b>on orders over ${{ free_ship|int }}</span></li>
@@ -114,7 +115,7 @@
 
 <div class="sticky-buy" id="stickyBuy" aria-hidden="true">
   <div><b>{{ p.color.key }}</b><span id="stickyLen">{{ default_length }}"</span></div>
-  <button class="btn rose" type="button" id="stickyAdd" tabindex="-1">Add to bag · {{ macros.money(p.price) }}</button>
+  <button class="btn rose" type="button" id="stickyAdd" tabindex="-1">Add to bag · <span id="stickyPrice">{{ macros.money(dv.price) }}</span></button>
 </div>
 <script type="application/json" id="landmarks">{{ p.landmark_for|tojson }}</script>
 {% endblock %}
