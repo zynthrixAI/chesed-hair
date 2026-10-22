@@ -149,6 +149,14 @@ Feedback came in a Google Doc ("Website Updates"). Merged as pull requests 16 (m
 
 **Mannequin photos (23 October 2026, branch `claude/wig-prices`):** the user's hand-edited mannequin photos (`D:\Work\Chesed Hair\Images\Mannequin Image Edit Preview`, named `<Texture> - <Shade> - Front/Back.png`, transparent, 1000x1000) are on all 49 wigs that have studio shots. Saved on the pearl background as `<handle>-7-mannequin-front` and `-8-mannequin-back` in `assets/p/`; they replace the "fingers" photo and sit side by side, square and uncropped (`.g-mq`). **Three Body Wave files had the wrong shade name** (checked against the original studio shots): the file named 530 is 350, the one named 99J is 530, and the one named 350 is 99J. They were placed on the right wigs, and the files in the folder were renamed to match (23 October 2026).
 
+**Chesed's answers (23 October 2026, branches `claude/photo-versions` and `claude/client-answers`):**
+- **Photos refresh straight away:** every photo address carries a fingerprint of the file (`img()` in `src/build.py`), because Hostinger tells browsers to keep photos for 7 days and replaced photos kept showing the old version.
+- **Crochet photos from Amazon:** `src/tools/import_amazon_crochet.py` reads `D:\Work\Chesed Hair\Images\Assets - Chesed Hair\Amazon-...\Amazon` and gives each crochet product its six colour photos (square model-plus-product shots) and the info slides (size chart, knotless loop, human hair, feather crochet, packs, crochet vs bulk). Choosing a colour puts that colour's photo first (`showColor` in `main.js`). Crochet galleries show square photos whole on white (`.g-x`).
+- **Burmese Magic is back** (6 crochet products), with the same lengths, colours and prices as Burmese Curly.
+- **Reviews:** the user asked for demo reviews. Six sample reviews in `REVIEWS` (`src/data.py`), each tagged "Sample" in pink, with a note that they are replaced by real reviews before launch.
+- **WhatsApp button removed** (not needed). **About page:** founder story and photos not needed; the note is gone.
+- **Shipping and returns follow LUVME's terms** (client's choice): ships within 1 business day, express delivery in 2 to 6 business days, cancel within 1 hour; 30-day returns and exchanges for unused hair with the lace uncut, approval by email with photos, one free US return label per order, refunds within 2 business days of checking the return, exchanges ship within 3 business days. On the Shipping and Returns pages, wig and crochet pages, and the FAQ.
+
 **What Chesed needs to send:**
 - [ ] **Deep Wave and Water Wave wigs:** which shades each comes in, the price, lengths, approval of our copy, and photos for every shade (front, three-quarter, back, side, close-up, lifestyle, plus mannequin front and back).
 - [ ] **"Missing notes: Straight, Deep Wave, Water Wave":** confirm these are wig styles. Straight is already on the site.
@@ -159,20 +167,16 @@ Feedback came in a Google Doc ("Website Updates"). Merged as pull requests 16 (m
 - [ ] **Body positions for 34" and 36":** we guessed "mid thigh" and "lower thigh".
 - [x] **Crochet & Feather:** answered: only the 5 live listings stay (see the follow-up above). (The two Shopify drafts "Lightweight Ripple Deep Curl" and "Highlight #4/30/530 Water Wave" were removed at the client's request, 22 October 2026; the importer skips them too.)
 - [ ] **Length chart picture (ours to fix):** the client liked a "How to measure" chart with three back-view photos (straight, wave, curly) and length lines. A test with three AI photos and lines for 18" to 36" was shown to the user (23 October 2026); waiting for the go-ahead before building it into the length guide, wig pages and homepage.
-- [ ] **Chesed's story:** we used the story from chesedhair.com on the About page; Chesed should check it and send a founder story and photos.
 
 ### Waiting on Chesed
 These are placeholders on the site. Most are marked in **pink** so they're easy to spot.
-- [ ] **Reviews:** the three homepage reviews (Jessica L., Monica R., Danielle K.) couldn't be verified and look like sample text from a website theme. Chesed must confirm they are real customers or replace them. Posting fake reviews breaks US advertising (FTC) rules.
-- [ ] **WhatsApp number:** until Chesed provides it, tapping the button shows a "preview" notice.
 - [ ] **Spin wheel:** the prizes, odds and discount codes.
+- [ ] **Real reviews:** the homepage shows 6 sample reviews (tagged "Sample") until real ones come in.
+- [ ] **Bundle prices and "TP" shade names:** Chesed will provide them.
 - [ ] **Price:** wigs use Chesed's price sheet (see above). Bundles are "coming soon" (placeholder $99 when they return).
-- [ ] **New photos needed:** Permed Straight, Wet & Wavy, Deep Wave and Water Wave wigs, and the 4 bundles.
+- [ ] **New photos needed:** Permed Straight, Wet & Wavy, Deep Wave and Water Wave wigs, Honey Auburn (more blonde highlights), and the 4 bundles.
 - [ ] **Check the item list:** the "TP" shades (TP27, TP30...) in the bundle tab need a plain-language name. The 5 extension listings still use the old store's descriptions and are missing a return policy.
 - [ ] **Copy for the two new wig styles and the two new categories** was written by us. Chesed should check it.
-- [ ] **Processing and delivery times.**
-- [ ] **Returns:** how the return label works and how long refunds take.
-- [ ] **About page:** founder story and photos.
 - [ ] **Shade descriptions:** these were written by looking at the photos (e.g. "350 is bright copper orange"); Chesed should check them.
 
 ### When this becomes the real Shopify store

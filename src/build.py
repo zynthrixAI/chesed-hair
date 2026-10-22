@@ -126,7 +126,7 @@ home_faq = [
     ("What are Chesed wigs made of?", "Every Chesed wig is 100% unprocessed virgin Remy human hair on a lace front, so you can color, heat-style and wash it like your own hair."),
     ("How do I choose my length?", "Use the length guide: it shows where each length from 18 to 36 inches ends on the body. Waves and curls sit about 2 inches higher than straight hair."),
     ("How do I choose my shade?", "Every shade is shown on the same model in real rooms. The color guide puts all ten side by side, including the ones people mix up, like 1B vs 1."),
-    ("What if the wig isn't right?", "Return unworn wigs within 30 days with the lace uncut."),
+    ("What if the wig isn't right?", "Return or exchange unused wigs within 30 days with the lace uncut. Your first US return label is free."),
 ]
 
 # ---- strand chart (length visualizer) ----
@@ -398,20 +398,21 @@ simple_pages = [
      "<h2>Care and versatility</h2><p>Chesed hair can be dyed, bleached and permed.</p>"
      "<h2>Our ethical commitment</h2><p>We believe beauty should never come at the cost of people.</p>"
      "<p>Our products are created in hygienic facilities that meet high ethical standards, <b>with no labor exploitation.</b></p>"
-     "<p class='ph-note'>Founder story and photos to come from Chesed.</p>"),
+     ""),
     ("faq", "Wig FAQ: Lace, Fit, Shipping | Chesed Hair", "Frequently Asked Questions", "Choosing, wearing and caring for your wig.",
      "".join(f"<h2 id='q{i + 1}'>{q}</h2><p>{a}</p>" for i, (q, a) in enumerate(home_faq)) + "<p class='ph-note'>Shipping answers will be added once Chesed confirms the details.</p>"),
-    ("shipping", "Shipping | Chesed Hair", "Shipping", None, "<p class='ph-note'>Processing times, carriers and international rates to be confirmed by Chesed.</p>"),
-    ("returns", "Returns | Chesed Hair", "Returns", None, "<p class='ph-note'>Full return policy to be confirmed by Chesed.</p>"),
-    ("contact", "Contact | Chesed Hair", "Contact", None, "<p>Email <a href='mailto:info@chesedhair.com'>info@chesedhair.com</a>. We reply within <span class='ph'>X</span> business days.</p>"),
+    # shipping and returns follow LUVME's terms, as the client asked (23 October 2026)
+    ("shipping", "Shipping | Chesed Hair", "Shipping", "Ships within 24 hours. Arrives in 2 to 6 business days.", "<h2>Processing</h2><p>Orders ship within 1 business day (24 hours) of payment, Monday to Friday. You get a confirmation email when you order and a tracking link when it ships.</p><h2>Delivery</h2><p>Every order ships by express shipping and usually arrives in 2 to 6 business days. Allow 2 to 3 extra days around weekends, holidays and busy periods.</p><h2>Shipping cost</h2><p>Free US shipping on orders over ${fs}.</p><h2>Cancelling an order</h2><p>Email us within 1 hour of placing your order to cancel it. Once an order has shipped it can't be cancelled, but you can return it.</p><h2>Questions about your delivery</h2><p>Email <a href='mailto:info@chesedhair.com'>info@chesedhair.com</a> with your order number. If there is a problem or delay we'll email you.</p>".replace("{fs}", str(int(D.FREE_SHIP)))),
+    ("returns", "Returns | Chesed Hair", "Returns & Exchanges", "30 days to return or exchange unused hair.", "<h2>30-day returns and exchanges</h2><p>You can return or exchange unused hair within 30 days of receiving it.</p><h2>What we can accept</h2><ul><li>Hair in its original condition: not worn, washed, cut, dyed, bleached or styled.</li><li>Lace untouched: not cut or trimmed.</li><li>Original packaging, with any tags.</li></ul><p>Hair touches the scalp, so for hygiene we can't accept used items.</p><h2>How to start a return</h2><p>Email <a href='mailto:info@chesedhair.com'>info@chesedhair.com</a> with your order number, the reason and a few photos of the item. Once we approve it we'll send the return address. Returns sent without approval can't be refunded.</p><h2>Return shipping</h2><p>Each US order gets one free prepaid return label. After that, return shipping is paid by you. If we sent the wrong item or it arrived damaged, we cover the return.</p><h2>Refunds</h2><p>We refund to your original payment method within 2 business days of receiving and checking your return. Card refunds can take up to 10 business days to show; Shop Pay instalments and PayPal usually take about 3.</p><h2>Exchanges</h2><p>Same steps as a return. Your new item ships within 3 business days of your return arriving.</p>"),
+    ("contact", "Contact | Chesed Hair", "Contact", None, "<p>Email <a href='mailto:info@chesedhair.com'>info@chesedhair.com</a>. We reply within 1 business day.</p>"),
 ]
 PAGE_STEPS = {
     "shipping": [("bag", "You order", "Pay in full or in 4 with Shop Pay. You get a confirmation email right away."),
-                 ("box", "We pack and ship", "Your wig ships within <span class='ph'>X</span> business days, with tracking."),
-                 ("home", "It arrives", f"Free US shipping on orders over ${int(D.FREE_SHIP)}. Delivery times <span class='ph'>to confirm</span>.")],
-    "returns": [("chat", "Tell us within 30 days", "Email us with your order number. We'll reply with a return label <span class='ph'>(to confirm)</span>."),
-                ("box", "Send it back", "Unworn, with the lace uncut and the wig in its original packaging."),
-                ("card", "Get your refund", "Refunded to your original payment once it arrives <span class='ph'>(timing to confirm)</span>.")],
+                 ("box", "We pack and ship", "Your order ships within 1 business day, with tracking."),
+                 ("home", "It arrives", f"Express delivery in 2 to 6 business days. Free US shipping on orders over ${int(D.FREE_SHIP)}.")],
+    "returns": [("chat", "Tell us within 30 days", "Email us your order number, the reason and a few photos. Once approved, we send the return address and a free US label."),
+                ("box", "Send it back", "Unused, with the lace uncut and the hair in its original packaging."),
+                ("card", "Get your refund", "Refunded to your original payment within 2 business days of it arriving.")],
 }
 TOC_PAGES = {"faq"}
 for handle, title, h1, lede, body in simple_pages:
