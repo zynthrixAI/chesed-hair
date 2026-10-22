@@ -116,7 +116,7 @@ renderCart();
 document.addEventListener('click',e=>{ const q=e.target.closest('[data-quick]');
   if(q){ const lens=q.closest('.card').querySelector('[data-quick-lens]'); const open=lens.hidden; lens.hidden=!open; q.setAttribute('aria-expanded',open?'true':'false'); q.textContent=open?'Pick a length':'Quick add'; if(open) lens.querySelector('button').focus(); return; }
   const b=e.target.closest('[data-quick-lens] button'); if(!b) return; const g=b.parentElement;
-  addToCart({title:g.dataset.title,variant:b.dataset.len+'"',price:+g.dataset.price,img:g.dataset.img});
+  addToCart({title:g.dataset.title,variant:b.dataset.len+'"',price:+(b.dataset.price||g.dataset.price),img:g.dataset.img});
   g.hidden=true; const qb=g.closest('.card').querySelector('[data-quick]'); qb.setAttribute('aria-expanded','false'); qb.textContent='Quick add'; });
 
 /* product page: show what a won code saves on this wig */
@@ -275,7 +275,7 @@ const pdp=$('[data-product]');
 if(pdp){
   const gg=$('#gGrid'), dots=$$('.g-dots i');
   if(gg&&dots.length) gg.addEventListener('scroll',()=>{ const i=Math.round(gg.scrollLeft/gg.clientWidth); dots.forEach((d,k)=>d.classList.toggle('on',k===i)); },{passive:true});
-  const curly=pdp.dataset.curly==='1', LM=JSON.parse($('#landmarks').textContent);
+  const curly=pdp.dataset.curly==='1', LM=JSON.parse($('#landmarks').textContent), PRICES=JSON.parse(pdp.dataset.prices);   // price per length
   const lenBtns=$$('.len-row button'), meter=$('#lenMeter');
   const chart=strandChart($('.every-len .strands'),i=>setLen(LENS[i],true));
   let len=24;
@@ -284,12 +284,14 @@ if(pdp){
     $('#lenVal').textContent=l+'"'; $('#stickyLen').textContent=l+'"';
     $('#lenLand').innerHTML=l+'" ends at your <b>'+LM[i]+'</b>.'+(curly?' Waves and curls sit about 2 inches higher than straight hair.':'');
     if(meter) meter.style.setProperty('--p',i/(LENS.length-1));
+    const pr=PRICES[i]; pdp.dataset.price=pr; $('#wPrice').textContent=money(pr); $('#wBnpl').textContent=money(pr/4);
+    $('#addPrice').textContent=money(pr); $('#stickyPrice').textContent=money(pr); codeNotes();
     $$('.el-val').forEach(e=>e.textContent=l+'"'); $$('.el-land').forEach(e=>e.textContent=LM[i]);
     chart&&chart.set(i,curly);
     if(push){ const u=new URL(location); u.searchParams.set('length',l); history.replaceState(null,'',u); } }
   lenBtns.forEach(b=>b.addEventListener('click',()=>setLen(+b.dataset.len,true)));
   const q=+new URL(location).searchParams.get('length'); setLen(LENS.includes(q)?q:24,false);
-  const add=()=>addToCart({title:pdp.dataset.title,variant:len+'"',price:+pdp.dataset.price,img:pdp.dataset.img});
+  const add=()=>addToCart({title:pdp.dataset.title,variant:len+'"',price:PRICES[LENS.indexOf(len)],img:pdp.dataset.img});
   $('#addBtn').addEventListener('click',add); $('#stickyAdd').addEventListener('click',add); $('#elAdd')&&$('#elAdd').addEventListener('click',add);
   $$('.buy .shop-pay').forEach(b=>b.addEventListener('click',()=>say('Preview only: Shop Pay connects on Shopify.')));
   /* sticky add-to-bag once the main button scrolls away (mobile) */

@@ -32,7 +32,7 @@
     <li><b>{{ n_shades }}</b><span>{{ "shade" if n_shades == 1 else "shades" }}</span></li>
     <li><b>{% if n_tex > 1 %}{{ n_tex }}{% else %}{{ c.products[0].texture.name }}{% endif %}</b><span>{% if n_tex > 1 %}textures{% else %}texture{% endif %}</span></li>
     <li><b>18–36"</b><span>every length</span></li>
-    <li><b>{{ macros.money(c.products[0].price) }}</b><span>or 4 × {{ macros.money(c.products[0].price/4) }}</span></li>
+    {% set lo = c.products|map(attribute="price")|min %}<li><b>{{ macros.money(lo) }}</b><span>lowest price</span></li>
     {% endif %}
   </ul>
   {% endif %}

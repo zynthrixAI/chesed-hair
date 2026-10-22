@@ -31,11 +31,11 @@
     {% else %}<h3 class="card-title"><span>{{ p.color.key }}</span> {{ p.texture.name }} Lace Front Wig</h3>{% endif %}
   </a>
   <div class="card-meta">
-    <p class="card-price">{{ money(p.price) }}<small>or 4 × {{ money(p.price/4) }}</small></p>
+    <p class="card-price"><small class="from">From </small>{{ money(p.price) }}<small>or 4 × {{ money(p.price/4) }}</small></p>
     <button class="card-add" type="button" aria-expanded="false" data-quick>Quick add</button>
   </div>
   <div class="card-lens" role="group" aria-label="Choose a length to add {{ p.title }}" hidden data-quick-lens data-title="{{ p.title }}" data-price="{{ p.price }}" data-img="/assets/p/{{ p.images[0].file }}-560.webp">
-    {% for l in lengths %}<button type="button" data-len="{{ l }}">{{ l }}"</button>{% endfor %}
+    {% for v in p.variants %}<button type="button" data-len="{{ v.length }}" data-price="{{ v.price }}">{{ v.length }}"</button>{% endfor %}
   </div>
 </article>
 {% endif %}
