@@ -3,12 +3,12 @@
 Updated 24 October 2026. Read this, then [HANDOFF.md](HANDOFF.md) for setup and [PROJECT.md](PROJECT.md) for the full history.
 
 ## Where things stand
-- **Live preview:** https://lime-deer-681625.hostingersite.com. Everything up to pull request 20 is merged and live. Check `git status` and `gh pr list` for anything newer.
-- **Branch `claude/length-guide-prices-x2`** (pull request 21 in PROJECT.md): length photos (layout C) on the length guide, homepage and wig pages; wig prices doubled from Chesed's corrected sheet; Burmese Magic Curl rename. Push and open the pull request only when the user says so.
+- **Live preview:** https://lime-deer-681625.hostingersite.com. Everything up to pull request 22 is merged and live. Check `git status` and `gh pr list` for anything newer.
+- **Pull request 22** (see PROJECT.md): length photos (layout C) on the length guide, homepage and wig pages; wig prices doubled from Chesed's corrected sheet; Burmese Magic Curl rename.
 - **GitHub tool:** signed in as zynthrixAI.
 
 ## Start next time with
-1. Merge pull request 21 when the user says "merge it", then send Chesed the preview and the "Waiting on Chesed" list in PROJECT.md (sheet questions, estimated prices).
+1. Send Chesed the preview and the "Waiting on Chesed" list in PROJECT.md (sheet questions, estimated prices).
 2. Add the new shades and wig types when Chesed sends photos.
 
 ## Things to know
