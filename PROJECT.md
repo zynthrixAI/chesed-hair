@@ -160,6 +160,10 @@ Feedback came in a Google Doc ("Website Updates").
 - **34" and 36" estimates updated** to $30 a step above the new 32" price: $209.95 and $239.95 before doubling, so 1B Straight is $419.95 and $479.95.
 - **Lengths kept as they are:** the sheet leaves out some lengths (28" for Kinky Straight and Permed Straight; most lengths for coloured Deep Wave), which look like gaps in the sheet. Every wig still offers 18" to 36"; asked Chesed to confirm.
 
+### Lace-free photos (24 October 2026, not merged)
+- **Chesed's photo folders:** 17 photos replaced with versions where the wig lace was removed (`Images\Lace Review\No lace`). The old ones were moved to `Final Images\_with lace (old)\` with their names kept; each shade folder still has 6 photos.
+- **Website:** the same 17 photos (34 WebP files, 1024 and 560 wide) replaced in `assets/gallery/` on the branch `add-ai-gallery-images`, committed as "Replace 17 gallery images with lace-free versions". Not pushed yet; not for `main`. That branch's `assets/gallery/` photos aren't used by the site's code yet.
+
 ---
 
 ## To do
@@ -167,6 +171,7 @@ Feedback came in a Google Doc ("Website Updates").
 ### Ours
 - [ ] **New shades and types:** add #2, #27, #4/30, Virgin Light, Loose Wave and Chesed's other new wig types once their photos and details arrive.
 - [ ] Send Chesed the updated preview.
+- [ ] **Branch `add-ai-gallery-images`:** push when the user says so. If its photos should go on the live site, they need adding to `assets/p/` (the folder the site uses) on a branch from `main`.
 
 ### Waiting on Chesed
 - [ ] **Photos:** Deep Wave, Permed Straight and Wet & Wavy wigs (all shades, plus mannequin front and back); Honey Auburn with more blonde highlights; the 4 bundles.

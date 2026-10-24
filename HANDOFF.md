@@ -17,7 +17,7 @@ Read this first when continuing the project. For where we paused and what to do 
 - **Not installed:** Playwright. Check pages in a browser instead.
 
 ## Commands
-Build every page (writes 121 pages into the repo root, plus `assets/search.json`):
+Build every page (writes 102 pages into the repo root, plus `assets/search.json`):
 ```bash
 python src/build.py
 ```
@@ -30,13 +30,14 @@ python -m http.server 8000 --bind 127.0.0.1
 ## How the code is laid out
 | Path | What it is |
 |---|---|
-| `src/data.py` | The catalog and settings: `TEXTURES` (11 wig styles), `COLORS` (the 10 shades, with `name` in words), `LENGTHS` and `LANDMARKS`, wig prices (`WIG_LENGTH_PRICE`, `COLOR_EXTRA`, `TEXTURE_EXTRA`), `FREE_SHIP`, `CAP_IMAGES`, `REVIEWS` (samples), `SPIN_PRIZES` |
+| `src/data.py` | The catalog and settings: `TEXTURES` (9 wig styles), `COLORS` (the 10 shades, with `name` in words), `LENGTHS` and `LANDMARKS`, wig prices (`WIG_LENGTH_PRICE`, `COLOR_EXTRA`, `TEXTURE_EXTRA`, `PRICE_MULTIPLIER`), `LENGTH_PHOTOS`, `FREE_SHIP`, `CAP_IMAGES`, `REVIEWS` (samples), `SPIN_PRIZES` |
 | `src/extras.json` | The crochet and feather extensions and hair bundles. Made by `src/tools/import_extras.py` (client's CSV and item list; drafts skipped), then `src/tools/import_amazon_crochet.py` (crochet photos from the Amazon folder, adds Burmese Magic) |
 | `src/build.py` | Renders every page. Also sets the homepage picks (`best`, `look_keys`, hero) and `HEADER` (`"simple"` or `"visual"` menu) |
 | `src/templates/` | Jinja templates: `index`, `collection`, `product`, `page`, guides, `sitemap` |
 | `src/templates/partials/` | Header, footer, search, spin wheel, cart, and `macros.html` (the product card) |
 | `assets/css/style.css` | The only stylesheet |
 | `assets/js/main.js` | The only script |
+| `src/templates/partials/length_photos.html` | The length photos (straight, wavy, curly with pink length tags) and the size table, used on the homepage, length guide and wig pages |
 | `assets/p/` | Product photos as WebP, 1024px and 560px. Wigs: `<handle>-1-front`, `-2-three-quarter`, `-3-back`, `-4-side`, `-5-fingers`, `-6-lifestyle` (6 per wig, read straight from this folder). `-7-mannequin-front` and `-8-mannequin-back` on the 49 wigs that have them (they take the last two slots and replace `-5-fingers`), then the two cap pictures `wig-cap-one-size` and `wig-cap-secure-fit`. Extras: `<handle>-<n>` (crochet: 6 colour photos, then info slides). `placeholder` is the pink stand-in photo |
 | Everything else in the root | **Built output.** Never edit it by hand: change `src/`, rebuild, and commit both |
 
@@ -46,8 +47,13 @@ python -m http.server 8000 --bind 127.0.0.1
 - **Product card** (`macros.product_card`) takes `lead="color"` (default) or `lead="texture"`. Color collections pass `card_lead="texture"` from `build.py`.
 - **Stylesheet and script links** get a `?v=` number from the file's modified time. After a fresh clone, a rebuild changes that number on every page. That change is harmless.
 - **Photo links** are written with `img(file, width)` (in `build.py`), which adds `?v=` plus a fingerprint of the photo. Use it for every photo.
-- **Prices:** each wig variant's price comes from `wig_price(length, texture, shade)` in `src/data.py`. Wig pages read the per-length prices from `data-prices` so the price follows the chosen length.
+- **Prices:** each wig variant's price comes from `wig_price(length, texture, shade)` in `src/data.py`: Chesed's sheet price times 2 (`PRICE_MULTIPLIER`), rounded up to the next .95. Wig pages read the per-length prices from `data-prices` so the price follows the chosen length.
 - **Hair Bundles** are switched off with `coming_soon=True` in `EXTRA_COLLECTIONS`; remove it to bring the bundle pages back.
+
+### Photo folders on this PC
+- **Chesed's studio photos:** `D:\Work\Chesed Hair\Images\Final Images\<Style>\<shade folder>\`, six per shade (`<Style> - <Shade> - <n> <Shot>`; shade folders use HA, HB, NA for Honey Auburn, Honey Blonde, Natural Auburn).
+- **Lace-free versions:** 17 photos were replaced with lace-free versions on 24 October 2026 (from `Images\Lace Review\No lace`). The old photos are in `Final Images\_with lace (old)\`.
+- **Branch `add-ai-gallery-images`:** 300 AI model photos for 7 styles in `assets/gallery/<handle>/` (WebP, 1024 and 560), including the 17 lace-free versions. The site's code doesn't use this folder yet, and the branch is older than `main` (it still has Curly photos). Don't merge it into `main` without the user's say-so.
 
 ## Workflow
 1. Start each change on a **new branch from the latest `main`** (`git fetch` first).
