@@ -12,17 +12,24 @@ POSE_NAMES = {"front": "front view", "three-quarter": "three-quarter view", "bac
               "side": "side view", "fingers": "fingers through the lengths", "lifestyle": "lifestyle shot",
               "mannequin-front": "front view on a mannequin", "mannequin-back": "back view on a mannequin"}
 
-# Wig prices from Chesed's price sheet ("CHESED WIG Selling Price", 1 September 2026): a price per length,
-# plus $5 for the coloured shades and an extra for some textures. 28", 34" and 36" are not on the sheet,
-# so those are our estimates; Curly, Permed Straight, Deep Wave and Water Wave extras are also estimates.
-WIG_LENGTH_PRICE = {18: 69.95, 20: 79.95, 22: 99.95, 24: 99.95, 26: 129.95, 28: 139.95, 30: 149.95, 32: 189.95, 34: 219.95, 36: 249.95}
+# Wig prices from Chesed's price sheet ("CHESED WIG List", 24 October 2026): a price per length,
+# plus $5 for the coloured shades and an extra for some textures. Chesed asked for the sheet prices times 2,
+# rounded up to the next .95. 34" and 36" are not on the sheet, so those are our estimates; Curly and
+# Water Wave are not on it either, so their extras are estimates too.
+WIG_LENGTH_PRICE = {18: 69.95, 20: 79.95, 22: 99.95, 24: 99.95, 26: 129.95, 28: 139.95, 30: 149.95, 32: 179.95, 34: 219.95, 36: 249.95}
 NATURAL_SHADES = {"1", "1B", "Virgin"}          # every other shade costs $5 more
 COLOR_EXTRA = 5.00
 TEXTURE_EXTRA = {"Loose Deep": 3.50, "Kinky Curly": 4.50, "Virgin Curl": 4.50, "Kinky Straight": 4.50, "Wet & Wavy": 4.50,
                  "Curly": 4.50, "Water Wave": 4.50, "Deep Wave": 3.50}   # Body Wave, Straight, Permed Straight: no extra
+PRICE_MULTIPLIER = 2
+
+def up_to_95(x):
+    n = int(x)
+    return n + 0.95 if x <= n + 0.95 + 1e-9 else n + 1.95
 
 def wig_price(length, texture, color):
-    return round(WIG_LENGTH_PRICE[length] + (0 if color in NATURAL_SHADES else COLOR_EXTRA) + TEXTURE_EXTRA.get(texture, 0), 2)
+    sheet = WIG_LENGTH_PRICE[length] + (0 if color in NATURAL_SHADES else COLOR_EXTRA) + TEXTURE_EXTRA.get(texture, 0)
+    return round(up_to_95(sheet * PRICE_MULTIPLIER), 2)
 FREE_SHIP = 100.00        # free US shipping over $100 (client, 22 October 2026)
 LENGTHS = [18, 20, 22, 24, 26, 28, 30, 32, 34, 36]   # wigs come in 18" to 36" (client, 22 October 2026)
 DEFAULT_LENGTH = 24
@@ -31,6 +38,15 @@ LANDMARKS = ["bust", "below the bust", "mid ribs", "waist", "below the waist", "
              "top of the thighs", "upper thighs", "mid thigh", "lower thigh"]
 CURLY_LANDMARKS = ["armpits", "bust", "below the bust", "mid ribs", "waist", "below the waist",
                    "hips", "top of the thighs", "upper thighs", "mid thigh"]
+
+# Length photos (layout C, chosen by Chesed on 24 October 2026): a 5'5" model from behind with a pink line
+# and tag for each length. Waves and curls spring up, so their lines sit 2 inches higher.
+LENGTH_PHOTOS = [dict(key="straight", label="Straight", up=0), dict(key="wavy", label="Wavy", up=2),
+                 dict(key="curly", label="Curly", up=2)]
+WAVY_TEXTURES = {"Body Wave", "Loose Deep", "Wet & Wavy", "Water Wave"}   # the other curly textures use the curly photo
+
+def length_photo_key(texture):
+    return "straight" if not texture["curly"] else "wavy" if texture["key"] in WAVY_TEXTURES else "curly"
 
 def slug(s):
     return re.sub(r"[^a-z0-9]+", "-", s.lower()).strip("-")

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% from "partials/figure.html" import figure %}
+{% import "partials/length_photos.html" as lp %}
 {% block preload %}<link rel="preload" as="image" href="{{ img(hero_imgs[1].file, 1024) }}">{% endblock %}
 {% block main %}
 
@@ -119,22 +119,17 @@
 
 {# 7. BEST SELLERS #}
 
-{# 8. LENGTH VISUALIZER: strand chart #}
+{# 8. LENGTH GUIDE: length photos (layout C) #}
 <section class="lenviz" aria-labelledby="lenH">
-  <div class="lv-grid wrap">
-    <div class="lv-copy">
+  <div class="wrap">
+    <div class="lp-head">
       <p class="eyebrow rose">The length guide</p>
       <h2 id="lenH" class="display-sm" data-split>See your length before you buy.</h2>
-      <p class="lv-read"><b id="lvVal">22"</b><span>ends at your <em id="lvLand">mid ribs</em></span></p>
-      <input type="range" id="lenRange" min="0" max="{{ lengths|length - 1 }}" value="2" step="1" aria-label="Wig length" aria-describedby="lvNote">
-      <div class="seg" role="radiogroup" aria-label="Texture type">
-        <button type="button" role="radio" aria-checked="true" data-curly="0">Straight</button>
-        <button type="button" role="radio" aria-checked="false" data-curly="1">Wavy or curly</button>
-      </div>
-      <p class="lv-note" id="lvNote">Lengths are measured with the hair pulled straight. Waves and curls spring up, so they sit about one step higher.</p>
-      <a class="link" href="/pages/wig-length-guide/">Open the full length guide</a>
+      <p class="lv-note">Shown on a 5'5" model. Waves and curls spring up, so they sit about 2 inches higher.</p>
     </div>
-    <div class="lv-chart" data-reveal>{{ strands(2, "#1A1A1C", "home") }}</div>
+    {{ lp.length_trio(length_photos) }}
+    {{ lp.length_table(lengths, len_landmarks) }}
+    <p class="lp-more"><a class="link" href="/pages/wig-length-guide/">Open the full length guide</a></p>
   </div>
 </section>
 

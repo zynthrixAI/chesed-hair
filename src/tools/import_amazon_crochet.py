@@ -40,13 +40,13 @@ def save(src, base):
 products = json.load(open(EXTRAS, encoding="utf-8"))
 by_handle = {p["handle"]: p for p in products}
 
-# Burmese Magic: same lengths, colours and prices as Burmese Curl
+# Burmese Magic Curl: same lengths, colours and prices as Burmese Curl
 if STYLES["Magic Burmese Curl"][0] not in by_handle:
     ref = by_handle[STYLES["Burmese Curl"][0]]
     bm = json.loads(json.dumps(ref))
-    bm.update(handle=STYLES["Magic Burmese Curl"][0], title="Seamless Burmese Magic Feather Crochet Braid Hair Extensions",
+    bm.update(handle=STYLES["Magic Burmese Curl"][0], title="Seamless Burmese Magic Curl Feather Crochet Braid Hair Extensions",
               status="active", source="Amazon folder (Magic Burmese Curl)")
-    bm["desc"] = [d.replace("Burmese Curly", "Burmese Magic").replace("Burmese Curl", "Burmese Magic") for d in bm["desc"]]
+    bm["desc"] = [d.replace("Burmese Curly", "Burmese Magic Curl").replace("Burmese Curl", "Burmese Magic Curl") for d in bm["desc"]]
     products.insert(products.index(ref) + 1, bm)
     by_handle[bm["handle"]] = bm
 
