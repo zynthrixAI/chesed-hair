@@ -3,7 +3,7 @@
 Updated 24 October 2026. Read this, then [HANDOFF.md](HANDOFF.md) for setup and [PROJECT.md](PROJECT.md) for the full history.
 
 ## Where things stand
-- **Live preview:** https://lime-deer-681625.hostingersite.com. Everything up to pull request 22 is merged and live. Check `git status` and `gh pr list` for anything newer.
+- **Live preview:** https://lime-deer-681625.hostingersite.com. Everything up to pull request 24 is merged and live. Check `git status` and `gh pr list` for anything newer.
 - **Pull request 22** (see PROJECT.md): length photos (layout C) on the length guide, homepage and wig pages; wig prices doubled from Chesed's corrected sheet; Burmese Magic Curl rename.
 - **GitHub tool:** signed in as zynthrixAI.
 

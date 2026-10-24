@@ -14,13 +14,13 @@ POSE_NAMES = {"front": "front view", "three-quarter": "three-quarter view", "bac
 
 # Wig prices from Chesed's price sheet ("CHESED WIG List", 24 October 2026): a price per length,
 # plus $5 for the coloured shades and an extra for some textures. Chesed asked for the sheet prices times 2,
-# rounded up to the next .95. 34" and 36" are not on the sheet, so those are our estimates; Curly and
-# Water Wave are not on it either, so their extras are estimates too.
-WIG_LENGTH_PRICE = {18: 69.95, 20: 79.95, 22: 99.95, 24: 99.95, 26: 129.95, 28: 139.95, 30: 149.95, 32: 179.95, 34: 219.95, 36: 249.95}
+# rounded up to the next .95. 34" and 36" are not on the sheet, so those are our estimates ($30 a step above 32",
+# as on the sheet from 28" to 30"; user, 24 October 2026). Curly and Water Wave wigs were removed: not on the sheet.
+WIG_LENGTH_PRICE = {18: 69.95, 20: 79.95, 22: 99.95, 24: 99.95, 26: 129.95, 28: 139.95, 30: 149.95, 32: 179.95, 34: 209.95, 36: 239.95}
 NATURAL_SHADES = {"1", "1B", "Virgin"}          # every other shade costs $5 more
 COLOR_EXTRA = 5.00
 TEXTURE_EXTRA = {"Loose Deep": 3.50, "Kinky Curly": 4.50, "Virgin Curl": 4.50, "Kinky Straight": 4.50, "Wet & Wavy": 4.50,
-                 "Curly": 4.50, "Water Wave": 4.50, "Deep Wave": 3.50}   # Body Wave, Straight, Permed Straight: no extra
+                 "Deep Wave": 3.50}   # Body Wave, Straight, Permed Straight: no extra
 PRICE_MULTIPLIER = 2
 
 def up_to_95(x):
@@ -43,7 +43,7 @@ CURLY_LANDMARKS = ["armpits", "bust", "below the bust", "mid ribs", "waist", "be
 # and tag for each length. Waves and curls spring up, so their lines sit 2 inches higher.
 LENGTH_PHOTOS = [dict(key="straight", label="Straight", up=0), dict(key="wavy", label="Wavy", up=2),
                  dict(key="curly", label="Curly", up=2)]
-WAVY_TEXTURES = {"Body Wave", "Loose Deep", "Wet & Wavy", "Water Wave"}   # the other curly textures use the curly photo
+WAVY_TEXTURES = {"Body Wave", "Loose Deep", "Wet & Wavy"}   # the other curly textures use the curly photo
 
 def length_photo_key(texture):
     return "straight" if not texture["curly"] else "wavy" if texture["key"] in WAVY_TEXTURES else "curly"
@@ -59,13 +59,6 @@ TEXTURES = [
               ("Can I straighten a body wave wig?", "You can flat iron it with a heat protectant. The wave comes back after the next wash."),
               ("Why does a body wave wig look shorter than its length?", "Length is measured with the hair pulled straight. Waves sit about 2 inches higher on the body."),
               ("Which shade sells best in body wave?", "Natural black (1B) is the everyday choice. Rich wine red (530) and copper ginger (350) are the statement shades.")]),
-    dict(key="Curly", name="Curly", slug="curly", curly=True,
-         short="Small, dense spiral curls with full volume.",
-         intro="Our curly lace front wigs have small, dense spiral curls that look full from root to tip. They are made from 100% unprocessed virgin Remy human hair and come in 9 shades and lengths from 18 to 36 inches. Curly units give the most volume of any Chesed texture, so a shorter length still reads big. Refresh the curls with water and a leave-in conditioner between washes.",
-         faq=[("How do I keep the curls defined?", "Wet the hair, apply a leave-in conditioner and let it air-dry. Avoid brushing curls when dry."),
-              ("Does a curly wig look shorter?", "Yes. Curls shrink, so a curly wig sits 2 to 4 inches higher than its stretched length."),
-              ("Can I wear it straight?", "You can blow it out and flat iron it. The curls return when the hair gets wet."),
-              ("How full is a curly wig?", "Curly units look the fullest of all our textures because each curl takes up more space.")]),
     dict(key="Kinky Curly", name="Kinky Curly", slug="kinky-curly", curly=True,
          short="Tight, springy coils that blend with natural 4C hair.",
          intro="Kinky curly wigs have tight, springy coils that match natural 4B and 4C hair, so the hairline blends instead of standing out. This lace front unit is made from 100% unprocessed virgin Remy human hair, currently in rich wine red (530), in lengths from 18 to 36 inches. It is the most natural-looking option if you want a wig that looks like your own hair grown out.",
@@ -117,21 +110,13 @@ TEXTURES = [
               ("Is wet & wavy the same as body wave?", "No. Wet & wavy has a looser, glossier, more water-like pattern. Body wave is a softer S-shape."),
               ("Does it look shorter than its length?", "Yes. The waves take up length, so it sits about 2 inches higher than straight hair."),
               ("Which shades are available?", "1, 1B, Virgin, 350, 530, Honey Auburn, Honey Blonde and Red.")]),
-    # Deep Wave and Water Wave: styles from the client's feedback. Shades, copy and photos are placeholders until Chesed confirms them.
+    # Deep Wave: a style from the client's feedback. Copy and photos are placeholders until Chesed confirms them.
     dict(key="Deep Wave", name="Deep Wave", slug="deep-wave", curly=True,
          only_colors=["1", "1B", "Virgin", "350", "530", "Honey Auburn", "Honey Blonde", "Red"],
          short="Deep, defined waves with full, bouncy volume.",
          intro="Deep wave has deep, defined waves that are tighter than a body wave and looser than a curl, so it looks full and bouncy from root to tip. Each Chesed deep wave wig is a lace front unit in 100% unprocessed virgin Remy human hair, in 8 shades and lengths from 18 to 36 inches. Refresh the pattern with water and a curl cream.",
          faq=[("How is deep wave different from loose deep wave?", "Deep wave has tighter, more defined waves. Loose deep wave is softer and more open."),
               ("How do I keep the waves defined?", "Wet the hair, apply a curl cream and let it air-dry or diffuse. Avoid brushing when dry."),
-              ("Does it look shorter than its length?", "Yes. The waves take up length, so it sits 2 to 3 inches higher than straight hair."),
-              ("Which shades are available?", "1, 1B, Virgin, 350, 530, Honey Auburn, Honey Blonde and Red.")]),
-    dict(key="Water Wave", name="Water Wave", slug="water-wave", curly=True,
-         only_colors=["1", "1B", "Virgin", "350", "530", "Honey Auburn", "Honey Blonde", "Red"],
-         short="Small, rippling waves that look like water.",
-         intro="Water wave has small, rippling waves that look like the surface of water, with lots of movement and a soft, natural finish. Each Chesed water wave wig is a lace front unit in 100% unprocessed virgin Remy human hair, in 8 shades and lengths from 18 to 36 inches. Spray with water and add a leave-in conditioner to bring the waves back between washes.",
-         faq=[("How is water wave different from wet & wavy?", "Water wave has smaller, tighter ripples. Wet & wavy has looser, glossier waves."),
-              ("How do I keep the waves defined?", "Spray with water, add a leave-in conditioner and let it air-dry. Avoid brushing when dry."),
               ("Does it look shorter than its length?", "Yes. The waves take up length, so it sits 2 to 3 inches higher than straight hair."),
               ("Which shades are available?", "1, 1B, Virgin, 350, 530, Honey Auburn, Honey Blonde and Red.")]),
 ]
