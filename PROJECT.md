@@ -11,11 +11,11 @@ A preview of the Chesed Hair online store (lace front wigs), built by Web Wrough
 
 ## What the site has
 
-- **121 pages:** the homepage, 24 shopping pages ("collections"), 82 wig pages, 6 extension pages and 8 info pages (About, FAQ, Shipping, Returns, Contact, Color guide, Length guide, All pages).
-- **11 wig textures:** Body Wave, Curly, Kinky Curly, Kinky Straight, Loose Deep Wave, Straight, Virgin Curl, plus **Permed Straight**, **Wet & Wavy**, **Deep Wave** and **Water Wave** (placeholder photos for now).
+- **102 pages:** the homepage, 22 shopping pages ("collections"), 65 wig pages, 6 extension pages and 8 info pages (About, FAQ, Shipping, Returns, Contact, Color guide, Length guide, All pages).
+- **9 wig textures:** Body Wave, Kinky Curly, Kinky Straight, Loose Deep Wave, Straight, Virgin Curl, plus **Permed Straight**, **Wet & Wavy** and **Deep Wave** (placeholder photos for now). Curly and Water Wave wigs were removed because they are not on Chesed's price sheet.
 - **Two extra categories:** Crochet & Feather Extensions (6 products) and Hair Bundles (coming soon).
 - **10 shades:** 1, 1B, 99J, 350, 530, Honey Auburn, Honey Blonde, Natural Auburn, Red, Virgin.
-- **10 lengths:** 18" to 36", priced by length from Chesed's price sheet times 2 ($139.95 to $499.95, plus extras for coloured shades and some textures).
+- **10 lengths:** 18" to 36", priced by length from Chesed's price sheet times 2 ($139.95 to $479.95, plus extras for coloured shades and some textures).
 - **Web addresses work like Shopify's**, e.g. `/collections/body-wave-wigs/` or `/products/1b-body-wave-lace-front-wig/`, so the move to Shopify is simpler later.
 - **Hidden from Google** on purpose, so the preview never competes with the real store.
 
@@ -155,6 +155,11 @@ Feedback came in a Google Doc ("Website Updates").
 - **Burmese Magic** feather crochet renamed **Burmese Magic Curl** (Chesed). Web address unchanged.
 - **New on Chesed's sheet, not on the site yet** (no photos): shades #2, #27, #4/30 and Virgin Color (Light), and a **Loose Wave** texture. Chesed also says more wig types are coming.
 
+### Pull request 24: only the wigs on Chesed's sheet (24 October 2026)
+- **Curly and Water Wave wigs removed** (17 wigs, their 2 shopping pages and their photos), because they are not on Chesed's price sheet (user, 24 October 2026). The homepage best sellers and lookbook now use Straight Honey Blonde and Virgin Curl 1B instead. Water Wave crochet and bundles are separate products and stay.
+- **34" and 36" estimates updated** to $30 a step above the new 32" price: $209.95 and $239.95 before doubling, so 1B Straight is $419.95 and $479.95.
+- **Lengths kept as they are:** the sheet leaves out some lengths (28" for Kinky Straight and Permed Straight; most lengths for coloured Deep Wave), which look like gaps in the sheet. Every wig still offers 18" to 36"; asked Chesed to confirm.
+
 ---
 
 ## To do
@@ -164,11 +169,12 @@ Feedback came in a Google Doc ("Website Updates").
 - [ ] Send Chesed the updated preview.
 
 ### Waiting on Chesed
-- [ ] **Photos:** Deep Wave, Water Wave, Permed Straight and Wet & Wavy wigs (all shades, plus mannequin front and back); Honey Auburn with more blonde highlights; the 4 bundles.
+- [ ] **Photos:** Deep Wave, Permed Straight and Wet & Wavy wigs (all shades, plus mannequin front and back); Honey Auburn with more blonde highlights; the 4 bundles.
 - [ ] **The 12 shades:** the site has 10. Names of the 2 missing shades and which styles they come in.
 - [ ] **Shade names:** approve 1B Natural Black, 1 Jet Black, Virgin Natural Dark Brown, 530 Rich Wine Red, 99J Deep Plum, 350 Copper Ginger, Red Cherry Red. The shade descriptions were written from the photos too.
-- [ ] **Deep Wave and Water Wave wigs:** which shades each comes in, and approval of our copy. Confirm these are what "Missing notes: Straight, Deep Wave, Water Wave" meant.
-- [ ] **Estimated prices** (not on the sheet, shown doubled): 34" and 36" (sheet-level $219.95 and $249.95, so $439.95 and $499.95 for 1B Straight); Curly and Water Wave extras (+$4.50 before doubling). Also: Curly and Water Wave wigs aren't on the new sheet; is that right?
+- [ ] **Deep Wave wigs:** approval of our copy.
+- [ ] **Estimated prices** (not on the sheet, shown doubled): 34" and 36" (sheet-level $209.95 and $239.95, so $419.95 and $479.95 for 1B Straight).
+- [ ] **Lengths missing from the sheet:** 28" for Kinky Straight and Permed Straight, and every length except 28" for coloured Deep Wave (only Red also has 20"). The site still sells them at the usual price; confirm.
 - [ ] **Sheet questions:** Deep Wave 20" Red at $83.45 (every other coloured shade is $5 more); Loose Wave 22"-24" Virgin Light reads $1034.45; Wet & Wavy 20"-22" Virgin Light is at the coloured price; Deep Wave and Loose Wave list only some shades per length.
 - [ ] **34" and 36" on the body:** we guessed "mid thigh" and "lower thigh".
 - [ ] **Spin wheel:** the prizes, odds and discount codes (not answered yet).
