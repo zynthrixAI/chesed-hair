@@ -196,7 +196,7 @@ bm_lens = ['12"', '14"', '16"', '18"', '22"']
 ref = next(p for p in products if p["handle"].startswith("seamless-burmese-curly"))
 bm_price = {l: min(v["price"] for v in ref["variants"] if v["o"].get("Length") == l) for l in bm_lens}
 products.append(dict(kind="crochet", handle="seamless-burmese-magic-feather-crochet-braid-hair-extensions",
-                     title="Seamless Burmese Magic Feather Crochet Braid Hair Extensions", status="active",
+                     title="Seamless Burmese Magic Curl Feather Crochet Braid Hair Extensions", status="active",
                      options=[dict(name="Color", values=bm_colors), dict(name="Length", values=bm_lens)],
                      variants=[dict(o={"Color": c, "Length": l}, price=bm_price[l]) for c in bm_colors for l in bm_lens],
                      images=[dict(file="placeholder", alt="Photo coming soon", placeholder=True)],

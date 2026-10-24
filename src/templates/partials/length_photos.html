@@ -1,0 +1,25 @@
+{# Length photos (layout C): a pink line and tag for each length on a 5'5" model, plus a size table. #}
+{% macro length_photo(c, sel=None, pick=False, sizes="(max-width:720px) 92vw, 33vw") -%}
+<div class="lp-ph">
+  <img src="{{ img(c.file, 1024) }}" srcset="{{ img(c.file, 560) }} 560w, {{ img(c.file, 1024) }} 848w" sizes="{{ sizes }}" width="848" height="1200" alt="{{ c.label }} hair on a 5'5&quot; model seen from behind, with a line where each length from 18 to 36 inches ends" loading="lazy" decoding="async">
+  {% for l in c.lines %}{% if pick %}<button type="button" class="lp-ln{% if l.len == sel %} on{% endif %}" style="--y:{{ l.y }}%" data-len="{{ l.len }}" aria-label="Choose {{ l.len }} inches"><b>{{ l.len }}"</b></button>{% else %}<span class="lp-ln" style="--y:{{ l.y }}%"><b>{{ l.len }}"</b></span>{% endif %}{% endfor %}
+</div>
+{%- endmacro %}
+
+{% macro length_trio(photos) -%}
+<div class="lp" data-lp>
+  <div class="seg lp-seg" role="radiogroup" aria-label="Hair type">{% for c in photos %}<button type="button" role="radio" aria-checked="{{ 'true' if loop.first else 'false' }}" data-k="{{ c.key }}">{{ c.label }}</button>{% endfor %}</div>
+  <div class="lp-trio">{% for c in photos %}
+    <figure class="lp-col{% if loop.first %} on{% endif %}" data-k="{{ c.key }}"><figcaption>{{ c.label }}</figcaption>{{ length_photo(c) }}</figure>{% endfor %}
+  </div>
+</div>
+{%- endmacro %}
+
+{% macro length_table(lengths, landmarks, curly_landmarks=None) -%}
+<div class="lp-tw"><table class="lp-table">
+  <tr><th scope="row">Length</th>{% for l in lengths %}<th scope="col">{{ l }}"</th>{% endfor %}</tr>
+  <tr><th scope="row">Centimeters</th>{% for l in lengths %}<td>{{ (l * 2.54)|round|int }}</td>{% endfor %}</tr>
+  <tr><th scope="row">Straight ends at</th>{% for x in landmarks %}<td>{{ x }}</td>{% endfor %}</tr>
+  {% if curly_landmarks %}<tr><th scope="row">Wavy or curly ends at</th>{% for x in curly_landmarks %}<td>{{ x }}</td>{% endfor %}</tr>{% endif %}
+</table></div>
+{%- endmacro %}

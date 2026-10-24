@@ -53,13 +53,6 @@ const tick=()=>{ scrollers.forEach(f=>f()); };
 if(lenis) lenis.on('scroll',tick); else addEventListener('scroll',()=>requestAnimationFrame(tick),{passive:true});
 addEventListener('resize',()=>requestAnimationFrame(tick));
 
-/* strand chart: highlight a length, pick one by click or keyboard */
-function strandChart(svg,onPick){ if(!svg) return null; const gs=[...svg.querySelectorAll('.st')], gds=[...svg.querySelectorAll('.gd')];
-  if(onPick) gs.forEach(g=>{ if(g.dataset.i==null) return; const go=()=>onPick(+g.dataset.i);
-    g.addEventListener('click',go); g.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); go(); } }); });
-  return { set(i,curly){ svg.classList.toggle('curly',!!curly); gs.forEach((g,k)=>{ g.classList.toggle('sel',k===i); if(g.dataset.i!=null) g.setAttribute('aria-pressed',k===i?'true':'false'); });
-    const k=curly?i-1:i; gds.forEach((g,j)=>g.classList.toggle('on',j===k)); } }; }
-
 /* simple menu: hovering or focusing a texture shows its wigs */
 $$('[data-sm-tabs] a').forEach(a=>{ const show=()=>{ const panel=a.closest('.dd-panel');
   panel.querySelectorAll('[data-sm-tabs] a').forEach(x=>x.classList.toggle('on',x===a));
@@ -180,10 +173,6 @@ if(spin){ const prizes=JSON.parse(spin.dataset.prizes), g=$('#wheelSpin'), DAY=8
 $$('[data-join]').forEach(f=>f.addEventListener('submit',e=>{ e.preventDefault(); const v=f.querySelector('input').value.trim(), m=f.querySelector('.msg');
   m.textContent=/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)?"You're on the list. (Preview: no email is saved.)":"Enter an email address like name@example.com."; }));
 
-/* phones: crop the label column off the strand charts so the strands get the full width */
-const cropCharts=()=>$$('.lenviz .strands,.every-len .strands').forEach(svg=>svg.setAttribute('viewBox',innerWidth<=720?'140 0 500 340':'0 0 640 340'));
-cropCharts(); addEventListener('resize',cropCharts);
-
 /* home: shade theater (click a swatch to change shade; no scroll-driven behaviour) */
 const theater=$('[data-theater]'), stage=$('#thStage');
 if(theater&&stage){ const imgs=[...stage.querySelectorAll('img')], btns=$$('.th-sw button'), nm=$('#thName'), bl=$('#thBlurb'); let cur=0;
@@ -219,19 +208,10 @@ if(hero&&!reduce){ const panes=[...hero.querySelectorAll('[data-par]')], copy=$(
     panes.forEach(p=>p.style.transform='translate3d(0,'+(y*parseFloat(p.dataset.par))+'px,0)');
     if(copy){ copy.style.transform='translate3d(0,'+(-y*0.18)+'px,0)'; copy.style.opacity=String(1-q*1.4); } }); }
 
-/* home: length visualizer */
-const range=$('#lenRange');
-if(range){ let curly=0; const chart=strandChart($('.lenviz .strands'),i=>{ range.value=i; upd(); });
-  const upd=()=>{ const i=+range.value, L=curly?LANDC:LAND; chart&&chart.set(i,curly);
-    $('#lvVal').textContent=LENS[i]+'"'; $('#lvLand').textContent=L[i];
-    range.setAttribute('aria-valuetext',LENS[i]+' inches, ends at your '+L[i]); };
-  range.addEventListener('input',upd);
-  $$('.lenviz .seg button').forEach(b=>b.addEventListener('click',()=>{ curly=+b.dataset.curly; $$('.lenviz .seg button').forEach(x=>x.setAttribute('aria-checked',x===b?'true':'false')); upd(); }));
-  upd(); }
-
-/* length guide: straight / curly toggle */
-$$('.lg-seg button').forEach(b=>b.addEventListener('click',()=>{ $$('.lg-seg button').forEach(x=>x.setAttribute('aria-checked',x===b?'true':'false'));
-  const svg=$('.lg-chart .strands'); if(svg) svg.classList.toggle('curly',b.dataset.curly==='1'); }));
+/* length photos: on phones, Straight / Wavy / Curly buttons show one photo at a time */
+$$('[data-lp]').forEach(w=>{ const bs=[...w.querySelectorAll('.lp-seg button')];
+  bs.forEach(b=>b.addEventListener('click',()=>{ bs.forEach(x=>x.setAttribute('aria-checked',x===b?'true':'false'));
+    w.querySelectorAll('.lp-col').forEach(c=>c.classList.toggle('on',c.dataset.k===b.dataset.k)); })); });
 
 /* collection: dropdown filters (multi-select, AND across groups), pills, live count, sort */
 const grid=$('#colGrid'), fb=$('[data-fbar]');
@@ -277,7 +257,7 @@ if(pdp){
   if(gg&&dots.length) gg.addEventListener('scroll',()=>{ const i=Math.round(gg.scrollLeft/gg.clientWidth); dots.forEach((d,k)=>d.classList.toggle('on',k===i)); },{passive:true});
   const curly=pdp.dataset.curly==='1', LM=JSON.parse($('#landmarks').textContent), PRICES=JSON.parse(pdp.dataset.prices);   // price per length
   const lenBtns=$$('.len-row button'), meter=$('#lenMeter');
-  const chart=strandChart($('.every-len .strands'),i=>setLen(LENS[i],true));
+  const lnBtns=$$('.every-len .lp-ln');
   let len=24;
   function setLen(l,push){ len=l; const i=LENS.indexOf(l);
     lenBtns.forEach(b=>b.setAttribute('aria-checked',+b.dataset.len===l?'true':'false'));
@@ -287,9 +267,9 @@ if(pdp){
     const pr=PRICES[i]; pdp.dataset.price=pr; $('#wPrice').textContent=money(pr); $('#wBnpl').textContent=money(pr/4);
     $('#addPrice').textContent=money(pr); $('#stickyPrice').textContent=money(pr); codeNotes();
     $$('.el-val').forEach(e=>e.textContent=l+'"'); $$('.el-land').forEach(e=>e.textContent=LM[i]);
-    chart&&chart.set(i,curly);
+    lnBtns.forEach(b=>b.classList.toggle('on',+b.dataset.len===l));
     if(push){ const u=new URL(location); u.searchParams.set('length',l); history.replaceState(null,'',u); } }
-  lenBtns.forEach(b=>b.addEventListener('click',()=>setLen(+b.dataset.len,true)));
+  [...lenBtns,...lnBtns].forEach(b=>b.addEventListener('click',()=>setLen(+b.dataset.len,true)));
   const q=+new URL(location).searchParams.get('length'); setLen(LENS.includes(q)?q:24,false);
   const add=()=>addToCart({title:pdp.dataset.title,variant:len+'"',price:PRICES[LENS.indexOf(len)],img:pdp.dataset.img});
   $('#addBtn').addEventListener('click',add); $('#stickyAdd').addEventListener('click',add); $('#elAdd')&&$('#elAdd').addEventListener('click',add);

@@ -5,7 +5,7 @@ A preview of the Chesed Hair online store (lace front wigs), built by Web Wrough
 - **Live preview:** https://lime-deer-681625.hostingersite.com
 - **Code:** https://github.com/zynthrixAI/chesed-hair
 - **On this PC:** `D:\Work\Chesed Hair\Website\chesed-hair`
-- **Last updated:** 23 October 2026 (see [NEXT-SESSION.md](NEXT-SESSION.md))
+- **Last updated:** 24 October 2026 (see [NEXT-SESSION.md](NEXT-SESSION.md))
 
 ---
 
@@ -15,7 +15,7 @@ A preview of the Chesed Hair online store (lace front wigs), built by Web Wrough
 - **11 wig textures:** Body Wave, Curly, Kinky Curly, Kinky Straight, Loose Deep Wave, Straight, Virgin Curl, plus **Permed Straight**, **Wet & Wavy**, **Deep Wave** and **Water Wave** (placeholder photos for now).
 - **Two extra categories:** Crochet & Feather Extensions (6 products) and Hair Bundles (coming soon).
 - **10 shades:** 1, 1B, 99J, 350, 530, Honey Auburn, Honey Blonde, Natural Auburn, Red, Virgin.
-- **10 lengths:** 18" to 36", priced by length from Chesed's price sheet ($69.95 to $249.95, plus extras for coloured shades and some textures).
+- **10 lengths:** 18" to 36", priced by length from Chesed's price sheet times 2 ($139.95 to $499.95, plus extras for coloured shades and some textures).
 - **Web addresses work like Shopify's**, e.g. `/collections/body-wave-wigs/` or `/products/1b-body-wave-lace-front-wig/`, so the move to Shopify is simpler later.
 - **Hidden from Google** on purpose, so the preview never competes with the real store.
 
@@ -148,12 +148,19 @@ Feedback came in a Google Doc ("Website Updates").
 - **WhatsApp button removed** (not needed). **About page:** no founder story or photos (not needed).
 - **Shipping and returns follow LUVME's terms** (client's choice): ships within 1 business day, express delivery in 2 to 6 business days, cancel within 1 hour; 30-day returns and exchanges for unused hair with the lace uncut, approval by email with photos, one free US return label per order, refunds within 2 business days of checking the return, exchanges ship within 3 business days. On the Shipping and Returns pages, wig and crochet pages, and the FAQ.
 
+### Pull request 21: length photos and doubled prices (24 October 2026)
+- **Length photos (layout C, chosen by Chesed):** three photos of a 5'5" model from behind (straight, wavy, curly) with a pink line and tag for each length, then a size table (length, centimeters, where straight and wavy/curly hair ends). On the length guide and the homepage; on phones, Straight / Wavy / Curly buttons show one photo at a time and the table scrolls sideways. Photos: `length-straight`, `length-wavy`, `length-curly` in `assets/p/`. Code: `partials/length_photos.html`, `LENGTH_PHOTOS` in `src/data.py`, `length_photo()` in `src/build.py`.
+- **Wig pages:** the "Every length, side by side" section shows the photo for that wig's texture (wavy: Body Wave, Loose Deep, Wet & Wavy, Water Wave; curly: the other curly textures). Tapping a length on the photo picks it, like the length buttons. The old strand charts are gone.
+- **Prices:** Chesed's corrected sheet ("CHESED WIG List", 24 October 2026) times 2, rounded up to the next .95 (`PRICE_MULTIPLIER`, `up_to_95()` in `src/data.py`). E.g. 18" Straight in 1B $139.95, 24" Body Wave in 530 $209.95, 32" Kinky Curly in Red $378.95. The sheet's 32" price is now $179.95 (was $189.95), and 28" is now on the sheet. 632 of the sheet's 633 rows for our shades and textures match the site; the odd one out is Deep Wave 20" in Red, which the sheet prices like a natural shade ($83.45).
+- **Burmese Magic** feather crochet renamed **Burmese Magic Curl** (Chesed). Web address unchanged.
+- **New on Chesed's sheet, not on the site yet** (no photos): shades #2, #27, #4/30 and Virgin Color (Light), and a **Loose Wave** texture. Chesed also says more wig types are coming.
+
 ---
 
 ## To do
 
 ### Ours
-- [ ] **Length picture.** The client liked a "How to measure" chart with three back-view photos (straight, wave, curly) and length lines. We made three AI photos and four layouts (scratchpad `lenvar.html`, photos `lc-*.jpg`): A lines on the hair, B ruler beside each photo, C pink tags plus a size table, D one photo with Straight/Wavy/Curly tabs. Our suggestion: C for the length guide and homepage, D on wig pages. Waiting for the user to pick. Rejected earlier: a drawn back-view figure.
+- [ ] **New shades and types:** add #2, #27, #4/30, Virgin Light, Loose Wave and Chesed's other new wig types once their photos and details arrive.
 - [ ] Send Chesed the updated preview.
 
 ### Waiting on Chesed
@@ -161,7 +168,8 @@ Feedback came in a Google Doc ("Website Updates").
 - [ ] **The 12 shades:** the site has 10. Names of the 2 missing shades and which styles they come in.
 - [ ] **Shade names:** approve 1B Natural Black, 1 Jet Black, Virgin Natural Dark Brown, 530 Rich Wine Red, 99J Deep Plum, 350 Copper Ginger, Red Cherry Red. The shade descriptions were written from the photos too.
 - [ ] **Deep Wave and Water Wave wigs:** which shades each comes in, and approval of our copy. Confirm these are what "Missing notes: Straight, Deep Wave, Water Wave" meant.
-- [ ] **Estimated prices:** 28" $139.95, 34" $219.95, 36" $249.95; extras for Curly and Water Wave (+$4.50), Deep Wave (+$3.50), Permed Straight (+$0).
+- [ ] **Estimated prices** (not on the sheet, shown doubled): 34" and 36" (sheet-level $219.95 and $249.95, so $439.95 and $499.95 for 1B Straight); Curly and Water Wave extras (+$4.50 before doubling). Also: Curly and Water Wave wigs aren't on the new sheet; is that right?
+- [ ] **Sheet questions:** Deep Wave 20" Red at $83.45 (every other coloured shade is $5 more); Loose Wave 22"-24" Virgin Light reads $1034.45; Wet & Wavy 20"-22" Virgin Light is at the coloured price; Deep Wave and Loose Wave list only some shades per length.
 - [ ] **34" and 36" on the body:** we guessed "mid thigh" and "lower thigh".
 - [ ] **Spin wheel:** the prizes, odds and discount codes (not answered yet).
 - [ ] **Hair bundles:** prices and plain names for the "TP" shades (Chesed is working on these).

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% import "partials/length_photos.html" as lp %}
 {% block preload %}<link rel="preload" as="image" href="{{ img(p.images[0].file, 1024) }}" imagesrcset="{{ img(p.images[0].file, 560) }} 560w, {{ img(p.images[0].file, 1024) }} 1024w" imagesizes="(max-width:900px) 100vw, 55vw">{% endblock %}
 {% block main %}
 {% set dv = p.variants|selectattr("length", "equalto", default_length)|first %}
@@ -70,10 +71,10 @@
       <p class="eyebrow rose">Length</p>
       <h2 id="elH" class="display-sm" data-split>Every length, side by side.</h2>
       <p class="lv-read"><b class="el-val">{{ default_length }}"</b><span>ends at your <em class="el-land">{{ p.landmark_for[lengths.index(default_length)] }}</em></span></p>
-      <p class="lv-note">Tap a strand to choose that length.{% if p.texture.curly %} {{ p.texture.name }} springs up, so each length sits one step higher than straight hair.{% endif %}</p>
+      <p class="lv-note">Tap a length on the photo to choose it. Shown on a 5'5" model.{% if p.texture.curly %} {{ p.texture.name }} springs up, so each length sits about 2 inches higher than straight hair.{% endif %}</p>
       <button class="btn rose" type="button" id="elAdd">Add <span class="el-val">{{ default_length }}"</span> to bag</button>
     </div>
-    <div class="lv-chart" data-reveal>{{ strands(lengths.index(default_length), p.color.hex, "pdp", p.texture.curly, True, False) }}</div>
+    <div class="lp-one">{{ lp.length_photo(p.length_photo, default_length, True, "(max-width:720px) 92vw, 420px") }}</div>
   </div>
 </section>
 

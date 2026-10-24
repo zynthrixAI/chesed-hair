@@ -37,6 +37,11 @@ by_handle = {p["handle"]: p for p in products}
 fam = {cc["slug"]: cc for cc in D.COLOR_COLLECTIONS}
 color_to_cc = {k: cc for cc in D.COLOR_COLLECTIONS for k in cc["colors"]}
 
+def length_photo(key):
+    """One length photo with the height of each length line, in % of the photo (18" at 500px of 1200, 30px an inch)."""
+    ph = next(c for c in D.LENGTH_PHOTOS if c["key"] == key)
+    return dict(ph, file=f"length-{key}", lines=[dict(len=L, y=round((500 + (L - ph["up"] - 18) * 30) / 12, 2)) for L in D.LENGTHS])
+
 def landmarks(curly):
     return D.CURLY_LANDMARKS if curly else D.LANDMARKS
 
@@ -45,6 +50,7 @@ for p in products:
     p["same_color"] = [q for q in products if q["color"]["key"] == p["color"]["key"] and q["handle"] != p["handle"]]
     p["color_collection"] = color_to_cc[p["color"]["key"]]
     p["landmark_for"] = landmarks(p["texture"]["curly"])
+    p["length_photo"] = length_photo(D.length_photo_key(p["texture"]))
 
 def find(texture, color):
     return next(p for p in products if p["texture"]["key"] == texture and p["color"]["key"] == color)
@@ -167,7 +173,7 @@ def strands(sel=6, hair="#1A1A1C", uid="s", show_curly=False, interactive=True, 
     out.append('</svg>')
     return Markup("".join(out))
 
-G = dict(lengths=D.LENGTHS, default_length=D.DEFAULT_LENGTH, len_landmarks=D.LANDMARKS, len_curly_landmarks=D.CURLY_LANDMARKS,
+G = dict(length_photos=[length_photo(c["key"]) for c in D.LENGTH_PHOTOS], lengths=D.LENGTHS, default_length=D.DEFAULT_LENGTH, len_landmarks=D.LANDMARKS, len_curly_landmarks=D.CURLY_LANDMARKS,
          textures=D.TEXTURES, color_collections=D.COLOR_COLLECTIONS, colmap=D.COL, free_ship=D.FREE_SHIP,
          version=str(int(time.time())), macros=None, extras=extras, extra_collections=D.EXTRA_COLLECTIONS)
 env.globals.update(G)
