@@ -38,10 +38,7 @@ by_handle = {p["handle"]: p for p in products}
 fam = {cc["slug"]: cc for cc in D.COLOR_COLLECTIONS}
 color_to_cc = {k: cc for cc in D.COLOR_COLLECTIONS for k in cc["colors"]}
 
-def length_photo(key):
-    """One length photo with the height of each length line, in % of the photo (18" at 500px of 1200, 30px an inch)."""
-    ph = next(c for c in D.LENGTH_PHOTOS if c["key"] == key)
-    return dict(ph, file=f"length-{key}", lines=[dict(len=L, y=round((500 + (L - ph["up"] - 18) * 30) / 12, 2)) for L in D.LENGTHS])
+length_photo = D.length_photo
 
 def landmarks(curly):
     return D.CURLY_LANDMARKS if curly else D.LANDMARKS
@@ -129,34 +126,9 @@ spotlight = [dict(color=p["color"], img=pose_img(p, 1), url=p["url"], price=p["p
 spot_start = next(i for i, x in enumerate(spotlight) if x["color"]["key"] == "1B")
 story = shot("Body Wave", "Honey Auburn", 5)      # warm, smiling: the "lovingkindness" photo
 
-# FAQs: wig questions on wig pages, crochet questions on crochet pages, a general mix on the homepage and the FAQ page
-WIG_FAQ = [
-    ("What are Chesed wigs made of?", "Every Chesed wig is 100% unprocessed virgin Remy human hair on a lace front, so you can color, heat-style and wash it like your own hair."),
-    ("What lace and cap do the wigs have?", "A 13x5 lace front for a natural hairline, on a cap that is one size fits all."),
-    ("How do I choose my length?", "Use the length guide: it shows where each length from 18 to 36 inches ends on the body. Waves and curls sit about 2 inches higher than straight hair."),
-    ("How do I choose my shade?", "Every shade is shown on the same model in real rooms. The color guide puts all ten side by side, including the ones people mix up, like 1B vs 1."),
-    ("What if the wig isn't right?", "Return or exchange unused wigs within 30 days with the lace uncut. Your first US return label is free."),
-]
-SHIP_FAQ = [
-    ("How fast is shipping?", f"Orders ship within 1 business day by express shipping and usually arrive in 2 to 6 business days. US shipping is free on orders over ${int(D.FREE_SHIP)}."),
-    ("Can I cancel my order?", "Email us within 1 hour of ordering. Once an order has shipped it can't be cancelled, but you can return it."),
-    ("What is your return policy?", "Return or exchange unused hair within 30 days of receiving it, in its original packaging. Wigs must have the lace uncut. Email us your order number and a few photos to start, and your first US return label is free."),
-    ("Can I pay in instalments?", "Yes. Choose Shop Pay at checkout to pay in 4 interest-free payments."),
-]
-GENERAL_FAQ = [
-    ("What is Chesed hair made of?", "Our lace front wigs and our crochet and feather extensions are all human hair. The wigs are 100% unprocessed virgin Remy hair, so you can color, heat-style and wash them like your own."),
-    ("Should I choose a wig or crochet extensions?", "A lace front wig is a complete look you put on and take off in minutes. Crochet and feather extensions are installed into your own braids with a crochet needle, for a light, seamless look that stays in day and night. Not sure? Email us and we'll help you choose."),
-    ("Can I dye or restyle Chesed hair?", "Our wigs can be dyed, bleached and permed like your own hair. Crochet and feather extensions are already styled and colored, so we don't recommend dyeing them."),
-]
-home_faq = GENERAL_FAQ[:2] + [
-    ("How do I choose my shade and length?", "For wigs, the color guide shows all ten shades on the same model, and the length guide shows where every length from 18 to 36 inches ends on the body. For crochet, each product page shows every color on a model, in lengths from 12 to 22 inches."),
-    SHIP_FAQ[0],
-    ("What if it isn't right?", "Return or exchange unused hair within 30 days, in its original packaging (wigs with the lace uncut). Your first US return label is free."),
-]
+WIG_FAQ, SHIP_FAQ, GENERAL_FAQ, home_faq = D.WIG_FAQ, D.SHIP_FAQ, D.GENERAL_FAQ, D.HOME_FAQ
 crochet_ec = next(ec for ec in D.EXTRA_COLLECTIONS if ec["kind"] == "crochet")
-FAQ_PAGE = [("general", "General", GENERAL_FAQ), ("wigs", "Lace front wigs", WIG_FAQ),
-            ("crochet", "Crochet & feather extensions", [f for f in crochet_ec["faq"] if "ship" not in f[0].lower()]),
-            ("shipping", "Shipping & returns", SHIP_FAQ)]
+FAQ_PAGE = D.FAQ_PAGE
 
 # crochet on the homepage, the all-wigs page and wig pages
 crochet = [x for x in extras if x["kind"] == "crochet"]
@@ -219,18 +191,7 @@ env.globals["strands"] = strands
 
 # ---- welcome wheel ----
 def wheel():
-    n, r, cx = len(D.SPIN_PRIZES), 150, 160
-    fills = ["#0E0E10", "#EE467C", "#FBFAF9", "#B8295A", "#26262B", "#F7E9EE"]
-    inks = ["#FBFAF9", "#0E0E10", "#0E0E10", "#FBFAF9", "#FBFAF9", "#0E0E10"]
-    out = [f'<svg class="wheel" viewBox="0 0 320 320" aria-hidden="true"><g id="wheelSpin">']
-    for i, pz in enumerate(D.SPIN_PRIZES):
-        a0, a1 = (i / n) * 2 * math.pi - math.pi / 2, ((i + 1) / n) * 2 * math.pi - math.pi / 2
-        x0, y0, x1, y1 = cx + r * math.cos(a0), cx + r * math.sin(a0), cx + r * math.cos(a1), cx + r * math.sin(a1)
-        out.append(f'<path d="M{cx} {cx}L{x0:.1f} {y0:.1f}A{r} {r} 0 0 1 {x1:.1f} {y1:.1f}Z" fill="{fills[i % 6]}" stroke="#0E0E10" stroke-width="1"/>')
-        mid = (i + .5) * 360 / n
-        out.append(f'<text transform="rotate({mid:.1f} {cx} {cx}) translate({cx} {cx - r * .62}) rotate({-90 if mid < 180 else 90})" fill="{inks[i % 6]}" text-anchor="middle" dominant-baseline="middle">{pz["label"]}</text>')
-    out.append(f'</g><circle cx="{cx}" cy="{cx}" r="22" fill="#FBFAF9" stroke="#0E0E10"/><circle cx="{cx}" cy="{cx}" r="5" fill="#B8295A"/></svg>')
-    return Markup("".join(out))
+    return Markup(D.wheel_svg())
 env.globals["wheel"] = wheel
 env.globals["whatsapp"] = D.WHATSAPP
 env.globals["whatsapp_placeholder"] = D.WHATSAPP_PLACEHOLDER
@@ -433,32 +394,7 @@ render("color_guide.html", "/pages/wig-color-guide/", seo_title="Wig Color Chart
        canonical="/pages/wig-color-guide/", body_class="shop", page_id="cg", theater=theater,
        page=dict(h1="Wig Colors on Deep Skin", lede="All ten shades on the same model, so you can compare them fairly."))
 
-simple_pages = [
-    ("about", "About Chesed Hair", "About Chesed Hair", "Chesed means lovingkindness.",
-     # story text from chesedhair.com (client asked for it, 22 October 2026)
-     "<h2>More than a name</h2><p>\"Chesed\" is a Hebrew word meaning <b>lovingkindness</b>: a deep, unconditional love.</p>"
-     "<p>It reflects our belief that beauty should come from a place of care, intention, and authenticity.</p><p>We don't just create products. We create with purpose.</p>"
-     "<h2>Effortless from start to finish</h2><ul><li>Instant volume with a soft, natural flow</li><li>Easy installation, easy removal</li>"
-     "<li>Designed for everyday wear and long-lasting comfort</li><li>Moves like real hair, because it is</li></ul>"
-     "<h2>Care and versatility</h2><p>Chesed hair can be dyed, bleached and permed.</p>"
-     "<h2>Our ethical commitment</h2><p>We believe beauty should never come at the cost of people.</p>"
-     "<p>Our products are created in hygienic facilities that meet high ethical standards, <b>with no labor exploitation.</b></p>"
-     ""),
-    ("faq", "FAQ: Wigs, Crochet, Shipping & Returns | Chesed Hair", "Frequently Asked Questions", "Choosing, wearing and caring for your wig or crochet extensions.",
-     "".join(f"<h2 id='{key}'>{name}</h2>" + "".join(f"<h3>{q}</h3><p>{a}</p>" for q, a in items) for key, name, items in FAQ_PAGE)),
-    # shipping and returns follow LUVME's terms, as the client asked (23 October 2026)
-    ("shipping", "Shipping | Chesed Hair", "Shipping", "Ships within 24 hours. Arrives in 2 to 6 business days.", "<h2>Processing</h2><p>Orders ship within 1 business day (24 hours) of payment, Monday to Friday. You get a confirmation email when you order and a tracking link when it ships.</p><h2>Delivery</h2><p>Every order ships by express shipping and usually arrives in 2 to 6 business days. Allow 2 to 3 extra days around weekends, holidays and busy periods.</p><h2>Shipping cost</h2><p>Free US shipping on orders over ${fs}.</p><h2>Cancelling an order</h2><p>Email us within 1 hour of placing your order to cancel it. Once an order has shipped it can't be cancelled, but you can return it.</p><h2>Questions about your delivery</h2><p>Email <a href='mailto:info@chesedhair.com'>info@chesedhair.com</a> with your order number. If there is a problem or delay we'll email you.</p>".replace("{fs}", str(int(D.FREE_SHIP)))),
-    ("returns", "Returns | Chesed Hair", "Returns & Exchanges", "30 days to return or exchange unused hair.", "<h2>30-day returns and exchanges</h2><p>You can return or exchange unused hair within 30 days of receiving it.</p><h2>What we can accept</h2><ul><li>Hair in its original condition: not worn, washed, cut, dyed, bleached or styled.</li><li>Lace untouched: not cut or trimmed.</li><li>Original packaging, with any tags.</li></ul><p>Hair touches the scalp, so for hygiene we can't accept used items.</p><h2>How to start a return</h2><p>Email <a href='mailto:info@chesedhair.com'>info@chesedhair.com</a> with your order number, the reason and a few photos of the item. Once we approve it we'll send the return address. Returns sent without approval can't be refunded.</p><h2>Return shipping</h2><p>Each US order gets one free prepaid return label. After that, return shipping is paid by you. If we sent the wrong item or it arrived damaged, we cover the return.</p><h2>Refunds</h2><p>We refund to your original payment method within 2 business days of receiving and checking your return. Card refunds can take up to 10 business days to show; Shop Pay instalments and PayPal usually take about 3.</p><h2>Exchanges</h2><p>Same steps as a return. Your new item ships within 3 business days of your return arriving.</p>"),
-    ("contact", "Contact | Chesed Hair", "Contact", None, "<p>Email <a href='mailto:info@chesedhair.com'>info@chesedhair.com</a>. We reply within 1 business day.</p>"),
-]
-PAGE_STEPS = {
-    "shipping": [("bag", "You order", "Pay in full or in 4 with Shop Pay. You get a confirmation email right away."),
-                 ("box", "We pack and ship", "Your order ships within 1 business day, with tracking."),
-                 ("home", "It arrives", f"Express delivery in 2 to 6 business days. Free US shipping on orders over ${int(D.FREE_SHIP)}.")],
-    "returns": [("chat", "Tell us within 30 days", "Email us your order number, the reason and a few photos. Once approved, we send the return address and a free US label."),
-                ("box", "Send it back", "Unused, with the lace uncut and the hair in its original packaging."),
-                ("card", "Get your refund", "Refunded to your original payment within 2 business days of it arriving.")],
-}
+simple_pages, PAGE_STEPS = D.PAGES, D.PAGE_STEPS
 TOC_PAGES = {"faq"}
 for handle, title, h1, lede, body in simple_pages:
     render("page.html", f"/pages/{handle}/", seo_title=title, seo_description=lede or h1, canonical=f"/pages/{handle}/",
