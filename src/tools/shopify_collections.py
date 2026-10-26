@@ -1,34 +1,17 @@
 """Create the shopping pages (automatic collections) in the Shopify store and show them in the online store.
 
-    python src/tools/shopify_collections.py [store.myshopify.com]
+    python src/tools/shopify_collections.py
 
 Uses the Shopify command-line tool (`shopify store auth` must have been run once for the store).
 Each collection fills itself from the product tags written by export_shopify.py. Collections that already
 exist (same handle) are left alone, so the script is safe to run again.
 """
-import json, os, shutil, subprocess, sys, tempfile
+import os, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import data as D
 
-STORE = sys.argv[1] if len(sys.argv) > 1 else "chesed-hair-umskgt0n.myshopify.com"
-CLI = shutil.which("shopify")
-
-def gql(query, variables=None, mutation=False):
-    """Query and variables go through files: the Windows wrapper of the CLI mangles quotes and < > on the command line."""
-    with tempfile.TemporaryDirectory() as tmp:
-        qf, vf = os.path.join(tmp, "q.graphql"), os.path.join(tmp, "v.json")
-        open(qf, "w", encoding="utf-8").write(query)
-        cmd = [CLI, "store", "execute", "-s", STORE, "--query-file", qf, "-j"]
-        if variables:
-            json.dump(variables, open(vf, "w", encoding="utf-8"))
-            cmd += ["--variable-file", vf]
-        if mutation:
-            cmd.append("--allow-mutations")
-        r = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8")
-    out = r.stdout[r.stdout.find("\n{") + 1:] if "\n{" in r.stdout else r.stdout
-    if not out.lstrip().startswith("{"):
-        sys.exit(f"Shopify CLI failed:\n{r.stdout}\n{r.stderr}")
-    return json.loads(out)
+from shopify_api import gql
 
 def tag_rule(tag):
     return {"column": "TAG", "relation": "EQUALS", "condition": tag}
@@ -64,3 +47,22 @@ for c in cols:
         continue
     gql(PUBLISH, {"id": r["collection"]["id"], "pub": pub}, mutation=True)
     print(f"created  {c['handle']}")
+
+# Order: the preview's order (texture, then shade), so menus and pages list shades and textures the same way
+from shopify_api import ids
+prod_ids = ids("products")
+col_nodes = {c["handle"]: c["id"] for c in gql("{ collections(first: 100) { nodes { id handle } } }")["collections"]["nodes"]}
+SORT = "mutation($c: CollectionInput!) { collectionUpdate(input: $c) { userErrors { message } } }"
+REORDER = "mutation($id: ID!, $moves: [MoveInput!]!) { collectionReorderProducts(id: $id, moves: $moves) { userErrors { message } } }"
+for c in cols:
+    members = [p["handle"] for p in products if any(r["condition"] in (["wig", f"texture-{p['texture']['slug']}", f"shade-{p['color']['slug']}"]) for r in c["rules"])]
+    if not members or c["handle"] not in col_nodes:
+        continue
+    cid = col_nodes[c["handle"]]
+    gql(SORT, {"c": {"id": cid, "sortOrder": "MANUAL"}}, mutation=True)
+    moves = [{"id": prod_ids[h], "newPosition": str(i)} for i, h in enumerate(members)]
+    for i in range(0, len(moves), 250):
+        r = gql(REORDER, {"id": cid, "moves": moves[i:i + 250]}, mutation=True)["collectionReorderProducts"]
+        if r["userErrors"]:
+            print(f"ERROR order {c['handle']}: {r['userErrors']}")
+    print(f"ordered  {c['handle']} ({len(members)})")
