@@ -1,11 +1,12 @@
 # Chesed Hair website: project log
 
-A preview of the Chesed Hair online store (lace front wigs), built by Web Wroughts so Chesed can approve the design before the real Shopify store is built.
+A preview of the Chesed Hair online store (lace front wigs and crochet), built by Web Wroughts so Chesed could approve the design. The real store is now being built in Shopify from the same catalogue (see "Shopify store" below).
 
 - **Live preview:** https://lime-deer-681625.hostingersite.com
 - **Code:** https://github.com/zynthrixAI/chesed-hair
 - **On this PC:** `D:\Work\Chesed Hair\Website\chesed-hair`
-- **Last updated:** 24 October 2026 (see [NEXT-SESSION.md](NEXT-SESSION.md))
+- **Shopify theme on this PC:** `D:\Work\Chesed Hair\Website\chesed-theme` (its own Git history, not on GitHub yet)
+- **Last updated:** 27 October 2026 (see [NEXT-SESSION.md](NEXT-SESSION.md))
 
 ---
 
@@ -163,14 +164,25 @@ Feedback came in a Google Doc ("Website Updates").
 ### Lace-free photos (24 to 26 October 2026)
 - **Chesed's photo folders:** 17 photos replaced with versions where the wig lace was removed (`Images\Lace Review\No lace`). The old ones were moved to `Final Images\_with lace (old)\` with their names kept; each shade folder still has 6 photos.
 - **Website:** the same 17 photos (34 WebP files, 1024 and 560 wide) replaced in `assets/gallery/` on the branch `add-ai-gallery-images`, committed as "Replace 17 gallery images with lace-free versions". Not pushed yet; not for `main`. That branch's `assets/gallery/` photos aren't used by the site's code yet.
-- **On the site (26 October 2026):** 15 of the 17 copied into `assets/p/` (the 2 Curly ones are skipped because Curly wigs were removed). Branch `claude/lace-free-photos`.
+- **On the site (pull request 26, merged 26 October 2026):** 15 of the 17 copied into `assets/p/` (the 2 Curly ones are skipped because Curly wigs were removed). The `add-ai-gallery-images` branch was already on GitHub.
 
-### Crochet on the homepage, general FAQs (26 October 2026)
+### Pull request 27: crochet on the homepage, general FAQs, Hair Bundles hidden (26 to 27 October 2026, merged)
 - **Homepage:** a "Shop by category" list under the banner (two rows, Lace Front Wigs and Crochet & Feather, photos shown whole; `CATS_STYLE = "index"` in `src/build.py`. The boxed cards were rejected; a "split" band option is kept but not used), and a crochet section ("Feather-light, made by hand": 4 crochet products and texture links) after the wig textures. The banner says "Wigs & crochet" and has Shop wigs / Shop crochet buttons. Set in `home_cats` and `crochet_promo` in `src/build.py`. **Never crop the crochet photos** (client).
 - **Hair Bundles hidden** (27 October 2026) until the bundles arrive: `hidden=True` in `EXTRA_COLLECTIONS` (`src/data.py`) removes the page, menu, footer, search and site map entries. Remove it (and `coming_soon` when they are ready) to bring them back.
 - **All wigs page:** an "Also from Chesed" crochet strip (`also` in the hub). Wig shopping pages list Crochet & Feather in "Keep exploring".
 - **Wig pages:** "You might also like: Crochet & feather extensions", same texture first (`p["crochet"]`).
-- **FAQs:** `GENERAL_FAQ`, `WIG_FAQ`, `SHIP_FAQ` and `home_faq` in `src/build.py`. Homepage: a general mix. FAQ page: General, Lace front wigs, Crochet & feather, Shipping & returns (`FAQ_PAGE`). All wigs page: wig questions. Crochet pages: crochet questions plus choosing a color and length, and shipping and returns (`EXTRA_COLLECTIONS` in `src/data.py`).
+- **FAQs:** `GENERAL_FAQ`, `WIG_FAQ`, `SHIP_FAQ` and `HOME_FAQ` in `src/data.py` (moved there from `build.py` on 27 October so Shopify reads them too). Homepage: a general mix. FAQ page: General, Lace front wigs, Crochet & feather, Shipping & returns (`FAQ_PAGE`). All wigs page: wig questions. Crochet pages: crochet questions plus choosing a color and length, and shipping and returns (`EXTRA_COLLECTIONS` in `src/data.py`).
+
+### Shopify store (27 October 2026, in progress, not live)
+The user builds in their own Shopify Partners development store and transfers it to Chesed when it's finished.
+- **Store:** `chesed-hair-umskgt0n.myshopify.com` (password-protected, as development stores are). Admin login is the user's Partners account.
+- **Products:** imported from a CSV made by `src/tools/export_shopify.py` (saved to `D:\Work\Chesed Hair\Shopify\chesed-products.csv`): 65 wigs (option Length, 10 lengths at the site's prices) and 6 crochet (Color, Length). Photos were fetched from the preview site. The 24 Permed Straight, Wet & Wavy and Deep Wave wigs are **drafts** (no photos yet). Hair Bundles left out. Tags: `wig`/`crochet`, `texture-<slug>`, `shade-<slug>`, `family-<family>`, `crochet-texture-<slug>`, `crochet-color-<slug>`.
+- **Collections:** 21 automatic collections by tag, same addresses as the preview (`/collections/body-wave-wigs` etc.), products in the preview's order. `src/tools/shopify_collections.py`.
+- **Shade and texture details** live once on their collection, in fields (metafields, namespace `chesed`): textures have `short`, `curly`, `length_photo`, `faq`; shades have `shade_key`, `shade_name`, `hex`, `blurb`, `faq`; All wigs and crochet have `faq`. Each wig points at its texture and shade collection (`chesed.texture`, `chesed.shade`). Chesed can edit these in the admin. `src/tools/shopify_metafields.py`.
+- **Pages:** About, FAQ, Shipping, Returns, Contact, the length guide and the color guide, with the preview's text (`PAGES`, `PAGE_STEPS`, `FAQ_PAGE` in `src/data.py`). Each uses its own template. `src/tools/shopify_pages.py`.
+- **Theme "Chesed"** (unpublished, id 188679127198): built from Shopify's Skeleton theme in `chesed-theme`. Homepage sections, header and footer, shopping pages with filters, wig and crochet pages, info pages, guides, bag, search, 404. The bag is Shopify's real cart (`/cart.js`); search reads `/collections/all?view=search-index`. See that folder's `CLAUDE.md`.
+- **Shared pieces:** `src/tools/theme_snippets.py` copies the stylesheet, fonts, non-product photos, spin wheel, length photos and sample reviews from the preview into the theme. The spin wheel drawing and length-line positions moved to `src/data.py` (`wheel_svg`, `length_photo`).
+- **Not checked in a browser yet:** the store password was needed for screenshots. The theme passes Shopify's theme check with no errors.
 
 ---
 
@@ -179,7 +191,7 @@ Feedback came in a Google Doc ("Website Updates").
 ### Ours
 - [ ] **New shades and types:** add #2, #27, #4/30, Virgin Light, Loose Wave and Chesed's other new wig types once their photos and details arrive.
 - [ ] Send Chesed the updated preview.
-- [ ] **Branch `add-ai-gallery-images`:** push when the user says so. If its photos should go on the live site, they need adding to `assets/p/` (the folder the site uses) on a branch from `main`.
+- [ ] **Shopify theme:** check every page in a browser (needs the store password), fix what's off, then show the user.
 
 ### Waiting on Chesed
 - [ ] **Photos:** Deep Wave, Permed Straight and Wet & Wavy wigs (all shades, plus mannequin front and back); Honey Auburn with more blonde highlights; the 4 bundles.
@@ -194,10 +206,14 @@ Feedback came in a Google Doc ("Website Updates").
 - [ ] **Hair bundles:** prices and plain names for the "TP" shades (Chesed is working on these).
 - [ ] **Crochet descriptions:** the 6 listings still use the old store's wording.
 
-### When this becomes the real Shopify store
-- [ ] Rebuild the pages as a Shopify theme. The page templates were written to be close to Shopify's template language.
+### Shopify store
+- [x] Products, collections, shade and texture details, info pages, and the theme (unpublished).
+- [ ] Check the theme in a browser and fix issues.
+- [ ] Menus as Shopify navigation, so Chesed can edit them (they're built into the theme for now).
+- [ ] Put the theme folder on GitHub (and connect it to the store), so the theme has a backup and history online.
+- [ ] Payments, taxes and shipping rates in the store settings; free shipping over $100.
 - [ ] Replace the 6 sample reviews with real ones (connect Judge.me).
 - [ ] Create the spin-wheel discount codes in Shopify.
 - [ ] Connect an email platform (e.g. Klaviyo) so the welcome wheel actually sends emails.
 - [ ] Set free shipping over $100 in Shopify's shipping settings.
-- [ ] Remove the "hidden from Google" settings so the store can be found.
+- [ ] Publish the theme, remove the store password, and transfer the store to Chesed.
