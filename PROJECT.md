@@ -160,9 +160,10 @@ Feedback came in a Google Doc ("Website Updates").
 - **34" and 36" estimates updated** to $30 a step above the new 32" price: $209.95 and $239.95 before doubling, so 1B Straight is $419.95 and $479.95.
 - **Lengths kept as they are:** the sheet leaves out some lengths (28" for Kinky Straight and Permed Straight; most lengths for coloured Deep Wave), which look like gaps in the sheet. Every wig still offers 18" to 36"; asked Chesed to confirm.
 
-### Lace-free photos (24 October 2026, not merged)
+### Lace-free photos (24 to 26 October 2026)
 - **Chesed's photo folders:** 17 photos replaced with versions where the wig lace was removed (`Images\Lace Review\No lace`). The old ones were moved to `Final Images\_with lace (old)\` with their names kept; each shade folder still has 6 photos.
 - **Website:** the same 17 photos (34 WebP files, 1024 and 560 wide) replaced in `assets/gallery/` on the branch `add-ai-gallery-images`, committed as "Replace 17 gallery images with lace-free versions". Not pushed yet; not for `main`. That branch's `assets/gallery/` photos aren't used by the site's code yet.
+- **On the site (26 October 2026):** 15 of the 17 copied into `assets/p/` (the 2 Curly ones are skipped because Curly wigs were removed). Branch `claude/lace-free-photos`.
 
 ---
 
