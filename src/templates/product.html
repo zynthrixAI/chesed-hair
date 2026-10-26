@@ -114,6 +114,13 @@
 </section>
 {% endif %}
 
+{% if p.crochet %}
+<section class="xsell wrap" aria-labelledby="xcH">
+  <div class="sec-head"><div><p class="eyebrow">You might also like</p><h2 id="xcH">Crochet &amp; feather extensions</h2></div><a class="link" href="/collections/crochet-braid-extensions/">Shop all crochet</a></div>
+  <div class="grid">{% for s in p.crochet %}{{ macros.product_card(s) }}{% endfor %}</div>
+</section>
+{% endif %}
+
 <div class="sticky-buy" id="stickyBuy" aria-hidden="true">
   <div><b>{{ p.color.key }}</b><span id="stickyLen">{{ default_length }}"</span></div>
   <button class="btn rose" type="button" id="stickyAdd" tabindex="-1">Add to bag · <span id="stickyPrice">{{ macros.money(dv.price) }}</span></button>

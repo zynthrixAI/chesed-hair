@@ -9,13 +9,13 @@
     {% for im in hero_imgs %}<div class="hero-pane{% if loop.index0 == 1 %} main{% endif %}" data-par="{{ [0.10, 0.04, 0.16][loop.index0] }}">{{ macros.picture(im.file, im.alt if loop.index0 == 1 else "", "(max-width:900px) 100vw, 34vw", lazy=False, priority=(loop.index0 == 1)) }}</div>{% endfor %}
   </div>
   <div class="hero-copy wrap" id="heroCopy">
-    <p class="hero-badge"><span>Lace front wigs</span><b>100% Virgin Remy Human Hair</b></p>
+    <p class="hero-badge"><span>Wigs &amp; crochet</span><b>100% Virgin Remy Human Hair</b></p>
     <h1 id="heroH" class="display"><span class="ln"><span>Effortless beauty,</span></span><span class="ln"><span>rooted in love.</span></span></h1>
     <div class="hero-foot">
-      <p>{{ n_tex_word }} textures, ten shades, every length from 18 to 36 inches. All on one woman, so you see exactly what you get.</p>
+      <p>Lace front wigs in {{ n_tex_word|lower }} textures and ten shades, plus handmade crochet and feather extensions. All shown in real light, so you see exactly what you get.</p>
       <div class="cta-row">
-        <a class="btn" href="#best">Shop best sellers</a>
-        <a class="btn ghost" href="#shades">Find your shade</a>
+        <a class="btn" href="/collections/wigs/">Shop wigs</a>
+        <a class="btn ghost" href="{{ crochet_promo.url }}">Shop crochet</a>
       </div>
     </div>
   </div>
@@ -24,14 +24,26 @@
 {# 2. MARQUEE #}
 <div class="marquee" aria-hidden="true">
   <div class="mq-row mq-small"><div class="mq-track" data-mq="1">
-    {% for i in range(3) %}{% for w in ["100% virgin Remy human hair", "Lace front", "Ten shades", "18 to 36 inches", "Free US shipping over $" ~ free_ship|int, "30-day returns", "Pay in 4"] %}<span>{{ w }}</span><b>✦</b>{% endfor %}{% endfor %}
+    {% for i in range(3) %}{% for w in ["100% virgin Remy human hair", "Lace front wigs", "Crochet & feather extensions", "Ten shades", "18 to 36 inches", "Free US shipping over $" ~ free_ship|int, "30-day returns", "Pay in 4"] %}<span>{{ w }}</span><b>✦</b>{% endfor %}{% endfor %}
   </div></div>
 </div>
 
-{# 3. STATEMENT #}
+{# 3. SHOP BY CATEGORY: wigs, crochet, bundles #}
+<section class="cats wrap" aria-labelledby="catH">
+  <div class="sec-head"><div><p class="eyebrow">Shop by category</p><h2 id="catH" class="display-sm" data-split>Find your hair</h2></div></div>
+  <ul class="cat-grid" role="list">
+    {% for k in home_cats %}<li><a class="tcard{% if not k.img %} tcard-soon{% endif %}{% if k.crop %} tcard-crop{% endif %}" href="{{ k.url }}" data-cursor="{{ 'Soon' if k.soon else 'Shop' }}">
+      {% if k.img %}{{ macros.picture(k.img.file, k.img.alt, "(max-width:900px) 100vw, 33vw") }}{% endif %}
+      {% if not k.img %}<span class="tcard-mark" aria-hidden="true">{% include "partials/logo.html" %}</span>{% endif %}
+      {% if k.soon %}<span class="tcard-no">Coming soon</span>{% endif %}
+      <span class="tcard-txt"><b>{{ k.name }}</b><small>{{ k.sub }}</small><em>{{ "Take a look" if k.soon else "Shop " ~ k.name|lower }} →</em></span></a></li>{% endfor %}
+  </ul>
+</section>
+
+{# STATEMENT #}
 <section class="best wrap" id="best" aria-labelledby="bestH">
   <div class="sec-head">
-    <div><p class="eyebrow">Most loved</p><h2 id="bestH" class="display-sm" data-split>Best sellers</h2></div>
+    <div><p class="eyebrow">Most loved wigs</p><h2 id="bestH" class="display-sm" data-split>Best sellers</h2></div>
     <a class="link" href="/collections/wigs/">Shop all</a>
   </div>
   <div class="grid">{% for p in best %}{{ macros.product_card(p, lead="texture") }}{% endfor %}</div>
@@ -91,6 +103,16 @@
         <span class="tcard-txt"><b>All wigs</b><small>Every texture and shade, side by side.</small><em>Shop the collection →</em></span></a></li>
     </ul>
   </div>
+</section>
+
+{# CROCHET & FEATHER #}
+<section class="xhome wrap" aria-labelledby="xhH">
+  <div class="texg-head">
+    <div><p class="eyebrow">Crochet &amp; feather</p><h2 id="xhH" class="display-sm" data-split>Feather-light, made by hand.</h2></div>
+    <div class="texg-r"><p class="texh-sub">Human hair crochet and feather extensions in {{ crochet_promo.textures|length }} textures and six colors, 12 to 22 inches. From {{ macros.money(crochet_promo.min_price) }}.</p><a class="link" href="{{ crochet_promo.url }}">Shop all crochet</a></div>
+  </div>
+  <div class="grid">{% for p in crochet_picks %}{{ macros.product_card(p) }}{% endfor %}</div>
+  <ul class="pill-row xhome-tex" role="list">{% for t in crochet_promo.textures %}<li><a class="pill" href="{{ t.url }}">{{ t.name }}</a></li>{% endfor %}</ul>
 </section>
 
 {# 6. EDITORIAL SPREAD #}

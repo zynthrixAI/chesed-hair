@@ -165,6 +165,12 @@ Feedback came in a Google Doc ("Website Updates").
 - **Website:** the same 17 photos (34 WebP files, 1024 and 560 wide) replaced in `assets/gallery/` on the branch `add-ai-gallery-images`, committed as "Replace 17 gallery images with lace-free versions". Not pushed yet; not for `main`. That branch's `assets/gallery/` photos aren't used by the site's code yet.
 - **On the site (26 October 2026):** 15 of the 17 copied into `assets/p/` (the 2 Curly ones are skipped because Curly wigs were removed). Branch `claude/lace-free-photos`.
 
+### Crochet on the homepage, general FAQs (26 October 2026)
+- **Homepage:** a "Shop by category" row under the banner (Lace Front Wigs, Crochet & Feather, Hair Bundles "coming soon" with the logo), and a crochet section ("Feather-light, made by hand": 4 crochet products and texture links) after the wig textures. The banner says "Wigs & crochet" and has Shop wigs / Shop crochet buttons. Set in `home_cats` and `crochet_promo` in `src/build.py`. Crochet photos are model + product side by side, so the category card shows only the model (`.tcard-crop`).
+- **All wigs page:** an "Also from Chesed" crochet strip (`also` in the hub). Wig shopping pages list Crochet & Feather in "Keep exploring".
+- **Wig pages:** "You might also like: Crochet & feather extensions", same texture first (`p["crochet"]`).
+- **FAQs:** `GENERAL_FAQ`, `WIG_FAQ`, `SHIP_FAQ` and `home_faq` in `src/build.py`. Homepage: a general mix. FAQ page: General, Lace front wigs, Crochet & feather, Shipping & returns (`FAQ_PAGE`). All wigs page: wig questions. Crochet pages: crochet questions plus choosing a color and length, and shipping and returns (`EXTRA_COLLECTIONS` in `src/data.py`).
+
 ---
 
 ## To do
