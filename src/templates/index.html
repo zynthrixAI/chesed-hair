@@ -28,17 +28,18 @@
   </div></div>
 </div>
 
-{# 3. SHOP BY CATEGORY: wigs, crochet, bundles #}
-<section class="cats wrap" aria-labelledby="catH">
-  <div class="sec-head"><div><p class="eyebrow">Shop by category</p><h2 id="catH" class="display-sm" data-split>Find your hair</h2></div></div>
-  <ul class="cat-grid" role="list">
-    {% for k in home_cats %}<li><a class="tcard{% if not k.img %} tcard-soon{% endif %}{% if k.crop %} tcard-crop{% endif %}" href="{{ k.url }}" data-cursor="{{ 'Soon' if k.soon else 'Shop' }}">
-      {% if k.img %}{{ macros.picture(k.img.file, k.img.alt, "(max-width:900px) 100vw, 33vw") }}{% endif %}
-      {% if not k.img %}<span class="tcard-mark" aria-hidden="true">{% include "partials/logo.html" %}</span>{% endif %}
-      {% if k.soon %}<span class="tcard-no">Coming soon</span>{% endif %}
-      <span class="tcard-txt"><b>{{ k.name }}</b><small>{{ k.sub }}</small><em>{{ "Take a look" if k.soon else "Shop " ~ k.name|lower }} →</em></span></a></li>{% endfor %}
+{# 3. SHOP BY CATEGORY: wigs and crochet as an index of two rows (photos shown whole) #}
+{% if cats_style == "index" %}
+<section class="catx wrap" aria-labelledby="catH">
+  <h2 id="catH" class="sr-only">Shop by category</h2>
+  <ul class="catx-list" role="list">
+    {% for k in home_cats %}<li><a class="catx-row" href="{{ k.url }}" data-cursor="Shop">
+      <span class="catx-img{% if k.square %} sq{% endif %}">{{ macros.picture(k.img.file, k.img.alt, "160px") }}</span>
+      <span class="catx-txt"><small>{{ "%02d"|format(loop.index) }} · {{ k.sub }}</small><b>{{ k.name }}</b></span>
+      <span class="catx-go" aria-hidden="true">→</span></a></li>{% endfor %}
   </ul>
 </section>
+{% endif %}
 
 {# STATEMENT #}
 <section class="best wrap" id="best" aria-labelledby="bestH">
@@ -48,6 +49,20 @@
   </div>
   <div class="grid">{% for p in best %}{{ macros.product_card(p, lead="texture") }}{% endfor %}</div>
 </section>
+
+{% if cats_style == "split" %}
+{# SHOP BY CATEGORY: two-panel band (photos shown whole) #}
+<section class="catsplit" aria-labelledby="catH">
+  <div class="wrap">
+    <div class="catsplit-head"><p class="eyebrow">Shop by category</p><h2 id="catH" class="display-sm" data-split>Two ways to wear Chesed</h2></div>
+    <ul class="catsplit-grid" role="list">
+      {% for k in home_cats %}<li><a class="cs-item" href="{{ k.url }}" data-cursor="Shop">
+        <span class="cs-img{% if k.square %} sq{% endif %}">{{ macros.picture(k.img.file, k.img.alt, "(max-width:900px) 90vw, 40vw") }}</span>
+        <span class="cs-txt"><small>{{ k.sub }}</small><b>{{ k.name }}</b><em class="link">Shop {{ k.name|lower }}</em></span></a></li>{% endfor %}
+    </ul>
+  </div>
+</section>
+{% endif %}
 
 <section class="shades-x" aria-labelledby="sxH">
   <div class="sx-head wrap">

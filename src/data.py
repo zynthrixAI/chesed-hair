@@ -254,7 +254,7 @@ EXTRA_COLLECTIONS = [
               ("How long do they last?", "With care they can last up to a year. Textured styles need regular upkeep."),
               ("How do I choose a color and length?", "Each style comes in six colors, from natural black to honey blonde and ruby wine, and in lengths from 12 to 22 inches. Pick a color on the product page to see it on a model."),
               ("How fast will it ship, and can I return it?", "Orders ship within 1 business day and usually arrive in 2 to 6 business days. Unused extensions in their original packaging can be returned or exchanged within 30 days.")]),
-    dict(kind="bundle", slug="hair-bundles", name="Hair Bundles", h1="Hair Bundles", noun="bundle", coming_soon=True,   # client: "coming soon" for now
+    dict(kind="bundle", slug="hair-bundles", name="Hair Bundles", h1="Hair Bundles", noun="bundle", coming_soon=True, hidden=True,   # client: "coming soon", then hidden until the bundles arrive (27 October 2026)
          title="Human Hair Bundles | Chesed Hair",
          intro="Chesed hair bundles are coming soon: body wave, straight, deep wave and water wave, from natural darks to bold colors and blondes. In the meantime, shop our lace front wigs and crochet & feather extensions.",
          faq=[("Which bundle textures do you carry?", "Body wave, straight, deep wave and water wave."),
