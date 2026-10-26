@@ -29,6 +29,7 @@ D.COLOR_COLLECTIONS[:] = D.make_color_collections(products)
 extras = D.build_extras()
 soon_kinds = {ec["kind"] for ec in D.EXTRA_COLLECTIONS if ec.get("coming_soon")}
 extras = [x for x in extras if x["kind"] not in soon_kinds]   # e.g. hair bundles: "coming soon" for now
+D.EXTRA_COLLECTIONS[:] = [ec for ec in D.EXTRA_COLLECTIONS if not ec.get("hidden")]   # hidden: no page, menu, footer or search entry
 for _ec in D.EXTRA_COLLECTIONS:   # count and thumbnail for the menu cards
     _pool = [x for x in extras if x["kind"] == _ec["kind"]]
     _ec["count"] = len(_pool)
@@ -164,14 +165,13 @@ crochet_promo = dict(name=crochet_ec["name"], url=f"/collections/{crochet_ec['sl
                      min_price=min(x["price"] for x in crochet), count=len(crochet), textures=crochet_textures)
 for p in products:   # crochet in the same texture first
     p["crochet"] = sorted(crochet, key=lambda x: p["texture"]["slug"] not in x["textures"])[:4]
-bundle_ec = next(ec for ec in D.EXTRA_COLLECTIONS if ec["kind"] == "bundle")
 home_cats = [dict(name="Lace Front Wigs", url="/collections/wigs/", img=shot("Body Wave", "Honey Blonde", 5),
-                  sub=f"{len(D.TEXTURES)} textures, 10 shades, 18 to 36 inches"),
-             dict(name=crochet_ec["name"], url=crochet_promo["url"], crop=True,   # crochet photos are model + product side by side: show the model
-                  img=dict(file="seamless-burmese-curly-feather-crochet-braid-hair-extensions-4", alt="Model wearing Burmese curly feather crochet extensions"),
-                  sub=f"{len(crochet)} handmade styles, 12 to 22 inches"),
-             dict(name=bundle_ec["name"], url=f"/collections/{bundle_ec['slug']}/", img=None, soon=bool(bundle_ec.get("coming_soon")),
-                  sub="Body wave, straight, deep wave and water wave")]
+                  sub=f"{len(D.TEXTURES)} textures · 10 shades · 18 to 36 inches"),
+             dict(name=crochet_ec["name"], url=crochet_promo["url"], square=True,   # crochet photos are square: shown whole
+                  img=dict(file="seamless-burmese-curly-feather-crochet-braid-hair-extensions-4", alt="Burmese curly feather crochet extensions on a model, with the pack beside her"),
+                  sub=f"{len(crochet)} handmade styles · 6 colors · 12 to 22 inches")]
+CATS_STYLE = os.environ.get("CATS", "index")   # "index" (typographic rows) or "split" (two-panel band)
+
 
 # ---- strand chart (length visualizer) ----
 import math
@@ -282,7 +282,7 @@ def org_ld():
 render("index.html", "/", seo_title="Chesed Hair | Human Hair Lace Front Wigs & Crochet Extensions",
        seo_description=f"Lace front wigs in 100% unprocessed virgin Remy human hair, {len(D.TEXTURES)} textures and 10 shades from 18 to 36 inches, plus handmade crochet and feather extensions.",
        canonical="/", body_class="home overlay", page_id="home", hero=hero, hero_product=hero_product, hero_imgs=hero_imgs, banner_imgs=banner_imgs, banner_texture=banner_texture, all_tile=all_tile, theater=theater,
-       best=best, home_textures=home_textures, n_tex_word=n_tex_word, n_home_tex_word=NUM.get(len(home_textures), str(len(home_textures))), lookbook=lookbook, story=story, spotlight=spotlight, spot_start=spot_start, home_faq=home_faq, home_cats=home_cats, crochet_promo=crochet_promo, crochet_picks=crochet[:4], jsonld=json.dumps(org_ld()),
+       best=best, home_textures=home_textures, n_tex_word=n_tex_word, n_home_tex_word=NUM.get(len(home_textures), str(len(home_textures))), lookbook=lookbook, story=story, spotlight=spotlight, spot_start=spot_start, home_faq=home_faq, home_cats=home_cats, cats_style=CATS_STYLE, crochet_promo=crochet_promo, crochet_picks=crochet[:4], jsonld=json.dumps(org_ld()),
        og_image=img(hero['file'], 1024))
 
 # COLLECTIONS
