@@ -251,7 +251,9 @@ EXTRA_COLLECTIONS = [
          faq=[("What are feather crochet extensions?", "They are hair extensions made to be installed with a crochet technique, so the finished look is seamless and light."),
               ("How many packs do I need for a full head?", "It depends on the style and the length you choose. Some listings offer a 3-pack full-head option. Ask us if you are not sure."),
               ("Can I dye or restyle them?", "They can be, but it is not recommended, because the hair is already styled and colored."),
-              ("How long do they last?", "With care they can last up to a year. Textured styles need regular upkeep.")]),
+              ("How long do they last?", "With care they can last up to a year. Textured styles need regular upkeep."),
+              ("How do I choose a color and length?", "Each style comes in six colors, from natural black to honey blonde and ruby wine, and in lengths from 12 to 22 inches. Pick a color on the product page to see it on a model."),
+              ("How fast will it ship, and can I return it?", "Orders ship within 1 business day and usually arrive in 2 to 6 business days. Unused extensions in their original packaging can be returned or exchanged within 30 days.")]),
     dict(kind="bundle", slug="hair-bundles", name="Hair Bundles", h1="Hair Bundles", noun="bundle", coming_soon=True,   # client: "coming soon" for now
          title="Human Hair Bundles | Chesed Hair",
          intro="Chesed hair bundles are coming soon: body wave, straight, deep wave and water wave, from natural darks to bold colors and blondes. In the meantime, shop our lace front wigs and crochet & feather extensions.",

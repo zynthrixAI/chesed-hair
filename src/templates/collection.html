@@ -72,6 +72,17 @@
 </div>
 <p class="wrap no-match" id="noMatch" hidden>No {{ noun ~ "s" }} match these filters. <button type="button" class="link sm" data-fclear>Clear filters</button></p>
 
+{% if c.also %}
+<section class="also wrap" aria-labelledby="alsoH">
+  <a class="also-img" href="{{ c.also.url }}" tabindex="-1" aria-hidden="true">{{ macros.picture(c.also.img.file, "", "(max-width:720px) 100vw, 30vw") }}</a>
+  <div class="also-copy">
+    <p class="eyebrow rose">Also from Chesed</p>
+    <h2 id="alsoH">{{ c.also.name }}</h2>
+    <p>Handmade human hair crochet and feather extensions in {{ c.also.textures|length }} textures and six colors, 12 to 22 inches. From {{ macros.money(c.also.min_price) }}.</p>
+    <a class="btn" href="{{ c.also.url }}">Shop crochet</a>
+  </div>
+</section>
+{% endif %}
 {{ macros.faq_list(c.faq, (c.h1 ~ ": questions, answered") if not is_hub else "Questions, answered") }}
 {% endif %}
 

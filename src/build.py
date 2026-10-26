@@ -128,12 +128,50 @@ spotlight = [dict(color=p["color"], img=pose_img(p, 1), url=p["url"], price=p["p
 spot_start = next(i for i, x in enumerate(spotlight) if x["color"]["key"] == "1B")
 story = shot("Body Wave", "Honey Auburn", 5)      # warm, smiling: the "lovingkindness" photo
 
-home_faq = [
+# FAQs: wig questions on wig pages, crochet questions on crochet pages, a general mix on the homepage and the FAQ page
+WIG_FAQ = [
     ("What are Chesed wigs made of?", "Every Chesed wig is 100% unprocessed virgin Remy human hair on a lace front, so you can color, heat-style and wash it like your own hair."),
+    ("What lace and cap do the wigs have?", "A 13x5 lace front for a natural hairline, on a cap that is one size fits all."),
     ("How do I choose my length?", "Use the length guide: it shows where each length from 18 to 36 inches ends on the body. Waves and curls sit about 2 inches higher than straight hair."),
     ("How do I choose my shade?", "Every shade is shown on the same model in real rooms. The color guide puts all ten side by side, including the ones people mix up, like 1B vs 1."),
     ("What if the wig isn't right?", "Return or exchange unused wigs within 30 days with the lace uncut. Your first US return label is free."),
 ]
+SHIP_FAQ = [
+    ("How fast is shipping?", f"Orders ship within 1 business day by express shipping and usually arrive in 2 to 6 business days. US shipping is free on orders over ${int(D.FREE_SHIP)}."),
+    ("Can I cancel my order?", "Email us within 1 hour of ordering. Once an order has shipped it can't be cancelled, but you can return it."),
+    ("What is your return policy?", "Return or exchange unused hair within 30 days of receiving it, in its original packaging. Wigs must have the lace uncut. Email us your order number and a few photos to start, and your first US return label is free."),
+    ("Can I pay in instalments?", "Yes. Choose Shop Pay at checkout to pay in 4 interest-free payments."),
+]
+GENERAL_FAQ = [
+    ("What is Chesed hair made of?", "Our lace front wigs and our crochet and feather extensions are all human hair. The wigs are 100% unprocessed virgin Remy hair, so you can color, heat-style and wash them like your own."),
+    ("Should I choose a wig or crochet extensions?", "A lace front wig is a complete look you put on and take off in minutes. Crochet and feather extensions are installed into your own braids with a crochet needle, for a light, seamless look that stays in day and night. Not sure? Email us and we'll help you choose."),
+    ("Can I dye or restyle Chesed hair?", "Our wigs can be dyed, bleached and permed like your own hair. Crochet and feather extensions are already styled and colored, so we don't recommend dyeing them."),
+]
+home_faq = GENERAL_FAQ[:2] + [
+    ("How do I choose my shade and length?", "For wigs, the color guide shows all ten shades on the same model, and the length guide shows where every length from 18 to 36 inches ends on the body. For crochet, each product page shows every color on a model, in lengths from 12 to 22 inches."),
+    SHIP_FAQ[0],
+    ("What if it isn't right?", "Return or exchange unused hair within 30 days, in its original packaging (wigs with the lace uncut). Your first US return label is free."),
+]
+crochet_ec = next(ec for ec in D.EXTRA_COLLECTIONS if ec["kind"] == "crochet")
+FAQ_PAGE = [("general", "General", GENERAL_FAQ), ("wigs", "Lace front wigs", WIG_FAQ),
+            ("crochet", "Crochet & feather extensions", [f for f in crochet_ec["faq"] if "ship" not in f[0].lower()]),
+            ("shipping", "Shipping & returns", SHIP_FAQ)]
+
+# crochet on the homepage, the all-wigs page and wig pages
+crochet = [x for x in extras if x["kind"] == "crochet"]
+crochet_textures = [dict(name=n, url=f"/collections/{crochet_ec['slug']}/?texture={sl}") for sl, n in D.CROCHET_TEXTURES if any(sl in x["textures"] for x in crochet)]
+crochet_promo = dict(name=crochet_ec["name"], url=f"/collections/{crochet_ec['slug']}/", img=crochet[0]["images"][0],
+                     min_price=min(x["price"] for x in crochet), count=len(crochet), textures=crochet_textures)
+for p in products:   # crochet in the same texture first
+    p["crochet"] = sorted(crochet, key=lambda x: p["texture"]["slug"] not in x["textures"])[:4]
+bundle_ec = next(ec for ec in D.EXTRA_COLLECTIONS if ec["kind"] == "bundle")
+home_cats = [dict(name="Lace Front Wigs", url="/collections/wigs/", img=shot("Body Wave", "Honey Blonde", 5),
+                  sub=f"{len(D.TEXTURES)} textures, 10 shades, 18 to 36 inches"),
+             dict(name=crochet_ec["name"], url=crochet_promo["url"], crop=True,   # crochet photos are model + product side by side: show the model
+                  img=dict(file="seamless-burmese-curly-feather-crochet-braid-hair-extensions-4", alt="Model wearing Burmese curly feather crochet extensions"),
+                  sub=f"{len(crochet)} handmade styles, 12 to 22 inches"),
+             dict(name=bundle_ec["name"], url=f"/collections/{bundle_ec['slug']}/", img=None, soon=bool(bundle_ec.get("coming_soon")),
+                  sub="Body wave, straight, deep wave and water wave")]
 
 # ---- strand chart (length visualizer) ----
 import math
@@ -241,10 +279,10 @@ def org_ld():
             "url": "https://chesedhair.com", "logo": "https://chesedhair.com/favicon.svg"}
 
 # HOME
-render("index.html", "/", seo_title="Chesed Hair | Human Hair Lace Front Wigs",
-       seo_description=f"Lace front wigs in 100% unprocessed virgin Remy human hair. {len(D.TEXTURES)} textures, 10 shades, 18 to 36 inches, all shown on the same model.",
+render("index.html", "/", seo_title="Chesed Hair | Human Hair Lace Front Wigs & Crochet Extensions",
+       seo_description=f"Lace front wigs in 100% unprocessed virgin Remy human hair, {len(D.TEXTURES)} textures and 10 shades from 18 to 36 inches, plus handmade crochet and feather extensions.",
        canonical="/", body_class="home overlay", page_id="home", hero=hero, hero_product=hero_product, hero_imgs=hero_imgs, banner_imgs=banner_imgs, banner_texture=banner_texture, all_tile=all_tile, theater=theater,
-       best=best, home_textures=home_textures, n_tex_word=n_tex_word, n_home_tex_word=NUM.get(len(home_textures), str(len(home_textures))), lookbook=lookbook, story=story, spotlight=spotlight, spot_start=spot_start, home_faq=home_faq, jsonld=json.dumps(org_ld()),
+       best=best, home_textures=home_textures, n_tex_word=n_tex_word, n_home_tex_word=NUM.get(len(home_textures), str(len(home_textures))), lookbook=lookbook, story=story, spotlight=spotlight, spot_start=spot_start, home_faq=home_faq, home_cats=home_cats, crochet_promo=crochet_promo, crochet_picks=crochet[:4], jsonld=json.dumps(org_ld()),
        og_image=img(hero['file'], 1024))
 
 # COLLECTIONS
@@ -290,11 +328,12 @@ def split_intro(text, n=2):
 env.globals["split_intro"] = split_intro
 
 tex_related = [dict(label=t["name"], url=f"/collections/{t['slug']}-wigs/") for t in D.TEXTURES]
+crochet_pill = dict(label=crochet_ec["name"], url=f"/collections/{crochet_ec['slug']}/")
 col_related = [dict(label=cc["name"], url=f"/collections/{cc['slug']}-wigs/", hex=D.COL[cc["colors"][0]]["hex"]) for cc in D.COLOR_COLLECTIONS]
 
 hub = dict(h1="Lace Front Wigs", intro=f"Every Chesed wig in one place: {len(D.TEXTURES)} textures and 10 shades of lace front wigs in 100% unprocessed virgin Remy human hair, each available from 18 to 36 inches. All of them are shown on the same model, so you can compare textures and shades fairly. Filter by texture and shade below to narrow it down.",
            products=products, filters=texture_filters(products), filter_key="texture", filter_label="Texture", image=None,
-           faq=home_faq, related_heading="Shop by color", related=col_related,
+           faq=WIG_FAQ, related_heading="Shop by color", related=col_related + [crochet_pill], also=crochet_promo,
            banner=[shot("Straight", "Red", 1), shot("Body Wave", "530", 1), shot("Loose Deep", "Honey Blonde", 1)])
 render("collection.html", "/collections/wigs/", seo_title=f"Lace Front Wigs in {len(D.TEXTURES)} Textures & 10 Colors | Chesed",
        seo_description="Shop all Chesed lace front wigs: body wave, kinky curly, kinky straight, loose deep wave, straight, permed straight, wet & wavy, deep wave and virgin curl, in 10 shades, 18 to 36 inches.",
@@ -311,7 +350,7 @@ for t in D.TEXTURES:
     pool = [p for p in products if p["texture"]["key"] == t["key"]]
     c = dict(h1=f"{t['name']} Wigs", intro=t["intro"], products=pool, filters=color_filters(pool), filter_key="color",
              filter_label="Color", image=t["tile"], faq=t["faq"], related_heading="Other textures", banner=banner_for(pool),
-             related=[r for r in tex_related if r["label"] != t["name"]] + col_related)
+             related=[r for r in tex_related if r["label"] != t["name"]] + col_related + [crochet_pill])
     url = f"/collections/{t['slug']}-wigs/"
     render("collection.html", url, seo_title=TEX_TITLES[t["slug"]], seo_description=t["intro"][:155].rsplit(" ", 1)[0] + "…",
            canonical=url, body_class="shop overlay", page_id=t["slug"], c=c, is_hub=False,
@@ -322,7 +361,7 @@ for cc in D.COLOR_COLLECTIONS:
     img_p = pool[0]
     c = dict(h1=cc["h1"], intro=cc["intro"], products=pool, filters=texture_filters(pool), filter_key="texture",
              filter_label="Texture", image=img_p["images"][0], faq=cc["faq"], related_heading="Other colors", banner=banner_for(pool),
-             related=[r for r in col_related if r["label"] != cc["name"]] + tex_related)
+             related=[r for r in col_related if r["label"] != cc["name"]] + tex_related + [crochet_pill])
     url = f"/collections/{cc['slug']}-wigs/"
     render("collection.html", url, seo_title=cc["title"], seo_description=cc["intro"][:155].rsplit(" ", 1)[0] + "…",
            canonical=url, body_class="shop overlay", page_id=cc["slug"], c=c, is_hub=False, card_lead="texture",
@@ -405,8 +444,8 @@ simple_pages = [
      "<h2>Our ethical commitment</h2><p>We believe beauty should never come at the cost of people.</p>"
      "<p>Our products are created in hygienic facilities that meet high ethical standards, <b>with no labor exploitation.</b></p>"
      ""),
-    ("faq", "Wig FAQ: Lace, Fit, Shipping | Chesed Hair", "Frequently Asked Questions", "Choosing, wearing and caring for your wig.",
-     "".join(f"<h2 id='q{i + 1}'>{q}</h2><p>{a}</p>" for i, (q, a) in enumerate(home_faq)) + "<p class='ph-note'>Shipping answers will be added once Chesed confirms the details.</p>"),
+    ("faq", "FAQ: Wigs, Crochet, Shipping & Returns | Chesed Hair", "Frequently Asked Questions", "Choosing, wearing and caring for your wig or crochet extensions.",
+     "".join(f"<h2 id='{key}'>{name}</h2>" + "".join(f"<h3>{q}</h3><p>{a}</p>" for q, a in items) for key, name, items in FAQ_PAGE)),
     # shipping and returns follow LUVME's terms, as the client asked (23 October 2026)
     ("shipping", "Shipping | Chesed Hair", "Shipping", "Ships within 24 hours. Arrives in 2 to 6 business days.", "<h2>Processing</h2><p>Orders ship within 1 business day (24 hours) of payment, Monday to Friday. You get a confirmation email when you order and a tracking link when it ships.</p><h2>Delivery</h2><p>Every order ships by express shipping and usually arrives in 2 to 6 business days. Allow 2 to 3 extra days around weekends, holidays and busy periods.</p><h2>Shipping cost</h2><p>Free US shipping on orders over ${fs}.</p><h2>Cancelling an order</h2><p>Email us within 1 hour of placing your order to cancel it. Once an order has shipped it can't be cancelled, but you can return it.</p><h2>Questions about your delivery</h2><p>Email <a href='mailto:info@chesedhair.com'>info@chesedhair.com</a> with your order number. If there is a problem or delay we'll email you.</p>".replace("{fs}", str(int(D.FREE_SHIP)))),
     ("returns", "Returns | Chesed Hair", "Returns & Exchanges", "30 days to return or exchange unused hair.", "<h2>30-day returns and exchanges</h2><p>You can return or exchange unused hair within 30 days of receiving it.</p><h2>What we can accept</h2><ul><li>Hair in its original condition: not worn, washed, cut, dyed, bleached or styled.</li><li>Lace untouched: not cut or trimmed.</li><li>Original packaging, with any tags.</li></ul><p>Hair touches the scalp, so for hygiene we can't accept used items.</p><h2>How to start a return</h2><p>Email <a href='mailto:info@chesedhair.com'>info@chesedhair.com</a> with your order number, the reason and a few photos of the item. Once we approve it we'll send the return address. Returns sent without approval can't be refunded.</p><h2>Return shipping</h2><p>Each US order gets one free prepaid return label. After that, return shipping is paid by you. If we sent the wrong item or it arrived damaged, we cover the return.</p><h2>Refunds</h2><p>We refund to your original payment method within 2 business days of receiving and checking your return. Card refunds can take up to 10 business days to show; Shop Pay instalments and PayPal usually take about 3.</p><h2>Exchanges</h2><p>Same steps as a return. Your new item ships within 3 business days of your return arriving.</p>"),
@@ -424,7 +463,7 @@ TOC_PAGES = {"faq"}
 for handle, title, h1, lede, body in simple_pages:
     render("page.html", f"/pages/{handle}/", seo_title=title, seo_description=lede or h1, canonical=f"/pages/{handle}/",
            body_class="shop", page_id=handle, page=dict(h1=h1, lede=lede, body=body, steps=PAGE_STEPS.get(handle),
-           toc=[(f"q{i + 1}", q) for i, (q, _) in enumerate(home_faq)] if handle in TOC_PAGES else None))
+           toc=[(key, name) for key, name, _ in FAQ_PAGE] if handle in TOC_PAGES else None))
 
 assert [h for h, *_ in simple_pages] == SIMPLE_PAGES
 
