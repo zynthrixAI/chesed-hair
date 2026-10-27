@@ -99,7 +99,6 @@ function addToCart(item){
 }
 $('#bagBtn')&&$('#bagBtn').addEventListener('click',()=>{ renderCart(); openLayer(cartEl); });
 $('#cartItems')&&$('#cartItems').addEventListener('click',e=>{ const b=e.target.closest('[data-rm]'); if(b){ cart.splice(+b.dataset.rm,1); save(); renderCart(); } });
-$$('[data-addon]').forEach(b=>b.addEventListener('click',()=>{ addToCart({title:b.dataset.addon,variant:'',price:+b.dataset.price,img:''}); }));
 const toast=$('#toast'); let tt;
 function say(t){ if(!toast)return; toast.textContent=t; toast.classList.add('show'); clearTimeout(tt); tt=setTimeout(()=>toast.classList.remove('show'),2600); }
 $('#checkoutBtn')&&$('#checkoutBtn').addEventListener('click',()=>say('Preview only: checkout connects on Shopify.'));
@@ -112,9 +111,10 @@ document.addEventListener('click',e=>{ const q=e.target.closest('[data-quick]');
   addToCart({title:g.dataset.title,variant:b.dataset.len+'"',price:+(b.dataset.price||g.dataset.price),img:g.dataset.img});
   g.hidden=true; const qb=g.closest('.card').querySelector('[data-quick]'); qb.setAttribute('aria-expanded','false'); qb.textContent='Quick add'; });
 
+const escT=v=>String(v).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 /* product page: show what a won code saves on this wig */
 function codeNotes(){ const pz=prize(); $$('[data-code-note]').forEach(n=>{ const pr=+(n.closest('[data-product],[data-extra]')||{}).dataset?.price||0; const d=discOf(pz,pr);
-  n.hidden=!d; if(d) n.innerHTML=`Your code <b>${pz.code}</b> takes ${pz.label}: <b>${money(pr-d)}</b> at checkout.`; }); }
+  n.hidden=!d; if(d) n.innerHTML=`Your code <b>${escT(pz.code)}</b> takes ${escT(pz.label)}: <b>${money(pr-d)}</b> at checkout.`; }); }
 codeNotes();
 
 /* search overlay: instant results from a small index of every page */
@@ -128,7 +128,7 @@ if(srch&&sIn){ let idx=null, sel=-1;
     load().then(d=>{ const words=q.split(' ');
       const hits=d.map(e=>{ const hay=norm(e.t+' '+e.k+' '+(e.s||'')); if(!words.every(w=>hay.includes(w))) return null;
         return {e,score:(norm(e.t).startsWith(q)?3:0)+(norm(e.t).includes(q)?2:0)+(e.k==='Wig'?0:1)}; }).filter(Boolean).sort((a,b)=>b.score-a.score).slice(0,24);
-      sList.innerHTML=hits.map(({e})=>`<li><a href="${e.u}">${e.i?`<img src="${e.i}" alt="" loading="lazy">`:'<span class="srch-ic"></span>'}<span><b>${esc(e.t)}</b><small>${e.k}${e.p?' · '+money(e.p):''}</small></span></a></li>`).join('');
+      sList.innerHTML=hits.map(({e})=>`<li><a href="${esc(e.u)}">${e.i?`<img src="${esc(e.i)}" alt="" loading="lazy">`:'<span class="srch-ic"></span>'}<span><b>${esc(e.t)}</b><small>${esc(e.k)}${e.p?' · '+money(e.p):''}</small></span></a></li>`).join('');
       $('#srchNone').hidden=!!hits.length; }); }
   const open=()=>{ openLayer(srch); sIn.focus(); load(); };
   $$('[data-search]').forEach(b=>b.addEventListener('click',open));
@@ -299,7 +299,12 @@ if(xp){
     $('#xPrice').textContent=money(cur.price); $('#xBnpl').textContent=money(cur.price/4);
     $('#addPrice').textContent=money(cur.price); const sp=$('#stickyPrice'); if(sp) sp.textContent=money(cur.price);
     $('#stickyLen').textContent=names.map(n=>sel[n]).join(' · ');
-    showColor(sel.Color); }
+    showColor(sel.Color); lenShow(); }
+  /* crochet length photo: the chosen length's line, and where it ends */
+  const el=$('.every-len[data-lens]'), CL=el?JSON.parse(el.dataset.lens):[], CLAND=el?JSON.parse(el.dataset.land):[];
+  function lenShow(){ if(!el||!sel.Length) return; const L=parseInt(sel.Length,10), i=CL.indexOf(L);
+    $$('.el-val').forEach(e=>e.textContent=L+'"'); if(i>=0) $$('.el-land').forEach(e=>e.textContent=CLAND[i]);
+    el.querySelectorAll('.lp-ln').forEach(b=>b.classList.toggle('on',+b.dataset.len===L)); }
   const hero=$('#gGrid .g-first img');
   function showColor(c){ // the chosen colour's photo leads the gallery
     const li=c&&$('#gGrid li[data-color="'+c+'"] img'); if(!li||!hero) return;
@@ -307,7 +312,9 @@ if(xp){
   const set=(want,keep)=>{ const v=pick(want,keep); if(!v) return; cur=v; sel={...v.o}; render(); };
   set(start,null);
   $$('[data-opt] button').forEach(b=>b.addEventListener('click',()=>{ const n=b.closest('[data-opt]').dataset.opt; set({...sel,[n]:b.dataset.v},n); }));
+  el&&el.querySelectorAll('.lp-ln').forEach(b=>b.addEventListener('click',()=>set({...sel,Length:b.dataset.len+'"'},'Length')));
   const add=()=>addToCart({title:xp.dataset.title,variant:names.map(n=>sel[n]).join(' · '),price:cur.price,img:xp.dataset.img});
+  $('#elAdd')&&$('#elAdd').addEventListener('click',add);
   $('#addBtn').addEventListener('click',add); $('#stickyAdd').addEventListener('click',add);
   $$('.buy .shop-pay').forEach(b=>b.addEventListener('click',()=>say('Preview only: Shop Pay connects on Shopify.')));
   const sb=$('#stickyBuy');

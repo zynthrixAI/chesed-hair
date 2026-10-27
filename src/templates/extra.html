@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% import "partials/length_photos.html" as lp %}
 {% block preload %}<link rel="preload" as="image" href="{{ img(p.images[0].file, 1024) }}" imagesrcset="{{ img(p.images[0].file, 560) }} 560w, {{ img(p.images[0].file, 1024) }} 1024w" imagesizes="(max-width:900px) 100vw, 55vw">{% endblock %}
 {% block main %}
 {% set col = p.collection %}
@@ -22,7 +23,7 @@
 
     {% for o in p.options %}
     <div class="opt" data-opt="{{ o.name }}">
-      <p class="opt-label"><span>{{ o.name }}</span><b data-opt-val></b></p>
+      <p class="opt-label"><span>{{ o.name }}</span><b data-opt-val></b>{% if o.name == "Length" and p.length_photo %}<a class="link sm" href="/pages/wig-length-guide/#crochet">Length guide</a>{% endif %}</p>
       <div class="len-row opt-row" role="radiogroup" aria-label="Choose {{ o.name|lower }}">
         {% for v in o["values"] %}<button type="button" role="radio" aria-checked="false" data-v="{{ v }}">{{ v }}</button>{% endfor %}
       </div>
@@ -53,6 +54,21 @@
     </div>
   </div>
 </section>
+
+{% if p.length_photo %}
+<section class="every-len" aria-labelledby="elH" data-lens='{{ crochet_lengths|tojson }}' data-land='{{ p.len_land|tojson }}'>
+  <div class="wrap lv-grid">
+    <div class="lv-copy">
+      <p class="eyebrow rose">Length</p>
+      <h2 id="elH" class="display-sm" data-split>Every length, side by side.</h2>
+      <p class="lv-read"><b class="el-val">{{ crochet_default }}"</b><span>ends at your <em class="el-land">{{ p.len_land[crochet_lengths.index(crochet_default)] }}</em></span></p>
+      <p class="lv-note">Tap a length on the photo to choose it. Shown on a 5'5" model, measured with the hair stretched.{% if p.len_key != "straight" %} Waves and curls spring up, so each length sits about 2 inches higher.{% endif %}</p>
+      <button class="btn rose" type="button" id="elAdd">Add <span class="el-val">{{ crochet_default }}"</span> to bag</button>
+    </div>
+    <div class="lp-one">{{ lp.length_photo(p.length_photo, crochet_default, True, "(max-width:720px) 92vw, 420px") }}</div>
+  </div>
+</section>
+{% endif %}
 
 {# "Worn by you" (try-on videos and Judge.me reviews) removed for now at the client's request, 22 October 2026 #}
 
