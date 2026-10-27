@@ -5,13 +5,12 @@ Updated 27 October 2026. Read this, then [HANDOFF.md](HANDOFF.md) for setup and 
 ## Where things stand
 - **Preview site:** https://lime-deer-681625.hostingersite.com. Everything up to pull request 27 (crochet on the homepage, general FAQs, Hair Bundles hidden) is merged and live.
 - **Shopify store, in progress:** the real store is being built in the user's Partners development store `chesed-hair-umskgt0n.myshopify.com` and will be transferred to Chesed when finished. Products, collections, shade and texture details, info pages and the theme "Chesed" (unpublished) are in. See "Shopify store" in PROJECT.md and the theme's own [CLAUDE.md](../chesed-theme/CLAUDE.md).
-- **Branch `claude/shopify-tools`** (this repo, on this PC, not pushed): the Shopify tools in `src/tools/` and the move of FAQs, page text, the wheel drawing and length lines into `src/data.py`. The preview builds exactly as before. Ask before pushing.
-- **Theme folder** `D:\Work\Chesed Hair\Website\chesed-theme` has its own Git history, not on GitHub yet.
+- **Theme folder** `D:\Work\Chesed Hair\Website\chesed-theme` is on GitHub as the private repo `zynthrixAI/chesed-theme` (branch `main`).
 - **GitHub tool:** signed in as zynthrixAI. **Shopify CLI:** signed in to the user's Partners account, with store access for the tools.
 
 ## Start next time with
-1. Get the store password from the user (Online Store → Preferences → Password protection), run `shopify theme dev` (see the theme's CLAUDE.md) and check every page at 1440px and phone width. Nothing in the theme has been seen in a browser yet.
-2. Fix what's off, push the theme, and show the user screenshots plus the preview link.
+1. The theme was checked in a browser on 27 October (homepage, shopping, wig and crochet pages, info pages, guides, bag, at 1440px and phone width): it matches the preview and the bag uses Shopify's cart. Ask the user for the store password again if needed (it is not written down here); preview with `shopify theme dev` (see the theme's CLAUDE.md).
+2. Open question for the user: the menu, homepage and All wigs text say "9 textures", but only 6 have photos (Permed Straight, Wet & Wavy and Deep Wave are drafts).
 3. Then: menus as Shopify navigation, payments and shipping settings, Judge.me reviews, spin-wheel discount codes.
 
 ## Things to know
