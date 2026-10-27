@@ -10,7 +10,7 @@ Updated 28 October 2026. Read this, then [HANDOFF.md](HANDOFF.md) for setup and 
 
 ## Start next time with
 1. **Chesed's own store: make NO changes** until the user says so. When access arrives, look only, then back up (CSV exports, theme copy, snapshot to files), then follow the steps in PROJECT.md. The Shopify CLI can't reach that store yet.
-2. **Theme repo is 1 commit ahead** of GitHub (e929d48, the updated order confirmation email). Ask before pushing.
+2. **Both repos are up to date on GitHub** (28 October: the updated order confirmation email, then notes in pull request 32).
 3. The user still has to: paste the email into Settings → Notifications, change the store email in Settings → Store details, turn on two-step sign-in.
 4. The theme was checked in a browser on 27 October (homepage, shopping, wig and crochet pages, info pages, guides, bag, at 1440px and phone width): it matches the preview and the bag uses Shopify's cart. Ask the user for the store password again if needed (it is not written down here); preview with `shopify theme dev` (see the theme's CLAUDE.md).
 5. Open question for the user: the menu, homepage and All wigs text say "9 textures", but only 6 have photos (Permed Straight, Wet & Wavy and Deep Wave are drafts).

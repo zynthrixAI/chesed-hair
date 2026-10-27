@@ -191,7 +191,7 @@ The user builds in their own Shopify Partners development store and transfers it
 - **Contact email** is now chesedhaircollection@gmail.com everywhere (site, Shopify pages and theme settings).
 - **Bag add-ons removed** (the "Complete the install" wig cap and edge brush were placeholders).
 - **Order confirmation email** for Shopify: `chesed-theme/notifications/order-confirmation.liquid`, pasted by hand into Settings → Notifications.
-- **Order confirmation email updated (28 October)** against Shopify's own default template, so nothing Shopify shows is lost: pending payment, pay on fulfilment and "action needed" messages, estimated delivery, the delivery note, gift cards, the PO number, Shopify's product title order, and the line photo. Commit e929d48 in the theme repo, **not pushed yet**.
+- **Order confirmation email updated (28 October)** against Shopify's own default template, so nothing Shopify shows is lost: pending payment, pay on fulfilment and "action needed" messages, estimated delivery, the delivery note, gift cards, the PO number, Shopify's product title order, and the line photo. Theme repo commit e929d48, pushed 28 October.
 - **Checks by agents:** security (no secrets anywhere; fixed text escaping in the script, added security headers on the preview, notes files hidden from the public preview), speed (smaller photos for phones, banner photos lazy-loaded), mobile (no sideways scrolling at 360px; bigger tap targets; readable sticky price; a "swipe" hint under the length tables).
 
 ### Plan change: update Chesed's own store instead of transferring (28 October 2026)
@@ -239,7 +239,8 @@ The user builds in their own Shopify Partners development store and transfers it
 - [ ] Create the spin-wheel discount codes in Shopify.
 - [ ] Connect an email platform (e.g. Klaviyo) so the welcome wheel actually sends emails.
 - [ ] Set free shipping over $100 in Shopify's shipping settings.
-- [ ] Push the updated order confirmation email (theme repo commit e929d48); the user pastes it into Settings → Notifications.
+- [x] Push the updated order confirmation email (theme repo, 28 October).
+- [ ] The user: paste the email into Settings → Notifications.
 - [ ] The user: change the store email in Settings → Store details and turn on two-step sign-in.
 - [ ] Get access to Chesed's own store, then follow the steps under "Plan change" above (no transfer).
 - [ ] Suggest a backup app (e.g. Rewind) to Chesed before launch.
