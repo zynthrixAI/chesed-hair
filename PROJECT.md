@@ -182,6 +182,8 @@ The user builds in their own Shopify Partners development store and transfers it
 - **Pages:** About, FAQ, Shipping, Returns, Contact, the length guide and the color guide, with the preview's text (`PAGES`, `PAGE_STEPS`, `FAQ_PAGE` in `src/data.py`). Each uses its own template. `src/tools/shopify_pages.py`.
 - **Theme "Chesed"** (unpublished, id 188679127198): built from Shopify's Skeleton theme in `chesed-theme`. Homepage sections, header and footer, shopping pages with filters, wig and crochet pages, info pages, guides, bag, search, 404. The bag is Shopify's real cart (`/cart.js`); search reads `/collections/all?view=search-index`. See that folder's `CLAUDE.md`.
 - **Shared pieces:** `src/tools/theme_snippets.py` copies the stylesheet, fonts, non-product photos, spin wheel, length photos and sample reviews from the preview into the theme. The spin wheel drawing and length-line positions moved to `src/data.py` (`wheel_svg`, `length_photo`).
+- **Textures without wigs on sale are hidden on Shopify** (27 October, user): Permed Straight, Wet & Wavy and Deep Wave are left out of the menus, footer and links, and the texture count says 6. They come back by themselves when their wigs are made active. The All wigs intro counts the same way (`shopify_collections.py`).
+- **Footer line on both sites:** "Lace front wigs and crochet extensions in 100% human hair."
 - **Checked in a browser (27 October):** every page type at 1440px and phone width matches the preview; adding a wig puts the chosen length in Shopify's cart. No Liquid errors; theme check passes. Theme code is in the private repo `zynthrixAI/chesed-theme`.
 
 ---
