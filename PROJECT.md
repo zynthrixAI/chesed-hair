@@ -186,6 +186,13 @@ The user builds in their own Shopify Partners development store and transfers it
 - **Footer line on both sites:** "Lace front wigs and crochet extensions in 100% human hair."
 - **Checked in a browser (27 October):** every page type at 1440px and phone width matches the preview; adding a wig puts the chosen length in Shopify's cart. No Liquid errors; theme check passes. Theme code is in the private repo `zynthrixAI/chesed-theme`.
 
+### Crochet lengths, email, checks (27 October 2026)
+- **Crochet and feather lengths** (12" to 22") on the same length photos: on every crochet page ("Every length, side by side", tap a length to pick it) and in a new section of the length guide. Where each length ends was measured on the photo (12" shoulders, 14" below the shoulders, 16" armpits, 18" bust, 22" mid ribs; waves and curls one step higher). `CROCHET_LENGTHS`, `CROCHET_LANDMARKS`, `CROCHET_CURLY_LANDMARKS`, `CROCHET_LENGTH_PHOTO` in `src/data.py`. **Chesed to confirm.**
+- **Contact email** is now chesedhaircollection@gmail.com everywhere (site, Shopify pages and theme settings).
+- **Bag add-ons removed** (the "Complete the install" wig cap and edge brush were placeholders).
+- **Order confirmation email** for Shopify: `chesed-theme/notifications/order-confirmation.liquid`, pasted by hand into Settings → Notifications.
+- **Checks by agents:** security (no secrets anywhere; fixed text escaping in the script, added security headers on the preview, notes files hidden from the public preview), speed (smaller photos for phones, banner photos lazy-loaded), mobile (no sideways scrolling at 360px; bigger tap targets; readable sticky price; a "swipe" hint under the length tables).
+
 ---
 
 ## To do

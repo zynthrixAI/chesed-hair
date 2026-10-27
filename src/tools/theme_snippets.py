@@ -4,7 +4,7 @@
 
 Writes:
   assets/   chesed.css (stylesheet, font paths for Shopify), fonts, lenis.min.js, the non-product photos
-  snippets/ spin.liquid, length-trio.liquid, length-table.liquid, length-table-short.liquid, length-pick-<photo>.liquid, reviews.liquid, logo.liquid, chesed-config.liquid
+  snippets/ spin.liquid, length-trio.liquid, length-table.liquid, length-table-short.liquid, length-pick-<photo>.liquid, length-pick-crochet-<photo>.liquid, length-trio-crochet.liquid, length-table-crochet.liquid, reviews.liquid, logo.liquid, chesed-config.liquid
 The theme's own script (assets/chesed.js) is edited in the theme, not copied: its cart talks to Shopify.
 Photos in snippets use Liquid's asset_url, so they are served from the theme.
 """
@@ -45,9 +45,15 @@ write("snippets/length-table-short.liquid", head + macro("partials/length_photos
 for c in D.LENGTH_PHOTOS:   # the wig page's photo, where tapping a length picks it
     write(f"snippets/length-pick-{c['key']}.liquid", head + macro("partials/length_photos.html", "length_photo", D.length_photo(c["key"]),
                                                                   D.DEFAULT_LENGTH, True, "(max-width:720px) 92vw, 420px"))
+for c in D.LENGTH_PHOTOS:   # crochet pages: 12" to 22"
+    write(f"snippets/length-pick-crochet-{c['key']}.liquid", head + macro("partials/length_photos.html", "length_photo", D.length_photo(c["key"], D.CROCHET_LENGTHS),
+                                                                          D.CROCHET_DEFAULT_LENGTH, True, "(max-width:720px) 92vw, 420px"))
+write("snippets/length-trio-crochet.liquid", head + macro("partials/length_photos.html", "length_trio", [D.length_photo(c["key"], D.CROCHET_LENGTHS) for c in D.LENGTH_PHOTOS]))
+write("snippets/length-table-crochet.liquid", head + macro("partials/length_photos.html", "length_table", D.CROCHET_LENGTHS, D.CROCHET_LANDMARKS, D.CROCHET_CURLY_LANDMARKS))
 write("snippets/reviews.liquid", head + macro("partials/macros.html", "reviews_block"))
 write("snippets/chesed-config.liquid", head + "<script>window.CHESED=" + json.dumps(dict(
-    freeShip=D.FREE_SHIP, lens=D.LENGTHS, land=D.LANDMARKS, landc=D.CURLY_LANDMARKS)) + ";</script>")
+    freeShip=D.FREE_SHIP, lens=D.LENGTHS, land=D.LANDMARKS, landc=D.CURLY_LANDMARKS,
+    clens=D.CROCHET_LENGTHS, cland=D.CROCHET_LANDMARKS, clandc=D.CROCHET_CURLY_LANDMARKS, cphoto=D.CROCHET_LENGTH_PHOTO)) + ";</script>")
 
 # assets
 css = open(os.path.join(ROOT, "assets", "css", "style.css"), encoding="utf-8").read()

@@ -45,6 +45,18 @@ LENGTH_PHOTOS = [dict(key="straight", label="Straight", up=0), dict(key="wavy", 
                  dict(key="curly", label="Curly", up=2)]
 WAVY_TEXTURES = {"Body Wave", "Loose Deep", "Wet & Wavy"}   # the other curly textures use the curly photo
 
+# Crochet and feather lengths, shown on the same length photos (measured on the photo, 27 October 2026: 18" lands on the bust
+# like the wigs). Waves and curls sit about 2 inches higher. Chesed to confirm.
+CROCHET_LENGTHS = [12, 14, 16, 18, 22]
+CROCHET_DEFAULT_LENGTH = 16
+CROCHET_LANDMARKS = ["shoulders", "below the shoulders", "armpits", "bust", "mid ribs"]
+CROCHET_CURLY_LANDMARKS = ["neck", "shoulders", "below the shoulders", "armpits", "below the bust"]
+CROCHET_LENGTH_PHOTO = {"kinky-straight": "straight", "straight": "straight", "body-wave": "wavy", "wet-and-wavy": "wavy",
+                        "water-wave": "wavy", "deep-wave": "curly", "burmese-curly": "curly"}   # crochet texture -> length photo
+
+def crochet_length_photo_key(extra):
+    return next((CROCHET_LENGTH_PHOTO[t] for t in extra["textures"] if t in CROCHET_LENGTH_PHOTO), "curly")
+
 def length_photo_key(texture):
     return "straight" if not texture["curly"] else "wavy" if texture["key"] in WAVY_TEXTURES else "curly"
 
@@ -388,10 +400,11 @@ HOME_FAQ = GENERAL_FAQ[:2] + [
 ]
 
 
-def length_photo(key):
-    """One length photo with the height of each length line, in % of the photo (18" at 500px of 1200, 30px an inch)."""
+def length_photo(key, lengths=None):
+    """One length photo with the height of each length line, in % of the photo (18" at 500px of 1200, 30px an inch).
+    Wigs by default; pass CROCHET_LENGTHS for crochet."""
     ph = next(c for c in LENGTH_PHOTOS if c["key"] == key)
-    return dict(ph, file=f"length-{key}", lines=[dict(len=L, y=round((500 + (L - ph["up"] - 18) * 30) / 12, 2)) for L in LENGTHS])
+    return dict(ph, file=f"length-{key}", lines=[dict(len=L, y=round((500 + (L - ph["up"] - 18) * 30) / 12, 2)) for L in lengths or LENGTHS])
 
 
 def wheel_svg():
@@ -430,9 +443,9 @@ PAGES = [
     ("faq", "FAQ: Wigs, Crochet, Shipping & Returns | Chesed Hair", "Frequently Asked Questions", "Choosing, wearing and caring for your wig or crochet extensions.",
      "".join(f"<h2 id='{key}'>{name}</h2>" + "".join(f"<h3>{q}</h3><p>{a}</p>" for q, a in items) for key, name, items in FAQ_PAGE)),
     # shipping and returns follow LUVME's terms, as the client asked (23 October 2026)
-    ("shipping", "Shipping | Chesed Hair", "Shipping", "Ships within 24 hours. Arrives in 2 to 6 business days.", "<h2>Processing</h2><p>Orders ship within 1 business day (24 hours) of payment, Monday to Friday. You get a confirmation email when you order and a tracking link when it ships.</p><h2>Delivery</h2><p>Every order ships by express shipping and usually arrives in 2 to 6 business days. Allow 2 to 3 extra days around weekends, holidays and busy periods.</p><h2>Shipping cost</h2><p>Free US shipping on orders over ${fs}.</p><h2>Cancelling an order</h2><p>Email us within 1 hour of placing your order to cancel it. Once an order has shipped it can't be cancelled, but you can return it.</p><h2>Questions about your delivery</h2><p>Email <a href='mailto:info@chesedhair.com'>info@chesedhair.com</a> with your order number. If there is a problem or delay we'll email you.</p>".replace("{fs}", str(int(FREE_SHIP)))),
-    ("returns", "Returns | Chesed Hair", "Returns & Exchanges", "30 days to return or exchange unused hair.", "<h2>30-day returns and exchanges</h2><p>You can return or exchange unused hair within 30 days of receiving it.</p><h2>What we can accept</h2><ul><li>Hair in its original condition: not worn, washed, cut, dyed, bleached or styled.</li><li>Lace untouched: not cut or trimmed.</li><li>Original packaging, with any tags.</li></ul><p>Hair touches the scalp, so for hygiene we can't accept used items.</p><h2>How to start a return</h2><p>Email <a href='mailto:info@chesedhair.com'>info@chesedhair.com</a> with your order number, the reason and a few photos of the item. Once we approve it we'll send the return address. Returns sent without approval can't be refunded.</p><h2>Return shipping</h2><p>Each US order gets one free prepaid return label. After that, return shipping is paid by you. If we sent the wrong item or it arrived damaged, we cover the return.</p><h2>Refunds</h2><p>We refund to your original payment method within 2 business days of receiving and checking your return. Card refunds can take up to 10 business days to show; Shop Pay instalments and PayPal usually take about 3.</p><h2>Exchanges</h2><p>Same steps as a return. Your new item ships within 3 business days of your return arriving.</p>"),
-    ("contact", "Contact | Chesed Hair", "Contact", None, "<p>Email <a href='mailto:info@chesedhair.com'>info@chesedhair.com</a>. We reply within 1 business day.</p>"),
+    ("shipping", "Shipping | Chesed Hair", "Shipping", "Ships within 24 hours. Arrives in 2 to 6 business days.", "<h2>Processing</h2><p>Orders ship within 1 business day (24 hours) of payment, Monday to Friday. You get a confirmation email when you order and a tracking link when it ships.</p><h2>Delivery</h2><p>Every order ships by express shipping and usually arrives in 2 to 6 business days. Allow 2 to 3 extra days around weekends, holidays and busy periods.</p><h2>Shipping cost</h2><p>Free US shipping on orders over ${fs}.</p><h2>Cancelling an order</h2><p>Email us within 1 hour of placing your order to cancel it. Once an order has shipped it can't be cancelled, but you can return it.</p><h2>Questions about your delivery</h2><p>Email <a href='mailto:chesedhaircollection@gmail.com'>chesedhaircollection@gmail.com</a> with your order number. If there is a problem or delay we'll email you.</p>".replace("{fs}", str(int(FREE_SHIP)))),
+    ("returns", "Returns | Chesed Hair", "Returns & Exchanges", "30 days to return or exchange unused hair.", "<h2>30-day returns and exchanges</h2><p>You can return or exchange unused hair within 30 days of receiving it.</p><h2>What we can accept</h2><ul><li>Hair in its original condition: not worn, washed, cut, dyed, bleached or styled.</li><li>Lace untouched: not cut or trimmed.</li><li>Original packaging, with any tags.</li></ul><p>Hair touches the scalp, so for hygiene we can't accept used items.</p><h2>How to start a return</h2><p>Email <a href='mailto:chesedhaircollection@gmail.com'>chesedhaircollection@gmail.com</a> with your order number, the reason and a few photos of the item. Once we approve it we'll send the return address. Returns sent without approval can't be refunded.</p><h2>Return shipping</h2><p>Each US order gets one free prepaid return label. After that, return shipping is paid by you. If we sent the wrong item or it arrived damaged, we cover the return.</p><h2>Refunds</h2><p>We refund to your original payment method within 2 business days of receiving and checking your return. Card refunds can take up to 10 business days to show; Shop Pay instalments and PayPal usually take about 3.</p><h2>Exchanges</h2><p>Same steps as a return. Your new item ships within 3 business days of your return arriving.</p>"),
+    ("contact", "Contact | Chesed Hair", "Contact", None, "<p>Email <a href='mailto:chesedhaircollection@gmail.com'>chesedhaircollection@gmail.com</a>. We reply within 1 business day.</p>"),
 ]
 PAGE_STEPS = {
     "shipping": [("bag", "You order", "Pay in full or in 4 with Shop Pay. You get a confirmation email right away."),

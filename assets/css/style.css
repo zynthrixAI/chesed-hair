@@ -1306,3 +1306,20 @@ button.lp-ln:focus-visible{outline:2px solid var(--rose);outline-offset:4px}
 .cs-txt b{display:block;font:400 clamp(28px,2.8vw,44px)/1.1 var(--display);margin:10px 0 14px}
 .cs-txt em{font-style:normal}
 @media (max-width:900px){.catsplit-grid{grid-template-columns:1fr}.cs-img{height:auto;width:100%;max-width:420px}.cs-img:not(.sq){max-width:300px}}
+.lg-h{margin:clamp(40px,5vw,72px) 0 8px}
+
+/* phones and tablets (mobile check, 27 October 2026) */
+.sticky-buy .btn span{color:inherit}
+@media (hover:none),(max-width:900px){.sw-pop{display:none}}
+@media (max-width:720px){
+  .split,.page-head,.prose{grid-template-columns:minmax(0,1fr)}
+  .card-add{min-height:40px;padding:0 14px;font-size:11px;display:inline-flex;align-items:center}
+  .th-sw button{width:40px;height:40px}
+  .sort select{min-height:40px}
+  .pill{min-height:40px}
+  .seg button{min-height:40px}
+  .ftr li a,.ftr-mail,.ftr-all{display:inline-block;padding:8px 0}
+  .catx-txt small,.crumbs{font-size:11px}
+  .every-len #elAdd{width:100%}
+  .lp-tw::after{content:"Swipe to see every length \2192";display:block;margin-top:10px;font:600 10.5px/1 var(--mark);letter-spacing:.12em;text-transform:uppercase;color:var(--slate)}
+}
