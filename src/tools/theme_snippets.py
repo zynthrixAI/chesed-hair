@@ -4,7 +4,7 @@
 
 Writes:
   assets/   chesed.css (stylesheet, font paths for Shopify), fonts, lenis.min.js, the non-product photos
-  snippets/ spin.liquid, length-trio.liquid, length-table.liquid, length-pick-<photo>.liquid, reviews.liquid, logo.liquid, chesed-config.liquid
+  snippets/ spin.liquid, length-trio.liquid, length-table.liquid, length-table-short.liquid, length-pick-<photo>.liquid, reviews.liquid, logo.liquid, chesed-config.liquid
 The theme's own script (assets/chesed.js) is edited in the theme, not copied: its cart talks to Shopify.
 Photos in snippets use Liquid's asset_url, so they are served from the theme.
 """
@@ -41,6 +41,7 @@ write("snippets/spin.liquid", head + env.get_template("partials/spin.html").rend
 write("snippets/logo.liquid", head + open(os.path.join(SRC, "templates", "partials", "logo.html"), encoding="utf-8").read())
 write("snippets/length-trio.liquid", head + macro("partials/length_photos.html", "length_trio", [D.length_photo(c["key"]) for c in D.LENGTH_PHOTOS]))
 write("snippets/length-table.liquid", head + macro("partials/length_photos.html", "length_table", D.LENGTHS, D.LANDMARKS, D.CURLY_LANDMARKS))
+write("snippets/length-table-short.liquid", head + macro("partials/length_photos.html", "length_table", D.LENGTHS, D.LANDMARKS))   # homepage: straight only
 for c in D.LENGTH_PHOTOS:   # the wig page's photo, where tapping a length picks it
     write(f"snippets/length-pick-{c['key']}.liquid", head + macro("partials/length_photos.html", "length_photo", D.length_photo(c["key"]),
                                                                   D.DEFAULT_LENGTH, True, "(max-width:720px) 92vw, 420px"))

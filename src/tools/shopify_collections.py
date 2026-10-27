@@ -18,7 +18,7 @@ def tag_rule(tag):
 
 products = D.build_products()
 cols = [dict(handle="wigs", title="Lace Front Wigs", rules=[tag_rule("wig")],
-             body=f"Every Chesed wig in one place: {len(D.TEXTURES)} textures and 10 shades of lace front wigs in 100% unprocessed virgin Remy human hair, each available from 18 to 36 inches.",
+             body=f"Every Chesed wig in one place: {len(D.TEXTURES)} textures and 10 shades of lace front wigs in 100% unprocessed virgin Remy human hair, each available from 18 to 36 inches. All of them are shown on the same model, so you can compare textures and shades fairly. Filter by texture and shade below to narrow it down.",
              seo=f"Lace Front Wigs in {len(D.TEXTURES)} Textures & 10 Colors | Chesed")]
 for t in D.TEXTURES:
     cols.append(dict(handle=f"{t['slug']}-wigs", title=f"{t['name']} Wigs", rules=[tag_rule(f"texture-{t['slug']}")], body=t["intro"],
@@ -36,8 +36,11 @@ have = {c["handle"] for c in gql("{ collections(first: 100) { nodes { handle } }
 CREATE = """mutation($input: CollectionInput!) { collectionCreate(input: $input) { collection { id handle productsCount { count } } userErrors { field message } } }"""
 PUBLISH = """mutation($id: ID!, $pub: ID!) { publishablePublish(id: $id, input: [{publicationId: $pub}]) { userErrors { message } } }"""
 for c in cols:
-    if c["handle"] in have:
-        print(f"exists   {c['handle']}")
+    if c["handle"] in have:   # keep the intro in step with the catalogue
+        cid = next(n["id"] for n in gql("query($q: String) { collections(first: 1, query: $q) { nodes { id } } }", {"q": f"handle:{c['handle']}"})["collections"]["nodes"])
+        gql("mutation($c: CollectionInput!) { collectionUpdate(input: $c) { userErrors { message } } }",
+            {"c": {"id": cid, "descriptionHtml": f"<p>{c['body']}</p>"}}, mutation=True)
+        print(f"exists   {c['handle']} (intro updated)")
         continue
     r = gql(CREATE, {"input": {"title": c["title"], "handle": c["handle"], "descriptionHtml": f"<p>{c['body']}</p>",
                                "ruleSet": {"appliedDisjunctively": True, "rules": c["rules"]},
@@ -56,6 +59,8 @@ SORT = "mutation($c: CollectionInput!) { collectionUpdate(input: $c) { userError
 REORDER = "mutation($id: ID!, $moves: [MoveInput!]!) { collectionReorderProducts(id: $id, moves: $moves) { userErrors { message } } }"
 for c in cols:
     members = [p["handle"] for p in products if any(r["condition"] in (["wig", f"texture-{p['texture']['slug']}", f"shade-{p['color']['slug']}"]) for r in c["rules"])]
+    if c["rules"][0]["condition"] == "crochet":
+        members = [x["handle"] for x in D.build_extras() if x["kind"] == "crochet"]
     if not members or c["handle"] not in col_nodes:
         continue
     cid = col_nodes[c["handle"]]
