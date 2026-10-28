@@ -618,7 +618,9 @@ input[type=range]{accent-color:var(--rose);height:28px;cursor:pointer}
 .rv-track>li,.rail>li{scroll-snap-align:start;min-width:0}
 .rv-card{display:flex;flex-direction:column;gap:24px;background:#fff;border:1px solid var(--line);padding:clamp(26px,3vw,46px);position:relative;overflow:hidden}
 .rv-card::before{content:"\201C";position:absolute;right:22px;top:-18px;font:400 160px/1 var(--display);color:var(--blush);pointer-events:none}
-.rv-stars{color:var(--rose);letter-spacing:.24em;font-size:14px;position:relative}
+.rv-stars{color:var(--rose);font-size:14px;position:relative}
+.rv-stars span{margin-right:.24em}.rv-stars .o{color:color-mix(in srgb,var(--rose) 25%,transparent)}
+.rv-stars .h{background:linear-gradient(90deg,var(--rose) 50%,color-mix(in srgb,var(--rose) 25%,transparent) 50%);-webkit-background-clip:text;background-clip:text;color:transparent}
 .rv-card blockquote{margin:0;flex:1;position:relative}
 .rv-card blockquote p{font:400 clamp(19px,1.55vw,24px)/1.45 var(--display);color:var(--ink)}
 .rv-by{display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-top:1px solid var(--line);padding-top:18px;font-size:15px}
