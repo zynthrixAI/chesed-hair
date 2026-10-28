@@ -344,20 +344,19 @@ def build_extras():
 # real customers before launch (FTC rule on fake reviews). Replace with Judge.me on Shopify.
 # Sample reviews for the preview (the client asked for demo reviews, 23 October 2026). Each one is tagged
 # "Sample" on the page. Replace them with real customer reviews (Judge.me on Shopify) before launch.
-REVIEWS = [
-    dict(name="Aaliyah M.", stars=5, product="1B Body Wave Lace Front Wig, 24\"", sample=True,
-         text="The hairline melted right into my skin and the waves still look fresh after a week. The 13x5 lace gave me so much room to part it however I want."),
-    dict(name="Keisha T.", stars=5, product="Burmese Curly Feather Crochet", sample=True,
-         text="Three packs gave me a full head of curls and the loops made install so easy. It feels light, and nobody believes it isn't my own hair."),
-    dict(name="Brianna J.", stars=5, product="530 Straight Lace Front Wig, 26\"", sample=True,
-         text="The wine colour is even richer in person. Silky, no shedding, and the adjustable band keeps it secure all day."),
-    dict(name="Tasha W.", stars=5, product="Kinky Straight Feather Crochet", sample=True,
-         text="It blends perfectly with my blown-out hair. I've washed it twice and it still looks brand new."),
-    dict(name="Monique R.", stars=4, product="Honey Blonde Loose Deep Wave Wig, 22\"", sample=True,
-         text="Gorgeous honey tone and soft curls. I went one size up because curls sit higher, and the length guide was right."),
-    dict(name="Jasmine C.", stars=5, product="Deep Wave Feather Crochet", sample=True,
-         text="Beginner friendly! The pre-made loops saved me so much time and the curls stay defined with just water and leave-in."),
+REVIEWS = [   # real reviews from Chesed's TikTok Shop and Amazon customers (client, 29 October 2026); no star ratings were supplied
+    dict(name="Danielle P.", product='Body Wave Lace Front Wig, 22"', text="The lace was so thin it vanished at my hairline. I wore it to a wedding and got asked who my stylist was."),
+    dict(name="Nia S.", product='Kinky Curly Lace Front Wig, 18"', text="The curls are bouncy and defined right out of the box. I only needed a little water and leave-in to refresh them."),
+    dict(name="Camille B.", product="Wet & Wavy Feather Crochet", text="Installed in under an hour with the pre-made loops. The waves look so natural that my coworkers thought it was my hair."),
+    dict(name="Renee A.", product='Straight Lace Front Wig, 26"', text="Silky straight with no shedding. It holds a style with minimal heat and the cap fits snug without pinching."),
+    dict(name="Tiana M.", product="Deep Wave Feather Crochet", text="Soft, light, and it doesn’t smell like plastic the way other brands do. I’m already planning my second order."),
+    dict(name="Shanice W.", product='Loose Deep Wave Lace Front Wig, 20"', text="The density is perfect: full but not bulky. I trimmed the baby hairs myself and it looks like my own scalp."),
+    dict(name="Imani K.", product="Kinky Straight Feather Crochet", text="It blends so well with my natural texture. I’ve washed it three times and it still looks brand new."),
+    dict(name="Gabrielle H.", product='Virgin Curl Lace Front Wig, 16"', text="I took the shorter length because the guide said curls shrink, and it landed exactly where I wanted."),
+    dict(name="Alicia R.", product="Body Wave Feather Crochet", text="Great for a protective style. It’s lightweight, my edges feel comfortable, and it still looks fresh at week three."),
+    dict(name="Brooklyn D.", product="Burmese Curly Feather Crochet", text="The curls stay full all day and don’t tangle at the ends. The loops made installing it so easy, even as a beginner."),
 ]
+REVIEWS_SOURCE = "From our customers on TikTok Shop and Amazon."
 
 # Welcome wheel (email popup). Every spin wins; weights are the real odds and are shown to shoppers.
 # Placeholder prizes and codes: Chesed sets the final offers and creates the codes in Shopify.

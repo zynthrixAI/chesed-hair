@@ -23,7 +23,7 @@ PHOTOS = ["length-straight", "length-wavy", "length-curly", "banner-curly-burgun
 env = Environment(loader=FileSystemLoader(os.path.join(SRC, "templates")), autoescape=select_autoescape(["html"]),
                   trim_blocks=True, lstrip_blocks=True)
 env.globals.update(img=lambda file, w: Markup("{{ '%s-%d.webp' | asset_url }}" % (file, w)),
-                   free_ship=D.FREE_SHIP, reviews=D.REVIEWS, spin_prizes=D.SPIN_PRIZES, wheel=lambda: Markup(D.wheel_svg()),
+                   free_ship=D.FREE_SHIP, reviews=D.REVIEWS, reviews_source=D.REVIEWS_SOURCE, spin_prizes=D.SPIN_PRIZES, wheel=lambda: Markup(D.wheel_svg()),
                    spin_odds=", ".join(f'{p["label"]} {p["weight"]}%' for p in D.SPIN_PRIZES))
 
 def write(rel, text):

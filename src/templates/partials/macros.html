@@ -56,12 +56,13 @@
   <div class="split-head">
     <p class="eyebrow">Reviews</p>
     <h2 id="revH" data-split>{{ heading }}</h2>
+    {% if reviews_source %}<p class="rv-src">{{ reviews_source }}</p>{% endif %}
     <div class="rv-nav"><button type="button" class="rv-btn" data-rv="-1" aria-label="Previous review">←</button><button type="button" class="rv-btn" data-rv="1" aria-label="Next review">→</button></div>
   </div>
   <div>
     <ul class="rv-track" role="list" data-rv-track>
       {% for r in reviews %}<li class="rv-card">
-        <p class="rv-stars" aria-label="{{ r.stars }} out of 5 stars">{% for i in range(r.stars) %}★{% endfor %}</p>
+        {% if r.stars %}<p class="rv-stars" aria-label="{{ r.stars }} out of 5 stars">{% for i in range(r.stars) %}★{% endfor %}</p>{% endif %}
         <blockquote><p>{{ r.text }}</p></blockquote>
         <p class="rv-by"><b>{{ r.name }}{% if r.sample %} <span class="ph rv-sample">Sample</span>{% endif %}</b><span>{{ r.product }}</span></p>
       </li>{% endfor %}
