@@ -18,7 +18,7 @@ Hostinger pulls `main` and serves the repo root. Commit the rendered pages along
 - Cart, checkout, Shop Pay and email signup are front-end only. Nothing is charged or stored.
 
 ## Conversion features
-- **Welcome wheel** (`partials/spin.html`): email popup where every spin wins. Opens after 12 seconds or on desktop exit intent, once per visit, and stays quiet for a week after "No thanks" (a "Spin to win" tab stays in the corner). Prizes, odds and codes live in `SPIN_PRIZES` in `src/data.py`. The odds are real and shown in the fine print. A won code is saved in the browser and shown in the bag and on product pages. On Shopify, codes must exist as discounts and emails go to the email platform (e.g. Klaviyo).
+- **Welcome wheel** (`partials/spin.html`): email popup where every spin wins. Opens after 4 seconds or on desktop exit intent, once per visit, and stays quiet for a week after "No thanks" (a "Spin to win" tab stays in the corner). Prizes, odds and codes live in `SPIN_PRIZES` in `src/data.py`. The odds are real and shown in the fine print. A won code is saved in the browser and shown in the bag and on product pages. On Shopify the codes exist as discounts in the store, and each email is saved in Customers (tagged `spin-wheel` and the code).
 - **Search** (`partials/search.html`): instant results from `assets/search.json`, written by the build. Opens from the search icon or the `/` key.
 - **Product cards**: installment price and a quick add with a length picker.
 - **Product page**: trust row by the Add button, Judge.me rating slot under the title, and a reviews + try-on video section for Judge.me.
