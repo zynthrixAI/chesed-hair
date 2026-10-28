@@ -163,9 +163,9 @@ if(spin){ const prizes=JSON.parse(spin.dataset.prizes), g=$('#wheelSpin'), DAY=8
     const done=()=>{ showWin(win,true); setTimeout(()=>$('#spinWon').focus(),30); renderCart(); codeNotes(); };
     if(reduce||!g.animate){ g.style.transform=`rotate(${deg}deg)`; done(); return; }
     g.animate([{transform:'rotate(0deg)'},{transform:`rotate(${deg}deg)`}],{duration:4800,easing:'cubic-bezier(.12,.75,.1,1)',fill:'forwards'}).finished.then(done); });
-  /* when to show it: after 12s, or desktop exit intent; once per visit; quiet for a week after "no thanks" */
+  /* when to show it: after 4s, or desktop exit intent; once per visit; quiet for a week after "no thanks" */
   if(prize()||snoozed()){ if(!prize()) tab.hidden=false; }
-  else if(!shown()){ const t=setTimeout(()=>{ if(cartEl.hidden&&drawer.hidden&&(!srch||srch.hidden)) openSpin(); },12000);
+  else if(!shown()){ const t=setTimeout(()=>{ if(cartEl.hidden&&drawer.hidden&&(!srch||srch.hidden)) openSpin(); },4000);
     if(matchMedia('(hover:hover) and (pointer:fine)').matches) document.addEventListener('mouseout',function x(e){ if(!e.relatedTarget&&e.clientY<=0){ clearTimeout(t); document.removeEventListener('mouseout',x); if(!shown()) openSpin(); } }); }
 }
 
