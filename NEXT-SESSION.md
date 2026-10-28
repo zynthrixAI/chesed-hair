@@ -11,7 +11,7 @@ Updated 29 October 2026. Read this, then [HANDOFF.md](HANDOFF.md) for setup and 
 ## Start next time with
 1. **Live since 29 October 2026:** the Chesed theme is the live theme on Chesed's store (www.chesedhair.com, `gvit1g-jv.myshopify.com`, theme id 158858969142); see "Launched" in PROJECT.md. `shopify theme push` there now changes the public site: only with the user's go-ahead, and show them first. Their old theme "Re-degine Be Yours" is kept unpublished as a fallback.
 2. **Nothing from 28 to 29 October is on GitHub yet:** both repos have local commits. Ask before `git push`.
-3. **The user does in the admin:** paste the policies (`D:\Work\Chesed Hair\Shopify\policies-to-paste.html`), the free shipping over $100 rate, payments and Apple/Google Pay, two-step sign-in. Georgia sales tax waits on the client.
+3. **Done by the user (29 October):** the free shipping over $100 rate, the policies (all 5 live, linked in the footer) and payments. **Georgia sales tax is the client's job**; no tax is charged until they set it up.
 4. **Waiting on the client:** `D:\Work\Chesed Hair\Shopify\what-we-need-from-chesed.md` (star ratings, tax, business details, shipping times, photos, prices).
 5. The dev store's live theme doesn't have the 28 to 29 October theme changes (pushing to it was blocked); push only with the user's go-ahead.
 6. Later: menus as Shopify navigation, a reviews app (Judge.me), an email platform for the wheel, a backup app (Rewind).
