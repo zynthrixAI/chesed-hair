@@ -148,7 +148,7 @@ if(spin){ const prizes=JSON.parse(spin.dataset.prizes), g=$('#wheelSpin'), DAY=8
   let spun=false;
   function openSpin(){ if(!spin.hidden) return; markShown(); tab.hidden=true; if(prize()) showWin(prize(),false); openLayer(spin); setTimeout(()=>$('#spinEmail')&&!prize()&&$('#spinEmail').focus(),50); }
   function closeSpin(){ closeLayer(spin); if(!prize()){ store.set('chesedSpinSnooze',Date.now()); tab.hidden=false; } }
-  function showWin(p,anim){ $('#spinStep1').hidden=true; $('#spinStep2').hidden=false; $('#spinWon').textContent=p.label+' your first order';
+  function showWin(p,anim){ $('#spinStep1').hidden=true; $('#spinStep2').hidden=false; $('#spinWon').textContent=p.label+' your first order'+(p.min?' of $'+p.min+'+':'');
     $('#spinCode').textContent=p.code; if(!anim) $('#spinWon').focus(); }
   spin.addEventListener('click',e=>{ if(e.target.closest('[data-spin-close]')){ closeSpin(); if(e.target.closest('[data-spin-shop]')&&!/\/(products|collections)\//.test(location.pathname)) location.href='/collections/wigs/'; } });
   addEventListener('keydown',e=>{ if(e.key==='Escape'&&!spin.hidden) closeSpin(); });
