@@ -203,6 +203,7 @@ env.globals["spin_prizes"] = D.SPIN_PRIZES
 env.globals["spin_odds"] = ", ".join(f'{p["label"]} {p["weight"]}%' for p in D.SPIN_PRIZES)
 assert sum(p["weight"] for p in D.SPIN_PRIZES) == 100
 env.globals["reviews"] = D.REVIEWS
+env.globals["reviews_source"] = D.REVIEWS_SOURCE
 env.globals.update(crochet_lengths=D.CROCHET_LENGTHS, crochet_default=D.CROCHET_DEFAULT_LENGTH, crochet_landmarks=D.CROCHET_LANDMARKS,
                    crochet_curly_landmarks=D.CROCHET_CURLY_LANDMARKS, crochet_photos=[D.length_photo(c["key"], D.CROCHET_LENGTHS) for c in D.LENGTH_PHOTOS])
 env.globals["macros"] = env.get_template("partials/macros.html").module

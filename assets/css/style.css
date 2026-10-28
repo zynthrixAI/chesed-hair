@@ -623,6 +623,7 @@ input[type=range]{accent-color:var(--rose);height:28px;cursor:pointer}
 .rv-card blockquote p{font:400 clamp(19px,1.55vw,24px)/1.45 var(--display);color:var(--ink)}
 .rv-by{display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-top:1px solid var(--line);padding-top:18px;font-size:15px}
 .rv-by span{font:600 10px/1 var(--mark);letter-spacing:.16em;text-transform:uppercase;color:var(--slate)}
+.rv-src{margin-top:12px;font-size:14px;color:var(--slate)}
 .rv-nav{display:flex;gap:8px;margin-top:30px}
 .rv-btn{width:52px;height:52px;border-radius:50%;border:1px solid var(--ink);background:none;cursor:pointer;font-size:18px;transition:background .35s var(--ease),color .35s,opacity .3s}
 .rv-btn:hover:not(:disabled){background:var(--ink);color:#fff}
