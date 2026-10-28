@@ -5,7 +5,7 @@ A preview of the Chesed Hair online store (lace front wigs and crochet), built b
 - **Live preview:** https://lime-deer-681625.hostingersite.com
 - **Code:** https://github.com/zynthrixAI/chesed-hair
 - **On this PC:** `D:\Work\Chesed Hair\Website\chesed-hair`
-- **Shopify theme on this PC:** `D:\Work\Chesed Hair\Website\chesed-theme` (its own Git history, not on GitHub yet)
+- **Shopify theme on this PC:** `D:\Work\Chesed Hair\Website\chesed-theme` (private repo `zynthrixAI/chesed-theme`)
 - **Last updated:** 27 October 2026 (see [NEXT-SESSION.md](NEXT-SESSION.md))
 
 ---
@@ -180,7 +180,7 @@ The user builds in their own Shopify Partners development store and transfers it
 - **Collections:** 21 automatic collections by tag, same addresses as the preview (`/collections/body-wave-wigs` etc.), products in the preview's order. `src/tools/shopify_collections.py`.
 - **Shade and texture details** live once on their collection, in fields (metafields, namespace `chesed`): textures have `short`, `curly`, `length_photo`, `faq`; shades have `shade_key`, `shade_name`, `hex`, `blurb`, `faq`; All wigs and crochet have `faq`. Each wig points at its texture and shade collection (`chesed.texture`, `chesed.shade`). Chesed can edit these in the admin. `src/tools/shopify_metafields.py`.
 - **Pages:** About, FAQ, Shipping, Returns, Contact, the length guide and the color guide, with the preview's text (`PAGES`, `PAGE_STEPS`, `FAQ_PAGE` in `src/data.py`). Each uses its own template. `src/tools/shopify_pages.py`.
-- **Theme "Chesed"** (unpublished, id 188679127198): built from Shopify's Skeleton theme in `chesed-theme`. Homepage sections, header and footer, shopping pages with filters, wig and crochet pages, info pages, guides, bag, search, 404. The bag is Shopify's real cart (`/cart.js`); search reads `/collections/all?view=search-index`. See that folder's `CLAUDE.md`.
+- **Theme "Chesed"** (id 188679127198; live on the dev store since 28 October): built from Shopify's Skeleton theme in `chesed-theme`. Homepage sections, header and footer, shopping pages with filters, wig and crochet pages, info pages, guides, bag, search, 404. The bag is Shopify's real cart (`/cart.js`); search reads `/collections/all?view=search-index`. See that folder's `CLAUDE.md`.
 - **Shared pieces:** `src/tools/theme_snippets.py` copies the stylesheet, fonts, non-product photos, spin wheel, length photos and sample reviews from the preview into the theme. The spin wheel drawing and length-line positions moved to `src/data.py` (`wheel_svg`, `length_photo`).
 - **Textures without wigs on sale are hidden on Shopify** (27 October, user): Permed Straight, Wet & Wavy and Deep Wave are left out of the menus, footer and links, and the texture count says 6. They come back by themselves when their wigs are made active. The All wigs intro counts the same way (`shopify_collections.py`).
 - **Footer line on both sites:** "Lace front wigs and crochet extensions in 100% human hair."
@@ -207,6 +207,11 @@ The user builds in their own Shopify Partners development store and transfers it
   6. Publish only after the user (and Chesed) approve the preview.
   7. Remove the Shopify CLI connector app from their store.
 - **Shopify backups:** Shopify has no store-wide restore point or undo. Themes can be duplicated (and theme files keep older versions); products, customers and orders can be exported as CSV. A backup app such as Rewind is worth suggesting to Chesed before launch. Our theme is safe in Git.
+
+### Chesed theme live on the dev store (28 October 2026)
+- The client opened the dev store on their MacBook and saw Shopify's default **Horizon** theme ("Welcome to our store", "Browse our latest products") with our wig photos. Not a caching problem: Horizon was the live theme, and the `?preview_theme_id=` link only shows the Chesed theme to someone signed in to the admin.
+- **Fix:** the user published the **Chesed** theme on the dev store. It is now live there (behind the store password); Horizon is unpublished and kept as a fallback. Chesed's own store is untouched.
+- From now on `shopify theme push` to the dev store changes what the client sees straight away.
 
 ---
 

@@ -10,7 +10,7 @@ Read this first when continuing the project. For where we paused and what to do 
 - **Live preview:** https://lime-deer-681625.hostingersite.com. Hostinger deploys `main` automatically, usually within about 20 seconds of a merge. If it doesn't update, redeploy from the Git section in Hostinger's hPanel.
 - **Open work:** see [NEXT-SESSION.md](NEXT-SESSION.md) for branches that are committed but not yet pushed.
 - **Shopify theme:** `D:\Work\Chesed Hair\Website\chesed-theme` (separate folder with its own Git history; see its `CLAUDE.md`).
-- **Shopify store:** the user's Partners development store `chesed-hair-umskgt0n.myshopify.com` (our workshop). The finished work goes into Chesed's own store, "Chesed Hair Collection", once they give access; no transfer (see PROJECT.md, "Plan change").
+- **Shopify store:** the user's Partners development store `chesed-hair-umskgt0n.myshopify.com` (our workshop; the Chesed theme is its live theme since 28 October, behind the store password). The finished work goes into Chesed's own store, "Chesed Hair Collection", once they give access; no transfer (see PROJECT.md, "Plan change").
 
 ## Tools on this PC (Windows 11)
 - **Python 3.14** with Jinja2 installed. Use `python`, not `python3`.
