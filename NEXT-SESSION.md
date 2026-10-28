@@ -9,7 +9,7 @@ Updated 29 October 2026. Read this, then [HANDOFF.md](HANDOFF.md) for setup and 
 - **GitHub tool:** signed in as zynthrixAI. **Shopify CLI:** signed in to the user's Partners account, with store access for the tools.
 
 ## Start next time with
-1. **Chesed's own store (`gvit1g-jv.myshopify.com`) is ready to launch.** Products, collections, details, pages, spin-wheel codes, redirects, real reviews and the theme "Chesed" (id 158858969142, **unpublished**) are in; see "Chesed's own store" in PROJECT.md. **Launch only when the user says "publish it"**: then follow "Launch day" in PROJECT.md (publish the theme, unpublish and redirect their 8 old collections, delete test1, check the live site).
+1. **Live since 29 October 2026:** the Chesed theme is the live theme on Chesed's store (www.chesedhair.com, `gvit1g-jv.myshopify.com`, theme id 158858969142); see "Launched" in PROJECT.md. `shopify theme push` there now changes the public site: only with the user's go-ahead, and show them first. Their old theme "Re-degine Be Yours" is kept unpublished as a fallback.
 2. **Nothing from 28 to 29 October is on GitHub yet:** both repos have local commits. Ask before `git push`.
 3. **The user does in the admin:** paste the policies (`D:\Work\Chesed Hair\Shopify\policies-to-paste.html`), the free shipping over $100 rate, payments and Apple/Google Pay, two-step sign-in. Georgia sales tax waits on the client.
 4. **Waiting on the client:** `D:\Work\Chesed Hair\Shopify\what-we-need-from-chesed.md` (star ratings, tax, business details, shipping times, photos, prices).
