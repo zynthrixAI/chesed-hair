@@ -5,7 +5,7 @@ Read this first when continuing the project. For where we paused and what to do 
 **About the user:** they are not a programmer. Explain things in plain language, without jargon, and show results (screenshots or the live link) rather than code.
 
 ## Where things are
-- **Project folder:** `D:\Work\Chesed Hair\Website\chesed-hair` (open this folder in VS Code)
+- **Project folder:** `D:\Work\Chesed Hair\Website\chesed-hair`. Open the parent folder `D:\Work\Chesed Hair\Website` in VS Code: its `CLAUDE.md` loads the notes of both repos. The old October homepage demos are in `Website\_old-homepage-demos`.
 - **GitHub:** `github.com/zynthrixAI/chesed-hair`. `main` is what the live site shows.
 - **Live preview:** https://lime-deer-681625.hostingersite.com. Hostinger deploys `main` automatically, usually within about 20 seconds of a merge. If it doesn't update, redeploy from the Git section in Hostinger's hPanel.
 - **Open work:** see [NEXT-SESSION.md](NEXT-SESSION.md) for branches that are committed but not yet pushed.
