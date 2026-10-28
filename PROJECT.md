@@ -213,6 +213,13 @@ The user builds in their own Shopify Partners development store and transfers it
 - **Fix:** the user published the **Chesed** theme on the dev store. It is now live there (behind the store password); Horizon is unpublished and kept as a fallback. Chesed's own store is untouched.
 - From now on `shopify theme push` to the dev store changes what the client sees straight away.
 
+### Chesed's own store: access, backup, theme uploaded (28 October 2026)
+- **Store:** `gvit1g-jv.myshopify.com` (admin address `admin.shopify.com/store/chesedgirls`, site www.chesedhair.com). The Shopify CLI reaches it: themes through the user's normal sign-in, store data through `shopify store auth` (read-only scopes for now). In PowerShell, put the `--scopes` list in quotes, or the commas become spaces and the sign-in fails.
+- **What was there:** no wigs; 23 crochet products (5 active, 18 drafts); 8 collections; Contact and privacy pages; menus with an ambassador program link (UpPromote app) and TikTok; 53 customers, 3 orders; discount code Anasia10 (active). Live theme "Re-degine Be Yours" (id 150027173942), plus older copies.
+- **Backup:** `D:\Work\Chesed Hair\Shopify\backups\chesed-store-2026-10-28\` (not in any repo: it has customer data). Their live theme's files, every product, collection, page, menu, discount, customer and order as JSON, all 528 images, and the privacy policy page; see its README. The user also duplicated the live theme in the admin ("Copy of Re-degine Be Yours") and exported the orders CSV.
+- **Decisions (user):** update their 5 active crochet products in place and keep their web addresses (Burmese Magic Curl is added as new); archive the 18 drafts; contact email chesedhaircollection@gmail.com.
+- **Chesed theme uploaded unpublished** (id 158858969142). Their live theme is unchanged.
+
 ---
 
 ## To do
