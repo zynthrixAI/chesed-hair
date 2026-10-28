@@ -9,7 +9,7 @@ Updated 28 October 2026. Read this, then [HANDOFF.md](HANDOFF.md) for setup and 
 - **GitHub tool:** signed in as zynthrixAI. **Shopify CLI:** signed in to the user's Partners account, with store access for the tools.
 
 ## Start next time with
-1. **Chesed's own store: make NO changes** until the user says so. When access arrives, look only, then back up (CSV exports, theme copy, snapshot to files), then follow the steps in PROJECT.md. The Shopify CLI can't reach that store yet.
+1. **Chesed's own store (`gvit1g-jv.myshopify.com`):** looked at, backed up, and the Chesed theme uploaded unpublished (id 158858969142) on 28 October; see "Chesed's own store" in PROJECT.md. Next: the user signs in with write scopes, then merge products (update their 5 active crochet in place, add Burmese Magic Curl, add the wigs, archive the 18 drafts), collections, pages and details. **Every change there needs the user's go-ahead; never publish without it.**
 2. **Both repos are up to date on GitHub** (28 October: the updated order confirmation email, then notes in pull request 32).
 3. The user still has to: paste the email into Settings → Notifications, change the store email in Settings → Store details, turn on two-step sign-in.
 4. The theme was checked in a browser on 27 October (homepage, shopping, wig and crochet pages, info pages, guides, bag, at 1440px and phone width): it matches the preview and the bag uses Shopify's cart. Ask the user for the store password again if needed (it is not written down here); preview with `shopify theme dev` (see the theme's CLAUDE.md).
