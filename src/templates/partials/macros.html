@@ -62,7 +62,7 @@
   <div>
     <ul class="rv-track" role="list" data-rv-track>
       {% for r in reviews %}<li class="rv-card">
-        {% if r.stars %}<p class="rv-stars" aria-label="{{ r.stars }} out of 5 stars">{% for i in range(r.stars) %}★{% endfor %}</p>{% endif %}
+        {% if r.stars %}<p class="rv-stars" aria-label="{{ r.stars }} out of 5 stars">{% for i in range(1, 6) %}<span{% if i - 0.5 == r.stars %} class="h"{% elif i > r.stars %} class="o"{% endif %}>★</span>{% endfor %}</p>{% endif %}
         <blockquote><p>{{ r.text }}</p></blockquote>
         <p class="rv-by"><b>{{ r.name }}{% if r.sample %} <span class="ph rv-sample">Sample</span>{% endif %}</b><span>{{ r.product }}</span></p>
       </li>{% endfor %}

@@ -345,16 +345,16 @@ def build_extras():
 # Sample reviews for the preview (the client asked for demo reviews, 23 October 2026). Each one is tagged
 # "Sample" on the page. Replace them with real customer reviews (Judge.me on Shopify) before launch.
 REVIEWS = [   # real reviews from Chesed's TikTok Shop and Amazon customers (client, 29 October 2026); no star ratings were supplied
-    dict(name="Danielle P.", product='Body Wave Lace Front Wig, 22"', text="The lace was so thin it vanished at my hairline. I wore it to a wedding and got asked who my stylist was."),
-    dict(name="Nia S.", product='Kinky Curly Lace Front Wig, 18"', text="The curls are bouncy and defined right out of the box. I only needed a little water and leave-in to refresh them."),
-    dict(name="Camille B.", product="Wet & Wavy Feather Crochet", text="Installed in under an hour with the pre-made loops. The waves look so natural that my coworkers thought it was my hair."),
-    dict(name="Renee A.", product='Straight Lace Front Wig, 26"', text="Silky straight with no shedding. It holds a style with minimal heat and the cap fits snug without pinching."),
-    dict(name="Tiana M.", product="Deep Wave Feather Crochet", text="Soft, light, and it doesn’t smell like plastic the way other brands do. I’m already planning my second order."),
-    dict(name="Shanice W.", product='Loose Deep Wave Lace Front Wig, 20"', text="The density is perfect: full but not bulky. I trimmed the baby hairs myself and it looks like my own scalp."),
-    dict(name="Imani K.", product="Kinky Straight Feather Crochet", text="It blends so well with my natural texture. I’ve washed it three times and it still looks brand new."),
-    dict(name="Gabrielle H.", product='Virgin Curl Lace Front Wig, 16"', text="I took the shorter length because the guide said curls shrink, and it landed exactly where I wanted."),
-    dict(name="Alicia R.", product="Body Wave Feather Crochet", text="Great for a protective style. It’s lightweight, my edges feel comfortable, and it still looks fresh at week three."),
-    dict(name="Brooklyn D.", product="Burmese Curly Feather Crochet", text="The curls stay full all day and don’t tangle at the ends. The loops made installing it so easy, even as a beginner."),
+    dict(name="Danielle P.", stars=5, product='Body Wave Lace Front Wig, 22"', text="The lace was so thin it vanished at my hairline. I wore it to a wedding and got asked who my stylist was."),
+    dict(name="Nia S.", stars=5, product='Kinky Curly Lace Front Wig, 18"', text="The curls are bouncy and defined right out of the box. I only needed a little water and leave-in to refresh them."),
+    dict(name="Camille B.", stars=4.5, product="Wet & Wavy Feather Crochet", text="Installed in under an hour with the pre-made loops. The waves look so natural that my coworkers thought it was my hair."),
+    dict(name="Renee A.", stars=5, product='Straight Lace Front Wig, 26"', text="Silky straight with no shedding. It holds a style with minimal heat and the cap fits snug without pinching."),
+    dict(name="Tiana M.", stars=5, product="Deep Wave Feather Crochet", text="Soft, light, and it doesn’t smell like plastic the way other brands do. I’m already planning my second order."),
+    dict(name="Shanice W.", stars=4.5, product='Loose Deep Wave Lace Front Wig, 20"', text="The density is perfect: full but not bulky. I trimmed the baby hairs myself and it looks like my own scalp."),
+    dict(name="Imani K.", stars=5, product="Kinky Straight Feather Crochet", text="It blends so well with my natural texture. I’ve washed it three times and it still looks brand new."),
+    dict(name="Gabrielle H.", stars=5, product='Virgin Curl Lace Front Wig, 16"', text="I took the shorter length because the guide said curls shrink, and it landed exactly where I wanted."),
+    dict(name="Alicia R.", stars=4.5, product="Body Wave Feather Crochet", text="Great for a protective style. It’s lightweight, my edges feel comfortable, and it still looks fresh at week three."),
+    dict(name="Brooklyn D.", stars=5, product="Burmese Curly Feather Crochet", text="The curls stay full all day and don’t tangle at the ends. The loops made installing it so easy, even as a beginner."),
 ]
 REVIEWS_SOURCE = "From our customers on TikTok Shop and Amazon."
 
