@@ -15,12 +15,13 @@ POSE_NAMES = {"front": "front view", "three-quarter": "three-quarter view", "bac
 # Wig prices from Chesed's price sheet ("CHESED WIG List", 24 October 2026): a price per length,
 # plus $5 for the coloured shades and an extra for some textures. Chesed asked for the sheet prices times 2,
 # rounded up to the next .95. 34" and 36" are not on the sheet, so those are our estimates ($30 a step above 32",
-# as on the sheet from 28" to 30"; user, 24 October 2026). Curly and Water Wave wigs were removed: not on the sheet.
+# as on the sheet from 28" to 30"; user, 24 October 2026). Water Wave wigs were removed: not on the sheet. Curly is not on it either, but came back on 29 October 2026 at the Kinky Curly prices (user).
 WIG_LENGTH_PRICE = {18: 69.95, 20: 79.95, 22: 99.95, 24: 99.95, 26: 129.95, 28: 139.95, 30: 149.95, 32: 179.95, 34: 209.95, 36: 239.95}
 NATURAL_SHADES = {"1", "1B", "Virgin"}          # every other shade costs $5 more
 COLOR_EXTRA = 5.00
 TEXTURE_EXTRA = {"Loose Deep": 3.50, "Kinky Curly": 4.50, "Virgin Curl": 4.50, "Kinky Straight": 4.50, "Wet & Wavy": 4.50,
-                 "Deep Wave": 3.50}   # Body Wave, Straight, Permed Straight: no extra
+                 "Deep Wave": 3.50, "Curly": 4.50}   # Body Wave, Straight, Permed Straight: no extra
+# Curly is not on the sheet: priced like Kinky Curly (user, 29 October 2026)
 PRICE_MULTIPLIER = 2
 
 def up_to_95(x):
@@ -71,6 +72,13 @@ TEXTURES = [
               ("Can I straighten a body wave wig?", "You can flat iron it with a heat protectant. The wave comes back after the next wash."),
               ("Why does a body wave wig look shorter than its length?", "Length is measured with the hair pulled straight. Waves sit about 2 inches higher on the body."),
               ("Which shade sells best in body wave?", "Natural black (1B) is the everyday choice. Rich wine red (530) and copper ginger (350) are the statement shades.")]),
+    dict(key="Curly", name="Curly", slug="curly", curly=True,
+         short="Small, dense spiral curls with full volume.",
+         intro="Our curly lace front wigs have small, dense spiral curls that look full from root to tip. They are made from 100% unprocessed virgin Remy human hair and come in 9 shades and lengths from 18 to 36 inches. Curly units give the most volume of any Chesed texture, so a shorter length still reads big. Refresh the curls with water and a leave-in conditioner between washes.",
+         faq=[("How do I keep the curls defined?", "Wet the hair, apply a leave-in conditioner and let it air-dry. Avoid brushing curls when dry."),
+              ("Does a curly wig look shorter?", "Yes. Curls shrink, so a curly wig sits 2 to 4 inches higher than its stretched length."),
+              ("Can I wear it straight?", "You can blow it out and flat iron it. The curls return when the hair gets wet."),
+              ("How full is a curly wig?", "Curly units look the fullest of all our textures because each curl takes up more space.")]),
     dict(key="Kinky Curly", name="Kinky Curly", slug="kinky-curly", curly=True,
          short="Tight, springy coils that blend with natural 4C hair.",
          intro="Kinky curly wigs have tight, springy coils that match natural 4B and 4C hair, so the hairline blends instead of standing out. This lace front unit is made from 100% unprocessed virgin Remy human hair, currently in rich wine red (530), in lengths from 18 to 36 inches. It is the most natural-looking option if you want a wig that looks like your own hair grown out.",
