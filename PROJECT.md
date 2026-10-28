@@ -226,6 +226,7 @@ The user builds in their own Shopify Partners development store and transfers it
   - Collections, shade and texture details and pages added with the usual tools (`SHOPIFY_STORE=gvit1g-jv.myshopify.com`). Their 8 old collections are left as they were. Their Contact page now has our text.
 - **Theme:** "Ambassadors" (UpPromote sign-up) in the header, phone menu and footer, a TikTok link in the footer, and the spin wheel switched off (theme settings `ambassador_url`, `tiktok_url`, `spin_wheel`). Checked in the preview on their store. Not yet uploaded to the dev store (its theme is live there; needs the user's go-ahead).
 - **One email everywhere: chesedhaircollection@gmail.com** (user). The store's sender and contact emails already used it. Changed: the "Email Us" link in their CONNECT menu, and the footer of their live theme "Re-degine Be Yours" (only `sections/footer-group.json` was uploaded). Their privacy policy uses chesedhaircollection@gmail.com too (checked on the live site, 29 October).
+- **Policies for their store** (29 October): refund, shipping and contact information drafted in `D:\Work\Chesed Hair\Shopify\policies-for-chesed-store.md` for the user to paste into Settings → Policies (no competitor named anywhere). Terms of service from Shopify's template; legal notice only if they sell to the EU. Client to confirm the public address and phone, the legal business name, international shipping and SMS.
 - **Their store's preview link works for anyone** (the store has no password): `https://gvit1g-jv.myshopify.com?preview_theme_id=158858969142`.
 
 ---
@@ -258,7 +259,7 @@ The user builds in their own Shopify Partners development store and transfers it
 - [ ] Replace the 6 sample reviews with real ones (connect Judge.me).
 - [ ] Create the spin-wheel discount codes in Shopify.
 - [ ] Connect an email platform (e.g. Klaviyo) so the welcome wheel actually sends emails.
-- [ ] Set free shipping over $100 in Shopify's shipping settings.
+- [ ] Set free shipping over $100 in Shopify's shipping settings (client confirmed $100, 29 October; the user adds the rate in Chesed's store).
 - [x] Push the updated order confirmation email (theme repo, 28 October).
 - [ ] The user: paste the email into Settings → Notifications.
 - [ ] The user: change the store email in Settings → Store details and turn on two-step sign-in.
