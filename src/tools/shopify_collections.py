@@ -53,7 +53,7 @@ for c in cols:
     print(f"created  {c['handle']}")
 
 # Order: the preview's order (texture, then shade), so menus and pages list shades and textures the same way
-from shopify_api import ids
+from shopify_api import ids, store_handle
 prod_ids = ids("products")
 col_nodes = {c["handle"]: c["id"] for c in gql("{ collections(first: 100) { nodes { id handle } } }")["collections"]["nodes"]}
 SORT = "mutation($c: CollectionInput!) { collectionUpdate(input: $c) { userErrors { message } } }"
@@ -66,7 +66,7 @@ for c in cols:
         continue
     cid = col_nodes[c["handle"]]
     gql(SORT, {"c": {"id": cid, "sortOrder": "MANUAL"}}, mutation=True)
-    moves = [{"id": prod_ids[h], "newPosition": str(i)} for i, h in enumerate(members)]
+    moves = [{"id": prod_ids[store_handle(h)], "newPosition": str(i)} for i, h in enumerate(members)]
     for i in range(0, len(moves), 250):
         r = gql(REORDER, {"id": cid, "moves": moves[i:i + 250]}, mutation=True)["collectionReorderProducts"]
         if r["userErrors"]:

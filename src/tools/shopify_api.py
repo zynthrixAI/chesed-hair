@@ -7,6 +7,17 @@ import json, os, shutil, subprocess, sys, tempfile
 STORE = os.environ.get("SHOPIFY_STORE", "chesed-hair-umskgt0n.myshopify.com")
 CLI = shutil.which("shopify")
 
+# Chesed's own store kept its old web addresses for the 5 crochet products that were on sale (updated in place, 28 Oct 2026)
+STORE_HANDLES = {"gvit1g-jv.myshopify.com": {
+    f"seamless-{k}-feather-crochet-braid-hair-extensions": f"chesed-hair-seamless-{v}-handmade-feather-crochet-braid-natural-black-human-hair-extensions"
+    for k, v in {"wet-and-wavy": "wet-wavy", "kinky-straight": "kinky-straight", "burmese-curly": "burmese-curly",
+                 "body-wave": "body-wave", "deep-wave": "deep-wave"}.items()}}
+STORE_HANDLES["gvit1g-jv.myshopify.com"]["seamless-deep-wave-feather-crochet-braid-hair-extensions"] += "-copy"
+
+def store_handle(handle):
+    """Our catalogue handle -> the handle the product has in this store."""
+    return STORE_HANDLES.get(STORE, {}).get(handle, handle)
+
 def gql(query, variables=None, mutation=False):
     """Query and variables go through files: the Windows wrapper of the CLI mangles quotes and < > on the command line."""
     with tempfile.TemporaryDirectory() as tmp:
