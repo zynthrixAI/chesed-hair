@@ -219,6 +219,13 @@ The user builds in their own Shopify Partners development store and transfers it
 - **Backup:** `D:\Work\Chesed Hair\Shopify\backups\chesed-store-2026-10-28\` (not in any repo: it has customer data). Their live theme's files, every product, collection, page, menu, discount, customer and order as JSON, all 528 images, and the privacy policy page; see its README. The user also duplicated the live theme in the admin ("Copy of Re-degine Be Yours") and exported the orders CSV.
 - **Decisions (user):** update their 5 active crochet products in place and keep their web addresses (Burmese Magic Curl is added as new); archive the 18 drafts; contact email chesedhaircollection@gmail.com.
 - **Chesed theme uploaded unpublished** (id 158858969142). Their live theme is unchanged.
+- **Store data merged (user chose "everything now", so it all shows on their live site in the old design too):**
+  - The 5 crochet products updated in place (titles, descriptions, type "Crochet Extensions", tags, our Amazon photos with each colour linked to its photo, options renamed Color / Length). Same addresses, variants, SKUs and prices. The script is kept in the backup folder (`update_crochet.py`). Their addresses are mapped in `STORE_HANDLES` in `src/tools/shopify_api.py`, so the tools find them.
+  - The 18 crochet drafts archived.
+  - The 65 wigs (41 active, 24 drafts) and Burmese Magic Curl imported by the user from `D:\Work\Chesed Hair\Shopify\chesed-store-import-wigs-and-burmese-magic.csv` (made from `export_shopify.py` without the 5 existing crochet).
+  - Collections, shade and texture details and pages added with the usual tools (`SHOPIFY_STORE=gvit1g-jv.myshopify.com`). Their 8 old collections are left as they were. Their Contact page now has our text.
+- **Theme:** "Ambassadors" (UpPromote sign-up) in the header, phone menu and footer, a TikTok link in the footer, and the spin wheel switched off (theme settings `ambassador_url`, `tiktok_url`, `spin_wheel`). Checked in the preview on their store. Not yet uploaded to the dev store (its theme is live there; needs the user's go-ahead).
+- **Their store's preview link works for anyone** (the store has no password): `https://gvit1g-jv.myshopify.com?preview_theme_id=158858969142`.
 
 ---
 
