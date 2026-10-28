@@ -225,7 +225,7 @@ The user builds in their own Shopify Partners development store and transfers it
   - The 65 wigs (41 active, 24 drafts) and Burmese Magic Curl imported by the user from `D:\Work\Chesed Hair\Shopify\chesed-store-import-wigs-and-burmese-magic.csv` (made from `export_shopify.py` without the 5 existing crochet).
   - Collections, shade and texture details and pages added with the usual tools (`SHOPIFY_STORE=gvit1g-jv.myshopify.com`). Their 8 old collections are left as they were. Their Contact page now has our text.
 - **Theme:** "Ambassadors" (UpPromote sign-up) in the header, phone menu and footer, a TikTok link in the footer, and the spin wheel switched off (theme settings `ambassador_url`, `tiktok_url`, `spin_wheel`). Checked in the preview on their store. Not yet uploaded to the dev store (its theme is live there; needs the user's go-ahead).
-- **One email everywhere: chesedhaircollection@gmail.com** (user). The store's sender and contact emails already used it. Changed: the "Email Us" link in their CONNECT menu, and the footer of their live theme "Re-degine Be Yours" (only `sections/footer-group.json` was uploaded). Their privacy policy still says info@chesedhair.com; the user edits it in Settings → Policies.
+- **One email everywhere: chesedhaircollection@gmail.com** (user). The store's sender and contact emails already used it. Changed: the "Email Us" link in their CONNECT menu, and the footer of their live theme "Re-degine Be Yours" (only `sections/footer-group.json` was uploaded). Their privacy policy uses chesedhaircollection@gmail.com too (checked on the live site, 29 October).
 - **Their store's preview link works for anyone** (the store has no password): `https://gvit1g-jv.myshopify.com?preview_theme_id=158858969142`.
 
 ---
