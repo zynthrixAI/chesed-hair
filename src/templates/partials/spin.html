@@ -11,14 +11,17 @@
         <p class="eyebrow rose">Welcome gift</p>
         <h2 id="spinH">Spin to unlock your first-order discount</h2>
         <p class="spin-sub">Every spin wins, up to $60 off your first wig.</p>
-        <form class="spin-form" id="spinForm" novalidate>
+        {% if shopify %}{% raw %}{% form 'customer', id: 'spinForm', class: 'spin-form', novalidate: 'novalidate' %}{% endraw %}
+          <input type="hidden" name="contact[tags]" id="spinTags" value="newsletter,spin-wheel">
+        {% else %}<form class="spin-form" id="spinForm" novalidate>{% endif %}
           <label class="sr-only" for="spinEmail">Email address</label>
-          <input id="spinEmail" type="email" placeholder="Your email address" autocomplete="email" required>
+          <input id="spinEmail" type="email" name="contact[email]" placeholder="Your email address" autocomplete="email" required>
           <button class="btn rose wide" type="submit">Spin the wheel</button>
           <p class="msg" id="spinMsg" aria-live="polite"></p>
-        </form>
+        {% if shopify %}{% raw %}{% endform %}{% endraw %}
+        <iframe name="spinSink" title="Sign-up" hidden></iframe>{% else %}</form>{% endif %}
         <button class="spin-no" type="button" data-spin-close>No thanks, I'll pay full price</button>
-        <p class="spin-fine">One spin per email, first order only. Odds: {{ spin_odds }}.</p>
+        <p class="spin-fine">One spin per email; each code can be used once. {% for p in spin_prizes if p.min %}{{ p.label }} orders of ${{ p.min }}+{{ ", " if not loop.last else "." }}{% endfor %} Odds: {{ spin_odds }}.</p>
       </div>
       <div class="spin-step" id="spinStep2" hidden>
         <p class="eyebrow rose">You won</p>
@@ -27,7 +30,7 @@
         <p class="spin-code"><b id="spinCode"></b><button type="button" class="chip-btn" id="spinCopy">Copy</button></p>
         <button class="btn rose wide" type="button" data-spin-close data-spin-shop>Shop with my discount</button>
       </div>
-      <p class="spin-fine ph-inline">Preview: prizes, odds and codes are placeholders for Chesed to confirm. No email is saved.</p>
+      {% if not shopify %}<p class="spin-fine ph-inline">Preview: no email is saved here; on the Shopify store it is.</p>{% endif %}
     </div>
   </div>
 </div>

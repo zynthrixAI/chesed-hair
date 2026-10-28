@@ -16,7 +16,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="/assets/fonts/marcellus-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/hanken-grotesk-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/css/style.css?v=1793122797">
+<link rel="stylesheet" href="/assets/css/style.css?v=1793215528">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://chesedhair.com/"}, {"@type": "ListItem", "position": 2, "name": "Wigs", "item": "https://chesedhair.com/collections/wigs/"}, {"@type": "ListItem", "position": 3, "name": "Natural Auburn Wigs", "item": "https://chesedhair.com/collections/natural-auburn-wigs/"}]}</script></head>
 <body class="shop overlay">
 <a class="skip-link" href="#main">Skip to content</a>
@@ -477,7 +477,7 @@
       <p class="srch-none" id="srchNone" hidden>No matches. Try a texture like “body wave” or a shade like “1B”.</p>
     </div>
   </div>
-</div><div class="spin" id="spin" hidden data-prizes='[{"amt": 0, "code": "WELCOME10", "label": "10% off", "pct": 10, "weight": 35}, {"amt": 20, "code": "SAVE20", "label": "$20 off", "pct": 0, "weight": 25}, {"amt": 0, "code": "WELCOME15", "label": "15% off", "pct": 15, "weight": 20}, {"amt": 40, "code": "SAVE40", "label": "$40 off", "pct": 0, "weight": 10}, {"amt": 0, "code": "WELCOME20", "label": "20% off", "pct": 20, "weight": 7}, {"amt": 60, "code": "SAVE60", "label": "$60 off", "pct": 0, "weight": 3}]'>
+</div><div class="spin" id="spin" hidden data-prizes='[{"amt": 0, "code": "WELCOME10", "label": "10% off", "min": 0, "pct": 10, "weight": 35}, {"amt": 20, "code": "SAVE20", "label": "$20 off", "min": 100, "pct": 0, "weight": 25}, {"amt": 0, "code": "WELCOME15", "label": "15% off", "min": 0, "pct": 15, "weight": 20}, {"amt": 40, "code": "SAVE40", "label": "$40 off", "min": 150, "pct": 0, "weight": 10}, {"amt": 0, "code": "WELCOME20", "label": "20% off", "min": 0, "pct": 20, "weight": 7}, {"amt": 60, "code": "SAVE60", "label": "$60 off", "min": 200, "pct": 0, "weight": 3}]'>
   <div class="drawer-scrim" data-spin-close></div>
   <div class="spin-panel" role="dialog" aria-modal="true" aria-labelledby="spinH">
     <button class="ib spin-x" type="button" aria-label="Close" data-spin-close><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
@@ -490,14 +490,12 @@
         <p class="eyebrow rose">Welcome gift</p>
         <h2 id="spinH">Spin to unlock your first-order discount</h2>
         <p class="spin-sub">Every spin wins, up to $60 off your first wig.</p>
-        <form class="spin-form" id="spinForm" novalidate>
-          <label class="sr-only" for="spinEmail">Email address</label>
-          <input id="spinEmail" type="email" placeholder="Your email address" autocomplete="email" required>
+<form class="spin-form" id="spinForm" novalidate>          <label class="sr-only" for="spinEmail">Email address</label>
+          <input id="spinEmail" type="email" name="contact[email]" placeholder="Your email address" autocomplete="email" required>
           <button class="btn rose wide" type="submit">Spin the wheel</button>
           <p class="msg" id="spinMsg" aria-live="polite"></p>
-        </form>
-        <button class="spin-no" type="button" data-spin-close>No thanks, I'll pay full price</button>
-        <p class="spin-fine">One spin per email, first order only. Odds: 10% off 35%, $20 off 25%, 15% off 20%, $40 off 10%, 20% off 7%, $60 off 3%.</p>
+</form>        <button class="spin-no" type="button" data-spin-close>No thanks, I'll pay full price</button>
+        <p class="spin-fine">One spin per email; each code can be used once. $20 off orders of $100+, $40 off orders of $150+, $60 off orders of $200+. Odds: 10% off 35%, $20 off 25%, 15% off 20%, $40 off 10%, 20% off 7%, $60 off 3%.</p>
       </div>
       <div class="spin-step" id="spinStep2" hidden>
         <p class="eyebrow rose">You won</p>
@@ -506,12 +504,11 @@
         <p class="spin-code"><b id="spinCode"></b><button type="button" class="chip-btn" id="spinCopy">Copy</button></p>
         <button class="btn rose wide" type="button" data-spin-close data-spin-shop>Shop with my discount</button>
       </div>
-      <p class="spin-fine ph-inline">Preview: prizes, odds and codes are placeholders for Chesed to confirm. No email is saved.</p>
-    </div>
+<p class="spin-fine ph-inline">Preview: no email is saved here; on the Shopify store it is.</p>    </div>
   </div>
 </div>
 <button class="spin-tab" id="spinTab" type="button" hidden>Spin to win</button><script>window.CHESED={freeShip:100.0,lens:[18, 20, 22, 24, 26, 28, 30, 32, 34, 36],land:["bust", "below the bust", "mid ribs", "waist", "below the waist", "hips", "top of the thighs", "upper thighs", "mid thigh", "lower thigh"],landc:["armpits", "bust", "below the bust", "mid ribs", "waist", "below the waist", "hips", "top of the thighs", "upper thighs", "mid thigh"]};</script>
 <script src="/assets/js/vendor/lenis.min.js" defer></script>
-<script src="/assets/js/main.js?v=1793122797" defer></script>
+<script src="/assets/js/main.js?v=1793215528" defer></script>
 </body>
 </html>

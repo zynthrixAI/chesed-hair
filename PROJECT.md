@@ -227,6 +227,7 @@ The user builds in their own Shopify Partners development store and transfers it
 - **Theme:** "Ambassadors" (UpPromote sign-up) in the header, phone menu and footer, a TikTok link in the footer, and the spin wheel switched off (theme settings `ambassador_url`, `tiktok_url`, `spin_wheel`). Checked in the preview on their store. Not yet uploaded to the dev store (its theme is live there; needs the user's go-ahead).
 - **One email everywhere: chesedhaircollection@gmail.com** (user). The store's sender and contact emails already used it. Changed: the "Email Us" link in their CONNECT menu, and the footer of their live theme "Re-degine Be Yours" (only `sections/footer-group.json` was uploaded). Their privacy policy uses chesedhaircollection@gmail.com too (checked on the live site, 29 October).
 - **Policies for their store** (29 October): refund, shipping and contact information drafted in `D:\Work\Chesed Hair\Shopify\policies-for-chesed-store.md` for the user to paste into Settings → Policies (no competitor named anywhere). Terms of service from Shopify's template; legal notice only if they sell to the EU. Client to confirm the public address and phone, the legal business name, international shipping and SMS.
+- **Spin wheel back on** (29 October, client approved the wheel): codes WELCOME10/15/20 and SAVE20/40/60 created in Chesed's store as one-use-per-customer discounts; SAVE20 needs $100+, SAVE40 $150+, SAVE60 $200+ (`min` in `SPIN_PRIZES`, shown in the small print and the won line). On Shopify the wheel's form is Shopify's own customer form, posted into a hidden frame, so each email is saved in Customers as a subscriber tagged `spin-wheel` and `spin-<code>` (a scripted post is blocked by the store's bot protection). Theme setting `spin_wheel` is on. The preview site still saves nothing.
 - **Their store's preview link works for anyone** (the store has no password): `https://gvit1g-jv.myshopify.com?preview_theme_id=158858969142`.
 
 ---
@@ -257,7 +258,7 @@ The user builds in their own Shopify Partners development store and transfers it
 - [ ] Connect the theme repo to the store (Shopify's GitHub integration), so changes deploy from GitHub.
 - [ ] Payments, taxes and shipping rates in the store settings; free shipping over $100.
 - [ ] Replace the 6 sample reviews with real ones (connect Judge.me).
-- [ ] Create the spin-wheel discount codes in Shopify.
+- [x] Create the spin-wheel discount codes in Shopify (Chesed's store, 29 October).
 - [ ] Connect an email platform (e.g. Klaviyo) so the welcome wheel actually sends emails.
 - [ ] Set free shipping over $100 in Shopify's shipping settings (client confirmed $100, 29 October; the user adds the rate in Chesed's store).
 - [x] Push the updated order confirmation email (theme repo, 28 October).

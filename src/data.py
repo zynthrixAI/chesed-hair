@@ -361,13 +361,14 @@ REVIEWS = [
 
 # Welcome wheel (email popup). Every spin wins; weights are the real odds and are shown to shoppers.
 # Placeholder prizes and codes: Chesed sets the final offers and creates the codes in Shopify.
+# The codes exist in Chesed's store as one-use-per-customer discounts; min is the order needed for the dollar codes.
 SPIN_PRIZES = [
-    dict(label="10% off", code="WELCOME10", pct=10, amt=0, weight=35),
-    dict(label="$20 off", code="SAVE20", pct=0, amt=20, weight=25),
-    dict(label="15% off", code="WELCOME15", pct=15, amt=0, weight=20),
-    dict(label="$40 off", code="SAVE40", pct=0, amt=40, weight=10),
-    dict(label="20% off", code="WELCOME20", pct=20, amt=0, weight=7),
-    dict(label="$60 off", code="SAVE60", pct=0, amt=60, weight=3),
+    dict(label="10% off", code="WELCOME10", pct=10, amt=0, min=0, weight=35),
+    dict(label="$20 off", code="SAVE20", pct=0, amt=20, min=100, weight=25),
+    dict(label="15% off", code="WELCOME15", pct=15, amt=0, min=0, weight=20),
+    dict(label="$40 off", code="SAVE40", pct=0, amt=40, min=150, weight=10),
+    dict(label="20% off", code="WELCOME20", pct=20, amt=0, min=0, weight=7),
+    dict(label="$60 off", code="SAVE60", pct=0, amt=60, min=200, weight=3),
 ]
 
 # WhatsApp chat button. Placeholder: Chesed's WhatsApp Business number, digits only with country code.
