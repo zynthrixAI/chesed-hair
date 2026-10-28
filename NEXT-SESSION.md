@@ -1,6 +1,6 @@
 # Chesed Hair: pick up here
 
-Updated 28 October 2026. Read this, then [HANDOFF.md](HANDOFF.md) for setup and [PROJECT.md](PROJECT.md) for the full history.
+Updated 29 October 2026. Read this, then [HANDOFF.md](HANDOFF.md) for setup and [PROJECT.md](PROJECT.md) for the full history.
 
 ## Where things stand
 - **Preview site:** https://lime-deer-681625.hostingersite.com. Everything up to pull request 27 (crochet on the homepage, general FAQs, Hair Bundles hidden) is merged and live.
@@ -9,12 +9,12 @@ Updated 28 October 2026. Read this, then [HANDOFF.md](HANDOFF.md) for setup and 
 - **GitHub tool:** signed in as zynthrixAI. **Shopify CLI:** signed in to the user's Partners account, with store access for the tools.
 
 ## Start next time with
-1. **Chesed's own store (`gvit1g-jv.myshopify.com`):** looked at, backed up, and the Chesed theme uploaded unpublished (id 158858969142) on 28 October; see "Chesed's own store" in PROJECT.md. Products, collections, details and pages were merged the same day (see PROJECT.md). Next: Chesed reviews the preview link; before publishing, set payments, shipping (free over $100) and taxes, and decide about their 8 old collections. **Every change there needs the user's go-ahead; never publish without it.**
-2. **Both repos are up to date on GitHub** (28 October: the updated order confirmation email, then notes in pull request 32).
-3. The user still has to: paste the email into Settings → Notifications, change the store email in Settings → Store details, turn on two-step sign-in.
-4. The theme was checked in a browser on 27 October (homepage, shopping, wig and crochet pages, info pages, guides, bag, at 1440px and phone width): it matches the preview and the bag uses Shopify's cart. Ask the user for the store password again if needed (it is not written down here); preview with `shopify theme dev` (see the theme's CLAUDE.md).
-5. Open question for the user: the menu, homepage and All wigs text say "9 textures", but only 6 have photos (Permed Straight, Wet & Wavy and Deep Wave are drafts).
-6. Then: menus as Shopify navigation, payments and shipping settings, Judge.me reviews, spin-wheel discount codes.
+1. **Chesed's own store (`gvit1g-jv.myshopify.com`) is ready to launch.** Products, collections, details, pages, spin-wheel codes, redirects, real reviews and the theme "Chesed" (id 158858969142, **unpublished**) are in; see "Chesed's own store" in PROJECT.md. **Launch only when the user says "publish it"**: then follow "Launch day" in PROJECT.md (publish the theme, unpublish and redirect their 8 old collections, delete test1, check the live site).
+2. **Nothing from 28 to 29 October is on GitHub yet:** both repos have local commits. Ask before `git push`.
+3. **The user does in the admin:** paste the policies (`D:\Work\Chesed Hair\Shopify\policies-to-paste.html`), the free shipping over $100 rate, payments and Apple/Google Pay, two-step sign-in. Georgia sales tax waits on the client.
+4. **Waiting on the client:** `D:\Work\Chesed Hair\Shopify\what-we-need-from-chesed.md` (star ratings, tax, business details, shipping times, photos, prices).
+5. The dev store's live theme doesn't have the 28 to 29 October theme changes (pushing to it was blocked); push only with the user's go-ahead.
+6. Later: menus as Shopify navigation, a reviews app (Judge.me), an email platform for the wheel, a backup app (Rewind).
 
 ## Things to know
 - **Uploading to GitHub needs the user's clear go-ahead.** Ask before `git push`.
