@@ -10,7 +10,7 @@ Read this first when continuing the project. For where we paused and what to do 
 - **Live preview:** https://lime-deer-681625.hostingersite.com. Hostinger deploys `main` automatically, usually within about 20 seconds of a merge. If it doesn't update, redeploy from the Git section in Hostinger's hPanel.
 - **Open work:** see [NEXT-SESSION.md](NEXT-SESSION.md) for branches that are committed but not yet pushed.
 - **Shopify theme:** `D:\Work\Chesed Hair\Website\chesed-theme` (separate folder with its own Git history; see its `CLAUDE.md`).
-- **Shopify store:** the user's Partners development store `chesed-hair-umskgt0n.myshopify.com` (our workshop; the Chesed theme is its live theme since 28 October, behind the store password). The finished work goes into Chesed's own store, "Chesed Hair Collection", once they give access; no transfer (see PROJECT.md, "Plan change").
+- **Shopify store:** the user's Partners development store `chesed-hair-umskgt0n.myshopify.com` (our workshop; the Chesed theme is its live theme since 28 October, behind the store password). **Chesed's own store `gvit1g-jv.myshopify.com` (www.chesedhair.com) runs the Chesed theme since 29 October 2026**; no transfer (see PROJECT.md, "Chesed's own store"). Store tools run against it with `SHOPIFY_STORE=gvit1g-jv.myshopify.com`.
 
 ## Tools on this PC (Windows 11)
 - **Python 3.14** with Jinja2 installed. Use `python`, not `python3`.
@@ -20,7 +20,7 @@ Read this first when continuing the project. For where we paused and what to do 
 - **Not installed:** Playwright. Check pages in a browser instead.
 
 ## Commands
-Build every page (writes 102 pages into the repo root, plus `assets/search.json`):
+Build every page (writes 111 pages into the repo root, plus `assets/search.json`):
 ```bash
 python src/build.py
 ```
@@ -33,7 +33,7 @@ python -m http.server 8000 --bind 127.0.0.1
 ## How the code is laid out
 | Path | What it is |
 |---|---|
-| `src/data.py` | The catalog and settings: `TEXTURES` (9 wig styles), `COLORS` (the 10 shades, with `name` in words), `LENGTHS` and `LANDMARKS`, wig prices (`WIG_LENGTH_PRICE`, `COLOR_EXTRA`, `TEXTURE_EXTRA`, `PRICE_MULTIPLIER`), `LENGTH_PHOTOS`, `FREE_SHIP`, `CAP_IMAGES`, `REVIEWS` (samples), `SPIN_PRIZES`, the FAQs (`GENERAL_FAQ`, `WIG_FAQ`, `SHIP_FAQ`, `HOME_FAQ`, `FAQ_PAGE`), the info page text (`PAGES`, `PAGE_STEPS`), and `wheel_svg()` / `length_photo()`. The preview and the Shopify tools both read it |
+| `src/data.py` | The catalog and settings: `TEXTURES` (10 wig styles), `COLORS` (the 10 shades, with `name` in words), `LENGTHS` and `LANDMARKS`, wig prices (`WIG_LENGTH_PRICE`, `COLOR_EXTRA`, `TEXTURE_EXTRA`, `PRICE_MULTIPLIER`), `LENGTH_PHOTOS`, `FREE_SHIP`, `CAP_IMAGES`, `REVIEWS` (real customer reviews from TikTok Shop and Amazon, with `REVIEWS_SOURCE`), `SPIN_PRIZES`, the FAQs (`GENERAL_FAQ`, `WIG_FAQ`, `SHIP_FAQ`, `HOME_FAQ`, `FAQ_PAGE`), the info page text (`PAGES`, `PAGE_STEPS`), and `wheel_svg()` / `length_photo()`. The preview and the Shopify tools both read it |
 | `src/tools/export_shopify.py` | Shopify product import file (CSV) from the catalogue. Photos are fetched from the preview site, so it must be live |
 | `src/tools/shopify_api.py` | Runs Admin API queries through the Shopify CLI (`shopify store execute`). Query and variables go through files: the CLI's Windows wrapper mangles quotes and `< >` on the command line |
 | `src/tools/shopify_collections.py` | Creates the automatic collections and sets their product order. Safe to run again |
@@ -62,7 +62,7 @@ python -m http.server 8000 --bind 127.0.0.1
 ### Photo folders on this PC
 - **Chesed's studio photos:** `D:\Work\Chesed Hair\Images\Final Images\<Style>\<shade folder>\`, six per shade (`<Style> - <Shade> - <n> <Shot>`; shade folders use HA, HB, NA for Honey Auburn, Honey Blonde, Natural Auburn).
 - **Lace-free versions:** 17 photos were replaced with lace-free versions on 24 October 2026 (from `Images\Lace Review\No lace`). The old photos are in `Final Images\_with lace (old)\`.
-- **Branch `add-ai-gallery-images`:** 300 AI model photos for 7 styles in `assets/gallery/<handle>/` (WebP, 1024 and 560), including the 17 lace-free versions. The site's code doesn't use this folder yet, and the branch is older than `main` (it still has Curly photos). Don't merge it into `main` without the user's say-so.
+- **Branch `add-ai-gallery-images`:** 300 AI model photos for 7 styles in `assets/gallery/<handle>/` (WebP, 1024 and 560), including the 17 lace-free versions. The site's code doesn't use this folder yet, and the branch is older than `main` (its Curly photos are the same as `main`'s since Curly came back). Don't merge it into `main` without the user's say-so.
 
 ## Workflow
 1. Start each change on a **new branch from the latest `main`** (`git fetch` first).

@@ -6,14 +6,14 @@ A preview of the Chesed Hair online store (lace front wigs and crochet), built b
 - **Code:** https://github.com/zynthrixAI/chesed-hair
 - **On this PC:** `D:\Work\Chesed Hair\Website\chesed-hair`
 - **Shopify theme on this PC:** `D:\Work\Chesed Hair\Website\chesed-theme` (private repo `zynthrixAI/chesed-theme`)
-- **Last updated:** 27 October 2026 (see [NEXT-SESSION.md](NEXT-SESSION.md))
+- **Last updated:** 29 October 2026 (see [NEXT-SESSION.md](NEXT-SESSION.md))
 
 ---
 
 ## What the site has
 
-- **102 pages:** the homepage, 22 shopping pages ("collections"), 65 wig pages, 6 extension pages and 8 info pages (About, FAQ, Shipping, Returns, Contact, Color guide, Length guide, All pages).
-- **9 wig textures:** Body Wave, Kinky Curly, Kinky Straight, Loose Deep Wave, Straight, Virgin Curl, plus **Permed Straight**, **Wet & Wavy** and **Deep Wave** (placeholder photos for now). Curly and Water Wave wigs were removed because they are not on Chesed's price sheet.
+- **111 pages:** the homepage, 22 shopping pages ("collections"), 74 wig pages, 6 extension pages and 8 info pages (About, FAQ, Shipping, Returns, Contact, Color guide, Length guide, All pages).
+- **10 wig textures:** Body Wave, Curly, Kinky Curly, Kinky Straight, Loose Deep Wave, Straight, Virgin Curl, plus **Permed Straight**, **Wet & Wavy** and **Deep Wave** (placeholder photos for now). Water Wave wigs were removed because they are not on Chesed's price sheet; Curly was removed for the same reason and came back on 29 October at the Kinky Curly prices.
 - **Two extra categories:** Crochet & Feather Extensions (6 products) and Hair Bundles (coming soon).
 - **10 shades:** 1, 1B, 99J, 350, 530, Honey Auburn, Honey Blonde, Natural Auburn, Red, Virgin.
 - **10 lengths:** 18" to 36", priced by length from Chesed's price sheet times 2 ($139.95 to $479.95, plus extras for coloured shades and some textures).
@@ -233,6 +233,12 @@ The user builds in their own Shopify Partners development store and transfers it
 - **Reviews (29 October):** 10 real reviews from Chesed's TikTok Shop and Amazon customers (user), in `REVIEWS` in `src/data.py`, with the line "From our customers on TikTok Shop and Amazon" (`REVIEWS_SOURCE`). Star ratings from the client (29 October; 4.5 shows as a half star), confirmed by Chesed in writing to the user. Homepage section on again (`show_reviews`). The sample reviews are gone.
 - **Launched 29 October 2026 (user: "publish it"):** the Chesed theme is the live theme on www.chesedhair.com (their old theme "Re-degine Be Yours" and its copy are kept unpublished as a fallback). Their 7 old collections unpublished and redirected (lace-front-wigs and our-best-sellers → /collections/wigs; crochet-braid-hair-extensions, body-wave-hair, deep-wave-hair → /collections/crochet-braid-extensions; straight-hair → /collections/straight-wigs; frontpage → /), test1 deleted. Script: `backups/chesed-store-2026-10-28/launch.py`. Checked: every page type loads with no Liquid errors, old addresses redirect, all 6 crochet pages work.
 - **Their store's preview link works for anyone** (the store has no password): `https://gvit1g-jv.myshopify.com?preview_theme_id=158858969142`.
+
+
+### Curly wigs back, on the preview and Chesed's store (29 October 2026, pull request 33)
+- **Curly wigs back** (user): 9 shades (1, 1B, Virgin, 350, 530, Honey Auburn, Honey Blonde, Natural Auburn, Red), their photos restored from history, and the 1B and 350 side photos now lace-free (from the `add-ai-gallery-images` branch). **Priced like Kinky Curly** (`TEXTURE_EXTRA["Curly"] = 4.50`; Curly is not on Chesed's sheet). Water Wave stays removed.
+- **Chesed's store:** the user imported `D:\Work\Chesed Hair\Shopify\chesed-store-import-curly-wigs.csv` before the preview was live, so every photo failed; they were added again (`backups/chesed-store-2026-10-28/curly_photos_fix.py`: retries failed photos one at a time and puts them in order). **Merge and wait for the preview before importing a CSV.** Then `shopify_collections.py` (Curly page) and `shopify_metafields.py` on their store, and `curly-wigs` added to the theme's texture list.
+- **Homepage crochet category photo** was blank on Chesed's store (their crochet products keep their old addresses): `templates/index.json` now uses their Burmese Curly address, and `home-categories.liquid` falls back to the collection's first product.
 
 ---
 
