@@ -246,33 +246,38 @@ The user builds in their own Shopify Partners development store and transfers it
 
 ### Ours
 - [ ] **New shades and types:** add #2, #27, #4/30, Virgin Light, Loose Wave and Chesed's other new wig types once their photos and details arrive.
-- [ ] Send Chesed the updated preview.
-- [x] **Shopify theme:** checked every page in a browser.
+- [x] **Shopify theme:** checked every page in a browser; live on www.chesedhair.com since 29 October 2026.
+- [x] **Curly wigs back** (29 October, at the Kinky Curly prices).
+- [ ] Bring the workshop (dev) store's theme up to date, if it's still needed (only with the user's go-ahead).
 
 ### Waiting on Chesed
-- [ ] **Photos:** Deep Wave, Permed Straight and Wet & Wavy wigs (all shades, plus mannequin front and back); Honey Auburn with more blonde highlights; the 4 bundles.
+The full list sent to the client: `D:\Work\Chesed Hair\Shopify\what-we-need-from-chesed.md`. Main points:
+- [ ] **Georgia sales tax** (the client sets it up; no tax is charged until then).
+- [ ] **Business details:** public address, phone, legal business name.
+- [ ] **Shipping:** Standard and Express times; international shipping or not.
+- [ ] **Photos:** Deep Wave, Permed Straight and Wet & Wavy wigs (all shades, plus mannequin front and back); Kinky Curly mannequin; Honey Auburn with more blonde highlights; the 4 bundles.
 - [ ] **The 12 shades:** the site has 10. Names of the 2 missing shades and which styles they come in.
 - [ ] **Shade names:** approve 1B Natural Black, 1 Jet Black, Virgin Natural Dark Brown, 530 Rich Wine Red, 99J Deep Plum, 350 Copper Ginger, Red Cherry Red. The shade descriptions were written from the photos too.
 - [ ] **Deep Wave wigs:** approval of our copy.
-- [ ] **Estimated prices** (not on the sheet, shown doubled): 34" and 36" (sheet-level $209.95 and $239.95, so $419.95 and $479.95 for 1B Straight).
-- [ ] **Lengths missing from the sheet:** 28" for Kinky Straight and Permed Straight, and every length except 28" for coloured Deep Wave (only Red also has 20"). The site still sells them at the usual price; confirm.
-- [ ] **Sheet questions:** Deep Wave 20" Red at $83.45 (every other coloured shade is $5 more); Loose Wave 22"-24" Virgin Light reads $1034.45; Wet & Wavy 20"-22" Virgin Light is at the coloured price; Deep Wave and Loose Wave list only some shades per length.
-- [ ] **34" and 36" on the body:** we guessed "mid thigh" and "lower thigh".
-- [ ] **Spin wheel:** the prizes, odds and discount codes (not answered yet).
-- [ ] **Hair bundles:** prices and plain names for the "TP" shades (Chesed is working on these).
+- [ ] **Estimated prices** (not on the sheet, shown doubled): 34" and 36" ($419.95 and $479.95 for 1B Straight), and **Curly** (priced like Kinky Curly).
+- [ ] **Lengths missing from the sheet:** 28" for Kinky Straight and Permed Straight, and most lengths of coloured Deep Wave. The site sells them at the usual price; confirm.
+- [ ] **Sheet questions:** Deep Wave 20" Red at $83.45; Loose Wave 22"-24" Virgin Light reads $1034.45; Wet & Wavy 20"-22" Virgin Light is at the coloured price.
+- [ ] **34" and 36" on the body:** we guessed "mid thigh" and "lower thigh"; the crochet lengths too.
+- [ ] **Spin wheel:** whether the shared codes should expire.
+- [ ] **Ambassador program:** restarting or not; code Anasia10; price-drop alerts.
+- [ ] **Hair bundles:** prices, plain names for the "TP" shades, photos.
 - [ ] **Crochet descriptions:** the 6 listings still use the old store's wording.
 
 ### Shopify store
-- [x] Products, collections, shade and texture details, info pages, and the theme (unpublished).
+- [x] Products, collections, shade and texture details, info pages, theme, on Chesed's store; launched 29 October 2026.
+- [x] Free shipping over $100, policies and payments (the user, 29 October).
+- [x] Spin-wheel discount codes (29 October).
+- [x] Real reviews with star ratings (from the client, 29 October).
+- [x] Order confirmation email (theme repo; the user pasted it in).
 - [ ] Menus as Shopify navigation, so Chesed can edit them (they're built into the theme for now).
 - [ ] Connect the theme repo to the store (Shopify's GitHub integration), so changes deploy from GitHub.
-- [ ] Payments, taxes and shipping rates in the store settings; free shipping over $100.
-- [ ] Replace the 6 sample reviews with real ones (connect Judge.me).
-- [x] Create the spin-wheel discount codes in Shopify (Chesed's store, 29 October).
+- [ ] A reviews app (e.g. Judge.me) so new reviews come in on their own.
 - [ ] Connect an email platform (e.g. Klaviyo) so the welcome wheel actually sends emails.
-- [ ] Set free shipping over $100 in Shopify's shipping settings (client confirmed $100, 29 October; the user adds the rate in Chesed's store).
-- [x] Push the updated order confirmation email (theme repo, 28 October).
-- [ ] The user: paste the email into Settings → Notifications.
-- [ ] The user: change the store email in Settings → Store details and turn on two-step sign-in.
-- [ ] Get access to Chesed's own store, then follow the steps under "Plan change" above (no transfer).
-- [ ] Suggest a backup app (e.g. Rewind) to Chesed before launch.
+- [ ] The user: turn on two-step sign-in.
+- [ ] Suggest a backup app (e.g. Rewind) to Chesed.
+- [ ] Remove the Shopify CLI connector app from Chesed's store when the work is finished.
