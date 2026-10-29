@@ -246,6 +246,11 @@ The user builds in their own Shopify Partners development store and transfers it
 - **Shopify:** new field `chesed.shade_label` on the shade collections (the theme shows it, falling back to `shade_key`); `shopify_collections.py` keeps shade page titles in step; new `src/tools/shopify_titles.py` renames the wigs (title, search title and description only). Run on Chesed's store on 30 October: 53 wigs renamed, 10 shade pages renamed.
 - **Wig pages: "on deep skin" photos are a carousel** (`.rail.scene-grid` with arrows, 4 across on desktop) instead of a grid that left one photo alone on a second row.
 
+### Client work log and handover (30 October 2026)
+- **Client work log** for Chesed, as a Claude Doc ("Chesed Hair: Work Delivered", https://claude.ai/artifact/WwPXxErn3hqasxgDgazZxu, export to Google Docs or PDF). Measured against the signed proposal (`D:\Work\Chesed Hair\Documents\New folder\Chesed Hair - Launch Proposal Revised.pdf`). Part 1 is the paid Launch Package and where each item stands; Part 2 is only the work beyond it. **5,437 images were made in total** (user). The image tools are not named in client documents (user).
+- **Still owed from the proposal:** up to 5 minutes of AI video (the video spaces were removed at the client's request; to be planned with them), and the rest of the SEO Foundation: a keyword map, Google Search Console, GA4 e-commerce events, Merchant Center free listings, a reviews app with star ratings in search results.
+- **Final handover:** `D:\Work\Chesed Hair\Documents\Chesed Hair - Final Handover.md` (not in this repo).
+
 ---
 
 ## To do
@@ -255,6 +260,8 @@ The user builds in their own Shopify Partners development store and transfers it
 - [x] **Shopify theme:** checked every page in a browser; live on www.chesedhair.com since 29 October 2026.
 - [x] **Curly wigs back** (29 October, at the Kinky Curly prices).
 - [ ] Bring the workshop (dev) store's theme up to date, if it's still needed (only with the user's go-ahead).
+- [ ] **AI video** from the proposal (up to 5 minutes), planned with the client.
+- [ ] **Rest of the SEO Foundation** from the proposal: keyword map, Search Console, GA4, Merchant Center, reviews app.
 
 ### Waiting on Chesed
 The full list sent to the client: `D:\Work\Chesed Hair\Shopify\what-we-need-from-chesed.md`. Main points:
