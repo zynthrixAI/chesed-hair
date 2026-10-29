@@ -20,6 +20,7 @@ DEFS = [("COLLECTION", "short", "Texture: one-line description", "single_line_te
         ("COLLECTION", "length_photo", "Texture: length photo (straight, wavy or curly)", "single_line_text_field"),
         ("COLLECTION", "shade_key", "Shade: code, e.g. 1B", "single_line_text_field"),
         ("COLLECTION", "shade_name", "Shade: name in words, e.g. Natural Black", "single_line_text_field"),
+        ("COLLECTION", "shade_label", "Shade: what shoppers read, e.g. Natural Black (1B)", "single_line_text_field"),
         ("COLLECTION", "hex", "Shade: swatch color", "color"),
         ("COLLECTION", "blurb", "Shade: description", "multi_line_text_field"),
         ("COLLECTION", "faq", "Questions and answers", "json"),
@@ -53,6 +54,7 @@ for cc in D.make_color_collections(products):
     cid = col_ids[f"{cc['slug']}-wigs"]
     put(cid, "shade_key", "single_line_text_field", c["key"])
     put(cid, "shade_name", "single_line_text_field", c["name"])
+    put(cid, "shade_label", "single_line_text_field", c["label"])
     put(cid, "hex", "color", c["hex"])
     put(cid, "blurb", "multi_line_text_field", c["blurb"])
     put(cid, "faq", "json", faq(cc["faq"]))
