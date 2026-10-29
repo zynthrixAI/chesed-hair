@@ -390,7 +390,7 @@ ul,ol{margin:0;padding:0;list-style:none}
 .every-len{padding:var(--sec) 0;background:var(--blush)}
 
 .scenes{padding-top:var(--sec)}
-.scene-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.scene-grid{gap:10px}   /* a .rail carousel: 4 photos across on desktop */
 .scene-grid img{aspect-ratio:4/5;object-fit:cover}
 .xsell{padding-top:clamp(56px,6vw,90px);padding-bottom:var(--sec)}
 
@@ -447,7 +447,6 @@ ul,ol{margin:0;padding:0;list-style:none}
   .col-hero-media div:not(:first-child){display:none}
   .ftr-cols{grid-template-columns:1fr 1fr}
   .ftr-brand{grid-column:1/-1}
-  .scene-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .sticky-buy{display:flex}
   .pdp-page .ftr{padding-bottom:80px}
   .g-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:0;margin:0 calc(-1*var(--g));scrollbar-width:none}

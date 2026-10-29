@@ -80,8 +80,8 @@
 
 {% if not p.placeholder %}
 <section class="scenes wrap" aria-labelledby="scH">
-  <div class="sec-head"><h2 id="scH">{{ p.color.label }} on deep skin</h2><p>Real-room lighting, no filters on the shade.</p></div>
-  <ul class="scene-grid" role="list">{% for im in p.images if not im.mannequin and not im.info %}<li>{{ macros.picture(im.file, im.alt, "(max-width:720px) 50vw, 25vw") }}</li>{% endfor %}</ul>
+  <div class="sec-head"><div><h2 id="scH">{{ p.color.label }} on deep skin</h2><p>Real-room lighting, no filters on the shade.</p></div><div class="rail-tools"><div class="rv-nav"><button type="button" class="rv-btn" data-rv="-1" aria-label="Previous photos">←</button><button type="button" class="rv-btn" data-rv="1" aria-label="More photos">→</button></div></div></div>
+  <ul class="rail scene-grid" role="list" data-rv-track>{% for im in p.images if not im.mannequin and not im.info %}<li>{{ macros.picture(im.file, im.alt, "(max-width:720px) 50vw, 25vw") }}</li>{% endfor %}</ul>
 </section>
 {% endif %}
 
