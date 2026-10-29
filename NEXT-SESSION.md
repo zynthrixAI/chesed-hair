@@ -12,7 +12,7 @@ Updated 30 October 2026. Read this, then [HANDOFF.md](HANDOFF.md) for setup and 
 ## Start next time with
 1. **Every change to chesedhair.com is public:** theme pushes need `--allow-live` and the user's go-ahead; show them first.
 2. **Read the final handover first:** `D:\Work\Chesed Hair\Documents\Chesed Hair - Final Handover.md` (the whole project, images included, and what the proposal still owes). The client work log is the Claude Doc "Chesed Hair: Work Delivered" (https://claude.ai/artifact/WwPXxErn3hqasxgDgazZxu). Both repos are up to date on GitHub apart from the notes commits.
-3. **Still owed from the proposal:** up to 5 minutes of AI video, and the rest of the SEO Foundation (keyword map, Search Console, GA4, Merchant Center, reviews app). The project is now on monthly store management.
+3. **Still owed from the proposal:** up to 5 minutes of AI video. Basic SEO is set up; further SEO work only if the client takes it up as a separate service. The project is now on monthly store management.
 4. **Done by the user (29 October):** free shipping over $100, the policies (all 5 live, linked in the footer) and payments. **Georgia sales tax is the client's job**; no tax is charged until they set it up.
 5. **Waiting on the client:** `D:\Work\Chesed Hair\Shopify\what-we-need-from-chesed.md` (tax, business details, shipping times, photos, prices). Reviews and star ratings came from the client, confirmed in writing to the user.
 6. Textures: 10 in the catalogue, 7 on sale (Permed Straight, Wet & Wavy and Deep Wave are drafts waiting for photos, and hidden on Shopify).
