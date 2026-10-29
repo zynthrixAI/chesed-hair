@@ -27,7 +27,7 @@
       <div>
         <h3><a href="/collections/{{ t.slug }}-wigs/">{{ t.name }}</a></h3>
         <ul class="sm-list">
-        {% for p in t.products %}<li><a href="{{ p.url }}"><i style="--sw:{{ p.color.hex }}"></i>{{ p.color.key }}</a></li>{% endfor %}
+        {% for p in t.products %}<li><a href="{{ p.url }}"><i style="--sw:{{ p.color.hex }}"></i>{{ p.color.label }}</a></li>{% endfor %}
         </ul>
       </div>
     {% endfor %}

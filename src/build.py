@@ -262,7 +262,7 @@ def color_filters(pool):
     out = []
     for c in D.COLORS:
         n = sum(1 for p in pool if p["color"]["key"] == c["key"])
-        if n: out.append(dict(value=c["slug"], label=c["key"], hex=c["hex"], count=n))
+        if n: out.append(dict(value=c["slug"], label=c["label"], hex=c["hex"], count=n))
     return out
 
 def texture_filters(pool):

@@ -73,7 +73,7 @@
     {% for t in theater %}<li class="sx{% if loop.first %} on{% endif %}" style="--sw:{{ t.color.hex }}">
       <a href="{{ t.product.url }}" data-cursor="Shop">{{ macros.picture(t.img.file, t.img.alt, "(max-width:900px) 70vw, 40vw") }}
         <span class="sx-v" aria-hidden="true">{{ t.color.key }}</span>
-        <span class="sx-info"><i></i><b>{{ t.color.key }}</b><small>{{ t.family_name }} · Shop this shade →</small></span></a></li>{% endfor %}
+        <span class="sx-info"><i></i><b>{{ t.color.label }}</b><small>{{ t.family_name }} · Shop this shade →</small></span></a></li>{% endfor %}
   </ul>
 </section>
 
@@ -86,11 +86,11 @@
   </div>
   <div class="th-copy">
     <p class="eyebrow pink" id="thH">The shade theater</p>
-    <div class="th-name-wrap" aria-live="polite"><h2 class="th-name display" id="thName">{{ theater[0].color.name }}</h2></div>
+    <div class="th-name-wrap" aria-live="polite"><h2 class="th-name display" id="thName">{{ theater[0].color.label }}</h2></div>
     <p class="th-blurb" id="thBlurb">{{ theater[0].color.blurb }}</p>
     <ul class="th-sw" role="list" aria-label="Choose a shade">
-      {% for s in theater %}<li><button type="button" style="--sw:{{ s.color.hex }}" aria-label="{{ s.color.key }}" title="{{ s.color.key }}" aria-pressed="{{ 'true' if loop.first else 'false' }}"
-        data-i="{{ loop.index0 }}" data-name="{{ s.color.name }}" data-blurb="{{ s.color.blurb }}" data-col="/collections/{{ s.family_slug }}-wigs/" data-colname="{{ s.family_name }}" data-prod="{{ s.product.url }}"></button></li>{% endfor %}
+      {% for s in theater %}<li><button type="button" style="--sw:{{ s.color.hex }}" aria-label="{{ s.color.label }}" title="{{ s.color.label }}" aria-pressed="{{ 'true' if loop.first else 'false' }}"
+        data-i="{{ loop.index0 }}" data-name="{{ s.color.label }}" data-blurb="{{ s.color.blurb }}" data-col="/collections/{{ s.family_slug }}-wigs/" data-colname="{{ s.family_name }}" data-prod="{{ s.product.url }}"></button></li>{% endfor %}
     </ul>
     <div class="cta-row">
       <a class="btn" id="thCol" href="/collections/{{ theater[0].family_slug }}-wigs/">Shop {{ theater[0].family_name }}</a>
@@ -135,15 +135,15 @@
   <div class="spot-grid wrap">
     <div class="spot-media">
       {% for x in spotlight %}{{ macros.picture(x.img.file, x.img.alt, "(max-width:900px) 100vw, 50vw", cls="on" if loop.index0 == spot_start else "") }}{% endfor %}
-      <span class="spot-tag" id="spotTag">{{ spotlight[spot_start].color.name }}</span>
+      <span class="spot-tag" id="spotTag">{{ spotlight[spot_start].color.label }}</span>
     </div>
     <div class="spot-copy">
       <p class="eyebrow rose">Texture spotlight</p>
       <h2 id="spH" class="display-sm" data-split>{{ banner_texture.name }}</h2>
       <p class="spot-lede">Straight, with the soft blown-out texture of natural hair. The closest match to relaxed and silk-pressed hair, so it looks real up close.</p>
-      <p class="spot-label"><span>Shade</span><b id="spotName">{{ spotlight[spot_start].color.name }}</b><small>{{ spotlight|length }} shades</small></p>
+      <p class="spot-label"><span>Shade</span><b id="spotName">{{ spotlight[spot_start].color.label }}</b><small>{{ spotlight|length }} shades</small></p>
       <ul class="spot-sw" role="list" aria-label="Choose a shade">
-        {% for x in spotlight %}<li><button type="button" style="--sw:{{ x.color.hex }}" aria-label="{{ x.color.name }} ({{ x.color.key }})" aria-pressed="{{ 'true' if loop.index0 == spot_start else 'false' }}" data-i="{{ loop.index0 }}" data-name="{{ x.color.name }}" data-url="{{ x.url }}"></button></li>{% endfor %}
+        {% for x in spotlight %}<li><button type="button" style="--sw:{{ x.color.hex }}" aria-label="{{ x.color.label }}" aria-pressed="{{ 'true' if loop.index0 == spot_start else 'false' }}" data-i="{{ loop.index0 }}" data-name="{{ x.color.label }}" data-url="{{ x.url }}"></button></li>{% endfor %}
       </ul>
       <ul class="spot-facts" role="list"><li><b>Yaki texture</b><span>No glassy shine</span></li><li><b>18–36"</b><span>Every length</span></li><li><b>From {{ macros.money(spotlight[0].price) }}</b><span>or 4 × {{ macros.money(spotlight[0].price/4) }}</span></li></ul>
       <div class="cta-row">
@@ -178,7 +178,7 @@
       <p>Sunday light, plants, bathroom mirrors. Every wig, lived in the way you'll actually wear it.</p>
     </div>
     <ul class="look-track" role="list" id="lookTrack" data-htrack>
-      {% for l in lookbook %}<li><a href="{{ l.product.url }}" data-cursor="View">{{ macros.picture(l.img.file, l.img.alt, "(max-width:720px) 78vw, 30vw") }}<span><b>{{ l.product.color.key }}</b>{{ l.product.texture.name }}</span></a></li>{% endfor %}
+      {% for l in lookbook %}<li><a href="{{ l.product.url }}" data-cursor="View">{{ macros.picture(l.img.file, l.img.alt, "(max-width:720px) 78vw, 30vw") }}<span><b>{{ l.product.color.label }}</b>{{ l.product.texture.name }}</span></a></li>{% endfor %}
     </ul>
   </div>
 </section>

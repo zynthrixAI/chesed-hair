@@ -4,7 +4,7 @@
   <ul class="cg-grid" role="list">
     {% for s in theater %}<li class="cg-item">
       <a href="{{ s.product.url }}">{{ macros.picture(s.img.file, s.img.alt, "(max-width:720px) 50vw, 20vw") }}</a>
-      <h2><i style="--sw:{{ s.color.hex }}"></i>{{ s.color.key }}</h2>
+      <h2><i style="--sw:{{ s.color.hex }}"></i>{{ s.color.label }}</h2>
       <p>{{ s.color.blurb }}</p>
       <a class="link sm" href="/collections/{{ s.family_slug }}-wigs/">Shop {{ s.family_name|lower }}</a>
     </li>{% endfor %}

@@ -165,6 +165,10 @@ COLORS = [
     dict(key="Red", name="Cherry Red", slug="red", hex="#B0141F", family="red",
          blurb="True cherry red from root to tip, with no orange and no pink."),
 ]
+# what shoppers read: the name first, the number in brackets ("Rich Wine Red (530)"); shades already in words stay as they are
+# (user, 30 October 2026). Web addresses keep the number.
+for c in COLORS:
+    c["label"] = c["name"] if c["key"] in (c["name"], "Red") else f"{c['name']} ({c['key']})"
 COL = {c["key"]: c for c in COLORS}
 
 COLOR_COLLECTIONS = []   # one collection per shade, filled in by make_color_collections() once products exist
@@ -191,15 +195,15 @@ def make_color_collections(products):
         if not texs:
             continue
         tl = texs[0] if len(texs) == 1 else ", ".join(texs[:-1]) + " and " + texs[-1]
-        key = c["key"]
+        key, lab = c["key"], c["label"]
         q, a = COLOR_COMPARE[key]
         out.append(dict(
-            slug=c["slug"], name=f"{key} Wigs", label=key, h1=f"{key} Wigs", colors=[key],
-            title=f"{key} Lace Front Wigs | Chesed Hair",
-            intro=f"{c['blurb']} Shop {key} lace front wigs in {tl}, made from 100% unprocessed virgin Remy human hair, in lengths from 18 to 36 inches.",
-            faq=[(f"Which textures come in {key}?", f"{tl.capitalize()}."), (q, a),
-                 (f"Can I dye {key}?", "Virgin is the best base for color because it has never been processed. We recommend a professional colorist for any color change."),
-                 (f"How do I keep {key} looking its best?", "Wash in cool water with sulfate-free shampoo and conditioner, and store the wig on a stand.")]))
+            slug=c["slug"], name=f"{lab} Wigs", label=key, shade=lab, h1=f"{lab} Wigs", colors=[key],
+            title=f"{lab} Lace Front Wigs | Chesed Hair",
+            intro=f"{c['blurb']} Shop {lab} lace front wigs in {tl}, made from 100% unprocessed virgin Remy human hair, in lengths from 18 to 36 inches.",
+            faq=[(f"Which textures come in {lab}?", f"{tl.capitalize()}."), (q, a),
+                 (f"Can I dye {lab}?", "Virgin is the best base for color because it has never been processed. We recommend a professional colorist for any color change."),
+                 (f"How do I keep {lab} looking its best?", "Wash in cool water with sulfate-free shampoo and conditioner, and store the wig on a stand.")]))
     return out
 
 
@@ -237,7 +241,7 @@ def build_products():
     for style, t in TEX.items():
         for color, c in COL.items():
             handle = f"{c['slug']}-{t['slug']}-lace-front-wig"
-            title = f"{color} {t['name']} Lace Front Wig"
+            title = f"{c['label']} {t['name']} Lace Front Wig"
             images = gallery_images(handle, color, t["name"])
             mannequin = [im for im in images if im.get("mannequin")]
             images = cover_first([im for im in images if not im.get("mannequin")], t["key"], color)
