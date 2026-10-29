@@ -22,7 +22,7 @@
       <a class="ftr-all" href="/collections/wigs/">Shop all wigs</a>
     </nav>
     <nav class="ftr-wide" aria-label="Wigs by color"><h3>Wigs by color</h3>
-      <ul class="ftr-2">{% for cc in color_collections %}<li><a href="/collections/{{ cc.slug }}-wigs/"><i class="ftr-dot" style="--sw:{{ colmap[cc.label].hex }}"></i>{{ cc.label }}</a></li>{% endfor %}</ul>
+      <ul class="ftr-2">{% for cc in color_collections %}<li><a href="/collections/{{ cc.slug }}-wigs/"><i class="ftr-dot" style="--sw:{{ colmap[cc.label].hex }}"></i>{{ cc.shade }}</a></li>{% endfor %}</ul>
     </nav>
     <nav aria-label="More to shop"><h3>More to shop</h3>
       <ul>{% for ec in extra_collections %}<li><a href="/collections/{{ ec.slug }}/">{{ ec.name }}</a></li>{% endfor %}</ul>

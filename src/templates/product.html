@@ -23,12 +23,12 @@
     <p class="code-note" data-code-note hidden></p>
 
     <div class="shade-pick">
-      <p class="opt-label"><span>Shade</span><b id="shadeName">{{ p.color.name }}</b><a class="link sm" href="/pages/wig-color-guide/">Color guide</a></p>
+      <p class="opt-label"><span>Shade</span><b id="shadeName">{{ p.color.label }}</b><a class="link sm" href="/pages/wig-color-guide/">Color guide</a></p>
       <ul class="shade-sw" role="list" aria-label="Choose a shade">
-        {% for s in p.siblings %}<li style="--sw:{{ s.color.hex }}"><a href="{{ s.url }}" aria-label="{{ s.color.name }} ({{ s.color.key }})" data-name="{{ s.color.name }}"{% if s.handle == p.handle %} aria-current="true" class="on"{% endif %}><span class="sw-img">{{ macros.picture(s.images[0].file, "", "64px") }}</span><i class="sw-chip" aria-hidden="true"></i></a>
+        {% for s in p.siblings %}<li style="--sw:{{ s.color.hex }}"><a href="{{ s.url }}" aria-label="{{ s.color.label }}" data-name="{{ s.color.label }}"{% if s.handle == p.handle %} aria-current="true" class="on"{% endif %}><span class="sw-img">{{ macros.picture(s.images[0].file, "", "64px") }}</span><i class="sw-chip" aria-hidden="true"></i></a>
           <div class="sw-pop" role="tooltip">
             <span class="sw-pop-img">{{ macros.picture(s.images[0].file, "", "72px") }}</span>
-            <span class="sw-pop-t"><b>{{ s.color.name }}<i style="--sw:{{ s.color.hex }}"></i></b><small>{{ s.color.blurb }}</small>{% if s.handle == p.handle %}<em>You're viewing this shade</em>{% endif %}</span>
+            <span class="sw-pop-t"><b>{{ s.color.label }}<i style="--sw:{{ s.color.hex }}"></i></b><small>{{ s.color.blurb }}</small>{% if s.handle == p.handle %}<em>You're viewing this shade</em>{% endif %}</span>
           </div></li>{% endfor %}
       </ul>
     </div>
@@ -80,7 +80,7 @@
 
 {% if not p.placeholder %}
 <section class="scenes wrap" aria-labelledby="scH">
-  <div class="sec-head"><h2 id="scH">{{ p.color.key }} on deep skin</h2><p>Real-room lighting, no filters on the shade.</p></div>
+  <div class="sec-head"><h2 id="scH">{{ p.color.label }} on deep skin</h2><p>Real-room lighting, no filters on the shade.</p></div>
   <ul class="scene-grid" role="list">{% for im in p.images if not im.mannequin and not im.info %}<li>{{ macros.picture(im.file, im.alt, "(max-width:720px) 50vw, 25vw") }}</li>{% endfor %}</ul>
 </section>
 {% endif %}
@@ -109,7 +109,7 @@
 
 {% if p.same_color %}
 <section class="xsell wrap" aria-labelledby="xsH">
-  <div class="sec-head"><h2 id="xsH">{{ p.color.key }} in other textures</h2><a class="link" href="/collections/{{ p.color_collection.slug }}-wigs/">All {{ p.color_collection.name|lower }}</a></div>
+  <div class="sec-head"><h2 id="xsH">{{ p.color.label }} in other textures</h2><a class="link" href="/collections/{{ p.color_collection.slug }}-wigs/">All {{ p.color_collection.name|lower }}</a></div>
   <div class="grid">{% for s in p.same_color[:4] %}{{ macros.product_card(s, lead="texture") }}{% endfor %}</div>
 </section>
 {% endif %}
@@ -122,7 +122,7 @@
 {% endif %}
 
 <div class="sticky-buy" id="stickyBuy" aria-hidden="true">
-  <div><b>{{ p.color.key }}</b><span id="stickyLen">{{ default_length }}"</span></div>
+  <div><b>{{ p.color.label }}</b><span id="stickyLen">{{ default_length }}"</span></div>
   <button class="btn rose" type="button" id="stickyAdd" tabindex="-1">Add to bag · <span id="stickyPrice">{{ macros.money(dv.price) }}</span></button>
 </div>
 <script type="application/json" id="landmarks">{{ p.landmark_for|tojson }}</script>

@@ -20,7 +20,7 @@
                 <p class="sm-pane-h"><b>{{ t.name }}</b><small>{{ t.products|length }} {{ "shade" if t.products|length == 1 else "shades" }}</small></p>
                 <p class="sm-pane-sub">Choose a shade</p>
                 <ul class="sm-list sm-2col">
-                {% for p in t.products %}<li><a href="{{ p.url }}"><i style="--sw:{{ p.color.hex }}"></i>{{ p.color.key }}</a></li>{% endfor %}
+                {% for p in t.products %}<li><a href="{{ p.url }}"><i style="--sw:{{ p.color.hex }}"></i>{{ p.color.label }}</a></li>{% endfor %}
                 </ul>
                 <a class="sm-more" href="/collections/{{ t.slug }}-wigs/">All {{ t.name|lower }} wigs</a>
               </div>
@@ -29,7 +29,7 @@
             <div class="sm-col">
               <h3>Wigs by color</h3>
               <ul class="sm-list sm-2col">
-              {% for cc in color_collections %}<li><a href="/collections/{{ cc.slug }}-wigs/"><i style="--sw:{{ colmap[cc.label].hex }}"></i>{{ cc.label }}</a></li>{% endfor %}
+              {% for cc in color_collections %}<li><a href="/collections/{{ cc.slug }}-wigs/"><i style="--sw:{{ colmap[cc.label].hex }}"></i>{{ cc.shade }}</a></li>{% endfor %}
               </ul>
             </div>
             <div class="sm-col sm-feature">
@@ -133,7 +133,7 @@
           <summary>{{ t.name }}<small>{{ t.products|length }}</small></summary>
           <ul class="sm-list">
             <li><a href="/collections/{{ t.slug }}-wigs/">All {{ t.name }} wigs</a></li>
-            {% for p in t.products %}<li><a href="{{ p.url }}"><i style="--sw:{{ p.color.hex }}"></i>{{ p.color.key }}</a></li>{% endfor %}
+            {% for p in t.products %}<li><a href="{{ p.url }}"><i style="--sw:{{ p.color.hex }}"></i>{{ p.color.label }}</a></li>{% endfor %}
           </ul>
         </details></li>
         {% endfor %}

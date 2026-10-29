@@ -27,8 +27,8 @@
       {% if p.images|length > 1 and not p.images[1].info %}{{ picture(p.images[1].file, "", sizes, cls="alt") }}{% endif %}
       <span class="card-quick">View wig</span>
     </div>
-    {% if lead == "texture" %}<h3 class="card-title"><span>{{ p.texture.name }}</span> {{ p.color.key }} Lace Front Wig</h3>
-    {% else %}<h3 class="card-title"><span>{{ p.color.key }}</span> {{ p.texture.name }} Lace Front Wig</h3>{% endif %}
+    {% if lead == "texture" %}<h3 class="card-title"><span>{{ p.texture.name }}</span> {{ p.color.label }} Lace Front Wig</h3>
+    {% else %}<h3 class="card-title"><span>{{ p.color.label }}</span> {{ p.texture.name }} Lace Front Wig</h3>{% endif %}
   </a>
   <div class="card-meta">
     <p class="card-price"><small class="from">From </small>{{ money(p.price) }}<small>or 4 × {{ money(p.price/4) }}</small></p>
