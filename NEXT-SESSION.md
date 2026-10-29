@@ -11,7 +11,7 @@ Updated 29 October 2026. Read this, then [HANDOFF.md](HANDOFF.md) for setup and 
 
 ## Start next time with
 1. **Every change to chesedhair.com is public:** theme pushes need `--allow-live` and the user's go-ahead; show them first.
-2. **Both repos are on GitHub** except the branch `claude/notes-todo` (to-do lists after launch): push and merge it when the user says so.
+2. **Both repos are up to date on GitHub** (preview up to pull request 36, 30 October 2026).
 3. **Done by the user (29 October):** free shipping over $100, the policies (all 5 live, linked in the footer) and payments. **Georgia sales tax is the client's job**; no tax is charged until they set it up.
 4. **Waiting on the client:** `D:\Work\Chesed Hair\Shopify\what-we-need-from-chesed.md` (tax, business details, shipping times, photos, prices). Reviews and star ratings came from the client, confirmed in writing to the user.
 5. Textures: 10 in the catalogue, 7 on sale (Permed Straight, Wet & Wavy and Deep Wave are drafts waiting for photos, and hidden on Shopify).
