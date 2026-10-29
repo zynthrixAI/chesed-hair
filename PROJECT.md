@@ -240,6 +240,12 @@ The user builds in their own Shopify Partners development store and transfers it
 - **Chesed's store:** the user imported `D:\Work\Chesed Hair\Shopify\chesed-store-import-curly-wigs.csv` before the preview was live, so every photo failed; they were added again (`backups/chesed-store-2026-10-28/curly_photos_fix.py`: retries failed photos one at a time and puts them in order). **Merge and wait for the preview before importing a CSV.** Then `shopify_collections.py` (Curly page) and `shopify_metafields.py` on their store, and `curly-wigs` added to the theme's texture list.
 - **Homepage crochet category photo** was blank on Chesed's store (their crochet products keep their old addresses): `templates/index.json` now uses their Burmese Curly address, and `home-categories.liquid` falls back to the collection's first product.
 
+
+### Shade names for shoppers, deep-skin carousel (30 October 2026, pull request 37, live on both sites)
+- **Shades read name first, number in brackets** (user): Natural Black (1B), Jet Black (1), Natural Dark Brown (Virgin), Rich Wine Red (530), Deep Plum (99J), Copper Ginger (350); Red is **Cherry Red**; Honey Auburn, Natural Auburn and Honey Blonde unchanged. `label` on each shade in `COLORS` (`src/data.py`), used in wig titles, shade pages, cards, menus, footer, filters, homepage, color guide and search chips. **Web addresses keep the number.** The big decorative numbers in the homepage shade panels stay numbers. Names still need Chesed's approval (client sheet item 3.2).
+- **Shopify:** new field `chesed.shade_label` on the shade collections (the theme shows it, falling back to `shade_key`); `shopify_collections.py` keeps shade page titles in step; new `src/tools/shopify_titles.py` renames the wigs (title, search title and description only). Run on Chesed's store on 30 October: 53 wigs renamed, 10 shade pages renamed.
+- **Wig pages: "on deep skin" photos are a carousel** (`.rail.scene-grid` with arrows, 4 across on desktop) instead of a grid that left one photo alone on a second row.
+
 ---
 
 ## To do

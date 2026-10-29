@@ -1,17 +1,17 @@
 # Chesed Hair: pick up here
 
-Updated 29 October 2026. Read this, then [HANDOFF.md](HANDOFF.md) for setup and [PROJECT.md](PROJECT.md) for the full history.
+Updated 30 October 2026. Read this, then [HANDOFF.md](HANDOFF.md) for setup and [PROJECT.md](PROJECT.md) for the full history.
 
 ## Where things stand
 - **Live store:** www.chesedhair.com (Chesed's store `gvit1g-jv.myshopify.com`) runs the Chesed theme (id 158858969142) since 29 October 2026: 50 active wigs (Curly back since 29 October) and 6 crochet. See "Chesed's own store" and "Curly wigs back" in PROJECT.md. Their old theme "Re-degine Be Yours" is kept unpublished as a fallback.
-- **Preview site:** https://lime-deer-681625.hostingersite.com. Everything up to pull request 33 (Curly wigs back, real reviews, spin wheel) is merged and live.
+- **Preview site:** https://lime-deer-681625.hostingersite.com. Everything up to pull request 37 (shade names for shoppers, deep-skin carousel) is merged and live.
 - **Workshop store:** the user's Partners development store `chesed-hair-umskgt0n.myshopify.com` (Chesed theme live there behind the password, but behind the real store since 28 October).
 - **Theme folder** `D:\Work\Chesed Hair\Website\chesed-theme` is on GitHub as the private repo `zynthrixAI/chesed-theme` (branch `main`).
 - **GitHub tool:** signed in as zynthrixAI. **Shopify CLI:** signed in to the user's Partners account; store tools reach Chesed's store with `SHOPIFY_STORE=gvit1g-jv.myshopify.com`.
 
 ## Start next time with
 1. **Every change to chesedhair.com is public:** theme pushes need `--allow-live` and the user's go-ahead; show them first.
-2. **Both repos are up to date on GitHub** (preview up to pull request 36, 30 October 2026).
+2. **Both repos are up to date on GitHub** (30 October 2026).
 3. **Done by the user (29 October):** free shipping over $100, the policies (all 5 live, linked in the footer) and payments. **Georgia sales tax is the client's job**; no tax is charged until they set it up.
 4. **Waiting on the client:** `D:\Work\Chesed Hair\Shopify\what-we-need-from-chesed.md` (tax, business details, shipping times, photos, prices). Reviews and star ratings came from the client, confirmed in writing to the user.
 5. Textures: 10 in the catalogue, 7 on sale (Permed Straight, Wet & Wavy and Deep Wave are drafts waiting for photos, and hidden on Shopify).
