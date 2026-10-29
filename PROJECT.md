@@ -284,6 +284,6 @@ The full list sent to the client: `D:\Work\Chesed Hair\Shopify\what-we-need-from
 - [ ] Connect the theme repo to the store (Shopify's GitHub integration), so changes deploy from GitHub.
 - [ ] A reviews app (e.g. Judge.me) so new reviews come in on their own.
 - [ ] Connect an email platform (e.g. Klaviyo) so the welcome wheel actually sends emails.
-- [ ] The user: turn on two-step sign-in.
+- [x] Two-step sign-in on the user's Shopify account (authenticator app, 30 October).
 - [ ] Suggest a backup app (e.g. Rewind) to Chesed.
 - [ ] Remove the Shopify CLI connector app from Chesed's store when the work is finished.
