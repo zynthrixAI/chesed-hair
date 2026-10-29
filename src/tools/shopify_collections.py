@@ -26,7 +26,7 @@ for t in D.TEXTURES:
                      seo=f"{t['name']} Lace Front Wigs | Chesed"))
 for cc in D.make_color_collections(products):
     cols.append(dict(handle=f"{cc['slug']}-wigs", title=cc["h1"], rules=[tag_rule(f"shade-{D.COL[k]['slug']}") for k in cc["colors"]],
-                     body=cc["intro"], seo=cc["title"]))
+                     body=cc["intro"], seo=cc["title"], rename=True))   # shade names changed on 30 October 2026: keep titles in step
 for ec in D.EXTRA_COLLECTIONS:
     if ec["kind"] == "crochet":
         cols.append(dict(handle=ec["slug"], title=ec["h1"], rules=[tag_rule("crochet")], body=ec["intro"], seo=ec["title"]))
@@ -39,8 +39,10 @@ PUBLISH = """mutation($id: ID!, $pub: ID!) { publishablePublish(id: $id, input: 
 for c in cols:
     if c["handle"] in have:   # keep the intro in step with the catalogue
         cid = next(n["id"] for n in gql("query($q: String) { collections(first: 1, query: $q) { nodes { id } } }", {"q": f"handle:{c['handle']}"})["collections"]["nodes"])
-        gql("mutation($c: CollectionInput!) { collectionUpdate(input: $c) { userErrors { message } } }",
-            {"c": {"id": cid, "descriptionHtml": f"<p>{c['body']}</p>"}}, mutation=True)
+        upd = {"id": cid, "descriptionHtml": f"<p>{c['body']}</p>"}
+        if c.get("rename"):
+            upd.update(title=c["title"], seo={"title": c["seo"], "description": c["body"][:155].rsplit(" ", 1)[0] + "…"})
+        gql("mutation($c: CollectionInput!) { collectionUpdate(input: $c) { userErrors { message } } }", {"c": upd}, mutation=True)
         print(f"exists   {c['handle']} (intro updated)")
         continue
     r = gql(CREATE, {"input": {"title": c["title"], "handle": c["handle"], "descriptionHtml": f"<p>{c['body']}</p>",
