@@ -1082,9 +1082,9 @@ a.card-add{text-decoration:none;display:inline-block}
 .ftr-more{margin-top:24px}
 @media (max-width:720px){.len-row.opt-row button{min-height:44px}}
 
-/* mega menu: shades in two columns, cards for the extra categories, one footer strip */
-.sm-2col{display:grid;grid-template-columns:1fr 1fr;column-gap:24px}
-.smenu .sm-list a{padding:7px 0}
+/* mega menu: shades in one column (the names are too long for two), cards for the extra categories, one footer strip */
+.sm-2col{display:grid;grid-template-columns:minmax(0,1fr)}
+.smenu .sm-list a{padding:7px 0;white-space:normal}
 .smenu .sm-more{margin-top:14px}
 .sm-cards h3{margin-bottom:10px}
 .sm-card{display:flex;align-items:center;gap:14px;padding:9px 0;border-bottom:1px solid var(--line);text-decoration:none}

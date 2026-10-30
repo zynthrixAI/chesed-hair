@@ -2,7 +2,7 @@
 
     python src/tools/export_shopify.py [out.csv]
 
-Wigs: one product per shade and texture, option "Length" (18" to 36") with Chesed's prices.
+Wigs: one product per shade and texture, option "Length" (18" to 32") with Chesed's prices.
 Crochet: options as on the preview (Color, Length). Hair bundles are left out while they are hidden.
 Photos are fetched by Shopify from the preview site, so it must be live with the same photos.
 Wigs with placeholder photos are imported as drafts with no photos.
@@ -50,12 +50,12 @@ for p in D.build_products():
     t, c = p["texture"], p["color"]
     body = (f"<p>{esc(c['blurb'])}</p><p>{esc(t['intro'])}</p>"
             f"<ul><li>Texture: {esc(t['name'])}</li><li>Hair: 100% unprocessed virgin Remy human hair</li>"
-            f"<li>Lace: 13x5 lace front</li><li>Cap: one size fits all</li><li>Lengths: 18 to 36 inches</li></ul>")
+            f"<li>Lace: 13x5 lace front</li><li>Cap: one size fits all</li><li>Lengths: 18 to 32 inches</li></ul>")
     head = {"Handle": p["handle"], "Title": p["title"], "Body (HTML)": body, "Vendor": "Chesed Hair", "Type": "Lace Front Wig",
             "Tags": ", ".join(["wig", f"texture-{t['slug']}", f"shade-{c['slug']}", f"family-{c['family']}"]),
             "Published": "FALSE" if p["placeholder"] else "TRUE", "Status": "draft" if p["placeholder"] else "active",
             "SEO Title": f"{p['title']} | Chesed",
-            "SEO Description": f"{p['title']} in 100% unprocessed virgin Remy human hair. {c['blurb']} 18 to 36 inches."[:320]}
+            "SEO Description": f"{p['title']} in 100% unprocessed virgin Remy human hair. {c['blurb']} 18 to 32 inches."[:320]}
     variants = [variant(f"{p['handle']}-{v['length']}", v["price"], ("Length", v["title"])) for v in p["variants"]]
     images = [] if p["placeholder"] else p["images"]
     rows += product_rows(head, variants, images)

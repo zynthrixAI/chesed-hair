@@ -14,9 +14,8 @@ POSE_NAMES = {"front": "front view", "three-quarter": "three-quarter view", "bac
 
 # Wig prices from Chesed's price sheet ("CHESED WIG List", 24 October 2026): a price per length,
 # plus $5 for the coloured shades and an extra for some textures. Chesed asked for the sheet prices times 2,
-# rounded up to the next .95. 34" and 36" are not on the sheet, so those are our estimates ($30 a step above 32",
-# as on the sheet from 28" to 30"; user, 24 October 2026). Water Wave wigs were removed: not on the sheet. Curly is not on it either, but came back on 29 October 2026 at the Kinky Curly prices (user).
-WIG_LENGTH_PRICE = {18: 69.95, 20: 79.95, 22: 99.95, 24: 99.95, 26: 129.95, 28: 139.95, 30: 149.95, 32: 179.95, 34: 209.95, 36: 239.95}
+# rounded up to the next .95. Water Wave wigs were removed: not on the sheet. Curly is not on it either, but came back on 29 October 2026 at the Kinky Curly prices (user).
+WIG_LENGTH_PRICE = {18: 69.95, 20: 79.95, 22: 99.95, 24: 99.95, 26: 129.95, 28: 139.95, 30: 149.95, 32: 179.95}
 NATURAL_SHADES = {"1", "1B", "Virgin"}          # every other shade costs $5 more
 COLOR_EXTRA = 5.00
 TEXTURE_EXTRA = {"Loose Deep": 3.50, "Kinky Curly": 4.50, "Virgin Curl": 4.50, "Kinky Straight": 4.50, "Wet & Wavy": 4.50,
@@ -32,13 +31,13 @@ def wig_price(length, texture, color):
     sheet = WIG_LENGTH_PRICE[length] + (0 if color in NATURAL_SHADES else COLOR_EXTRA) + TEXTURE_EXTRA.get(texture, 0)
     return round(up_to_95(sheet * PRICE_MULTIPLIER), 2)
 FREE_SHIP = 100.00        # free US shipping over $100 (client, 22 October 2026)
-LENGTHS = [18, 20, 22, 24, 26, 28, 30, 32, 34, 36]   # wigs come in 18" to 36" (client, 22 October 2026)
+LENGTHS = [18, 20, 22, 24, 26, 28, 30, 32]   # wigs come in 18" to 32" (client, 22 October 2026; 34" and 36" dropped by Chesed, 30 October 2026)
 DEFAULT_LENGTH = 24
-# where each length ends on the body; waves and curls sit one step higher. 34" and 36" are estimates for Chesed to check.
+# where each length ends on the body; waves and curls sit one step higher.
 LANDMARKS = ["bust", "below the bust", "mid ribs", "waist", "below the waist", "hips",
-             "top of the thighs", "upper thighs", "mid thigh", "lower thigh"]
+             "top of the thighs", "upper thighs"]
 CURLY_LANDMARKS = ["armpits", "bust", "below the bust", "mid ribs", "waist", "below the waist",
-                   "hips", "top of the thighs", "upper thighs", "mid thigh"]
+                   "hips", "top of the thighs"]
 
 # Length photos (layout C, chosen by Chesed on 24 October 2026): a 5'5" model from behind with a pink line
 # and tag for each length. Waves and curls spring up, so their lines sit 2 inches higher.
@@ -67,49 +66,49 @@ def slug(s):
 TEXTURES = [
     dict(key="Body Wave", name="Body Wave", slug="body-wave", curly=True,
          short="Soft S-shaped waves that swing past the collarbone.",
-         intro="Body wave is the easiest texture to wear every day: soft, S-shaped waves with natural movement that look styled from the moment you put the wig on. Each Chesed body wave wig is a lace front unit made from 100% unprocessed virgin Remy human hair, in 10 shades and every length from 18 to 36 inches. Pick a shade, choose your length and wear it straight out of the box, or reset the wave with a wash and air-dry.",
+         intro="Body wave is the easiest texture to wear every day: soft, S-shaped waves with natural movement that look styled from the moment you put the wig on. Each Chesed body wave wig is a lace front unit made from 100% unprocessed virgin Remy human hair, in 10 shades and every length from 18 to 32 inches. Pick a shade, choose your length and wear it straight out of the box, or reset the wave with a wash and air-dry.",
          faq=[("Will the body wave pattern last?", "Yes. The wave is set into the hair, so it returns after washing. Air-dry or diffuse to keep the S-shape defined."),
               ("Can I straighten a body wave wig?", "You can flat iron it with a heat protectant. The wave comes back after the next wash."),
               ("Why does a body wave wig look shorter than its length?", "Length is measured with the hair pulled straight. Waves sit about 2 inches higher on the body."),
               ("Which shade sells best in body wave?", "Natural black (1B) is the everyday choice. Rich wine red (530) and copper ginger (350) are the statement shades.")]),
     dict(key="Curly", name="Curly", slug="curly", curly=True,
          short="Small, dense spiral curls with full volume.",
-         intro="Our curly lace front wigs have small, dense spiral curls that look full from root to tip. They are made from 100% unprocessed virgin Remy human hair and come in 9 shades and lengths from 18 to 36 inches. Curly units give the most volume of any Chesed texture, so a shorter length still reads big. Refresh the curls with water and a leave-in conditioner between washes.",
+         intro="Our curly lace front wigs have small, dense spiral curls that look full from root to tip. They are made from 100% unprocessed virgin Remy human hair and come in 9 shades and lengths from 18 to 32 inches. Curly units give the most volume of any Chesed texture, so a shorter length still reads big. Refresh the curls with water and a leave-in conditioner between washes.",
          faq=[("How do I keep the curls defined?", "Wet the hair, apply a leave-in conditioner and let it air-dry. Avoid brushing curls when dry."),
               ("Does a curly wig look shorter?", "Yes. Curls shrink, so a curly wig sits 2 to 4 inches higher than its stretched length."),
               ("Can I wear it straight?", "You can blow it out and flat iron it. The curls return when the hair gets wet."),
               ("How full is a curly wig?", "Curly units look the fullest of all our textures because each curl takes up more space.")]),
     dict(key="Kinky Curly", name="Kinky Curly", slug="kinky-curly", curly=True,
          short="Tight, springy coils that blend with natural 4C hair.",
-         intro="Kinky curly wigs have tight, springy coils that match natural 4B and 4C hair, so the hairline blends instead of standing out. This lace front unit is made from 100% unprocessed virgin Remy human hair, currently in rich wine red (530), in lengths from 18 to 36 inches. It is the most natural-looking option if you want a wig that looks like your own hair grown out.",
+         intro="Kinky curly wigs have tight, springy coils that match natural 4B and 4C hair, so the hairline blends instead of standing out. This lace front unit is made from 100% unprocessed virgin Remy human hair, currently in rich wine red (530), in lengths from 18 to 32 inches. It is the most natural-looking option if you want a wig that looks like your own hair grown out.",
          faq=[("Will kinky curly blend with my natural hair?", "Yes. The coil pattern is made to match 4B and 4C textures."),
               ("How much does kinky curly shrink?", "A lot. Expect it to sit 4 or more inches higher than its stretched length."),
               ("How do I detangle it?", "Finger-detangle while wet with conditioner, working from the ends up."),
               ("Which colors does kinky curly come in?", "Rich wine red (530) for now. More shades are planned.")]),
     dict(key="Kinky Straight", name="Kinky Straight", slug="kinky-straight", curly=False,
          short="Straight with a natural, blown-out yaki texture.",
-         intro="Kinky straight hair looks like natural hair that has been blown out: straight, with a soft yaki texture instead of a glassy shine. That texture is why it blends with relaxed or pressed hair and looks believable up close. Each Chesed kinky straight wig is a lace front unit in 100% unprocessed virgin Remy human hair, in 9 shades and lengths from 18 to 36 inches.",
+         intro="Kinky straight hair looks like natural hair that has been blown out: straight, with a soft yaki texture instead of a glassy shine. That texture is why it blends with relaxed or pressed hair and looks believable up close. Each Chesed kinky straight wig is a lace front unit in 100% unprocessed virgin Remy human hair, in 9 shades and lengths from 18 to 32 inches.",
          faq=[("What is the difference between kinky straight and straight?", "Kinky straight has a coarse, blown-out texture. Straight is smooth and silky."),
               ("Can I curl a kinky straight wig?", "Yes. It holds curls well because of its texture."),
               ("Does it blend with relaxed hair?", "Yes. It is the closest match to relaxed or silk-pressed natural hair."),
               ("Is it frizzy?", "It has a natural texture, not frizz. A light serum smooths flyaways.")]),
     dict(key="Loose Deep", name="Loose Deep Wave", slug="loose-deep-wave", curly=True,
          short="Loose, defined curls between a wave and a curl.",
-         intro="Loose deep wave sits between a body wave and a curl: defined, bouncy curls that are looser than a deep wave and fuller than a body wave. It is a strong choice if you want volume without tight curls. Every Chesed loose deep wave wig is a lace front unit made from 100% unprocessed virgin Remy human hair, in 9 shades and lengths from 18 to 36 inches.",
+         intro="Loose deep wave sits between a body wave and a curl: defined, bouncy curls that are looser than a deep wave and fuller than a body wave. It is a strong choice if you want volume without tight curls. Every Chesed loose deep wave wig is a lace front unit made from 100% unprocessed virgin Remy human hair, in 9 shades and lengths from 18 to 32 inches.",
          faq=[("Is loose deep wave the same as body wave?", "No. Loose deep wave has more defined, curlier waves. Body wave is softer and looser."),
               ("How do I keep the pattern?", "Wash, apply a curl cream and let it air-dry or diffuse."),
               ("Does it tangle?", "Less than tighter curls. Detangle wet with a wide-tooth comb."),
               ("Does it look shorter than its length?", "Yes, by about 2 to 3 inches, because the curls take up length.")]),
     dict(key="Straight", name="Straight", slug="straight", curly=False,
          short="Smooth, silky straight hair with natural movement.",
-         intro="Our straight lace front wigs are smooth, silky and swing with natural movement. Straight hair shows length most clearly, so it is the best texture for long lengths up to 36 inches. Each wig is made from 100% unprocessed virgin Remy human hair and comes in 9 shades. Wear it sleek, add curls with a wand, or part it however you like.",
+         intro="Our straight lace front wigs are smooth, silky and swing with natural movement. Straight hair shows length most clearly, so it is the best texture for long lengths up to 32 inches. Each wig is made from 100% unprocessed virgin Remy human hair and comes in 9 shades. Wear it sleek, add curls with a wand, or part it however you like.",
          faq=[("Will straight hair stay straight?", "Yes. It is naturally straight, so it dries straight after washing."),
               ("Can I curl it?", "Yes, with a curling iron or wand and a heat protectant."),
               ("Does straight hair show the true length?", "Yes. Straight hair falls at its full measured length."),
               ("Is it shiny?", "It has a natural soft shine, not a synthetic gloss.")]),
     dict(key="Virgin Curl", name="Virgin Curl", slug="virgin-curl", curly=True,
          short="Natural-color curls in untreated virgin hair.",
-         intro="Virgin curl wigs are curly units left in their natural, uncolored state, so the hair has never been processed. That makes them the best base if you plan to dye the wig yourself later. They come in 1B, 1 and Virgin, in lengths from 18 to 36 inches, as lace front units in 100% unprocessed virgin Remy human hair.",
+         intro="Virgin curl wigs are curly units left in their natural, uncolored state, so the hair has never been processed. That makes them the best base if you plan to dye the wig yourself later. They come in 1B, 1 and Virgin, in lengths from 18 to 32 inches, as lace front units in 100% unprocessed virgin Remy human hair.",
          faq=[("What makes virgin curl different from curly?", "Virgin curl is never colored, so it stays in its natural shade. That makes it the safest base for dyeing."),
               ("Can I dye it?", "Yes. Unprocessed hair takes color best. We recommend a professional colorist."),
               ("Which shades are available?", "1B, 1 and Virgin."),
@@ -117,7 +116,7 @@ TEXTURES = [
     dict(key="Permed Straight", name="Permed Straight", slug="permed-straight", curly=False,
          only_colors=["1", "1B", "Virgin", "350", "530", "Honey Auburn", "Honey Blonde", "Red"],
          short="Straight with a soft perm texture and extra body.",
-         intro="Permed straight falls straight but has a soft perm texture through it, so it looks fuller and more natural than glassy, silky straight hair. It is a good match for relaxed or lightly textured natural hair and keeps its body between washes. Each Chesed permed straight wig is a lace front unit in 100% unprocessed virgin Remy human hair, in 8 shades and lengths from 18 to 36 inches.",
+         intro="Permed straight falls straight but has a soft perm texture through it, so it looks fuller and more natural than glassy, silky straight hair. It is a good match for relaxed or lightly textured natural hair and keeps its body between washes. Each Chesed permed straight wig is a lace front unit in 100% unprocessed virgin Remy human hair, in 8 shades and lengths from 18 to 32 inches.",
          faq=[("How is permed straight different from straight?", "Straight is smooth and silky. Permed straight has a soft texture and more body, so it looks less flat."),
               ("Can I curl a permed straight wig?", "Yes. Use a heat protectant and a curling iron or wand."),
               ("Does it blend with my natural hair?", "It blends best with relaxed, silk-pressed or lightly textured hair."),
@@ -125,7 +124,7 @@ TEXTURES = [
     dict(key="Wet & Wavy", name="Wet & Wavy", slug="wet-and-wavy", curly=True,
          only_colors=["1", "1B", "Virgin", "350", "530", "Honey Auburn", "Honey Blonde", "Red"],
          short="Loose, glossy waves that look freshly wet-set.",
-         intro="Wet & wavy has loose, flowing waves with a glossy, just-styled finish that looks like freshly wet-set hair. The pattern is defined from root to tip and moves easily. Each Chesed wet & wavy wig is a lace front unit in 100% unprocessed virgin Remy human hair, in 8 shades and lengths from 18 to 36 inches. Refresh the waves with water and a light leave-in conditioner.",
+         intro="Wet & wavy has loose, flowing waves with a glossy, just-styled finish that looks like freshly wet-set hair. The pattern is defined from root to tip and moves easily. Each Chesed wet & wavy wig is a lace front unit in 100% unprocessed virgin Remy human hair, in 8 shades and lengths from 18 to 32 inches. Refresh the waves with water and a light leave-in conditioner.",
          faq=[("How do I keep the waves defined?", "Wet the hair, add a leave-in conditioner and let it air-dry or diffuse. Avoid brushing when dry."),
               ("Is wet & wavy the same as body wave?", "No. Wet & wavy has a looser, glossier, more water-like pattern. Body wave is a softer S-shape."),
               ("Does it look shorter than its length?", "Yes. The waves take up length, so it sits about 2 inches higher than straight hair."),
@@ -134,7 +133,7 @@ TEXTURES = [
     dict(key="Deep Wave", name="Deep Wave", slug="deep-wave", curly=True,
          only_colors=["1", "1B", "Virgin", "350", "530", "Honey Auburn", "Honey Blonde", "Red"],
          short="Deep, defined waves with full, bouncy volume.",
-         intro="Deep wave has deep, defined waves that are tighter than a body wave and looser than a curl, so it looks full and bouncy from root to tip. Each Chesed deep wave wig is a lace front unit in 100% unprocessed virgin Remy human hair, in 8 shades and lengths from 18 to 36 inches. Refresh the pattern with water and a curl cream.",
+         intro="Deep wave has deep, defined waves that are tighter than a body wave and looser than a curl, so it looks full and bouncy from root to tip. Each Chesed deep wave wig is a lace front unit in 100% unprocessed virgin Remy human hair, in 8 shades and lengths from 18 to 32 inches. Refresh the pattern with water and a curl cream.",
          faq=[("How is deep wave different from loose deep wave?", "Deep wave has tighter, more defined waves. Loose deep wave is softer and more open."),
               ("How do I keep the waves defined?", "Wet the hair, apply a curl cream and let it air-dry or diffuse. Avoid brushing when dry."),
               ("Does it look shorter than its length?", "Yes. The waves take up length, so it sits 2 to 3 inches higher than straight hair."),
@@ -200,7 +199,7 @@ def make_color_collections(products):
         out.append(dict(
             slug=c["slug"], name=f"{lab} Wigs", label=key, shade=lab, h1=f"{lab} Wigs", colors=[key],
             title=f"{lab} Lace Front Wigs | Chesed Hair",
-            intro=f"{c['blurb']} Shop {lab} lace front wigs in {tl}, made from 100% unprocessed virgin Remy human hair, in lengths from 18 to 36 inches.",
+            intro=f"{c['blurb']} Shop {lab} lace front wigs in {tl}, made from 100% unprocessed virgin Remy human hair, in lengths from 18 to 32 inches.",
             faq=[(f"Which textures come in {lab}?", f"{tl.capitalize()}."), (q, a),
                  (f"Can I dye {lab}?", "Virgin is the best base for color because it has never been processed. We recommend a professional colorist for any color change."),
                  (f"How do I keep {lab} looking its best?", "Wash in cool water with sulfate-free shampoo and conditioner, and store the wig on a stand.")]))
@@ -390,7 +389,7 @@ WHATSAPP_PLACEHOLDER = True
 WIG_FAQ = [
     ("What are Chesed wigs made of?", "Every Chesed wig is 100% unprocessed virgin Remy human hair on a lace front, so you can color, heat-style and wash it like your own hair."),
     ("What lace and cap do the wigs have?", "A 13x5 lace front for a natural hairline, on a cap that is one size fits all."),
-    ("How do I choose my length?", "Use the length guide: it shows where each length from 18 to 36 inches ends on the body. Waves and curls sit about 2 inches higher than straight hair."),
+    ("How do I choose my length?", "Use the length guide: it shows where each length from 18 to 32 inches ends on the body. Waves and curls sit about 2 inches higher than straight hair."),
     ("How do I choose my shade?", "Every shade is shown on the same model in real rooms. The color guide puts all ten side by side, including the ones people mix up, like 1B vs 1."),
     ("What if the wig isn't right?", "Return or exchange unused wigs within 30 days with the lace uncut. Your first US return label is free."),
 ]
@@ -406,7 +405,7 @@ GENERAL_FAQ = [
     ("Can I dye or restyle Chesed hair?", "Our wigs can be dyed, bleached and permed like your own hair. Crochet and feather extensions are already styled and colored, so we don't recommend dyeing them."),
 ]
 HOME_FAQ = GENERAL_FAQ[:2] + [
-    ("How do I choose my shade and length?", "For wigs, the color guide shows all ten shades on the same model, and the length guide shows where every length from 18 to 36 inches ends on the body. For crochet, each product page shows every color on a model, in lengths from 12 to 22 inches."),
+    ("How do I choose my shade and length?", "For wigs, the color guide shows all ten shades on the same model, and the length guide shows where every length from 18 to 32 inches ends on the body. For crochet, each product page shows every color on a model, in lengths from 12 to 22 inches."),
     SHIP_FAQ[0],
     ("What if it isn't right?", "Return or exchange unused hair within 30 days, in its original packaging (wigs with the lace uncut). Your first US return label is free."),
 ]
@@ -414,9 +413,9 @@ HOME_FAQ = GENERAL_FAQ[:2] + [
 
 def length_photo(key, lengths=None):
     """One length photo with the height of each length line, in % of the photo (18" at 500px of 1200, 30px an inch).
-    Wigs by default; pass CROCHET_LENGTHS for crochet."""
+    Wigs by default; pass CROCHET_LENGTHS for crochet, which has its own photos (honey blonde hair, so the ends show against the black dress; 30 October 2026)."""
     ph = next(c for c in LENGTH_PHOTOS if c["key"] == key)
-    return dict(ph, file=f"length-{key}", lines=[dict(len=L, y=round((500 + (L - ph["up"] - 18) * 30) / 12, 2)) for L in lengths or LENGTHS])
+    return dict(ph, file=f"length-crochet-{key}" if lengths else f"length-{key}", lines=[dict(len=L, y=round((500 + (L - ph["up"] - 18) * 30) / 12, 2)) for L in lengths or LENGTHS])
 
 
 def wheel_svg():

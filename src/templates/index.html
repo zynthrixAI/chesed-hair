@@ -24,7 +24,7 @@
 {# 2. MARQUEE #}
 <div class="marquee" aria-hidden="true">
   <div class="mq-row mq-small"><div class="mq-track" data-mq="1">
-    {% for i in range(3) %}{% for w in ["100% virgin Remy human hair", "Lace front wigs", "Crochet & feather extensions", "Ten shades", "18 to 36 inches", "Free US shipping over $" ~ free_ship|int, "30-day returns", "Pay in 4"] %}<span>{{ w }}</span><b>✦</b>{% endfor %}{% endfor %}
+    {% for i in range(3) %}{% for w in ["100% virgin Remy human hair", "Lace front wigs", "Crochet & feather extensions", "Ten shades", "18 to 32 inches", "Free US shipping over $" ~ free_ship|int, "30-day returns", "Pay in 4"] %}<span>{{ w }}</span><b>✦</b>{% endfor %}{% endfor %}
   </div></div>
 </div>
 
@@ -145,7 +145,7 @@
       <ul class="spot-sw" role="list" aria-label="Choose a shade">
         {% for x in spotlight %}<li><button type="button" style="--sw:{{ x.color.hex }}" aria-label="{{ x.color.label }}" aria-pressed="{{ 'true' if loop.index0 == spot_start else 'false' }}" data-i="{{ loop.index0 }}" data-name="{{ x.color.label }}" data-url="{{ x.url }}"></button></li>{% endfor %}
       </ul>
-      <ul class="spot-facts" role="list"><li><b>Yaki texture</b><span>No glassy shine</span></li><li><b>18–36"</b><span>Every length</span></li><li><b>From {{ macros.money(spotlight[0].price) }}</b><span>or 4 × {{ macros.money(spotlight[0].price/4) }}</span></li></ul>
+      <ul class="spot-facts" role="list"><li><b>Yaki texture</b><span>No glassy shine</span></li><li><b>18–32"</b><span>Every length</span></li><li><b>From {{ macros.money(spotlight[0].price) }}</b><span>or 4 × {{ macros.money(spotlight[0].price/4) }}</span></li></ul>
       <div class="cta-row">
         <a class="btn rose" id="spotBuy" href="{{ spotlight[spot_start].url }}">Shop this shade</a>
         <a class="link" href="/collections/{{ banner_texture.slug }}-wigs/">All {{ banner_texture.name|lower }}</a>
