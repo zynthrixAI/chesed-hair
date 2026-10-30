@@ -257,6 +257,7 @@ The user builds in their own Shopify Partners development store and transfers it
 - **Anasia10 switched off**; the ambassador program stays off (nothing about it is left on the site). **10 shades is final** (no 12).
 - **New public address and phone:** 1364 Buford Business Blvd, Suite 700, Buford, GA 30518; +1 (678) 765-8833. Changed by the user in the Contact information policy and Store details; the privacy policy is Shopify's automatic one and points to the contact page.
 - **Crochet length photos** (client: the black hair on a black dress was hard to read and looked like the wig photos): the user made honey blonde versions of the three length photos in Gemini (black dress kept, user's choice), checked to line up with the originals (wavy shifted 10px). Files `length-crochet-<photo>-*.webp`; `length_photo(key, CROCHET_LENGTHS)` picks them. Live on both sites 30 October. Sources in `D:\Work\Chesed Hair\Images\crochet-length-*.png`.
+- **Product pages: compact length band** (user, pull request 41): no padding above or below the "Every length, side by side" band; it uses the photo's own pink (#E9CDCA) and the photo's sides fade out, so the photo merges in. Length guide and homepage unchanged. Live on both sites 30 October.
 
 ---
 
