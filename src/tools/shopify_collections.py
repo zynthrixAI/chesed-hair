@@ -19,7 +19,7 @@ def tag_rule(tag):
 products = D.build_products()
 n_tex = sum(1 for t in D.TEXTURES if any(p["texture"]["key"] == t["key"] and not p["placeholder"] for p in products))   # textures on sale (wigs with photos)
 cols = [dict(handle="wigs", title="Lace Front Wigs", rules=[tag_rule("wig")],
-             body=f"Every Chesed wig in one place: {n_tex} textures and 10 shades of lace front wigs in 100% unprocessed virgin Remy human hair, each available from 18 to 36 inches. All of them are shown on the same model, so you can compare textures and shades fairly. Filter by texture and shade below to narrow it down.",
+             body=f"Every Chesed wig in one place: {n_tex} textures and 10 shades of lace front wigs in 100% unprocessed virgin Remy human hair, each available from 18 to 32 inches. All of them are shown on the same model, so you can compare textures and shades fairly. Filter by texture and shade below to narrow it down.",
              seo=f"Lace Front Wigs in {n_tex} Textures & 10 Colors | Chesed")]
 for t in D.TEXTURES:
     cols.append(dict(handle=f"{t['slug']}-wigs", title=f"{t['name']} Wigs", rules=[tag_rule(f"texture-{t['slug']}")], body=t["intro"],

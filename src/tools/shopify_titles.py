@@ -13,7 +13,7 @@ UPD = "mutation($p: ProductUpdateInput!) { productUpdate(product: $p) { userErro
 for p in D.build_products():
     c = p["color"]
     seo = {"title": f"{p['title']} | Chesed",
-           "description": f"{p['title']} in 100% unprocessed virgin Remy human hair. {c['blurb']} 18 to 36 inches."[:320]}
+           "description": f"{p['title']} in 100% unprocessed virgin Remy human hair. {c['blurb']} 18 to 32 inches."[:320]}
     n = gql(Q, {"q": f"handle:{p['handle']}"})["products"]["nodes"]
     if not n or n[0]["handle"] != p["handle"]:
         print(f"missing  {p['handle']}"); continue

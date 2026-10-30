@@ -29,7 +29,7 @@ for handle, seo, h1, lede, body in D.PAGES:
                           for i, (ic, h, tx) in enumerate(D.PAGE_STEPS[handle])}
         main["block_order"] = list(main["blocks"])
     pages.append((handle, h1, seo, body, {"sections": {"main": main}, "order": ["main"]}))
-pages.append(("wig-length-guide", "Wig Length Chart: 18 to 36 Inches", "Wig Length Chart, 18-36 Inch on a Model | Chesed",
+pages.append(("wig-length-guide", "Wig Length Chart: 18 to 32 Inches", "Wig Length Chart, 18-32 Inch on a Model | Chesed",
               guide_text("length_guide.html"), {"sections": {"main": {"type": "main-length-guide", "settings": {}}}, "order": ["main"]}))
 pages.append(("wig-color-guide", "Wig Colors on Deep Skin", "Wig Color Chart: 10 Shades on Deep Skin | Chesed",
               guide_text("color_guide.html"), {"sections": {"main": {"type": "main-color-guide", "settings": {"texture": "body-wave-wigs"}}}, "order": ["main"]}))

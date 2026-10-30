@@ -6,7 +6,7 @@
     <nav class="crumbs light" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span>{% if not is_hub and c.kind|default("wig") == "wig" %}<a href="/collections/wigs/">Wigs</a><span aria-hidden="true">/</span>{% endif %}<span aria-current="page">{{ c.h1 }}</span></nav>
     <h1 id="colH" class="display" data-split>{{ c.h1 }}</h1>
     {% set noun = c.noun|default("wig") %}
-    <p class="col-count">{% if c.coming_soon %}Coming soon{% elif noun != "wig" %}100% human hair{% else %}{{ c.products|length }} {{ noun if c.products|length == 1 else noun ~ "s" }}{% if noun == "wig" %} · 18 to 36 inches · 100% virgin Remy human hair{% endif %}{% endif %}</p>
+    <p class="col-count">{% if c.coming_soon %}Coming soon{% elif noun != "wig" %}100% human hair{% else %}{{ c.products|length }} {{ noun if c.products|length == 1 else noun ~ "s" }}{% if noun == "wig" %} · 18 to 32 inches · 100% virgin Remy human hair{% endif %}{% endif %}</p>
   </div>
 </section>
 {% set lead, more = split_intro(c.intro) %}
@@ -31,7 +31,7 @@
     {% else %}
     <li><b>{{ n_shades }}</b><span>{{ "shade" if n_shades == 1 else "shades" }}</span></li>
     <li><b>{% if n_tex > 1 %}{{ n_tex }}{% else %}{{ c.products[0].texture.name }}{% endif %}</b><span>{% if n_tex > 1 %}textures{% else %}texture{% endif %}</span></li>
-    <li><b>18–36"</b><span>every length</span></li>
+    <li><b>18–32"</b><span>every length</span></li>
     {% set lo = c.products|map(attribute="price")|min %}<li><b>{{ macros.money(lo) }}</b><span>lowest price</span></li>
     {% endif %}
   </ul>

@@ -142,7 +142,7 @@ crochet_promo = dict(name=crochet_ec["name"], url=f"/collections/{crochet_ec['sl
 for p in products:   # crochet in the same texture first
     p["crochet"] = sorted(crochet, key=lambda x: p["texture"]["slug"] not in x["textures"])[:4]
 home_cats = [dict(name="Lace Front Wigs", url="/collections/wigs/", img=shot("Body Wave", "Honey Blonde", 5),
-                  sub=f"{len(D.TEXTURES)} textures · 10 shades · 18 to 36 inches"),
+                  sub=f"{len(D.TEXTURES)} textures · 10 shades · 18 to 32 inches"),
              dict(name=crochet_ec["name"], url=crochet_promo["url"], square=True,   # crochet photos are square: shown whole
                   img=dict(file="seamless-burmese-curly-feather-crochet-braid-hair-extensions-4", alt="Burmese curly feather crochet extensions on a model, with the pack beside her"),
                   sub=f"{len(crochet)} handmade styles · 6 colors · 12 to 22 inches")]
@@ -248,7 +248,7 @@ def org_ld():
 
 # HOME
 render("index.html", "/", seo_title="Chesed Hair | Human Hair Lace Front Wigs & Crochet Extensions",
-       seo_description=f"Lace front wigs in 100% unprocessed virgin Remy human hair, {len(D.TEXTURES)} textures and 10 shades from 18 to 36 inches, plus handmade crochet and feather extensions.",
+       seo_description=f"Lace front wigs in 100% unprocessed virgin Remy human hair, {len(D.TEXTURES)} textures and 10 shades from 18 to 32 inches, plus handmade crochet and feather extensions.",
        canonical="/", body_class="home overlay", page_id="home", hero=hero, hero_product=hero_product, hero_imgs=hero_imgs, banner_imgs=banner_imgs, banner_texture=banner_texture, all_tile=all_tile, theater=theater,
        best=best, home_textures=home_textures, n_tex_word=n_tex_word, n_home_tex_word=NUM.get(len(home_textures), str(len(home_textures))), lookbook=lookbook, story=story, spotlight=spotlight, spot_start=spot_start, home_faq=home_faq, home_cats=home_cats, cats_style=CATS_STYLE, crochet_promo=crochet_promo, crochet_picks=crochet[:4], jsonld=json.dumps(org_ld()),
        og_image=img(hero['file'], 1024))
@@ -299,18 +299,18 @@ tex_related = [dict(label=t["name"], url=f"/collections/{t['slug']}-wigs/") for 
 crochet_pill = dict(label=crochet_ec["name"], url=f"/collections/{crochet_ec['slug']}/")
 col_related = [dict(label=cc["name"], url=f"/collections/{cc['slug']}-wigs/", hex=D.COL[cc["colors"][0]]["hex"]) for cc in D.COLOR_COLLECTIONS]
 
-hub = dict(h1="Lace Front Wigs", intro=f"Every Chesed wig in one place: {len(D.TEXTURES)} textures and 10 shades of lace front wigs in 100% unprocessed virgin Remy human hair, each available from 18 to 36 inches. All of them are shown on the same model, so you can compare textures and shades fairly. Filter by texture and shade below to narrow it down.",
+hub = dict(h1="Lace Front Wigs", intro=f"Every Chesed wig in one place: {len(D.TEXTURES)} textures and 10 shades of lace front wigs in 100% unprocessed virgin Remy human hair, each available from 18 to 32 inches. All of them are shown on the same model, so you can compare textures and shades fairly. Filter by texture and shade below to narrow it down.",
            products=products, filters=texture_filters(products), filter_key="texture", filter_label="Texture", image=None,
            faq=WIG_FAQ, related_heading="Shop by color", related=col_related + [crochet_pill], also=crochet_promo,
            banner=[shot("Straight", "Red", 1), shot("Body Wave", "530", 1), shot("Loose Deep", "Honey Blonde", 1)])
 render("collection.html", "/collections/wigs/", seo_title=f"Lace Front Wigs in {len(D.TEXTURES)} Textures & 10 Colors | Chesed",
-       seo_description="Shop all Chesed lace front wigs: body wave, curly, kinky curly, kinky straight, loose deep wave, straight, permed straight, wet & wavy, deep wave and virgin curl, in 10 shades, 18 to 36 inches.",
+       seo_description="Shop all Chesed lace front wigs: body wave, curly, kinky curly, kinky straight, loose deep wave, straight, permed straight, wet & wavy, deep wave and virgin curl, in 10 shades, 18 to 32 inches.",
        canonical="/collections/wigs/", body_class="shop overlay", page_id="hub", c=hub, is_hub=True, card_lead="texture",
        jsonld=json.dumps(breadcrumb_ld([("Home", "/"), ("Lace Front Wigs", "/collections/wigs/")])))
 
 TEX_TITLES = {"permed-straight": "Permed Straight Lace Front Wigs | Chesed", "wet-and-wavy": "Wet & Wavy Lace Front Wigs | Chesed",
               "deep-wave": "Deep Wave Lace Front Wigs | Chesed",
-              "body-wave": "Body Wave Lace Front Wigs, 18-36 Inch | Chesed", "curly": "Curly Lace Front Wigs, 18-36 Inch | Chesed",
+              "body-wave": "Body Wave Lace Front Wigs, 18-32 Inch | Chesed", "curly": "Curly Lace Front Wigs, 18-32 Inch | Chesed",
               "kinky-curly": "Kinky Curly Lace Front Wigs | Chesed Hair", "kinky-straight": "Kinky Straight Wigs, Yaki Texture | Chesed",
               "loose-deep-wave": "Loose Deep Wave Lace Front Wigs | Chesed", "straight": "Silky Straight Lace Front Wigs | Chesed",
               "virgin-curl": "Virgin Curl Human Hair Wigs | Chesed Hair"}
@@ -343,7 +343,7 @@ for p in products:
           "offers": [{"@type": "Offer", "name": f'{v["length"]} inch', "price": f'{v["price"]:.2f}', "priceCurrency": "USD",
                       "availability": "https://schema.org/InStock", "url": f"https://chesedhair.com{p['url']}?length={v['length']}"} for v in p["variants"]]}
     render("product.html", p["url"], seo_title=f"{p['title']} | Chesed",
-           seo_description=f"{p['title']} in 100% unprocessed virgin Remy human hair. {p['color']['blurb']} 18 to 36 inches.",
+           seo_description=f"{p['title']} in 100% unprocessed virgin Remy human hair. {p['color']['blurb']} 18 to 32 inches.",
            canonical=p["url"], body_class="shop pdp-page", page_id=p["handle"], p=p, og_type="product",
            og_image=img(p['images'][0]['file'], 1024),
            jsonld=json.dumps([ld, breadcrumb_ld([("Home", "/"), (f"{p['texture']['name']} Wigs", f"/collections/{p['texture']['slug']}-wigs/"), (p["title"], p["url"])])]))
@@ -392,10 +392,10 @@ for x in extras:
            jsonld=json.dumps([ld, breadcrumb_ld([("Home", "/"), (x["collection"]["name"], f"/collections/{x['collection']['slug']}/"), (x["title"], x["url"])])]))
 
 # PAGES
-render("length_guide.html", "/pages/wig-length-guide/", seo_title="Wig Length Chart, 18-36 Inch on a Model | Chesed",
-       seo_description="See where every wig length from 18 to 36 inches ends on the body, for straight and curly textures.",
+render("length_guide.html", "/pages/wig-length-guide/", seo_title="Wig Length Chart, 18-32 Inch on a Model | Chesed",
+       seo_description="See where every wig length from 18 to 32 inches ends on the body, for straight and curly textures.",
        canonical="/pages/wig-length-guide/", body_class="shop", page_id="lg", lengths=D.LENGTHS, landmarks=D.LANDMARKS, curly_landmarks=D.CURLY_LANDMARKS,
-       page=dict(h1="Wig Length Chart: 18 to 36 Inches", lede="Where each length ends on the body, for straight and for curly textures."))
+       page=dict(h1="Wig Length Chart: 18 to 32 Inches", lede="Where each length ends on the body, for straight and for curly textures."))
 render("color_guide.html", "/pages/wig-color-guide/", seo_title="Wig Color Chart: 10 Shades on Deep Skin | Chesed",
        seo_description="All 10 Chesed wig colors on the same model: 1, 1B, Virgin, 530, 99J, 350, Honey Auburn, Natural Auburn, Honey Blonde and Red.",
        canonical="/pages/wig-color-guide/", body_class="shop", page_id="cg", theater=theater,
