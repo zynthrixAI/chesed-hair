@@ -255,7 +255,7 @@ The user builds in their own Shopify Partners development store and transfers it
 - **Wigs 18" to 32"** (Chesed dropped 34" and 36"): `LENGTHS`, prices, landmarks and every "18 to 36 inches" line. On Chesed's store: 148 variants deleted (34" and 36" on all 74 wigs, drafts too) and the wording fixed on the wigs, 21 collections, the FAQ and the length guide (script kept in the session only; the 28 October backup has the old variants). Theme pushed live (17 files).
 - **Menu:** the shade lists in the Wigs menu are one column, because the shade names with numbers ran into each other in two.
 - **Anasia10 switched off**; the ambassador program stays off (nothing about it is left on the site). **10 shades is final** (no 12).
-- **New public address:** 1364 Buford Business Blvd, Suite 700, Buford, GA 30518. The user changes it in Settings → Policies (Contact information and Privacy policy) and Store details; the CLI sign-in can't edit policies.
+- **New public address and phone:** 1364 Buford Business Blvd, Suite 700, Buford, GA 30518; +1 (678) 765-8833. Changed by the user in the Contact information policy and Store details; the privacy policy is Shopify's automatic one and points to the contact page.
 - **Crochet length photo** to be redone (the black hair and black dress are hard to read and look like the wig photos): honey blonde hair and an ivory dress, same pose and framing so the length lines still fit. Waiting on AceData credit.
 
 ---
@@ -273,7 +273,7 @@ The user builds in their own Shopify Partners development store and transfers it
 ### Waiting on Chesed
 The full list sent to the client: `D:\Work\Chesed Hair\Shopify\what-we-need-from-chesed.md`. Main points:
 - [ ] **Georgia sales tax** (the client sets it up; no tax is charged until then).
-- [ ] **Business details:** phone, legal business name (address answered 30 October).
+- [ ] **Business details:** legal business name (address and phone answered 30 October).
 - [ ] **Shipping:** Standard and Express times; international shipping or not.
 - [ ] **Photos:** Deep Wave, Permed Straight and Wet & Wavy wigs (all shades, plus mannequin front and back); Kinky Curly mannequin; Honey Auburn with more blonde highlights; the 4 bundles.
 - [ ] **Shade names:** approve 1B Natural Black, 1 Jet Black, Virgin Natural Dark Brown, 530 Rich Wine Red, 99J Deep Plum, 350 Copper Ginger, Red Cherry Red. The shade descriptions were written from the photos too.
