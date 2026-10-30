@@ -1260,6 +1260,12 @@ button.lp-ln:focus-visible{outline:2px solid var(--rose);outline-offset:4px}
 .lenviz .lp-table tr:first-child th,.lenviz .lp-table th[scope=row]{background:var(--petal)}
 .lp-more{text-align:center;margin-top:28px}
 .lp-one{width:100%;max-width:420px;justify-self:center}
+/* product pages: the length band hugs the photo (no padding above or below) and the photo's sides fade into the blush */
+.every-len{padding:0;overflow:hidden;background:#E9CDCA}
+.every-len .lv-copy{padding:48px 0}
+.every-len .lp-one{align-self:stretch;display:flex;align-items:center}
+.every-len .lp-ph{width:100%}
+.every-len .lp-ph img{-webkit-mask-image:linear-gradient(90deg,transparent,#000 22%,#000 78%,transparent);mask-image:linear-gradient(90deg,transparent,#000 22%,#000 78%,transparent)}
 @media (max-width:720px){
   .js .lp-seg{display:inline-flex;margin:0 auto 18px}
   .js .lp{display:flex;flex-direction:column}
