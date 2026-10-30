@@ -17,7 +17,8 @@ import data as D
 SRC = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ROOT = os.path.dirname(SRC)
 THEME = sys.argv[1] if len(sys.argv) > 1 else os.path.join(os.path.dirname(ROOT), "chesed-theme")
-PHOTOS = ["length-straight", "length-wavy", "length-curly", "banner-curly-burgundy", "banner-curly-black",
+PHOTOS = ["length-straight", "length-wavy", "length-curly", "length-crochet-straight", "length-crochet-wavy", "length-crochet-curly",
+          "banner-curly-burgundy", "banner-curly-black",
           "wig-cap-one-size", "wig-cap-secure-fit", "placeholder"]
 
 env = Environment(loader=FileSystemLoader(os.path.join(SRC, "templates")), autoescape=select_autoescape(["html"]),

@@ -413,9 +413,9 @@ HOME_FAQ = GENERAL_FAQ[:2] + [
 
 def length_photo(key, lengths=None):
     """One length photo with the height of each length line, in % of the photo (18" at 500px of 1200, 30px an inch).
-    Wigs by default; pass CROCHET_LENGTHS for crochet."""
+    Wigs by default; pass CROCHET_LENGTHS for crochet, which has its own photos (honey blonde hair, so the ends show against the black dress; 30 October 2026)."""
     ph = next(c for c in LENGTH_PHOTOS if c["key"] == key)
-    return dict(ph, file=f"length-{key}", lines=[dict(len=L, y=round((500 + (L - ph["up"] - 18) * 30) / 12, 2)) for L in lengths or LENGTHS])
+    return dict(ph, file=f"length-crochet-{key}" if lengths else f"length-{key}", lines=[dict(len=L, y=round((500 + (L - ph["up"] - 18) * 30) / 12, 2)) for L in lengths or LENGTHS])
 
 
 def wheel_svg():

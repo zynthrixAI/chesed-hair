@@ -1,7 +1,7 @@
 {# Length photos (layout C): a pink line and tag for each length on a 5'5" model, plus a size table. #}
 {% macro length_photo(c, sel=None, pick=False, sizes="(max-width:720px) 92vw, 33vw") -%}
 <div class="lp-ph">
-  <img src="{{ img(c.file, 1024) }}" srcset="{{ img(c.file, 560) }} 560w, {{ img(c.file, 1024) }} 848w" sizes="{{ sizes }}" width="848" height="1200" alt="{{ c.label }} hair on a 5'5&quot; model seen from behind, with a line where each length from 18 to 32 inches ends" loading="lazy" decoding="async">
+  <img src="{{ img(c.file, 1024) }}" srcset="{{ img(c.file, 560) }} 560w, {{ img(c.file, 1024) }} 848w" sizes="{{ sizes }}" width="848" height="1200" alt="{{ c.label }} hair on a 5'5&quot; model seen from behind, with a line where each length from {{ c.lines[0].len }} to {{ c.lines[-1].len }} inches ends" loading="lazy" decoding="async">
   {% for l in c.lines %}{% if pick %}<button type="button" class="lp-ln{% if l.len == sel %} on{% endif %}" style="--y:{{ l.y }}%" data-len="{{ l.len }}" aria-label="Choose {{ l.len }} inches"><b>{{ l.len }}"</b></button>{% else %}<span class="lp-ln" style="--y:{{ l.y }}%"><b>{{ l.len }}"</b></span>{% endif %}{% endfor %}
 </div>
 {%- endmacro %}
