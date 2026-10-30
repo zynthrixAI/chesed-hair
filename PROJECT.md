@@ -251,6 +251,13 @@ The user builds in their own Shopify Partners development store and transfers it
 - **Still owed from the proposal:** up to 5 minutes of AI video (the video spaces were removed at the client's request; to be planned with them). Basic SEO is set up (user, 30 October 2026); further SEO (keyword map, Search Console, GA4, Merchant Center, a reviews app) only if the client takes it up as a separate service.
 - **Final handover:** `D:\Work\Chesed Hair\Documents\Chesed Hair - Final Handover.md` (not in this repo).
 
+### Client answers: lengths, menu, Anasia10, address (30 October 2026, pull request 40)
+- **Wigs 18" to 32"** (Chesed dropped 34" and 36"): `LENGTHS`, prices, landmarks and every "18 to 36 inches" line. On Chesed's store: 148 variants deleted (34" and 36" on all 74 wigs, drafts too) and the wording fixed on the wigs, 21 collections, the FAQ and the length guide (script kept in the session only; the 28 October backup has the old variants). Theme pushed live (17 files).
+- **Menu:** the shade lists in the Wigs menu are one column, because the shade names with numbers ran into each other in two.
+- **Anasia10 switched off**; the ambassador program stays off (nothing about it is left on the site). **10 shades is final** (no 12).
+- **New public address:** 1364 Buford Business Blvd, Suite 700, Buford, GA 30518. The user changes it in Settings → Policies (Contact information and Privacy policy) and Store details; the CLI sign-in can't edit policies.
+- **Crochet length photo** to be redone (the black hair and black dress are hard to read and look like the wig photos): honey blonde hair and an ivory dress, same pose and framing so the length lines still fit. Waiting on AceData credit.
+
 ---
 
 ## To do
@@ -266,18 +273,17 @@ The user builds in their own Shopify Partners development store and transfers it
 ### Waiting on Chesed
 The full list sent to the client: `D:\Work\Chesed Hair\Shopify\what-we-need-from-chesed.md`. Main points:
 - [ ] **Georgia sales tax** (the client sets it up; no tax is charged until then).
-- [ ] **Business details:** public address, phone, legal business name.
+- [ ] **Business details:** phone, legal business name (address answered 30 October).
 - [ ] **Shipping:** Standard and Express times; international shipping or not.
 - [ ] **Photos:** Deep Wave, Permed Straight and Wet & Wavy wigs (all shades, plus mannequin front and back); Kinky Curly mannequin; Honey Auburn with more blonde highlights; the 4 bundles.
-- [ ] **The 12 shades:** the site has 10. Names of the 2 missing shades and which styles they come in.
 - [ ] **Shade names:** approve 1B Natural Black, 1 Jet Black, Virgin Natural Dark Brown, 530 Rich Wine Red, 99J Deep Plum, 350 Copper Ginger, Red Cherry Red. The shade descriptions were written from the photos too.
 - [ ] **Deep Wave wigs:** approval of our copy.
-- [ ] **Estimated prices** (not on the sheet, shown doubled): 34" and 36" ($419.95 and $479.95 for 1B Straight), and **Curly** (priced like Kinky Curly).
+- [ ] **Estimated prices:** **Curly** (priced like Kinky Curly).
 - [ ] **Lengths missing from the sheet:** 28" for Kinky Straight and Permed Straight, and most lengths of coloured Deep Wave. The site sells them at the usual price; confirm.
 - [ ] **Sheet questions:** Deep Wave 20" Red at $83.45; Loose Wave 22"-24" Virgin Light reads $1034.45; Wet & Wavy 20"-22" Virgin Light is at the coloured price.
-- [ ] **34" and 36" on the body:** we guessed "mid thigh" and "lower thigh"; the crochet lengths too.
+- [ ] **Crochet lengths on the body:** our measurements, to confirm.
 - [ ] **Spin wheel:** whether the shared codes should expire.
-- [ ] **Ambassador program:** restarting or not; code Anasia10; price-drop alerts.
+- [ ] **Price-drop alerts** (Watchlyst) or not. (Ambassador program off, Anasia10 off: answered 30 October.)
 - [ ] **Hair bundles:** prices, plain names for the "TP" shades, photos.
 - [ ] **Crochet descriptions:** the 6 listings still use the old store's wording.
 
