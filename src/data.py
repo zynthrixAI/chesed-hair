@@ -14,8 +14,8 @@ POSE_NAMES = {"front": "front view", "three-quarter": "three-quarter view", "bac
 
 # Wig prices from Chesed's price sheet ("CHESED WIG List", 24 October 2026): a price per length,
 # plus $5 for the coloured shades and an extra for some textures. Chesed asked for the sheet prices times 2,
-# rounded up to the next .95. Water Wave wigs were removed: not on the sheet. Curly is not on it either, but came back on 29 October 2026 at the Kinky Curly prices (user).
-WIG_LENGTH_PRICE = {18: 69.95, 20: 79.95, 22: 99.95, 24: 99.95, 26: 129.95, 28: 139.95, 30: 149.95, 32: 179.95}
+# rounded up to the next .95. 24" was the same as 22" on the sheet; Chesed set black 24" to $229.95 (17 November 2026), so 24" is $114.95 here. Water Wave wigs were removed: not on the sheet. Curly is not on it either, but came back on 29 October 2026 at the Kinky Curly prices (user).
+WIG_LENGTH_PRICE = {18: 69.95, 20: 79.95, 22: 99.95, 24: 114.95, 26: 129.95, 28: 139.95, 30: 149.95, 32: 179.95}
 NATURAL_SHADES = {"1", "1B", "Virgin"}          # every other shade costs $5 more
 COLOR_EXTRA = 5.00
 TEXTURE_EXTRA = {"Loose Deep": 3.50, "Kinky Curly": 4.50, "Virgin Curl": 4.50, "Kinky Straight": 4.50, "Wet & Wavy": 4.50,
