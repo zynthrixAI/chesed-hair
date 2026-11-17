@@ -4,7 +4,7 @@ Updated 30 October 2026. Read this, then [HANDOFF.md](HANDOFF.md) for setup and 
 
 ## Where things stand
 - **Live store:** www.chesedhair.com (Chesed's store `gvit1g-jv.myshopify.com`) runs the Chesed theme (id 158858969142) since 29 October 2026: 50 active wigs (Curly back since 29 October) and 6 crochet. See "Chesed's own store" and "Curly wigs back" in PROJECT.md. Their old theme "Re-degine Be Yours" is kept unpublished as a fallback.
-- **Preview site:** https://lime-deer-681625.hostingersite.com. Everything up to pull request 37 (shade names for shoppers, deep-skin carousel) is merged and live.
+- **Preview site** (lime-deer-681625.hostingersite.com): **deleted 17 November 2026** (it was only a design demo). Changes now go straight to the live store, www.chesedhair.com. This repo stays the source of the catalogue, the shared theme pieces and the Shopify tools; build locally (`python src/build.py`, `python -m http.server`) to try a change before pushing the theme.
 - **Workshop store:** the user's Partners development store `chesed-hair-umskgt0n.myshopify.com` (Chesed theme live there behind the password, but behind the real store since 28 October).
 - **Theme folder** `D:\Work\Chesed Hair\Website\chesed-theme` is on GitHub as the private repo `zynthrixAI/chesed-theme` (branch `main`).
 - **GitHub tool:** signed in as zynthrixAI. **Shopify CLI:** signed in to the user's Partners account; store tools reach Chesed's store with `SHOPIFY_STORE=gvit1g-jv.myshopify.com`.
@@ -21,7 +21,7 @@ Updated 30 October 2026. Read this, then [HANDOFF.md](HANDOFF.md) for setup and 
 ## Things to know
 - **Uploading to GitHub needs the user's clear go-ahead.** Ask before `git push`.
 - **Merge only when the user says "merge it"** (they also say "push and merge").
-- **Importing a product CSV into Shopify:** merge the preview first and check its photos load, because Shopify copies the photos from the preview site.
+- **Importing a product CSV into Shopify:** Shopify copies each photo from a public web address, and the preview site that used to serve them is gone. Put new photos somewhere public first (for example a temporary folder on webwroughts.com) or upload them in the Shopify admin.
 - **Shopify:** Chesed's store is the public site: theme pushes, products, collections and pages there show to shoppers straight away. **Never change it without the user's say-so.** The `?preview_theme_id=` link only works for someone signed in to the admin.
 - **Rejected designs, do not redo:** the thumbnail-rail and blurred-backdrop product galleries, the sideways-scrolling textures section, every automatic crop or cut-out of the mannequin shots, the drawn back-view length figure, the strand length charts (replaced by the length photos), and boxed category cards on the homepage. **Never crop the crochet photos.**
 - **Photos:** always write photo addresses with `img(file, width)` in templates and `build.py`. Hostinger tells browsers to keep photos for 7 days, so a photo replaced under the same name only shows up because of the fingerprint `img()` adds.

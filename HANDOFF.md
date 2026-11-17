@@ -7,7 +7,7 @@ Read this first when continuing the project. For where we paused and what to do 
 ## Where things are
 - **Project folder:** `D:\Work\Chesed Hair\Website\chesed-hair`. Open the parent folder `D:\Work\Chesed Hair\Website` in VS Code: its `CLAUDE.md` loads the notes of both repos. The old October homepage demos are in `Website\_old-homepage-demos`.
 - **GitHub:** `github.com/zynthrixAI/chesed-hair`. `main` is what the live site shows.
-- **Live preview:** https://lime-deer-681625.hostingersite.com. Hostinger deploys `main` automatically, usually within about 20 seconds of a merge. If it doesn't update, redeploy from the Git section in Hostinger's hPanel.
+- **Preview site:** lime-deer-681625.hostingersite.com was **deleted 17 November 2026** (it was only a design demo). Changes now go straight to the live store, www.chesedhair.com. Merging `main` no longer deploys anywhere.
 - **Open work:** see [NEXT-SESSION.md](NEXT-SESSION.md) for branches that are committed but not yet pushed.
 - **Shopify theme:** `D:\Work\Chesed Hair\Website\chesed-theme` (separate folder with its own Git history; see its `CLAUDE.md`).
 - **Shopify store:** the user's Partners development store `chesed-hair-umskgt0n.myshopify.com` (our workshop; the Chesed theme is its live theme since 28 October, behind the store password). **Chesed's own store `gvit1g-jv.myshopify.com` (www.chesedhair.com) runs the Chesed theme since 29 October 2026**; no transfer (see PROJECT.md, "Chesed's own store"). Store tools run against it with `SHOPIFY_STORE=gvit1g-jv.myshopify.com`.
@@ -34,7 +34,7 @@ python -m http.server 8000 --bind 127.0.0.1
 | Path | What it is |
 |---|---|
 | `src/data.py` | The catalog and settings: `TEXTURES` (10 wig styles), `COLORS` (the 10 shades, with `name` in words), `LENGTHS` and `LANDMARKS`, wig prices (`WIG_LENGTH_PRICE`, `COLOR_EXTRA`, `TEXTURE_EXTRA`, `PRICE_MULTIPLIER`), `LENGTH_PHOTOS`, `FREE_SHIP`, `CAP_IMAGES`, `REVIEWS` (real customer reviews from TikTok Shop and Amazon, with `REVIEWS_SOURCE`), `SPIN_PRIZES`, the FAQs (`GENERAL_FAQ`, `WIG_FAQ`, `SHIP_FAQ`, `HOME_FAQ`, `FAQ_PAGE`), the info page text (`PAGES`, `PAGE_STEPS`), and `wheel_svg()` / `length_photo()`. The preview and the Shopify tools both read it |
-| `src/tools/export_shopify.py` | Shopify product import file (CSV) from the catalogue. Photos are fetched from the preview site, so it must be live |
+| `src/tools/export_shopify.py` | Shopify product import file (CSV) from the catalogue. Photo addresses point at the old preview site, which is gone: give new photos a public address first |
 | `src/tools/shopify_api.py` | Runs Admin API queries through the Shopify CLI (`shopify store execute`). Query and variables go through files: the CLI's Windows wrapper mangles quotes and `< >` on the command line |
 | `src/tools/shopify_collections.py` | Creates the automatic collections and sets their product order. Safe to run again |
 | `src/tools/shopify_metafields.py` | Writes the shade and texture details onto their collections and links each wig to them. Safe to run again |
@@ -76,7 +76,7 @@ python -m http.server 8000 --bind 127.0.0.1
 ## Rules
 - **Every page stays `noindex`.** Keep `robots.txt` and the noindex tags until this becomes the real store.
 - **Don't commit** `src/__pycache__/` or `.claude/`. Both are in `.gitignore`.
-- **Hostinger serves the whole repo root,** so anything committed is publicly reachable on the preview site.
+- (The whole repo root used to be public on the preview site; it was deleted on 17 November 2026.)
 - **CLAUDE.md, HANDOFF.md, NEXT-SESSION.md and PROJECT.md are committed in the repo** (they were meant to be local only, but are tracked). Keep them updated as the project moves on, and keep them free of anything private.
 - **Placeholders** that Chesed must confirm are marked in pink on the pages (now mainly the "Sample" reviews and the spin wheel). See PROJECT.md for the list.
 

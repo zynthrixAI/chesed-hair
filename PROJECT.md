@@ -2,7 +2,7 @@
 
 A preview of the Chesed Hair online store (lace front wigs and crochet), built by Web Wroughts so Chesed could approve the design. The real store is now being built in Shopify from the same catalogue (see "Shopify store" below).
 
-- **Live preview:** https://lime-deer-681625.hostingersite.com
+- **Preview site:** lime-deer-681625.hostingersite.com, deleted 17 November 2026 (design demo only); changes go straight to www.chesedhair.com
 - **Code:** https://github.com/zynthrixAI/chesed-hair
 - **On this PC:** `D:\Work\Chesed Hair\Website\chesed-hair`
 - **Shopify theme on this PC:** `D:\Work\Chesed Hair\Website\chesed-theme` (private repo `zynthrixAI/chesed-theme`)
@@ -258,6 +258,9 @@ The user builds in their own Shopify Partners development store and transfers it
 - **New public address and phone:** 1364 Buford Business Blvd, Suite 700, Buford, GA 30518; +1 (678) 765-8833. Changed by the user in the Contact information policy and Store details; the privacy policy is Shopify's automatic one and points to the contact page.
 - **Crochet length photos** (client: the black hair on a black dress was hard to read and looked like the wig photos): the user made honey blonde versions of the three length photos in Gemini (black dress kept, user's choice), checked to line up with the originals (wavy shifted 10px). Files `length-crochet-<photo>-*.webp`; `length_photo(key, CROCHET_LENGTHS)` picks them. Live on both sites 30 October. Sources in `D:\Work\Chesed Hair\Images\crochet-length-*.png`.
 - **Product pages: compact length band** (user, pull request 41): no padding above or below the "Every length, side by side" band; it uses the photo's own pink (#E9CDCA) and the photo's sides fade out, so the photo merges in. Length guide and homepage unchanged. Live on both sites 30 October.
+- **Wig price list for Chesed** (17 November 2026): `D:\Work\Chesed Hair\Documents\Chesed Hair - Wig Price List.pdf` and `.xlsx` (prices as formulas from the sheet, tab "How prices work"). Made by a script kept outside the repos; all 144 prices checked against the catalogue.
+- **24" price** (Chesed, 17 November 2026, pull request 42): black 24" is $229.95 (was the same as 22"), so 24" on the sheet is $114.95; the rest follows the usual maths. 74 wig prices changed on the store (24" only); every wig price on the store matches the catalogue.
+- **Preview site deleted** (user, 17 November 2026): it was only a design demo. Everything goes straight to the live store now.
 
 ---
 
