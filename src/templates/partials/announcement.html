@@ -1,3 +1,5 @@
-<div class="announce">
-  <p>Free US shipping over ${{ free_ship|int }} <span class="hide-sm"><span aria-hidden="true">·</span> 30-day returns</span> <span class="hide-sm"><span aria-hidden="true">·</span> Pay in 4 with Shop Pay</span></p>
-</div>
+<div class="announce{% if bf %} announce-bf{% endif %}">
+{% if bf == "sale" %}  <p><b>Black Friday</b> <span aria-hidden="true">·</span> <em>30% off everything</em> <span class="hide-sm"><span aria-hidden="true">·</span> Mon 11/23 to Mon 11/30 <span aria-hidden="true">·</span> No code needed</span></p>
+{% elif bf == "teaser" %}  <p><span class="hide-sm"><b>Black Friday</b> <span aria-hidden="true">·</span> <em>30% off everything</em> <span aria-hidden="true">·</span> Starts Monday 11/23</span><span class="bf-sm"><b>Black Friday</b> <span aria-hidden="true">·</span> <em>30% off</em> from 11/23</span></p>
+{% else %}  <p>Free US shipping over ${{ free_ship|int }} <span class="hide-sm"><span aria-hidden="true">·</span> 30-day returns</span> <span class="hide-sm"><span aria-hidden="true">·</span> Pay in 4 with Shop Pay</span></p>
+{% endif %}</div>

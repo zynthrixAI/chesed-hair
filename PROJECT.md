@@ -6,7 +6,7 @@ A preview of the Chesed Hair online store (lace front wigs and crochet), built b
 - **Code:** https://github.com/zynthrixAI/chesed-hair
 - **On this PC:** `D:\Work\Chesed Hair\Website\chesed-hair`
 - **Shopify theme on this PC:** `D:\Work\Chesed Hair\Website\chesed-theme` (private repo `zynthrixAI/chesed-theme`)
-- **Last updated:** 29 October 2026 (see [NEXT-SESSION.md](NEXT-SESSION.md))
+- **Last updated:** 19 November 2026 (see [NEXT-SESSION.md](NEXT-SESSION.md))
 
 ---
 
@@ -262,11 +262,26 @@ The user builds in their own Shopify Partners development store and transfers it
 - **24" price** (Chesed, 17 November 2026, pull request 42): black 24" is $229.95 (was the same as 22"), so 24" on the sheet is $114.95; the rest follows the usual maths. 74 wig prices changed on the store (24" only); every wig price on the store matches the catalogue.
 - **Preview site deleted** (user, 17 November 2026): it was only a design demo. Everything goes straight to the live store now.
 
+### Black Friday sale banner (19 November 2026, mock-up only, waiting on the client)
+- **Client's ask:** 30% off the entire site, Monday 11/23 to Monday 11/30.
+- **User's choices:** a top bar on every page plus a homepage banner; an automatic discount (no code); a teaser top bar until 11/23.
+- **Five designs were tried locally** on branch `black-friday`. The user liked **v5**: a black campaign banner with these parts:
+  - a huge outlined "BLACK FRIDAY"
+  - three layered photos
+  - a giant "30% off"
+  - a turning seal
+  - a live countdown
+  - an example sale price
+  - a pink top bar and a pink scrolling band
+- **Rejected:** plain text on the normal banner; a copy of the client's reference image (glitter, tilted ribbons, script font: off-brand); the normal banner with a seal; one photo beside a solid panel. Details and next steps are in [NEXT-SESSION.md](NEXT-SESSION.md).
+- **Not done yet:** nothing is in the theme and no discount has been created. Both wait for the client's feedback and the user's go-ahead.
+
 ---
 
 ## To do
 
 ### Ours
+- [ ] **Black Friday sale (23 to 30 November 2026):** once the client approves design v5, port it to the theme with the date switching and create the automatic 30% discount. See [NEXT-SESSION.md](NEXT-SESSION.md).
 - [ ] **New shades and types:** add #2, #27, #4/30, Virgin Light, Loose Wave and Chesed's other new wig types once their photos and details arrive.
 - [x] **Shopify theme:** checked every page in a browser; live on www.chesedhair.com since 29 October 2026.
 - [x] **Curly wigs back** (29 October, at the Kinky Curly prices).

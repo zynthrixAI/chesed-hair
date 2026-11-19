@@ -4,11 +4,45 @@
 {% block main %}
 
 {# 1. HERO: full-bleed campaign banner #}
+{% if bf == "sale" %}
+<section class="bfx" aria-labelledby="heroH">
+  <p class="bfx-word" aria-hidden="true">Black Friday</p>
+  <div class="bfx-ph side l">{{ macros.picture(bf_side[0].file, "", "22vw", lazy=False) }}<small>Honey Blonde · Body Wave</small></div>
+  <div class="bfx-ph main">{{ macros.picture(bf_img.file, bf_img.alt, "(max-width:900px) 80vw, 30vw", lazy=False, priority=True) }}<small>Natural Black · Loose Deep</small></div>
+  <div class="bfx-ph side r">{{ macros.picture(bf_side[1].file, "", "22vw", lazy=False) }}<small>Rich Wine Red · Curly</small></div>
+  <h1 id="heroH" class="bfx-off"><span class="sr-only">Black Friday: </span><em>30%</em> off</h1>
+  <div class="bf-seal" aria-hidden="true">
+    <svg viewBox="0 0 200 200"><defs><path id="bfc" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs><text textLength="486" lengthAdjust="spacing"><textPath href="#bfc" textLength="486" lengthAdjust="spacing">No code needed ✦ 11/23 to 11/30 ✦ Wigs &amp; crochet ✦</textPath></text></svg>
+    <span><b>7</b>days</span>
+  </div>
+  <div class="bfx-l">
+    <p class="bfx-k">The Black Friday edit · 11/23 to 11/30</p>
+    <p class="bfx-lead">Everything on the site. Every wig, every crochet style.</p>
+    <div class="bfx-cd" data-end="2026-11-30T23:59:59-05:00" aria-label="Time left in the sale">
+      <p class="bfx-k">Sale ends in</p>
+      <div><span><b data-u="d">07</b>days</span><i>:</i><span><b data-u="h">00</b>hrs</span><i>:</i><span><b data-u="m">00</b>min</span><i>:</i><span><b data-u="s">00</b>sec</span></div>
+    </div>
+  </div>
+  <div class="bfx-r">
+    <a class="bfx-deal" href="{{ bf_deal.url }}">
+      <span class="bfx-k">For example</span>
+      <span class="bfx-dn">{{ bf_deal.name }}</span>
+      <span class="bfx-dp"><s>{{ macros.money(bf_deal.was) }}</s><b>{{ macros.money(bf_deal.now) }}</b></span>
+    </a>
+    <div class="cta-row">
+      <a class="btn" href="/collections/wigs/">Shop wigs</a>
+      <a class="btn ghost" href="{{ crochet_promo.url }}">Shop crochet</a>
+    </div>
+  </div>
+  <script>(function(){var c=document.querySelector('.bfx-cd'),e=Date.parse(c.dataset.end);function t(){var r=Math.max(0,e-Date.now())/1e3,v={d:r/86400,h:r/3600%24,m:r/60%60,s:r%60};for(var k in v)c.querySelector('[data-u='+k+']').textContent=String(Math.floor(v[k])).padStart(2,'0')}t();setInterval(t,1000)})();</script>
+</section>
+{% else %}
 <section class="hero" aria-labelledby="heroH">
   <div class="hero-media">
     {% for im in hero_imgs %}<div class="hero-pane{% if loop.index0 == 1 %} main{% endif %}" data-par="{{ [0.10, 0.04, 0.16][loop.index0] }}">{{ macros.picture(im.file, im.alt if loop.index0 == 1 else "", "(max-width:900px) 100vw, 34vw", lazy=False, priority=(loop.index0 == 1)) }}</div>{% endfor %}
   </div>
   <div class="hero-copy wrap" id="heroCopy">
+    
     <p class="hero-badge"><span>Wigs &amp; crochet</span><b>100% Virgin Remy Human Hair</b></p>
     <h1 id="heroH" class="display"><span class="ln"><span>Effortless beauty,</span></span><span class="ln"><span>rooted in love.</span></span></h1>
     <div class="hero-foot">
@@ -20,11 +54,12 @@
     </div>
   </div>
 </section>
+{% endif %}
 
 {# 2. MARQUEE #}
-<div class="marquee" aria-hidden="true">
+<div class="marquee{% if bf == "sale" %} bf-band{% endif %}" aria-hidden="true">
   <div class="mq-row mq-small"><div class="mq-track" data-mq="1">
-    {% for i in range(3) %}{% for w in ["100% virgin Remy human hair", "Lace front wigs", "Crochet & feather extensions", "Ten shades", "18 to 32 inches", "Free US shipping over $" ~ free_ship|int, "30-day returns", "Pay in 4"] %}<span>{{ w }}</span><b>✦</b>{% endfor %}{% endfor %}
+    {% if bf == "sale" %}{% for i in range(6) %}{% for w in ["Black Friday", "30% off everything", "Mon 11/23 to Mon 11/30", "No code needed"] %}<span>{{ w }}</span><b>✦</b>{% endfor %}{% endfor %}{% else %}{% for i in range(3) %}{% for w in ["100% virgin Remy human hair", "Lace front wigs", "Crochet & feather extensions", "Ten shades", "18 to 32 inches", "Free US shipping over $" ~ free_ship|int, "30-day returns", "Pay in 4"] %}<span>{{ w }}</span><b>✦</b>{% endfor %}{% endfor %}{% endif %}
   </div></div>
 </div>
 

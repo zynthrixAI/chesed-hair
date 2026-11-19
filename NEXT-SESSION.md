@@ -1,6 +1,45 @@
 # Chesed Hair: pick up here
 
-Updated 30 October 2026. Read this, then [HANDOFF.md](HANDOFF.md) for setup and [PROJECT.md](PROJECT.md) for the full history.
+Updated 19 November 2026. Read this, then [HANDOFF.md](HANDOFF.md) for setup and [PROJECT.md](PROJECT.md) for the full history.
+
+## Open job: Black Friday sale (waiting on the client)
+- **Ask** (Eunji, 19 November 2026): **30% off the entire site, Monday 11/23 to Monday 11/30.** The user chose:
+  - a top bar on every page plus a homepage banner
+  - an automatic discount (no code)
+  - a teaser top bar from now until 11/23, then the sale switching on and off by itself
+- **Status:** the user likes design v5 ("looks good", 19 November) and is waiting for the client's feedback.
+  - **Nothing is live.**
+  - **The Shopify discount is not created.**
+  - Screenshots: `D:\Work\Chesed Hair\Shopify\black-friday-2026\` (`banner-laptop.png`, `banner-phone.png`).
+- **Mock-up:** branch `black-friday` in this repo (local only, not pushed).
+  - `BF=sale python src/build.py` shows the sale; `BF=teaser` shows the teaser top bar only.
+  - **Rebuild with plain `python src/build.py` before committing**, so the built pages stay the normal site.
+  - Code: `bf`, `bf_img`, `bf_side`, `bf_deal` in `src/build.py`; the `bfx` hero, the pink `bf-band` marquee and the countdown in `src/templates/index.html`; the teaser and sale top bar in `partials/announcement.html`; CSS under `/* Black Friday (mock-up) */` at the end of `assets/css/style.css`.
+- **Design v5, as approved:**
+  - Black banner with a huge pink outlined "BLACK FRIDAY" across the back.
+  - Three photos layered like a magazine spread: 1B Loose Deep in the middle, Honey Blonde Body Wave and 530 Curly behind (phones show only the middle one).
+  - A giant "**30%** off" over the main photo, and a turning pink "7 days" seal.
+  - A live countdown to 30 November 23:59 New York time on the left.
+  - An example price on the right, 24" Natural Black Loose Deep ~~$236.95~~ $165.86, plus the shop buttons.
+  - A pink top bar on every page, and the scrolling band under the banner turned pink.
+  - The site's own fonts only.
+- **Rejected by the user, do not redo:**
+  - v1, just text on the normal banner ("too simple, can't tell it's a banner").
+  - v2, a copy of the client's reference image with glitter corners, tilted black ribbons, a script "Sale" and heavy fonts ("keep it in our theme and style").
+  - v3, the normal banner plus a seal and a pink band ("no visible difference from the live one").
+  - v4, one photo beside a black or pink panel with a huge 30% ("too basic").
+- **To do once the client approves** (show the user first; push live only on their go-ahead):
+  1. Port v5 to the theme:
+     - a new homepage section, or a sale mode for `sections/home-hero.liquid`
+     - the top bar in `sections/header.liquid`
+     - the pink marquee
+     - the countdown script
+     - `theme_snippets.py` for the CSS
+  2. **Date switching:** teaser until 23 November 00:00, sale until 30 November 23:59, then back to normal, all in New York time (the store's time zone). Shopify caches pages, so a Liquid date check alone can lag. Also switch it in the browser with JavaScript.
+  3. **Discount:** create the automatic 30% discount on all products for the same dates (`discountAutomaticBasicCreate`; needs the `write_discounts` scope).
+     - Decide with the user whether the spin-wheel codes and CHESED20 can be used on top of it. CHESED20 is active and was made by someone else.
+     - Check the example price matches Shopify's rounding.
+  4. After 30 November: check the banner has gone and the discount has ended.
 
 ## Where things stand
 - **Live store:** www.chesedhair.com (Chesed's store `gvit1g-jv.myshopify.com`) runs the Chesed theme (id 158858969142) since 29 October 2026: 50 active wigs (Curly back since 29 October) and 6 crochet. See "Chesed's own store" and "Curly wigs back" in PROJECT.md. Their old theme "Re-degine Be Yours" is kept unpublished as a fallback.
