@@ -23,6 +23,13 @@ Updated 19 November 2026. Read this, then [HANDOFF.md](HANDOFF.md) for setup and
   - An example price on the right, 24" Natural Black Loose Deep ~~$236.95~~ $165.86, plus the shop buttons.
   - A pink top bar on every page, and the scrolling band under the banner turned pink.
   - The site's own fonts only.
+- **Client feedback on v5 (19 November):** too busy because of the layout. **v6 made** (`BF=sale BFV=6 python src/build.py`; CSS under `/* Black Friday v6 */`):
+  - the same black and pink, but only one photo (1B Loose Deep), centred
+  - "Black" to its left and "Friday" to its right
+  - "30% off" across the photo
+  - the dates on the bottom left; the countdown and buttons on the bottom right
+  - no seal, no side photos, no outlined word, no example price
+  - waiting on the user and client. Screenshots of v1 to v6 are in `Shopify\black-friday-2026\`.
 - **Rejected by the user, do not redo:**
   - v1, just text on the normal banner ("too simple, can't tell it's a banner").
   - v2, a copy of the client's reference image with glitter corners, tilted black ribbons, a script "Sale" and heavy fonts ("keep it in our theme and style").

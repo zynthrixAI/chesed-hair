@@ -1,0 +1,168 @@
+{# Black Friday design options v7 to v21 (local mock-up only). Build with BF=sale BFV=more, open /?bfv=<n> #}
+{% macro ph(k, cls="", pos="") -%}<img class="{{ cls }}" src="{{ img(bf_pics[k].file, 1024) }}" alt=""{% if pos %} style="object-position:{{ pos }}"{% endif %}>{%- endmacro %}
+{% macro cd(cls="") -%}<div class="bfx-cd {{ cls }}" data-end="2026-11-30T23:59:59-05:00" aria-label="Time left in the sale"><p class="bfx-k">Sale ends in</p><div><span><b data-u="d">07</b>days</span><i>:</i><span><b data-u="h">00</b>hrs</span><i>:</i><span><b data-u="m">00</b>min</span><i>:</i><span><b data-u="s">00</b>sec</span></div></div>{%- endmacro %}
+{% macro ctas(dark=False) -%}<div class="cta-row"><a class="btn" href="/collections/wigs/">Shop wigs</a><a class="btn ghost{% if dark %} dk{% endif %}" href="{{ crochet_promo.url }}">Shop crochet</a></div>{%- endmacro %}
+
+<div class="bfv" data-v="7" hidden><section class="bfm bf7">
+  <div class="bf7-ph">{{ ph("bw1b", pos="50% 18%") }}</div>
+  <div class="bf7-c">
+    <p class="bfx-k">Black Friday · Mon 11/23 to Mon 11/30</p>
+    <h1 class="disp bf7-h"><em>30%</em> off<br>everything</h1>
+    <p class="bf7-lead">Every wig, every crochet style. No code needed.</p>
+    {{ ctas() }}
+    {{ cd("ln") }}
+  </div>
+</section></div>
+
+<div class="bfv" data-v="8" hidden><section class="bfm bf8">
+  <div class="bf8-c">
+    <p class="bfx-k">Mon 11/23 to Mon 11/30</p>
+    <h1 class="disp bf8-h">Black Friday</h1>
+    <p class="disp bf8-s"><em>30%</em> off everything</p>
+    <p class="bf8-lead">Every wig and every crochet style, for one week. The 30% comes off at checkout, no code needed.</p>
+    {{ ctas(True) }}
+    {{ cd("ln") }}
+  </div>
+  <div class="bf8-ph">{{ ph("bwhb") }}</div>
+</section></div>
+
+<div class="bfv" data-v="9" hidden><section class="bfm bf9">
+  <p class="bfx-k">Black Friday · Mon 11/23 to Mon 11/30</p>
+  <h1 class="disp bf9-n" style="background-image:url({{ img(bf_pics.cu530.file, 1024) }})">30%</h1>
+  <p class="disp bf9-s">off everything</p>
+  <div class="bf9-row">{{ cd() }}{{ ctas() }}</div>
+</section></div>
+
+<div class="bfv" data-v="10" hidden><section class="bfm bf10">
+  <div class="bf10-ph">{{ ph("sthb", pos="50% 15%") }}{{ ph("bw1b", "c", pos="50% 15%") }}{{ ph("cu530", pos="50% 15%") }}</div>
+  <div class="bf10-c">
+    <p class="bfx-k">Black Friday · Mon 11/23 to Mon 11/30 · No code needed</p>
+    <h1 class="disp bf10-h"><em>30%</em> off everything</h1>
+    {{ ctas() }}
+  </div>
+</section></div>
+
+<div class="bfv" data-v="11" hidden><section class="bfm bf11">
+  <div class="bf11-ph">{{ ph("bwhb", pos="50% 20%") }}</div>
+  <div class="bf11-c">
+    <p class="bfx-k">Mon 11/23 to Mon 11/30</p>
+    <p class="disp bf11-t">Black Friday</p>
+    <h1 class="disp bf11-h"><em>30%</em> off</h1>
+    <p class="disp bf11-e">everything.</p>
+    <p class="bf11-lead">Every wig, every crochet style. No code needed.</p>
+    {{ ctas() }}
+  </div>
+  {{ cd("bf11-cd") }}
+</section></div>
+
+<div class="bfv" data-v="12" hidden><section class="bfm bf12">
+  <p class="bfx-k">Black Friday · Mon 11/23 to Mon 11/30 · No code needed</p>
+  <h1 class="disp bf12-h"><em>30%</em> off every shade</h1>
+  <div class="bf12-strip">
+    {% for k, n in [("bw1b", "Natural Black"), ("bwhb", "Honey Blonde"), ("bw350", "Copper Ginger"), ("bwred", "Cherry Red"), ("cu530", "Rich Wine Red"), ("ldha", "Honey Auburn")] %}<figure>{{ ph(k, pos="50% 20%") }}<figcaption>{{ n }}</figcaption></figure>{% endfor %}
+  </div>
+  <div class="bf12-row">{{ cd() }}{{ ctas() }}</div>
+</section></div>
+
+<div class="bfv" data-v="13" hidden><section class="bfm bf13">
+  <div class="bf13-c">
+    <p class="bfx-k">Black Friday · 30% off everything · ends in</p>
+    {{ cd("big") }}
+    <h1 class="disp bf13-h"><em>30%</em> off every wig and every crochet style.</h1>
+    <p class="bf13-lead">Mon 11/23 to Mon 11/30. No code needed.</p>
+    {{ ctas() }}
+  </div>
+  <div class="bf13-ph">{{ ph("st350", pos="50% 15%") }}</div>
+</section></div>
+
+<div class="bfv" data-v="14" hidden><section class="bfm bf14">
+  <p class="disp bf14-n" aria-hidden="true">30%</p>
+  <div class="bf14-ph">{{ ph("ldha") }}</div>
+  <div class="bf14-l"><p class="bfx-k">Black Friday · Mon 11/23 to Mon 11/30</p><h1 class="disp bf14-h"><span class="sr-only">30% </span>off everything.</h1><p class="bf14-lead">No code needed.</p></div>
+  <div class="bf14-r">{{ cd() }}{{ ctas() }}</div>
+</section></div>
+
+<div class="bfv" data-v="15" hidden><section class="bfm bf15">
+  <div class="bf15-c">
+    <p class="bfx-k">Mon 11/23 to Mon 11/30</p>
+    <h1 class="disp bf15-h">Black<br>Friday</h1>
+    <p class="disp bf15-s"><em>30%</em> off everything</p>
+    {{ cd("ln") }}
+    {{ ctas() }}
+  </div>
+  <div class="bf15-o">
+    <svg viewBox="0 0 200 200" aria-hidden="true"><defs><path id="bf15p" d="M100,100 m-92,0 a92,92 0 1,1 184,0 a92,92 0 1,1 -184,0"/></defs><text><textPath href="#bf15p" textLength="574" lengthAdjust="spacing">Black Friday ✦ 30% off everything ✦ No code needed ✦ 11/23 to 11/30 ✦</textPath></text></svg>
+    <div class="bf15-ph">{{ ph("cuhb", pos="50% 22%") }}</div>
+  </div>
+</section></div>
+
+<div class="bfv" data-v="16" hidden><section class="bfm bf16">
+  <p class="disp bf16-m" aria-hidden="true">Black Friday</p>
+  <div class="bf16-ph">{{ ph("bwred", pos="50% 20%") }}</div>
+  <div class="bf16-l"><h1 class="disp bf16-h"><em>30%</em><br>off</h1><p class="disp bf16-e">everything</p><p class="bf16-sm">Every wig. Every crochet style.</p></div>
+  <div class="bf16-r"><p class="disp bf16-q">No code<br>needed</p><p class="bfx-k">Mon 11/23 to Mon 11/30</p>{{ cd() }}{{ ctas() }}</div>
+</section></div>
+
+<div class="bfv" data-v="17" hidden><section class="bfm bf17">
+  <div class="bf17-top">
+    <div><p class="bfx-k">Black Friday · Mon 11/23 to Mon 11/30 · No code needed</p><h1 class="disp bf17-h"><em>30%</em> off everything</h1></div>
+    <div class="bf17-r">{{ cd() }}{{ ctas() }}</div>
+  </div>
+  <div class="bf17-cards">
+    {% for d in bf_deals %}<a class="bf17-card" href="{{ d.url }}"><img src="{{ img(d.img.file, 560) }}" alt=""><span class="bf17-n">{{ d.name }}</span><span class="bf17-p"><s>{{ macros.money(d.was) }}</s><b>{{ macros.money(d.now) }}</b></span></a>{% endfor %}
+  </div>
+</section></div>
+
+<div class="bfv" data-v="18" hidden><section class="bfm bf18">
+  <p class="disp bf18-v" aria-hidden="true">Black Friday</p>
+  <div class="bf18-ph">{{ ph("vc1b", pos="50% 20%") }}</div>
+  <div class="bf18-c">
+    <p class="bfx-k">Mon 11/23 to Mon 11/30</p>
+    <h1 class="disp bf18-h"><span class="sr-only">Black Friday: </span><em>30%</em></h1>
+    <p class="disp bf18-s">off everything</p>
+    <p class="bf18-lead">Every wig, every crochet style. No code needed.</p>
+    {{ cd("ln") }}
+    {{ ctas() }}
+  </div>
+</section></div>
+
+<div class="bfv" data-v="19" hidden><section class="bfm bf19">
+  <div class="bf19-c">
+    <p class="bfx-k">Black Friday · Mon 11/23 to Mon 11/30</p>
+    <h1 class="disp bf19-h"><em>30%</em> off<br>everything</h1>
+    <p class="bf19-lead">Every wig, every crochet style. No code needed.</p>
+    {{ ctas() }}
+    {{ cd("ln") }}
+  </div>
+  <div class="bf19-g">{{ ph("bwhb", "a", pos="50% 20%") }}{{ ph("cu530", "b", pos="50% 20%") }}{{ ph("st350", "c", pos="50% 20%") }}</div>
+</section></div>
+
+<div class="bfv" data-v="20" hidden><section class="bfm bf20">
+  <div class="bf20-t">
+    <div class="bf20-ph">{{ ph("ld1b", pos="50% 20%") }}</div>
+    <div class="bf20-m">
+      <p class="bfx-k">Black Friday · Mon 11/23 to Mon 11/30</p>
+      <h1 class="disp bf20-h"><em>30%</em> off</h1>
+      <p class="disp bf20-e">everything on the site</p>
+      <p class="bf20-lead">Every wig and every crochet style. Comes off at checkout.</p>
+      {{ ctas(True) }}
+    </div>
+    <div class="bf20-s"><span>No code needed</span></div>
+  </div>
+  {{ cd("bf20-cd") }}
+</section></div>
+
+<div class="bfv" data-v="21" hidden><section class="bfm bf21">
+  <div class="bf21-ph">{{ ph("bwhb", pos="50% 18%") }}</div>
+  <div class="bf21-c">
+    <p class="bfx-k">Mon 11/23 to Mon 11/30</p>
+    <p class="disp bf21-t">Black Friday</p>
+    <h1 class="disp bf21-n"><span class="sr-only">Black Friday: </span>30%</h1>
+    <p class="disp bf21-s">off everything</p>
+    {{ cd("ln") }}
+    {{ ctas() }}
+  </div>
+</section></div>
+
+<script>(function(){var v=new URLSearchParams(location.search).get('bfv')||'7',w=document.querySelector('.bfv[data-v="'+v+'"]');if(w)w.hidden=false;if(v=='8'||v=='20x')document.body.classList.remove('overlay');
+document.querySelectorAll('.bfv:not([hidden]) .bfx-cd').forEach(function(c){var e=Date.parse(c.dataset.end);function t(){var r=Math.max(0,e-Date.now())/1e3,o={d:r/86400,h:r/3600%24,m:r/60%60,s:r%60};for(var k in o)c.querySelector('[data-u='+k+']').textContent=String(Math.floor(o[k])).padStart(2,'0')}t();setInterval(t,1000)})})();</script>

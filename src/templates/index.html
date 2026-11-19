@@ -4,7 +4,9 @@
 {% block main %}
 
 {# 1. HERO: full-bleed campaign banner #}
-{% if bf == "sale" and bf_v == "6" %}
+{% if bf == "sale" and bf_v == "more" %}
+{% include "partials/bf_more.html" %}
+{% elif bf == "sale" and bf_v == "6" %}
 <section class="bf6" aria-labelledby="heroH">
   <h1 id="heroH" class="sr-only">Black Friday: 30% off everything, Monday 11/23 to Monday 11/30</h1>
   <p class="bf6-w l" aria-hidden="true">Black</p>

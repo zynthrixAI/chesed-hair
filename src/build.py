@@ -194,6 +194,13 @@ env.globals.update(G)
 env.globals.update(bf=os.environ.get("BF", ""), bf_panel=os.environ.get("BFP", "noir"), bf_v=os.environ.get("BFV", "5"), bf_img=shot("Loose Deep", "1B", 5),
     bf_side=[shot("Body Wave", "Honey Blonde", 5), shot("Curly", "530", 5)],
     bf_deal=dict(name='24" Natural Black Loose Deep', url="/products/1b-loose-deep-wave-lace-front-wig/", was=D.wig_price(24, "Loose Deep", "1B"), now=round(D.wig_price(24, "Loose Deep", "1B") * 0.7, 2)))   # Black Friday mock-up: BF=teaser or BF=sale, BFP=noir or pink (local only)
+def _bfdeal(tex, shade):
+    p = find(tex, shade); was = D.wig_price(24, tex, shade)
+    return dict(name=f'24" {p["color"]["name"]} {p["texture"]["name"]}', url=p["url"], img=pose_img(p, 5), was=was, now=round(was * 0.7, 2))
+env.globals.update(bf_pics=dict(bw1b=shot("Body Wave", "1B", 5), bwhb=shot("Body Wave", "Honey Blonde", 5), bw350=shot("Body Wave", "350", 5), bwred=shot("Body Wave", "Red", 5),
+    ld1b=shot("Loose Deep", "1B", 5), ldha=shot("Loose Deep", "Honey Auburn", 5), cu530=shot("Curly", "530", 5), cuhb=shot("Curly", "Honey Blonde", 5),
+    vc1b=shot("Virgin Curl", "1B", 5), st350=shot("Straight", "350", 5), sthb=shot("Straight", "Honey Blonde", 5), bwna=shot("Body Wave", "Natural Auburn", 5)),
+    bf_deals=[_bfdeal("Body Wave", "1B"), _bfdeal("Body Wave", "Honey Blonde"), _bfdeal("Curly", "530"), _bfdeal("Straight", "350")])   # Black Friday v7 to v21 (BFV=more)
 env.globals["strands"] = strands
 
 # ---- welcome wheel ----
