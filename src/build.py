@@ -191,7 +191,7 @@ G = dict(length_photos=[length_photo(c["key"]) for c in D.LENGTH_PHOTOS], length
          textures=D.TEXTURES, color_collections=D.COLOR_COLLECTIONS, colmap=D.COL, free_ship=D.FREE_SHIP,
          version=str(int(time.time())), macros=None, extras=extras, extra_collections=D.EXTRA_COLLECTIONS)
 env.globals.update(G)
-env.globals.update(bf=os.environ.get("BF", ""), bf_panel=os.environ.get("BFP", "noir"), bf_img=shot("Loose Deep", "1B", 5),
+env.globals.update(bf=os.environ.get("BF", ""), bf_panel=os.environ.get("BFP", "noir"), bf_v=os.environ.get("BFV", "5"), bf_img=shot("Loose Deep", "1B", 5),
     bf_side=[shot("Body Wave", "Honey Blonde", 5), shot("Curly", "530", 5)],
     bf_deal=dict(name='24" Natural Black Loose Deep', url="/products/1b-loose-deep-wave-lace-front-wig/", was=D.wig_price(24, "Loose Deep", "1B"), now=round(D.wig_price(24, "Loose Deep", "1B") * 0.7, 2)))   # Black Friday mock-up: BF=teaser or BF=sale, BFP=noir or pink (local only)
 env.globals["strands"] = strands

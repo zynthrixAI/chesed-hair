@@ -1399,3 +1399,33 @@ button.lp-ln:focus-visible{outline:2px solid var(--rose);outline-offset:4px}
   .bf-seal text{font-size:14px}
   .bf-seal b{font-size:30px}
 }
+
+/* Black Friday v6: one photo between the two words */
+.bf6{--top:max(104px,12.5vh);--ph:max(460px,calc(100svh - var(--top) - 150px));position:relative;min-height:max(100svh,720px);box-sizing:border-box;padding:calc(var(--top) + 24px) var(--g) 64px;background:var(--noir);color:#fff;overflow:hidden;isolation:isolate;display:grid;grid-template-columns:1fr auto 1fr;grid-template-rows:1fr auto;grid-template-areas:"wl ph wr" "l ph r";column-gap:clamp(32px,3.6vw,60px);align-content:center}
+.bf6::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(40% 55% at 50% 55%,rgba(238,70,124,.2),transparent 70%)}
+.bf6-w{margin:0;font:400 clamp(64px,8vw,140px)/.9 var(--display);letter-spacing:-.01em;align-self:start;margin-top:.35em}
+.bf6-w.l{grid-area:wl;justify-self:end}
+.bf6-w.r{grid-area:wr;justify-self:start}
+.bf6-ph{grid-area:ph;position:relative;height:var(--ph);aspect-ratio:2/3;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.bf6-ph picture,.bf6-ph img{display:block;width:100%;height:100%;object-fit:cover}
+.bf6-off{position:absolute;left:50%;bottom:30%;transform:translateX(-50%);margin:0;white-space:nowrap;font:400 calc(var(--ph) * .21)/.8 var(--display);text-shadow:0 10px 50px rgba(0,0,0,.65)}
+.bf6-off em{font-style:normal;color:var(--pink)}
+.bf6-l,.bf6-r{align-self:end;max-width:360px}
+.bf6-l{grid-area:l;justify-self:end;text-align:right}
+.bf6-r{grid-area:r;justify-self:start}
+.bf6-lead{margin:14px 0 0;font:400 clamp(20px,1.6vw,26px)/1.3 var(--display)}
+.bf6 .bfx-cd{margin:0 0 26px;padding:0;border:0}
+.bf6 .cta-row{flex-wrap:nowrap;gap:10px}
+.bf6 .btn{padding:0 20px;white-space:nowrap}
+@media (max-width:900px){
+  .bf6{min-height:0;padding:96px var(--g) 56px;grid-template-columns:auto auto;grid-template-rows:auto;grid-template-areas:"wl wr" "ph ph" "l l" "r r";column-gap:.25em;justify-content:center;text-align:center}
+  .bf6-w{font-size:15vw;margin:0 0 20px}
+  .bf6-w.l{margin-right:.22em}
+  .bf6-ph{height:auto;width:78vw;justify-self:center}
+  .bf6-off{font-size:25vw;bottom:-.3em}
+  .bf6-l,.bf6-r{justify-self:center;text-align:center;max-width:none}
+  .bf6-l{margin-top:56px}
+  .bf6-r{margin-top:30px}
+  .bf6 .bfx-cd>div{justify-content:center}
+  .bf6 .cta-row{justify-content:center}
+}

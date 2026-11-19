@@ -4,7 +4,29 @@
 {% block main %}
 
 {# 1. HERO: full-bleed campaign banner #}
-{% if bf == "sale" %}
+{% if bf == "sale" and bf_v == "6" %}
+<section class="bf6" aria-labelledby="heroH">
+  <h1 id="heroH" class="sr-only">Black Friday: 30% off everything, Monday 11/23 to Monday 11/30</h1>
+  <p class="bf6-w l" aria-hidden="true">Black</p>
+  <p class="bf6-w r" aria-hidden="true">Friday</p>
+  <div class="bf6-ph">{{ macros.picture(bf_img.file, bf_img.alt, "(max-width:900px) 80vw, 32vw", lazy=False, priority=True) }}<p class="bf6-off" aria-hidden="true"><em>30%</em> off</p></div>
+  <div class="bf6-l">
+    <p class="bfx-k">Mon 11/23 to Mon 11/30</p>
+    <p class="bf6-lead">Every wig, every crochet style.<br>No code needed.</p>
+  </div>
+  <div class="bf6-r">
+    <div class="bfx-cd" data-end="2026-11-30T23:59:59-05:00" aria-label="Time left in the sale">
+      <p class="bfx-k">Sale ends in</p>
+      <div><span><b data-u="d">07</b>days</span><i>:</i><span><b data-u="h">00</b>hrs</span><i>:</i><span><b data-u="m">00</b>min</span><i>:</i><span><b data-u="s">00</b>sec</span></div>
+    </div>
+    <div class="cta-row">
+      <a class="btn" href="/collections/wigs/">Shop wigs</a>
+      <a class="btn ghost" href="{{ crochet_promo.url }}">Shop crochet</a>
+    </div>
+  </div>
+  <script>(function(){var c=document.querySelector('.bfx-cd'),e=Date.parse(c.dataset.end);function t(){var r=Math.max(0,e-Date.now())/1e3,v={d:r/86400,h:r/3600%24,m:r/60%60,s:r%60};for(var k in v)c.querySelector('[data-u='+k+']').textContent=String(Math.floor(v[k])).padStart(2,'0')}t();setInterval(t,1000)})();</script>
+</section>
+{% elif bf == "sale" %}
 <section class="bfx" aria-labelledby="heroH">
   <p class="bfx-word" aria-hidden="true">Black Friday</p>
   <div class="bfx-ph side l">{{ macros.picture(bf_side[0].file, "", "22vw", lazy=False) }}<small>Honey Blonde · Body Wave</small></div>
