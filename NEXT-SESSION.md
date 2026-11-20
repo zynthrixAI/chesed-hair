@@ -19,7 +19,7 @@ Updated 20 November 2026. Read this, then [HANDOFF.md](HANDOFF.md) for setup and
 - **Design history** (local branch `black-friday`, not pushed):
   - The v7 to v21 options are in `src/templates/partials/bf_more.html`; Option 07 is v9.
   - That branch's mock-up code shouldn't be merged into `main`.
-  - **Option 07 with wigs, 5 ideas (v22 to v26, 20 November, for the user only, not on the site):** same build (`BF=sale BFV=more`, `/?bfv=22`...`26`). Screenshots in `Shopifylack-friday-2026\Desktop\Wig banner ideas\`.
+  - **Option 07 with wigs, 5 ideas (v22 to v26, 20 November, for the user only, not on the site):** same build (`BF=sale BFV=more`, `/?bfv=22`...`26`). Screenshots in `Shopify\black-friday-2026\Desktop\Wig banner ideas\`.
 
 ## Earlier: Black Friday design rounds
 - **Ask** (Eunji, 19 November 2026): **30% off the entire site, Monday 11/23 to Monday 11/30.** The user chose:
