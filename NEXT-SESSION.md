@@ -1,6 +1,6 @@
 # Chesed Hair: pick up here
 
-Updated 20 November 2026. Read this, then [HANDOFF.md](HANDOFF.md) for setup and [PROJECT.md](PROJECT.md) for the full history.
+Updated 20 November 2026 (evening). **The newest notes are on the branch `black-friday`** (checked out on this PC and on GitHub); `main` still has the older notes. Read this, then [HANDOFF.md](HANDOFF.md) for setup and [PROJECT.md](PROJECT.md) for the full history.
 
 ## Black Friday sale: LIVE (20 November 2026)
 - **Live design: Idea 5** (v26, chosen by the client on 20 November): Option 07's giant photo-filled "30%" on the left, three fanned wig cards with sale prices on the right. It replaced Option 07 (v9) on the evening of 20 November.
@@ -30,7 +30,7 @@ Updated 20 November 2026. Read this, then [HANDOFF.md](HANDOFF.md) for setup and
   - **Nothing is live.**
   - **The Shopify discount is not created.**
   - Screenshots: `D:\Work\Chesed Hair\Shopify\black-friday-2026\` (`banner-laptop.png`, `banner-phone.png`).
-- **Mock-up:** branch `black-friday` in this repo (local only, not pushed).
+- **Mock-up:** branch `black-friday` in this repo (on GitHub since 20 November; not for merging into `main`).
   - `BF=sale python src/build.py` shows the sale; `BF=teaser` shows the teaser top bar only.
   - **Rebuild with plain `python src/build.py` before committing**, so the built pages stay the normal site.
   - Code: `bf`, `bf_img`, `bf_side`, `bf_deal` in `src/build.py`; the `bfx` hero, the pink `bf-band` marquee and the countdown in `src/templates/index.html`; the teaser and sale top bar in `partials/announcement.html`; CSS under `/* Black Friday (mock-up) */` at the end of `assets/css/style.css`.
@@ -84,7 +84,7 @@ Updated 20 November 2026. Read this, then [HANDOFF.md](HANDOFF.md) for setup and
 
 ## Start next time with
 1. **Every change to chesedhair.com is public:** theme pushes need `--allow-live` and the user's go-ahead; show them first.
-2. **Read the final handover first:** `D:\Work\Chesed Hair\Documents\Chesed Hair - Final Handover.md` (the whole project, images included, and what the proposal still owes). The client work log is the Claude Doc "Chesed Hair: Work Delivered" (https://claude.ai/artifact/WwPXxErn3hqasxgDgazZxu). Both repos are up to date on GitHub apart from the notes commits.
+2. **Read the final handover first:** `D:\Work\Chesed Hair\Documents\Chesed Hair - Final Handover.md` (the whole project, images included, and what the proposal still owes). The client work log is the Claude Doc "Chesed Hair: Work Delivered" (https://claude.ai/artifact/WwPXxErn3hqasxgDgazZxu). Both repos are up to date on GitHub (theme `main`; preview repo branch `black-friday`, 20 November).
 3. **Still owed from the proposal:** up to 5 minutes of AI video. Basic SEO is set up; further SEO work only if the client takes it up as a separate service. The project is now on monthly store management.
 4. **Done by the user (29 October):** free shipping over $100, the policies (all 5 live, linked in the footer) and payments. **Georgia sales tax is the client's job**; no tax is charged until they set it up.
 5. **Waiting on the client:** `D:\Work\Chesed Hair\Shopify\what-we-need-from-chesed.md` (tax, business details, shipping times, photos, prices). Reviews and star ratings came from the client, confirmed in writing to the user.
