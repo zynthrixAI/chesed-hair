@@ -5,8 +5,8 @@ Updated 20 November 2026. Read this, then [HANDOFF.md](HANDOFF.md) for setup and
 ## Black Friday sale: LIVE (20 November 2026)
 - **Client chose Option 07** (v9, a giant "30%" filled with a wig photo). It's built into the theme and live on www.chesedhair.com.
 - **What switches by itself** (New York time):
-  - **Until Mon 11/23:** a teaser top bar.
-  - **11/23 to 11/30:** the sale top bar, the sale banner with its countdown, and the pink scrolling band.
+  - **Until Mon 11/23:** a teaser top bar, and the Option 07 banner with "Sale starts in" (banner live from 20 November, user).
+  - **11/23 to 11/30:** the sale top bar, the banner with "Sale ends in", and the pink scrolling band.
   - **From 12/1:** back to normal.
 - **How it works in the theme:** see `../chesed-theme/CLAUDE.md`. To preview a state, add `?bf=sale` (or `teaser`, `off`) to any address.
 - **Discount:** the automatic discount "Black Friday: 30% off everything" was created 20 November. It's scheduled for 23 Nov 00:00 to 30 Nov 23:59 New York time and applies to all products.
