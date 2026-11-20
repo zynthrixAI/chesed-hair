@@ -281,7 +281,7 @@ The user builds in their own Shopify Partners development store and transfers it
   - an example sale price
   - a pink top bar and a pink scrolling band
 - **Rejected:** plain text on the normal banner; a copy of the client's reference image (glitter, tilted ribbons, script font: off-brand); the normal banner with a seal; one photo beside a solid panel. Details and next steps are in [NEXT-SESSION.md](NEXT-SESSION.md).
-- **Not done yet:** nothing is in the theme and no discount has been created. Both wait for the client's feedback and the user's go-ahead.
+- The client then chose Option 07; see "Black Friday sale live" above.
 
 ---
 
