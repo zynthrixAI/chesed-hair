@@ -12,7 +12,7 @@ Updated 20 November 2026. Read this, then [HANDOFF.md](HANDOFF.md) for setup and
 - **Discount:** the automatic discount "Black Friday: 30% off everything" was created 20 November. It's scheduled for 23 Nov 00:00 to 30 Nov 23:59 New York time and applies to all products.
   - It doesn't combine with codes (the spin-wheel codes, CHESED20, and friends50, which someone else scheduled from 20 November): the shopper gets the bigger discount.
   - It combines with shipping discounts.
-- **Screenshots:** `D:\Work\Chesed Hair\Shopifylack-friday-2026\Option 07 on the store\`.
+- **Screenshots:** `D:\Work\Chesed Hair\Shopify\black-friday-2026\Option 07 on the store\`.
 - **To do:**
   - On 23 November, check that the sale banner shows and the 30% comes off in the cart.
   - After 30 November, check that it all switched back and the discount ended.
