@@ -200,7 +200,8 @@ def _bfdeal(tex, shade):
 env.globals.update(bf_pics=dict(bw1b=shot("Body Wave", "1B", 5), bwhb=shot("Body Wave", "Honey Blonde", 5), bw350=shot("Body Wave", "350", 5), bwred=shot("Body Wave", "Red", 5),
     ld1b=shot("Loose Deep", "1B", 5), ldha=shot("Loose Deep", "Honey Auburn", 5), cu530=shot("Curly", "530", 5), cuhb=shot("Curly", "Honey Blonde", 5),
     vc1b=shot("Virgin Curl", "1B", 5), st350=shot("Straight", "350", 5), sthb=shot("Straight", "Honey Blonde", 5), bwna=shot("Body Wave", "Natural Auburn", 5)),
-    bf_deals=[_bfdeal("Body Wave", "1B"), _bfdeal("Body Wave", "Honey Blonde"), _bfdeal("Curly", "530"), _bfdeal("Straight", "350")])   # Black Friday v7 to v21 (BFV=more)
+    bf_deals=[_bfdeal("Body Wave", "1B"), _bfdeal("Body Wave", "Honey Blonde"), _bfdeal("Curly", "530"), _bfdeal("Straight", "350")],
+    bf_deals8=[_bfdeal("Body Wave", "1B"), _bfdeal("Body Wave", "Honey Blonde"), _bfdeal("Curly", "530"), _bfdeal("Straight", "350"), _bfdeal("Loose Deep", "Honey Auburn"), _bfdeal("Body Wave", "Red"), _bfdeal("Virgin Curl", "1B"), _bfdeal("Straight", "Honey Blonde")])   # Black Friday v7 to v21 (BFV=more)
 env.globals["strands"] = strands
 
 # ---- welcome wheel ----

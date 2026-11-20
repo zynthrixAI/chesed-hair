@@ -1,6 +1,7 @@
 {# Black Friday design options v7 to v21 (local mock-up only). Build with BF=sale BFV=more, open /?bfv=<n> #}
 {% macro ph(k, cls="", pos="") -%}<img class="{{ cls }}" src="{{ img(bf_pics[k].file, 1024) }}" alt=""{% if pos %} style="object-position:{{ pos }}"{% endif %}>{%- endmacro %}
-{% macro cd(cls="") -%}<div class="bfx-cd {{ cls }}" data-end="2026-11-30T23:59:59-05:00" aria-label="Time left in the sale"><p class="bfx-k">Sale ends in</p><div><span><b data-u="d">07</b>days</span><i>:</i><span><b data-u="h">00</b>hrs</span><i>:</i><span><b data-u="m">00</b>min</span><i>:</i><span><b data-u="s">00</b>sec</span></div></div>{%- endmacro %}
+{% macro card(d, cls="bfw") -%}<a class="{{ cls }}" href="{{ d.url }}"><img src="{{ img(d.img.file, 560) }}" alt=""><span class="bfw-t"><span class="bfw-n">{{ d.name }}</span><span class="bfw-p"><s>{{ macros.money(d.was) }}</s><b>{{ macros.money(d.now) }}</b></span></span></a>{%- endmacro %}
+{% macro cd(cls="", start=False) -%}<div class="bfx-cd {{ cls }}" data-end="{{ '2026-11-23T00:00:00-05:00' if start else '2026-11-30T23:59:59-05:00' }}" aria-label="Countdown"><p class="bfx-k">{{ 'Sale starts in' if start else 'Sale ends in' }}</p><div><span><b data-u="d">07</b>days</span><i>:</i><span><b data-u="h">00</b>hrs</span><i>:</i><span><b data-u="m">00</b>min</span><i>:</i><span><b data-u="s">00</b>sec</span></div></div>{%- endmacro %}
 {% macro ctas(dark=False) -%}<div class="cta-row"><a class="btn" href="/collections/wigs/">Shop wigs</a><a class="btn ghost{% if dark %} dk{% endif %}" href="{{ crochet_promo.url }}">Shop crochet</a></div>{%- endmacro %}
 
 <div class="bfv" data-v="7" hidden><section class="bfm bf7">
@@ -162,6 +163,56 @@
     {{ cd("ln") }}
     {{ ctas() }}
   </div>
+</section></div>
+
+{# Option 07 with wigs (v22 to v26) #}
+{% set fill = 'background-image:url(' ~ img(bf_pics.cu530.file, 1024) ~ ')' %}
+<div class="bfv" data-v="22" hidden><section class="bfm bfo bf22">
+  <p class="bfx-k">Black Friday · Mon 11/23 to Mon 11/30</p>
+  <h1 class="disp bfo-n" style="{{ fill }}">30%</h1>
+  <p class="disp bfo-s">off everything</p>
+  <div class="bf22-cards">{% for d in bf_deals %}{{ card(d, "bfw row") }}{% endfor %}</div>
+  <div class="bfo-row">{{ cd(start=True) }}{{ ctas() }}</div>
+</section></div>
+
+<div class="bfv" data-v="23" hidden><section class="bfm bfo bf23">
+  {{ card(bf_deals[1], "bfw tall l") }}
+  <div class="bf23-c">
+    <p class="bfx-k">Black Friday · Mon 11/23 to Mon 11/30</p>
+    <h1 class="disp bfo-n" style="{{ fill }}">30%</h1>
+    <p class="disp bfo-s">off everything</p>
+    {{ cd(start=True) }}
+    {{ ctas() }}
+  </div>
+  {{ card(bf_deals[3], "bfw tall r") }}
+</section></div>
+
+<div class="bfv" data-v="24" hidden><section class="bfm bfo bf24">
+  <p class="bfx-k">Black Friday · Mon 11/23 to Mon 11/30</p>
+  <h1 class="disp bf24-n"><span style="background-image:url({{ img(bf_pics.bwhb.file, 1024) }})">3</span><span style="background-image:url({{ img(bf_pics.bwred.file, 1024) }})">0</span><span style="background-image:url({{ img(bf_pics.cu530.file, 1024) }})">%</span></h1>
+  <p class="bf24-cap"><span>Honey Blonde Body Wave</span><span>Cherry Red Body Wave</span><span>Rich Wine Red Curly</span></p>
+  <p class="disp bfo-s">off everything</p>
+  <div class="bfo-row">{{ cd(start=True) }}{{ ctas() }}</div>
+</section></div>
+
+<div class="bfv" data-v="25" hidden><section class="bfm bfo bf25">
+  <div class="bf25-top">
+    <p class="bfx-k">Black Friday · Mon 11/23 to Mon 11/30</p>
+    <div class="bf25-h"><h1 class="disp bfo-n" style="{{ fill }}">30%</h1><p class="disp bfo-s">off<br>everything</p></div>
+    <div class="bfo-row">{{ cd(start=True) }}{{ ctas() }}</div>
+  </div>
+  <div class="bf25-strip"><div class="bf25-track">{% for i in range(2) %}{% for d in bf_deals8 %}{{ card(d, "bfw mini") }}{% endfor %}{% endfor %}</div></div>
+</section></div>
+
+<div class="bfv" data-v="26" hidden><section class="bfm bfo bf26">
+  <div class="bf26-c">
+    <p class="bfx-k">Black Friday · Mon 11/23 to Mon 11/30</p>
+    <h1 class="disp bfo-n" style="{{ fill }}">30%</h1>
+    <p class="disp bfo-s">off everything</p>
+    {{ cd(start=True) }}
+    {{ ctas() }}
+  </div>
+  <div class="bf26-fan">{{ card(bf_deals[0], "bfw pol a") }}{{ card(bf_deals[2], "bfw pol b") }}{{ card(bf_deals[1], "bfw pol c") }}</div>
 </section></div>
 
 <script>(function(){var v=new URLSearchParams(location.search).get('bfv')||'7',w=document.querySelector('.bfv[data-v="'+v+'"]');if(w)w.hidden=false;if(v=='8'||v=='20x')document.body.classList.remove('overlay');
