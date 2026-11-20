@@ -1,8 +1,26 @@
 # Chesed Hair: pick up here
 
-Updated 19 November 2026. Read this, then [HANDOFF.md](HANDOFF.md) for setup and [PROJECT.md](PROJECT.md) for the full history.
+Updated 20 November 2026. Read this, then [HANDOFF.md](HANDOFF.md) for setup and [PROJECT.md](PROJECT.md) for the full history.
 
-## Open job: Black Friday sale (waiting on the client)
+## Black Friday sale: LIVE (20 November 2026)
+- **Client chose Option 07** (v9, a giant "30%" filled with a wig photo). It's built into the theme and live on www.chesedhair.com.
+- **What switches by itself** (New York time):
+  - **Until Mon 11/23:** a teaser top bar.
+  - **11/23 to 11/30:** the sale top bar, the sale banner with its countdown, and the pink scrolling band.
+  - **From 12/1:** back to normal.
+- **How it works in the theme:** see `../chesed-theme/CLAUDE.md`. To preview a state, add `?bf=sale` (or `teaser`, `off`) to any address.
+- **Discount:** the automatic discount "Black Friday: 30% off everything" was created 20 November. It's scheduled for 23 Nov 00:00 to 30 Nov 23:59 New York time and applies to all products.
+  - It doesn't combine with codes (the spin-wheel codes, CHESED20, and friends50, which someone else scheduled from 20 November): the shopper gets the bigger discount.
+  - It combines with shipping discounts.
+- **Screenshots:** `Shopifylack-friday-2026\Option 07 on the store\`.
+- **To do:**
+  - On 23 November, check that the sale banner shows and the 30% comes off in the cart.
+  - After 30 November, check that it all switched back and the discount ended.
+- **Design history** (local branch `black-friday`, not pushed):
+  - The v7 to v21 options are in `src/templates/partials/bf_more.html`; Option 07 is v9.
+  - That branch's mock-up code shouldn't be merged into `main`.
+
+## Earlier: Black Friday design rounds
 - **Ask** (Eunji, 19 November 2026): **30% off the entire site, Monday 11/23 to Monday 11/30.** The user chose:
   - a top bar on every page plus a homepage banner
   - an automatic discount (no code)
@@ -30,6 +48,14 @@ Updated 19 November 2026. Read this, then [HANDOFF.md](HANDOFF.md) for setup and
   - the dates on the bottom left; the countdown and buttons on the bottom right
   - no seal, no side photos, no outlined word, no example price
   - waiting on the user and client. Screenshots of v1 to v6 are in `Shopify\black-friday-2026\`.
+- **Desktop first (user, 19 November):** settle the laptop design before phones.
+  - The user kept v3, v4A, v5 and v6 to show the client.
+  - **15 more options made, v7 to v21:** `src/templates/partials/bf_more.html`, CSS under `/* Black Friday v7 to v21 */`.
+  - Build with `BF=sale BFV=more python src/build.py`, then open `/?bfv=<n>` (or `.claude/home.html?v=<n>`).
+  - Screenshots at 1440×900 are in `Shopify\black-friday-2026\Desktop\`. Phone layouts aren't made for these yet.
+  - **The screenshots are named "Option 01" to "Option 19" for the client.**
+    - Options 01 to 04 are v3, v4A, v5 and v6.
+    - Options 05 to 19 are v7 to v21, so the version is the option number plus 2.
 - **Rejected by the user, do not redo:**
   - v1, just text on the normal banner ("too simple, can't tell it's a banner").
   - v2, a copy of the client's reference image with glitter corners, tilted black ribbons, a script "Sale" and heavy fonts ("keep it in our theme and style").
