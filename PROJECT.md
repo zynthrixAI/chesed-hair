@@ -264,6 +264,7 @@ The user builds in their own Shopify Partners development store and transfers it
 
 ### Black Friday sale live (20 November 2026)
 - **Design:** the client picked **Option 07** from 19 desktop options: a giant "30%" filled with a wig photo (Rich Wine Red Curly), "off everything", a countdown and the shop buttons.
+- **Then Idea 5** (same evening): out of 5 ideas with wigs on the banner, the client chose three fanned wig cards with their sale prices beside the 30%. Live, and lined up with the site's width.
 - **In the theme:** pushed live on 20 November with the user's go-ahead (4 files).
 - **What switches by itself:** a teaser top bar until 23 November; then the sale bar, banner and pink scrolling band until 30 November; then back to normal.
 - **Discount:** the automatic 30% discount on all products is scheduled in the store for the same dates.
@@ -288,7 +289,7 @@ The user builds in their own Shopify Partners development store and transfers it
 ## To do
 
 ### Ours
-- [x] **Black Friday sale (23 to 30 November 2026):** live since 20 November (Option 07, automatic 30% discount scheduled).
+- [x] **Black Friday sale (23 to 30 November 2026):** live since 20 November (Idea 5, automatic 30% discount scheduled).
 - [ ] **Black Friday checks:** on 23 November (banner shows, 30% comes off) and after 30 November (all back to normal, discount ended).
 - [ ] **New shades and types:** add #2, #27, #4/30, Virgin Light, Loose Wave and Chesed's other new wig types once their photos and details arrive.
 - [x] **Shopify theme:** checked every page in a browser; live on www.chesedhair.com since 29 October 2026.

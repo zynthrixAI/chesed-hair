@@ -3,23 +3,23 @@
 Updated 20 November 2026. Read this, then [HANDOFF.md](HANDOFF.md) for setup and [PROJECT.md](PROJECT.md) for the full history.
 
 ## Black Friday sale: LIVE (20 November 2026)
-- **Client chose Option 07** (v9, a giant "30%" filled with a wig photo). It's built into the theme and live on www.chesedhair.com.
+- **Live design: Idea 5** (v26, chosen by the client on 20 November): Option 07's giant photo-filled "30%" on the left, three fanned wig cards with sale prices on the right. It replaced Option 07 (v9) on the evening of 20 November.
 - **What switches by itself** (New York time):
-  - **Until Mon 11/23:** a teaser top bar, and the Option 07 banner with "Sale starts in" (banner live from 20 November, user).
+  - **Until Mon 11/23:** a teaser top bar, and the sale banner with "Sale starts in" (banner live from 20 November, user).
   - **11/23 to 11/30:** the sale top bar, the banner with "Sale ends in", and the pink scrolling band.
   - **From 12/1:** back to normal.
 - **How it works in the theme:** see `../chesed-theme/CLAUDE.md`. To preview a state, add `?bf=sale` (or `teaser`, `off`) to any address.
 - **Discount:** the automatic discount "Black Friday: 30% off everything" was created 20 November. It's scheduled for 23 Nov 00:00 to 30 Nov 23:59 New York time and applies to all products.
   - It doesn't combine with codes (the spin-wheel codes, CHESED20, and friends50, which someone else scheduled from 20 November): the shopper gets the bigger discount.
   - It combines with shipping discounts.
-- **Screenshots:** `D:\Work\Chesed Hair\Shopify\black-friday-2026\Option 07 on the store\`.
+- **Screenshots:** `D:\Work\Chesed Hair\Shopify\black-friday-2026\Idea 5 on the store\` (Option 07's are in `Option 07 on the store\`).
 - **To do:**
-  - On 23 November, check that the sale banner shows and the 30% comes off in the cart.
+  - On 23 November, check that the sale banner shows and the 30% comes off in the cart, and that the card prices match the checkout to the cent.
   - After 30 November, check that it all switched back and the discount ended.
-- **Design history** (local branch `black-friday`, not pushed):
+- **Design history** (branch `black-friday`, on GitHub since 20 November; not for `main`):
   - The v7 to v21 options are in `src/templates/partials/bf_more.html`; Option 07 is v9.
   - That branch's mock-up code shouldn't be merged into `main`.
-  - **Option 07 with wigs, 5 ideas (v22 to v26, 20 November, for the user only, not on the site):** same build (`BF=sale BFV=more`, `/?bfv=22`...`26`). Screenshots in `Shopify\black-friday-2026\Desktop\Wig banner ideas\`.
+  - **Option 07 with wigs, 5 ideas (v22 to v26, 20 November, the client chose Idea 5, now live):** same build (`BF=sale BFV=more`, `/?bfv=22`...`26`). Screenshots in `Shopify\black-friday-2026\Desktop\Wig banner ideas\`.
 
 ## Earlier: Black Friday design rounds
 - **Ask** (Eunji, 19 November 2026): **30% off the entire site, Monday 11/23 to Monday 11/30.** The user chose:
