@@ -6,7 +6,7 @@ A preview of the Chesed Hair online store (lace front wigs and crochet), built b
 - **Code:** https://github.com/zynthrixAI/chesed-hair
 - **On this PC:** `D:\Work\Chesed Hair\Website\chesed-hair`
 - **Shopify theme on this PC:** `D:\Work\Chesed Hair\Website\chesed-theme` (private repo `zynthrixAI/chesed-theme`)
-- **Last updated:** 29 October 2026 (see [NEXT-SESSION.md](NEXT-SESSION.md))
+- **Last updated:** 20 November 2026 (see [NEXT-SESSION.md](NEXT-SESSION.md))
 
 ---
 
@@ -262,18 +262,43 @@ The user builds in their own Shopify Partners development store and transfers it
 - **24" price** (Chesed, 17 November 2026, pull request 42): black 24" is $229.95 (was the same as 22"), so 24" on the sheet is $114.95; the rest follows the usual maths. 74 wig prices changed on the store (24" only); every wig price on the store matches the catalogue.
 - **Preview site deleted** (user, 17 November 2026): it was only a design demo. Everything goes straight to the live store now.
 
----
+### Length photos with coloured dresses (23 November 2026, live)
+- **Client asked** for the black dress on the length photos to change, so the hair ends show.
+- **Colours (user):** a different one per photo. Straight is soft ivory cream, Wavy soft sage green, Curly soft powder blue. Each crochet photo matches its wig photo.
+- **Made by the user in the Gemini app.** The Ace Data account (Nano Banana, Midjourney) was out of credit, and Claude can't make images itself.
+- **Lined up by script:** Gemini widened the frame, so each photo was scaled and cropped back onto the original so the length lines hit the same body points. Script and files: `D:\Work\Chesed Hair\Images\Dress colour\` (`finish.py`, the originals in `1 Give these to Gemini`, before and after images). Crochet Wavy is about 1% smaller, with a 12px bottom strip padded. Gemini made the Wavy hair slightly longer.
+- **Code:** same file names (`length-*`, `length-crochet-*` in `assets/p/`). Branch `dress-colour`, merged into `main` on 23 November (user: "merge it"). Theme pushed live with the user's go-ahead.
 
-### Length photos: coloured dresses (23 November 2026, live)
-- **Client asked** for the black dress on the length photos to change, so the hair ends show. **User chose** a different colour per photo: Straight soft ivory cream, Wavy soft sage green, Curly soft powder blue; each crochet photo matches its wig photo.
-- **Made by the user in Gemini** (the Ace Data image account was out of credit). Gemini widened the frame, so each photo was lined up with the original by script (`D:\Work\Chesed Hair\Images\Dress colour\finish.py`) to keep the length lines on the same body points; Crochet Wavy is about 1% smaller with a 12px bottom strip padded. Gemini made the Wavy hair slightly longer.
-- Files: same names (`length-*` and `length-crochet-*`). Branch `dress-colour` in this repo; theme pushed live with the user's go-ahead. Old photos are in `Images\Dress colour\1 Give these to Gemini\`; before and after images in `Images\Dress colour\`.
+### Black Friday sale live (20 November 2026)
+- **Design:** the client picked **Option 07** from 19 desktop options: a giant "30%" filled with a wig photo (Rich Wine Red Curly), "off everything", a countdown and the shop buttons.
+- **Then Idea 5** (same evening): out of 5 ideas with wigs on the banner, the client chose three fanned wig cards with their sale prices beside the 30%. Live, and lined up with the site's width.
+- **In the theme:** pushed live on 20 November with the user's go-ahead (4 files).
+- **What switches by itself:** a teaser top bar until 23 November; then the sale bar, banner and pink scrolling band until 30 November; then back to normal.
+- **Discount:** the automatic 30% discount on all products is scheduled in the store for the same dates.
+- **Details:** `chesed-theme/CLAUDE.md` and [NEXT-SESSION.md](NEXT-SESSION.md).
+
+### Black Friday sale banner (19 November 2026, design rounds)
+- **Client's ask:** 30% off the entire site, Monday 11/23 to Monday 11/30.
+- **User's choices:** a top bar on every page plus a homepage banner; an automatic discount (no code); a teaser top bar until 11/23.
+- **Five designs were tried locally** on branch `black-friday`. The user liked **v5**: a black campaign banner with these parts:
+  - a huge outlined "BLACK FRIDAY"
+  - three layered photos
+  - a giant "30% off"
+  - a turning seal
+  - a live countdown
+  - an example sale price
+  - a pink top bar and a pink scrolling band
+- **Rejected:** plain text on the normal banner; a copy of the client's reference image (glitter, tilted ribbons, script font: off-brand); the normal banner with a seal; one photo beside a solid panel. Details and next steps are in [NEXT-SESSION.md](NEXT-SESSION.md).
+- The client then chose Option 07; see "Black Friday sale live" above.
 
 ---
 
 ## To do
 
 ### Ours
+- [x] **Black Friday sale (23 to 30 November 2026):** live since 20 November (Idea 5, automatic 30% discount scheduled).
+- [x] **Black Friday check, 23 November:** sale on by itself, 30% off in the cart; card prices fixed to match the cart's rounding.
+- [ ] **Black Friday check after 30 November:** all back to normal, discount ended.
 - [ ] **New shades and types:** add #2, #27, #4/30, Virgin Light, Loose Wave and Chesed's other new wig types once their photos and details arrive.
 - [x] **Shopify theme:** checked every page in a browser; live on www.chesedhair.com since 29 October 2026.
 - [x] **Curly wigs back** (29 October, at the Kinky Curly prices).
