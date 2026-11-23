@@ -262,6 +262,13 @@ The user builds in their own Shopify Partners development store and transfers it
 - **24" price** (Chesed, 17 November 2026, pull request 42): black 24" is $229.95 (was the same as 22"), so 24" on the sheet is $114.95; the rest follows the usual maths. 74 wig prices changed on the store (24" only); every wig price on the store matches the catalogue.
 - **Preview site deleted** (user, 17 November 2026): it was only a design demo. Everything goes straight to the live store now.
 
+### Length photos with coloured dresses (23 November 2026, live)
+- **Client asked** for the black dress on the length photos to change, so the hair ends show.
+- **Colours (user):** a different one per photo. Straight is soft ivory cream, Wavy soft sage green, Curly soft powder blue. Each crochet photo matches its wig photo.
+- **Made by the user in the Gemini app.** The Ace Data account (Nano Banana, Midjourney) was out of credit, and Claude can't make images itself.
+- **Lined up by script:** Gemini widened the frame, so each photo was scaled and cropped back onto the original so the length lines hit the same body points. Script and files: `D:\Work\Chesed Hair\Images\Dress colour\` (`finish.py`, the originals in `1 Give these to Gemini`, before and after images). Crochet Wavy is about 1% smaller, with a 12px bottom strip padded. Gemini made the Wavy hair slightly longer.
+- **Code:** same file names (`length-*`, `length-crochet-*` in `assets/p/`). Branch `dress-colour` (from `main`, on GitHub, not merged: merge only on "merge it"). Theme pushed live with the user's go-ahead.
+
 ### Black Friday sale live (20 November 2026)
 - **Design:** the client picked **Option 07** from 19 desktop options: a giant "30%" filled with a wig photo (Rich Wine Red Curly), "off everything", a countdown and the shop buttons.
 - **Then Idea 5** (same evening): out of 5 ideas with wigs on the banner, the client chose three fanned wig cards with their sale prices beside the 30%. Live, and lined up with the site's width.
@@ -290,7 +297,8 @@ The user builds in their own Shopify Partners development store and transfers it
 
 ### Ours
 - [x] **Black Friday sale (23 to 30 November 2026):** live since 20 November (Idea 5, automatic 30% discount scheduled).
-- [ ] **Black Friday checks:** on 23 November (banner shows, 30% comes off) and after 30 November (all back to normal, discount ended).
+- [x] **Black Friday check, 23 November:** sale on by itself, 30% off in the cart; card prices fixed to match the cart's rounding.
+- [ ] **Black Friday check after 30 November:** all back to normal, discount ended.
 - [ ] **New shades and types:** add #2, #27, #4/30, Virgin Light, Loose Wave and Chesed's other new wig types once their photos and details arrive.
 - [x] **Shopify theme:** checked every page in a browser; live on www.chesedhair.com since 29 October 2026.
 - [x] **Curly wigs back** (29 October, at the Kinky Curly prices).

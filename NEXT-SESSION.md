@@ -1,6 +1,6 @@
 # Chesed Hair: pick up here
 
-Updated 20 November 2026 (evening). **The newest notes are on the branch `black-friday`** (checked out on this PC and on GitHub); `main` still has the older notes. Read this, then [HANDOFF.md](HANDOFF.md) for setup and [PROJECT.md](PROJECT.md) for the full history.
+Updated 23 November 2026. **The newest notes are on the branch `black-friday`** (checked out on this PC and on GitHub); `main` still has the older notes. Read this, then [HANDOFF.md](HANDOFF.md) for setup and [PROJECT.md](PROJECT.md) for the full history.
 
 ## Black Friday sale: LIVE (20 November 2026)
 - **Live design: Idea 5** (v26, chosen by the client on 20 November): Option 07's giant photo-filled "30%" on the left, three fanned wig cards with sale prices on the right. It replaced Option 07 (v9) on the evening of 20 November.
@@ -14,12 +14,20 @@ Updated 20 November 2026 (evening). **The newest notes are on the branch `black-
   - It combines with shipping discounts.
 - **Screenshots:** `D:\Work\Chesed Hair\Shopify\black-friday-2026\Idea 5 on the store\` (Option 07's are in `Option 07 on the store\`).
 - **To do:**
-  - On 23 November, check that the sale banner shows and the 30% comes off in the cart, and that the card prices match the checkout to the cent.
+  - **Checked 23 November:** the sale switched on by itself (banner "Sale ends in", sale top bar, discount active). A test cart took 30% off a 24" 1B Body Wave ($229.95 to $160.97).
+  - **Card prices were 1 cent low:** Shopify rounds the 30% discount down. Fixed and live on 23 November (the banner now takes off 30% rounded down, like the cart).
   - After 30 November, check that it all switched back and the discount ended.
 - **Design history** (branch `black-friday`, on GitHub since 20 November; not for `main`):
   - The v7 to v21 options are in `src/templates/partials/bf_more.html`; Option 07 is v9.
   - That branch's mock-up code shouldn't be merged into `main`.
   - **Option 07 with wigs, 5 ideas (v22 to v26, 20 November, the client chose Idea 5, now live):** same build (`BF=sale BFV=more`, `/?bfv=22`...`26`). Screenshots in `Shopify\black-friday-2026\Desktop\Wig banner ideas\`.
+
+## Length photos with coloured dresses (23 November 2026, live)
+- **Client asked** for the black dress on the length photos to change, so the hair ends show.
+- **Colours (user):** a different one per photo. Straight is soft ivory cream, Wavy soft sage green, Curly soft powder blue. Each crochet photo matches its wig photo.
+- **Made by the user in the Gemini app.** The Ace Data account (Nano Banana, Midjourney) was out of credit, and Claude can't make images itself.
+- **Lined up by script:** Gemini widened the frame, so each photo was scaled and cropped back onto the original so the length lines hit the same body points. Script and files: `D:\Work\Chesed Hair\Images\Dress colour\` (`finish.py`, the originals in `1 Give these to Gemini`, before and after images). Crochet Wavy is about 1% smaller, with a 12px bottom strip padded. Gemini made the Wavy hair slightly longer.
+- **Code:** same file names (`length-*`, `length-crochet-*` in `assets/p/`). Branch `dress-colour` (from `main`, on GitHub, not merged: merge only on "merge it"). Theme pushed live with the user's go-ahead.
 
 ## Earlier: Black Friday design rounds
 - **Ask** (Eunji, 19 November 2026): **30% off the entire site, Monday 11/23 to Monday 11/30.** The user chose:
