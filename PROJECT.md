@@ -264,6 +264,13 @@ The user builds in their own Shopify Partners development store and transfers it
 
 ---
 
+### Length photos: coloured dresses (23 November 2026, live)
+- **Client asked** for the black dress on the length photos to change, so the hair ends show. **User chose** a different colour per photo: Straight soft ivory cream, Wavy soft sage green, Curly soft powder blue; each crochet photo matches its wig photo.
+- **Made by the user in Gemini** (the Ace Data image account was out of credit). Gemini widened the frame, so each photo was lined up with the original by script (`D:\Work\Chesed Hair\Images\Dress colour\finish.py`) to keep the length lines on the same body points; Crochet Wavy is about 1% smaller with a 12px bottom strip padded. Gemini made the Wavy hair slightly longer.
+- Files: same names (`length-*` and `length-crochet-*`). Branch `dress-colour` in this repo; theme pushed live with the user's go-ahead. Old photos are in `Images\Dress colour\1 Give these to Gemini\`; before and after images in `Images\Dress colour\`.
+
+---
+
 ## To do
 
 ### Ours
