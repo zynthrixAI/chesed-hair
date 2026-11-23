@@ -25,6 +25,8 @@ Build every page (writes 111 pages into the repo root, plus `assets/search.json`
 python src/build.py
 ```
 
+Black Friday mock-up (branch `black-friday` only): `BF=sale python src/build.py` or `BF=teaser python src/build.py`. Rebuild with plain `python src/build.py` before committing.
+
 Preview locally, then open http://127.0.0.1:8000:
 ```bash
 python -m http.server 8000 --bind 127.0.0.1
