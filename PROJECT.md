@@ -6,7 +6,7 @@ A preview of the Chesed Hair online store (lace front wigs and crochet), built b
 - **Code:** https://github.com/zynthrixAI/chesed-hair
 - **On this PC:** `D:\Work\Chesed Hair\Website\chesed-hair`
 - **Shopify theme on this PC:** `D:\Work\Chesed Hair\Website\chesed-theme` (private repo `zynthrixAI/chesed-theme`)
-- **Last updated:** 20 November 2026 (see [NEXT-SESSION.md](NEXT-SESSION.md))
+- **Last updated:** 23 November 2026 (see [NEXT-SESSION.md](NEXT-SESSION.md))
 
 ---
 
