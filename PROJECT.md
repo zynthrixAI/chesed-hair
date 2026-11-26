@@ -269,6 +269,16 @@ The user builds in their own Shopify Partners development store and transfers it
 - **Lined up by script:** Gemini widened the frame, so each photo was scaled and cropped back onto the original so the length lines hit the same body points. Script and files: `D:\Work\Chesed Hair\Images\Dress colour\` (`finish.py`, the originals in `1 Give these to Gemini`, before and after images). Crochet Wavy is about 1% smaller, with a 12px bottom strip padded. Gemini made the Wavy hair slightly longer.
 - **Code:** same file names (`length-*`, `length-crochet-*` in `assets/p/`). Branch `dress-colour`, merged into `main` on 23 November (user: "merge it"). Theme pushed live with the user's go-ahead.
 
+### Product page round (26 November 2026, live)
+- **Asked by the user:** a Buy it now button, the countdown everywhere, a visible 30% off on product pages, and a fix for a white gap above the details column.
+- **Buy it now:** solid black, above Add to bag (now a see-through button with a pink outline). It adds the item and goes straight to checkout, with a won spin code if the shopper has one.
+- **Countdown:** in the sale top bar ("Ends in 4d 16h 24m 39s") and on product pages, ticking every second.
+- **Product pages during the sale:** the sale price (rounded like the cart), the old price crossed out, a pink "30% off" tag and "Black Friday price, taken off automatically at checkout". Add to bag, Shop Pay and the sticky bar show the sale price. The won-code note is hidden.
+- **Product cards** (shop pages, homepage, search) show "From $97.97 ~~$139.95~~ 30% off" during the sale.
+- **Spin to win** (the pop-up and the tab) is hidden during the sale; it comes back by itself.
+- **White gap fixed:** the details column stuck 150px down although the header doesn't stick. It no longer sticks. Separate left and right scrolling was tried the same day and dropped (user: "not working out").
+- **All of it switches off after 30 November** (`html[data-bf]`). Screenshots: `D:\Work\Chesed Hair\Shopify\product-page-2026-11-26\`.
+
 ### Black Friday sale live (20 November 2026)
 - **Design:** the client picked **Option 07** from 19 desktop options: a giant "30%" filled with a wig photo (Rich Wine Red Curly), "off everything", a countdown and the shop buttons.
 - **Then Idea 5** (same evening): out of 5 ideas with wigs on the banner, the client chose three fanned wig cards with their sale prices beside the 30%. Live, and lined up with the site's width.
@@ -298,7 +308,8 @@ The user builds in their own Shopify Partners development store and transfers it
 ### Ours
 - [x] **Black Friday sale (23 to 30 November 2026):** live since 20 November (Idea 5, automatic 30% discount scheduled).
 - [x] **Black Friday check, 23 November:** sale on by itself, 30% off in the cart; card prices fixed to match the cart's rounding.
-- [ ] **Black Friday check after 30 November:** all back to normal, discount ended.
+- [x] **Product page round, 26 November:** Buy it now, countdown, 30% off on product pages and cards, no spin wheel during the sale, white gap fixed.
+- [ ] **Black Friday check after 30 November:** all back to normal (banner, top bar, product page and card prices, Spin to win back), discount ended.
 - [ ] **New shades and types:** add #2, #27, #4/30, Virgin Light, Loose Wave and Chesed's other new wig types once their photos and details arrive.
 - [x] **Shopify theme:** checked every page in a browser; live on www.chesedhair.com since 29 October 2026.
 - [x] **Curly wigs back** (29 October, at the Kinky Curly prices).
