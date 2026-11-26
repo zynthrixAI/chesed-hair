@@ -1,6 +1,6 @@
 # Chesed Hair: pick up here
 
-Updated 23 November 2026. These notes are on `main` (brought over from `black-friday` on 23 November); the Black Friday mock-up code stays on the `black-friday` branch only. Read this, then [HANDOFF.md](HANDOFF.md) for setup and [PROJECT.md](PROJECT.md) for the full history.
+Updated 26 November 2026. These notes are on `main` (brought over from `black-friday` on 23 November); the Black Friday mock-up code stays on the `black-friday` branch only. Read this, then [HANDOFF.md](HANDOFF.md) for setup and [PROJECT.md](PROJECT.md) for the full history.
 
 ## Black Friday sale: LIVE (20 November 2026)
 - **Live design: Idea 5** (v26, chosen by the client on 20 November): Option 07's giant photo-filled "30%" on the left, three fanned wig cards with sale prices on the right. It replaced Option 07 (v9) on the evening of 20 November.
@@ -21,6 +21,16 @@ Updated 23 November 2026. These notes are on `main` (brought over from `black-fr
   - The v7 to v21 options are in `src/templates/partials/bf_more.html`; Option 07 is v9.
   - That branch's mock-up code shouldn't be merged into `main`.
   - **Option 07 with wigs, 5 ideas (v22 to v26, 20 November, the client chose Idea 5, now live):** same build (`BF=sale BFV=more`, `/?bfv=22`...`26`). Screenshots in `Shopify\black-friday-2026\Desktop\Wig banner ideas\`.
+
+## Product page round (26 November 2026, live)
+- **Asked by the user:** a Buy it now button, the countdown everywhere, a visible 30% off on product pages, and a fix for a white gap above the details column.
+- **Buy it now:** solid black, above Add to bag (now a see-through button with a pink outline). It adds the item and goes straight to checkout, with a won spin code if the shopper has one.
+- **Countdown:** in the sale top bar ("Ends in 4d 16h 24m 39s") and on product pages, ticking every second.
+- **Product pages during the sale:** the sale price (rounded like the cart), the old price crossed out, a pink "30% off" tag and "Black Friday price, taken off automatically at checkout". Add to bag, Shop Pay and the sticky bar show the sale price. The won-code note is hidden.
+- **Product cards** (shop pages, homepage, search) show "From $97.97 ~~$139.95~~ 30% off" during the sale.
+- **Spin to win** (the pop-up and the tab) is hidden during the sale; it comes back by itself.
+- **White gap fixed:** the details column stuck 150px down although the header doesn't stick. It no longer sticks. Separate left and right scrolling was tried the same day and dropped (user: "not working out").
+- **All of it switches off after 30 November** (`html[data-bf]`). Screenshots: `D:\Work\Chesed Hair\Shopify\product-page-2026-11-26\`.
 
 ## Length photos with coloured dresses (23 November 2026, live)
 - **Client asked** for the black dress on the length photos to change, so the hair ends show.
@@ -91,8 +101,8 @@ Updated 23 November 2026. These notes are on `main` (brought over from `black-fr
 - **GitHub tool:** signed in as zynthrixAI. **Shopify CLI:** signed in to the user's Partners account; store tools reach Chesed's store with `SHOPIFY_STORE=gvit1g-jv.myshopify.com`.
 
 ## Start next time with
-1. **Every change to chesedhair.com is public:** theme pushes need `--allow-live` and the user's go-ahead; show them first.
-2. **Read the final handover first:** `D:\Work\Chesed Hair\Documents\Chesed Hair - Final Handover.md` (the whole project, images included, and what the proposal still owes). The client work log is the Claude Doc "Chesed Hair: Work Delivered" (https://claude.ai/artifact/WwPXxErn3hqasxgDgazZxu). Both repos are up to date on GitHub (23 November): the theme on `main`; this repo on `main` (pull request 43 merged the dress-colour photos and these notes). The `black-friday` branch only holds the banner mock-ups now; its copy of the notes is older than `main`'s.
+1. **Every change to chesedhair.com is public.** **How the user wants changes done (26 November 2026):** when they ask for a site change, do it end to end without stopping to ask: make it, check it on a hidden preview (`shopify theme dev`), push it live, check the live page, commit, push to GitHub, update the notes and merge, then report with a screenshot. Ask first only when the request is unclear, or for prices, products, deleting things or anything that costs money.
+2. **Read the final handover first:** `D:\Work\Chesed Hair\Documents\Chesed Hair - Final Handover.md` (the whole project, images included, and what the proposal still owes). The client work log is the Claude Doc "Chesed Hair: Work Delivered" (https://claude.ai/artifact/WwPXxErn3hqasxgDgazZxu). Both repos are up to date on GitHub (26 November): the theme on `main`; this repo on `main`. The `black-friday` branch only holds the banner mock-ups now; its copy of the notes is older than `main`'s.
 3. **Still owed from the proposal:** up to 5 minutes of AI video. Basic SEO is set up; further SEO work only if the client takes it up as a separate service. The project is now on monthly store management.
 4. **Done by the user (29 October):** free shipping over $100, the policies (all 5 live, linked in the footer) and payments. **Georgia sales tax is the client's job**; no tax is charged until they set it up.
 5. **Waiting on the client:** `D:\Work\Chesed Hair\Shopify\what-we-need-from-chesed.md` (tax, business details, shipping times, photos, prices). Reviews and star ratings came from the client, confirmed in writing to the user.
@@ -100,12 +110,11 @@ Updated 23 November 2026. These notes are on `main` (brought over from `black-fr
 7. Later: menus as Shopify navigation, a reviews app (Judge.me), an email platform for the wheel, a backup app (Rewind).
 
 ## Things to know
-- **Uploading to GitHub needs the user's clear go-ahead.** Ask before `git push`.
-- **Merge only when the user says "merge it"** (they also say "push and merge").
+- **GitHub and merging:** part of the end-to-end routine above (user, 26 November: "streamline this process"). Commit, push and merge without asking each time.
 - **Importing a product CSV into Shopify:** Shopify copies each photo from a public web address, and the preview site that used to serve them is gone. Put new photos somewhere public first (for example a temporary folder on webwroughts.com) or upload them in the Shopify admin.
-- **Shopify:** Chesed's store is the public site: theme pushes, products, collections and pages there show to shoppers straight away. **Never change it without the user's say-so.** The `?preview_theme_id=` link only works for someone signed in to the admin.
+- **Shopify:** Chesed's store is the public site: theme pushes, products, collections and pages there show to shoppers straight away. Change it only for something the user asked for (see the routine above). The `?preview_theme_id=` link only works for someone signed in to the admin.
 - **Rejected designs, do not redo:** the thumbnail-rail and blurred-backdrop product galleries, the sideways-scrolling textures section, every automatic crop or cut-out of the mannequin shots, the drawn back-view length figure, the strand length charts (replaced by the length photos), and boxed category cards on the homepage. **Never crop the crochet photos.**
 - **Photos:** always write photo addresses with `img(file, width)` in templates and `build.py`. Hostinger tells browsers to keep photos for 7 days, so a photo replaced under the same name only shows up because of the fingerprint `img()` adds.
 - **Check photo names against the content.** Three of the user's hand-edited Body Wave files had the wrong shade name; compare new photos with the originals before adding them.
-- The user prefers to see results (screenshots) before anything is pushed, and gets frustrated by long experiments that don't land: show a small test first. When there are two reasonable designs, show both as screenshots and recommend one.
+- The user wants results shown as screenshots, but **doesn't want to be asked at every step** (26 November). They get frustrated by long experiments that don't land: show a small test first. When there are two reasonable designs, show both as screenshots and recommend one.
 - Test pages with headless Chrome: `"C:\Program Files\Google\Chrome\Application\chrome.exe" --headless=new --screenshot=out.png --window-size=1440,1500 --virtual-time-budget=6000 http://127.0.0.1:8000/...`. The window can't go narrower than about 500px, so for phone width put the page in a 390px-wide iframe. The homepage banner is full screen height, so a tall window shows only the banner: use a page that loads the site in an iframe and scrolls it to a section (one is kept at `.claude/shot.html`, not committed: `?u=<path>&w=<width>&h=<height>&s=<css selector>`). The welcome spin wheel pops up over screenshots, and headings animate in, so a missing heading in a screenshot is usually just timing.
