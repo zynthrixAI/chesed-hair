@@ -276,6 +276,7 @@ The user builds in their own Shopify Partners development store and transfers it
 - **Product pages during the sale:** the sale price (rounded like the cart), the old price crossed out, a pink "30% off" tag and "Black Friday price, taken off automatically at checkout". Add to bag, Shop Pay and the sticky bar show the sale price. The won-code note is hidden.
 - **Product cards** (shop pages, homepage, search) show "From $97.97 ~~$139.95~~ 30% off" during the sale.
 - **Spin to win** (the pop-up and the tab) is hidden during the sale; it comes back by itself.
+- **Buy it now on phones:** the bar that slides up at the bottom of the screen once the main buttons scroll away now has Buy it now (black) beside Add to bag (pink outline), half and half on phones (the price is left off there to fit). Coming back from checkout with the back button, the buttons work again (phones keep the page in memory with the button switched off).
 - **White gap fixed:** the details column stuck 150px down although the header doesn't stick. It no longer sticks. Separate left and right scrolling was tried the same day and dropped (user: "not working out").
 - **All of it switches off after 30 November** (`html[data-bf]`). Screenshots: `D:\Work\Chesed Hair\Shopify\product-page-2026-11-26\`.
 
