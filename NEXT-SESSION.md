@@ -32,6 +32,7 @@ Updated 26 November 2026. These notes are on `main` (brought over from `black-fr
 - **Buy it now on phones:** the bar that slides up at the bottom of the screen once the main buttons scroll away now has Buy it now (black) beside Add to bag (pink outline), half and half on phones (the price is left off there to fit). Coming back from checkout with the back button, the buttons work again (phones keep the page in memory with the button switched off).
 - **White gap fixed:** the details column stuck 150px down although the header doesn't stick.
 - **Scrolling on laptops (user's design, 26 November):** both columns stay on screen. Scrolling down moves the details (right) to their end first, then the photos (left), then the rest of the page; scrolling up moves the details back first, then the photos. It works from the page's normal scroll (mouse wheel, trackpad, keys). Replaces two earlier tries that day (columns scrolling separately under the mouse, then a normal page).
+- **Next time (paused 26 November, everything live, pushed and merged):** ask the user how the pinned scrolling feels on their laptop and whether Buy it now works on their phone (neither could be watched in the test browser). After 30 November, check that the sale switched off: banner, top bar, product page and card prices back to normal, Spin to win back, discount ended.
 - **All of it switches off after 30 November** (`html[data-bf]`). Screenshots: `D:\Work\Chesed Hair\Shopify\product-page-2026-11-26\`.
 
 ## Length photos with coloured dresses (23 November 2026, live)
